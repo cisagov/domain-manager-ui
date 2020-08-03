@@ -1,79 +1,67 @@
-# skeleton-docker 💀🐳 #
 
-[![GitHub Build Status](https://github.com/cisagov/skeleton-docker/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-docker/actions)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/skeleton-docker.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/skeleton-docker/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/cisagov/skeleton-docker.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/skeleton-docker/context:python)
+# Con-PCA Client
 
-## Docker Image ##
+## Angular frontend application
 
-![MicroBadger Layers](https://img.shields.io/microbadger/layers/cisagov/example.svg)
-![MicroBadger Size](https://img.shields.io/microbadger/image-size/cisagov/example.svg)
+### Requirements
 
-This is a docker skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) GitHub docker project
-started.  This skeleton project contains [licensing
-information](LICENSE), as well as [pre-commit hooks](https://pre-commit.com)
-and [GitHub Actions](https://github.com/features/actions) configurations
-appropriate for docker containers and the major languages that we use.
+For local setup, Get the right flavor of Docker for your OS...
 
-## Usage ##
+* [Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+* [Docker for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+* [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
 
-### Install ###
+**Note:** The recommended requirement for
+deployment of this project is 4 GB RAM.
+For Docker for Mac, this can be set by
+following these steps:
 
-Pull `cisagov/example` from the Docker repository:
+Open Docker > Preferences > Advanced tab,
+then set memory to 4.0 GiB
 
-    docker pull cisagov/example
+## Additional Suggestions
 
-Or build `cisagov/example` from source:
+Here are some additional software to use along with develpment.
+These items are not required for development.
 
-    git clone https://github.com/cisagov/skeleton-docker.git
-    cd skeleton-docker
-    docker-compose build --build-arg VERSION=0.0.1
+* [VS Code](https://code.visualstudio.com/ "VS Code")
+* [MongoDB Compass](https://www.mongodb.com/products/compass "MongoDB Compass")
 
-### Run ###
+## Local Install and Deployment
 
-    docker-compose run --rm example
+Use `Makefile` located in the client directory to
+install and run all services.
 
-## Ports ##
+### Setup and Build
 
-This container exposes the following ports:
+Create your .env files
 
-| Port  | Protocol | Service  |
-|-------|----------|----------|
-| 8080  | TCP      | http     |
+* `cp ./etc/env.dist .env`
 
-## Environment Variables ##
+Build containers:
 
-| Variable      | Default Value                 | Purpose      |
-|---------------|-------------------------------|--------------|
-| ECHO_MESSAGE  | `Hello World from Dockerfile` | Text to echo |
+* `make build`
 
-## Secrets ##
+To run the containers, use:
 
-| Filename      | Purpose              |
-|---------------|----------------------|
-| quote.txt     | Secret text to echo  |
+* `make up`
 
-## Volumes ##
+Your output will look like:
 
-| Mount point | Purpose        |
-|-------------|----------------|
-| /var/log    | logging output |
+```shell
+-> % make up
+docker-compose up -d
+Creating domain-managment      ... done
+```
 
-## Contributing ##
+Stop containers:
 
-We welcome contributions!  Please see [here](CONTRIBUTING.md) for
-details.
+* `make stop`
 
-## License ##
+Remove containers:
 
-This project is in the worldwide [public domain](LICENSE).
+* `make down`
 
-This project is in the public domain within the United States, and
-copyright and related rights in the work worldwide are waived through
-the [CC0 1.0 Universal public domain
-dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+### To access the Angular app
 
-All contributions to this project will be released under the CC0
-dedication. By submitting a pull request, you are agreeing to comply
-with this waiver of copyright interest.
+Angular app located at [localhost:4200](http://localhost:4200)

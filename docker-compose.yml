@@ -8,30 +8,48 @@ secrets:
     file: ./src/secrets/quote.txt
 
 services:
-  example:
-    # Run the container normally
+  # example:
+  #   # Run the container normally
+  #   build:
+  #     # VERSION must be specified on the command line:
+  #     # e.g., --build-arg VERSION=0.0.1
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   image: cisagov/example
+  #   init: true
+  #   restart: "no"
+  #   environment:
+  #     - ECHO_MESSAGE=Hello World from docker-compose!
+  #   ports:
+  #     - target: "8080"
+  #       published: "8080"
+  #       protocol: tcp
+  #       mode: host
+  #   secrets:
+  #     - source: quote_txt
+  #       target: quote.txt
+
+  # example-version:
+  #   # Run the container to collect version information
+  #   image: cisagov/example
+  #   init: true
+  #   restart: "no"
+  #   command: --version
+  web:
     build:
-      # VERSION must be specified on the command line:
-      # e.g., --build-arg VERSION=0.0.1
       context: .
       dockerfile: Dockerfile
-    image: cisagov/example
-    init: true
-    restart: "no"
-    environment:
-      - ECHO_MESSAGE=Hello World from docker-compose!
+    container_name: domain-management
+    restart: unless-stopped
     ports:
-      - target: "8080"
-        published: "8080"
-        protocol: tcp
-        mode: host
-    secrets:
-      - source: quote_txt
-        target: quote.txt
-
-  example-version:
-    # Run the container to collect version information
-    image: cisagov/example
-    init: true
-    restart: "no"
-    command: --version
+      - "4200:4200"
+    volumes:
+      - /app/node_modules
+      - ./client/domainManagementUI:/app
+    networks:
+      - frontend
+    env_file:
+      - .env
+networks:
+  frontend:
+    name: domain_management_frontend
