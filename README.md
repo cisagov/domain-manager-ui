@@ -1,4 +1,3 @@
-
 # Con-PCA Client
 
 ## Angular frontend application
@@ -7,9 +6,9 @@
 
 For local setup, Get the right flavor of Docker for your OS...
 
-* [Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
-* [Docker for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-* [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
+- [Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+- [Docker for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+- [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
 
 **Note:** The recommended requirement for
 deployment of this project is 4 GB RAM.
@@ -24,8 +23,8 @@ then set memory to 4.0 GiB
 Here are some additional software to use along with develpment.
 These items are not required for development.
 
-* [VS Code](https://code.visualstudio.com/ "VS Code")
-* [MongoDB Compass](https://www.mongodb.com/products/compass "MongoDB Compass")
+- [VS Code](https://code.visualstudio.com/ "VS Code")
+- [MongoDB Compass](https://www.mongodb.com/products/compass "MongoDB Compass")
 
 ## Local Install and Deployment
 
@@ -36,15 +35,15 @@ install and run all services.
 
 Create your .env files
 
-* `cp ./etc/env.dist .env`
+- `cp ./etc/env.dist .env`
 
 Build containers:
 
-* `make build`
+- `make build`
 
 To run the containers, use:
 
-* `make up`
+- `make up`
 
 Your output will look like:
 
@@ -56,11 +55,11 @@ Creating domain-managment      ... done
 
 Stop containers:
 
-* `make stop`
+- `make stop`
 
 Remove containers:
 
-* `make down`
+- `make down`
 
 ### To access the Angular app
 
