@@ -2,3 +2,12 @@
 .pytest_cache
 .python-version
 __pycache__
+
+.vscode
+.idea/
+
+.env
+.terraform
+
+node_modules
+dist
