@@ -26,6 +26,11 @@ export class DomainUtilizationService {
       name: 'Test Domain Utilized Three',
       uuid: 'test_uuid three',
     },
+    {
+      counter: 4,
+      name: 'Test Domain Utilized Four',
+      uuid: 'test_uuid four',
+    },
   ];
 
   constructor(

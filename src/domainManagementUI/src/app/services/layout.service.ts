@@ -1,11 +1,13 @@
-import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Injectable, EventEmitter } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+
+
+import { UserAuthService } from 'src/app/services/user-auth.service'
 
 @Injectable()
 export class LayoutService {
   static title: string;
-  static content_height: number;
   static side_nav: MatSidenav;
 
   onTitleUpdate: EventEmitter<string> = new EventEmitter<string>();

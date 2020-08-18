@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+//Components
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { DomainUtilizedListComponent } from 'src/app/components/domain-utilization/domain-utilization-list/domain-utilization-list.component';
@@ -9,6 +10,9 @@ import { WebsiteTemplateDetailsComponent } from 'src/app/components/webstie-temp
 import { WebsiteTemplatesListComponent } from 'src/app/components/webstie-templates/website-templates-list/website-templates-list.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
+
+//Guards
+import { AuthGuard } from 'src/app/guards/auth.guard'
 
 const routes: Routes = [
   {
@@ -24,6 +28,7 @@ const routes: Routes = [
   {
     path: 'domain-management',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: DomainManagementListComponent }],
   },
   {

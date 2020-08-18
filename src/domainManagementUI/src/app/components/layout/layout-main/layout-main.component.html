@@ -22,19 +22,13 @@
     <span class="fill-remaining-space"></span>
     <span class="loggin-user">
       {{ currentUserName }}
-      <!-- <button
+      <button
           mat-icon-button
           class="menu-button"
           type="button"
           aria-label="Toggle sidenav"
           [matMenuTriggerFor]="userMenu"
-        > -->
-      <button
-        mat-icon-button
-        class="menu-button"
-        type="button"
-        aria-label="Toggle sidenav"
-      >
+        >
         <i class="material-icons">settings</i>
       </button>
       <mat-menu
@@ -43,13 +37,13 @@
         class="mat-menu-custom-header"
       >
         <!--<button mat-menu-item>Profile</button>-->
-        <mat-slide-toggle [checked]="isDark" (change)="setTheme($event)">
+        <!-- <mat-slide-toggle [checked]="isDark" (change)="setTheme($event)">
           <mat-label [ngStyle]="{ color: isDark ? '#fff' : '#000' }"
             >Dark</mat-label
           >
-        </mat-slide-toggle>
+        </mat-slide-toggle> -->
         <button mat-menu-item (click)="help()">Help</button>
-        <!-- <button mat-menu-item (click)="logOut()">Logout</button> -->
+        <button mat-menu-item (click)="logOut()">Logout</button>
       </mat-menu>
     </span>
   </mat-toolbar>
