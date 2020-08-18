@@ -26,6 +26,16 @@ export class DomainManagementService {
       name: 'Test Domain Three',
       uuid: 'test_uuid_three',
     },
+    {
+      counter: 4,
+      name: 'Test Domain Four',
+      uuid: 'test_uuid_four',
+    },
+    {
+      counter: 5,
+      name: 'Test Domain Five',
+      uuid: 'test_uuid_five',
+    },
   ];
 
   constructor(
@@ -36,7 +46,17 @@ export class DomainManagementService {
   getAllDomains() {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
-
+    console.log(url)
+    this.http.get(url,headers).subscribe(
+      (val) => {
+        console.log("val")
+        console.log(val)
+      },
+      (error) => {
+        console.log("error")
+        console.log(error)
+    }  
+    )
     // return this.http.get(url,headers)
 
     //Example observable return for testing purposes

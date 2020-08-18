@@ -1,3 +1,5 @@
 {
-  "apiUrl": "http://localhost:8000"
+  "apiUrl": "https://domain-manager-dev-public-alb-1421307593.us-east-1.elb.amazonaws.com:8043",
+  "apiKey": "ZUVDUFewkcJJQqSPAAqpCFkmpOyhRbbH"
 }
+

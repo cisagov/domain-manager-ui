@@ -1,0 +1,17 @@
+{
+  "frontend": "javascript",
+  "javascript": {
+    "config": {
+      "BuildCommand": "ng build",
+      "DistributionDir": "dist",
+      "SourceDir": "src",
+      "StartCommand": "ng serve"
+    },
+    "framework": "angular"
+  },
+  "projectName": "AdminUI",
+  "providers": [
+    "awscloudformation"
+  ],
+  "version": "3.0"
+}
