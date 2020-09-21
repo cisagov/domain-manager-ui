@@ -15,7 +15,7 @@ import { DomainManagementService } from 'src/app/services/domain-management.serv
 import { LayoutService } from 'src/app/services/layout.service';
 
 //Models
-import { DomainBaseModel } from 'src/app/models/domain.model';
+import { DomainBaseModel, DomainModel } from 'src/app/models/domain.model';
 
 @Component({
   selector: 'domain-management-list',
@@ -25,7 +25,7 @@ import { DomainBaseModel } from 'src/app/models/domain.model';
 export class DomainManagementListComponent
   implements AfterViewInit, OnInit, OnDestroy {
   component_subscriptions = [];
-  displayedColumns = ['counter', 'name', 'uuid'];
+  displayedColumns = ['Name', 'ResourceRecordSetCount', 'uuid'];
   domainList: MatTableDataSource<DomainBaseModel>;
   loading = true;
   @ViewChild(MatSort) sort: MatSort;
@@ -40,6 +40,7 @@ export class DomainManagementListComponent
 
   ngOnInit(): void {
     this.getDomains();
+    this.domainList = new MatTableDataSource<DomainBaseModel>();
   }
 
   ngOnDestroy(): void {
@@ -49,16 +50,21 @@ export class DomainManagementListComponent
   }
 
   ngAfterViewInit(): void {
-    this.domainList.sort = this.sort;
+    // this.domainList.sort = this.sort;
   }
 
   getDomains() {
     this.loading = true;
     this.domainSvc.getAllDomains().subscribe(
       (success) => {
-        this.domainList = new MatTableDataSource<DomainBaseModel>(
+        // this.domainList = new MatTableDataSource<DomainBaseModel>(
+        //   success as DomainBaseModel[]
+        // );
+        this.domainList.data = 
           success as DomainBaseModel[]
-        );
+        ;
+        this.domainList.sort = this.sort;
+        console.log(success as DomainModel[])
         this.loading = false;
       },
       (error) => {
