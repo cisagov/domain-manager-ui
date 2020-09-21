@@ -17,24 +17,21 @@
       ></mat-spinner>
     </div>
     <mat-table [hidden]="loading" [dataSource]="domainList" matSort>
-      <ng-container matColumnDef="counter">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Counter</mat-header-cell
-        >
-        <mat-cell *matCellDef="let row">{{ row.counter }}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="Name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Domain Name</mat-header-cell
         >
-        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.Name }}</mat-cell>
       </ng-container>
-
+      <ng-container matColumnDef="ResourceRecordSetCount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Counter</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">{{ row.ResourceRecordSetCount }}</mat-cell>
+      </ng-container>
       <ng-container matColumnDef="uuid">
         <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Domain UUID</mat-header-cell
-        >
+          >Domain UUID</mat-header-cell        >
         <mat-cell *matCellDef="let row">{{ row.uuid }}</mat-cell>
       </ng-container>
 
@@ -42,7 +39,7 @@
       <mat-row
         class="table-row cursor-pointer"
         *matRowDef="let row; columns: displayedColumns"
-        (click)="viewDomain(row.uuid)"
+        (click)="viewDomain(row._id)"
       ></mat-row>
     </mat-table>
   </div>

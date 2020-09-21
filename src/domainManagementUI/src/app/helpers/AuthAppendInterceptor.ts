@@ -22,10 +22,11 @@ export class AuthAppendInterceptor implements HttpInterceptor {
     httpRequest: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log(this.settingsService.settings.apiKey)
     return from(this.userAuthSvc.getUserTokens()).pipe(
       switchMap((token) => {
         const headers = httpRequest.headers
-          .set('Authorization','Bearer ' + token['idToken'])
+          // .set('Authorization','Bearer ' + token['idToken'])
           .append('accept', 'application/json')
           .append("api_key",this.settingsService.settings.apiKey);
         const requestClone = httpRequest.clone({

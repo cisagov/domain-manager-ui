@@ -8,10 +8,11 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 //Angular Modules
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MaterialModule } from './material.module';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Custom Components
 import { AppComponent } from './app.component';
@@ -19,8 +20,8 @@ import { DomainManagementDetailsComponent } from 'src/app/components/domain-mana
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { DomainUtilizedListComponent } from 'src/app/components/domain-utilization/domain-utilization-list/domain-utilization-list.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
-import { WebsiteTemplateDetailsComponent } from 'src/app/components/webstie-templates/website-templates-details/website-templates-details.component';
-import { WebsiteTemplatesListComponent } from 'src/app/components/webstie-templates/website-templates-list/website-templates-list.component';
+import { WebsiteTemplateDetailsComponent } from 'src/app/components/website-templates/website-templates-details/website-templates-details.component';
+import { WebsiteTemplatesListComponent } from 'src/app/components/website-templates/website-templates-list/website-templates-list.component';
 
 //Services
 import { DomainManagementService } from 'src/app/services/domain-management.service';
@@ -53,10 +54,12 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     MaterialModule,
     MatSortModule,
     MatTableModule,
+    ReactiveFormsModule,
   ],
   providers: [
     DomainManagementService,

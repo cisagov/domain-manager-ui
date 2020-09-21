@@ -6,8 +6,8 @@ import { DomainManagementDetailsComponent } from 'src/app/components/domain-mana
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { DomainUtilizedListComponent } from 'src/app/components/domain-utilization/domain-utilization-list/domain-utilization-list.component';
 import { DomainUtilizedDetailsComponent } from 'src/app/components/domain-utilization/domain-utilization-details/domain-utilization-details.component';
-import { WebsiteTemplateDetailsComponent } from 'src/app/components/webstie-templates/website-templates-details/website-templates-details.component';
-import { WebsiteTemplatesListComponent } from 'src/app/components/webstie-templates/website-templates-list/website-templates-list.component';
+import { WebsiteTemplateDetailsComponent } from 'src/app/components/website-templates/website-templates-details/website-templates-details.component';
+import { WebsiteTemplatesListComponent } from 'src/app/components/website-templates/website-templates-list/website-templates-list.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 
