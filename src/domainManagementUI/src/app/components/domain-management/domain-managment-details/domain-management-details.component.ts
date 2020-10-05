@@ -24,12 +24,10 @@ import { DomainModel } from 'src/app/models/domain.model';
   styleUrls: ['./domain-management-details.component.scss'],
 })
 export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
-
-  component_subscriptions = [];     //Angular subscriptions, deleted in ngOnDestroy
+  component_subscriptions = []; //Angular subscriptions, deleted in ngOnDestroy
   domain_uuid = null;
   domain: DomainModel;
   dm_form: FormGroup;
-
 
   constructor(
     public activeRoute: ActivatedRoute,
@@ -41,22 +39,24 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this._buildForm()
+    this._buildForm();
     //Get the uuid param from the url
     this.component_subscriptions.push(
-      this.activeRoute.params.subscribe((params) => {
-        this.domain_uuid = params['domain_uuid'];
-        if (this.domain_uuid !== null) {
-          this.loadDomain(this.domain_uuid);
-          this._populateFormWithData
+      this.activeRoute.params.subscribe(
+        (params) => {
+          this.domain_uuid = params['domain_uuid'];
+          if (this.domain_uuid !== null) {
+            this.loadDomain(this.domain_uuid);
+            this._populateFormWithData;
+          }
+        },
+        (error) => {
+          console.log('Failed to load domain');
+          console.log(error);
         }
-      },(error) => {
-        console.log("Failed to load domain")
-        console.log(error)
-      })
-    );    
-    this._onChanges()
+      )
+    );
+    this._onChanges();
   }
 
   ngOnDestroy(): void {
@@ -65,41 +65,41 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-   /**
+  /**
    * Build out the formgroup for domain management
    */
-  _buildForm(){
+  _buildForm() {
     this.dm_form = new FormGroup(
       {
-        domain_name: new FormControl('',{
-          validators: Validators.required
+        domain_name: new FormControl('', {
+          validators: Validators.required,
         }),
-        registrar_name: new FormControl('',{
-          validators: Validators.required
+        registrar_name: new FormControl('', {
+          validators: Validators.required,
         }),
-        category_one: new FormControl('',{}),
-        category_two: new FormControl('',{}),
-        category_three: new FormControl('',{}),
-        is_registered_on_mailgun: new FormControl('',{}),
-        is_registered_on_public_web: new FormControl('',{}),
-        purchased_date: new FormControl('',{}),
-        standup_date: new FormControl('',{}),
+        category_one: new FormControl('', {}),
+        category_two: new FormControl('', {}),
+        category_three: new FormControl('', {}),
+        is_registered_on_mailgun: new FormControl('', {}),
+        is_registered_on_public_web: new FormControl('', {}),
+        purchased_date: new FormControl('', {}),
+        standup_date: new FormControl('', {}),
       },
       { updateOn: 'blur' }
-    )
+    );
   }
 
   /**
    * Perform the get request for a specific domain,
-   * Populates 
+   * Populates
    * @param domain_uuid the id of the domain to load
    */
   loadDomain(domain_uuid) {
     this.domainSvc.getDomainDetails(domain_uuid).subscribe(
       (success) => {
-        this.domain = success as DomainModel
-        this._populateFormWithData(this.domain)
-        console.log(this.domain)
+        this.domain = success as DomainModel;
+        this._populateFormWithData(this.domain);
+        console.log(this.domain);
       },
       (error) => {
         console.log(`Error from service ${error}`);
@@ -107,20 +107,22 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  _populateFormWithData(domainData: DomainModel){
-    this.f.domain_name.setValue(domainData.Name ?? null)
-    this.f.registrar_name.setValue(domainData.RegistrarName ?? null)
-    this.f.category_one.setValue(domainData.CategoryOne ?? null)
-    this.f.category_two.setValue(domainData.CategoryTwo ?? null)
-    this.f.category_three.setValue(domainData.CategoryThree ?? null)
-    this.f.is_registered_on_mailgun.setValue(domainData.RegisteredOnMailgun ?? null)
-    this.f.is_registered_on_public_web.setValue(domainData.RegisteredOnPublicWeb ?? null)
-    this.f.purchased_date.setValue(domainData.StandupDate ?? null)
-    this.f.standup_date.setValue(domainData.StandupDate ?? null)
-    console.log(this.f)
+  _populateFormWithData(domainData: DomainModel) {
+    this.f.domain_name.setValue(domainData.Name ?? null);
+    this.f.registrar_name.setValue(domainData.RegistrarName ?? null);
+    this.f.category_one.setValue(domainData.CategoryOne ?? null);
+    this.f.category_two.setValue(domainData.CategoryTwo ?? null);
+    this.f.category_three.setValue(domainData.CategoryThree ?? null);
+    this.f.is_registered_on_mailgun.setValue(
+      domainData.RegisteredOnMailgun ?? null
+    );
+    this.f.is_registered_on_public_web.setValue(
+      domainData.RegisteredOnPublicWeb ?? null
+    );
+    this.f.purchased_date.setValue(domainData.StandupDate ?? null);
+    this.f.standup_date.setValue(domainData.StandupDate ?? null);
+    console.log(this.f);
   }
-
-   
 
   /**
    * set subscriptions to watch form fields
@@ -128,7 +130,7 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
   _onChanges(): void {
     this.component_subscriptions.push(
       this.f.domain_name.valueChanges.subscribe((val) => {
-        console.log(val)
+        console.log(val);
         //Change operation here
       })
     );

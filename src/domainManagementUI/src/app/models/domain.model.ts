@@ -22,8 +22,8 @@ export class DomainBaseModel {
   _id: string;
 }
 
-export class DomainModel extends DomainBaseModel {  
-  constructor(){
+export class DomainModel extends DomainBaseModel {
+  constructor() {
     super();
     this._id = null;
     this.CallerReference = null;

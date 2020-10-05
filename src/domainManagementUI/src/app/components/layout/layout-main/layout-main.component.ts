@@ -33,9 +33,9 @@ export class LayoutMainComponent implements OnInit {
     if (this.isDark) {
       overlayContainer.getContainerElement().classList.add('theme-alternate');
     }
-      this.userAuthSvc.getUserNameBehaviorSubject().subscribe((value) => {
-        this.currentUserName = value;
-      });
+    this.userAuthSvc.getUserNameBehaviorSubject().subscribe((value) => {
+      this.currentUserName = value;
+    });
   }
 
   @ViewChild('drawer', { static: false })

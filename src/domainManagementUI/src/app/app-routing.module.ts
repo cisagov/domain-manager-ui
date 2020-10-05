@@ -12,7 +12,7 @@ import { HomeComponent } from 'src/app/components/home/home.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 
 //Guards
-import { AuthGuard } from 'src/app/guards/auth.guard'
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {

@@ -8,27 +8,32 @@ import {
 import { UserAuthService } from '../services/user-auth.service';
 import { Observable, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 
-import { SettingsService } from 'src/app/services/settings.service'
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Injectable()
 export class AuthAppendInterceptor implements HttpInterceptor {
   constructor(
-    private userAuthSvc: UserAuthService, 
+    private userAuthSvc: UserAuthService,
     private router: Router,
-    private settingsService: SettingsService) { }
+    private settingsService: SettingsService
+  ) {}
   intercept(
     httpRequest: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log(this.settingsService.settings.apiKey)
+    console.log(this.settingsService.settings.apiKey);
     return from(this.userAuthSvc.getUserTokens()).pipe(
       switchMap((token) => {
         const headers = httpRequest.headers
           // .set('Authorization','Bearer ' + token['idToken'])
           .append('accept', 'application/json')
-          .append("api_key",this.settingsService.settings.apiKey);
+          .append('api_key', this.settingsService.settings.apiKey);
         const requestClone = httpRequest.clone({
           headers,
         });

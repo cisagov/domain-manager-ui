@@ -10,8 +10,7 @@ const headers = {
 @Injectable()
 export class DomainManagementService {
   // Test Data
-  domain_list 
-  = [
+  domain_list = [
     {
       counter: 1,
       name: 'Test Domain',
@@ -82,15 +81,15 @@ export class DomainManagementService {
   getAllDomainsTest() {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
-    console.log(url)
-    this.http.get(url,headers).subscribe(
+    console.log(url);
+    this.http.get(url, headers).subscribe(
       (val) => {
-        console.log(val)
+        console.log(val);
       },
       (error) => {
-        console.log(error)
-    }  
-    )
+        console.log(error);
+      }
+    );
     // return this.http.get(url,headers)
 
     //Example observable return for testing purposes
@@ -100,14 +99,14 @@ export class DomainManagementService {
   }
   getAllDomains() {
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
-    return this.http.get(url,headers)
+    return this.http.get(url, headers);
   }
 
   getDomainDetails(domain_uuid) {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/domain/${domain_uuid}/`;
 
-    return this.http.get(url,headers)
+    return this.http.get(url, headers);
 
     //Example observable return for testing purposes
     return new Observable((exampleObs) => {
