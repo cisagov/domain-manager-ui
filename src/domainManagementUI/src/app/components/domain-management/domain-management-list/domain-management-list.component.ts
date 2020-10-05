@@ -60,11 +60,9 @@ export class DomainManagementListComponent
         // this.domainList = new MatTableDataSource<DomainBaseModel>(
         //   success as DomainBaseModel[]
         // );
-        this.domainList.data = 
-          success as DomainBaseModel[]
-        ;
+        this.domainList.data = success as DomainBaseModel[];
         this.domainList.sort = this.sort;
-        console.log(success as DomainModel[])
+        console.log(success as DomainModel[]);
         this.loading = false;
       },
       (error) => {

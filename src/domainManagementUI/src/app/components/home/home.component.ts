@@ -8,9 +8,7 @@ import { LayoutService } from 'src/app/services/layout.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    public layoutSvc: LayoutService
-    ) {}
+  constructor(public layoutSvc: LayoutService) {}
 
   ngOnInit(): void {
     this.layoutSvc.setTitle('Domain Management Home Page');

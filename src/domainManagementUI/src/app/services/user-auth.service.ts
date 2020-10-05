@@ -22,16 +22,14 @@ export class UserAuthService {
   }
 
   // Handles amplify authentification notfications from Hub
-  handleAuthNotification(data) {
-
-  }
+  handleAuthNotification(data) {}
 
   signOut() {
     Auth.signOut();
   }
 
   redirectToSignIn() {
-    Auth.federatedSignIn() ;
+    Auth.federatedSignIn();
   }
 
   // Check Authentication, refreshing if possible. Redirecting to sign in if not authenticated
@@ -40,12 +38,12 @@ export class UserAuthService {
       return new Promise((resolve, reject) => {
         Auth.currentAuthenticatedUser()
           .then((success) => {
-            console.log("LOGGED IN")
+            console.log('LOGGED IN');
             this._setUserName(success);
             resolve(true);
           })
           .catch((error) => {
-            console.log("NOT LOGGED IN")
+            console.log('NOT LOGGED IN');
             this.signOut();
             this.redirectToSignIn();
             reject(error);
@@ -77,11 +75,11 @@ export class UserAuthService {
     return this.currentAuthUserSubject;
   }
 
-
   getReportToken() {
     if (environment.authorize) {
       return new Promise((resolve, reject) => {
-        this.route.queryParamMap.toPromise()
+        this.route.queryParamMap
+          .toPromise()
           .then((success) => {
             resolve({
               idToken: success['reportToken'],
@@ -95,8 +93,7 @@ export class UserAuthService {
   }
 
   getUserTokens() {
-      if (environment.authorize) {
-
+    if (environment.authorize) {
       // const reportTokenGlobal = (new URL(document.location.toString())).searchParams.get('reportToken');
 
       // if (reportTokenGlobal) {
@@ -107,24 +104,24 @@ export class UserAuthService {
       //   });
       // }
       // else {
-        console.log("TEST")
-        return new Promise((resolve, reject) => {
-          Auth.currentAuthenticatedUser()
-            .then((success) => {
-              this._setUserName(success);
-              console.log(success)
-              resolve({
-                idToken: success.signInUserSession.accessToken.jwtToken,
-                accessToken: success.signInUserSession.idToken.jwtToken,
-              });
-            })
-            .catch((error) => {
-              console.log(error)
-              reject(error);
-              this.signOut()
-              this.redirectToSignIn();
+      console.log('TEST');
+      return new Promise((resolve, reject) => {
+        Auth.currentAuthenticatedUser()
+          .then((success) => {
+            this._setUserName(success);
+            console.log(success);
+            resolve({
+              idToken: success.signInUserSession.accessToken.jwtToken,
+              accessToken: success.signInUserSession.idToken.jwtToken,
             });
-        });
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+            this.signOut();
+            this.redirectToSignIn();
+          });
+      });
       // }
     } else {
       return new Promise((resolve, reject) => {

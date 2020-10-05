@@ -9,7 +9,6 @@ import Amplify from 'aws-amplify';
 
 Amplify.configure(awsmobile);
 
-
 if (environment.production) {
   enableProdMode();
 }

@@ -24,7 +24,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
         catchError((err) => {
           if (err.status === 401) {
             // auto logout if 401 response returned from api
-            
+
             //Working
             this.userAuthSvc.signOut();
             location.reload(true);
@@ -33,10 +33,9 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
             // return next.handle(request);
           }
 
-          const error = "Errro"
+          const error = 'Errro';
           // const error = err.error.message || err.statusText;
-          
-          
+
           return next.handle(request);
           return throwError(error);
         })

@@ -5,7 +5,7 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.1.0
+    rev: v3.2.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -21,12 +21,9 @@ repos:
       - id: mixed-line-ending
         args:
           - --fix=lf
-      - id: pretty-format-json
-        args:
-          - --autofix
       - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/prettier/prettier
-    rev: 2.0.5
+    rev: 2.1.2
     hooks:
       - id: prettier
