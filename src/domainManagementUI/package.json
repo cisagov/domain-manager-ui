@@ -13,7 +13,7 @@
     "@aws-amplify/ui-angular": "^0.2.14",
     "aws-amplify": "^3.0.23",
     "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
+    "tslib": "^1.14.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
