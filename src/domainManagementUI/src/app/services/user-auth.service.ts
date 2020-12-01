@@ -36,16 +36,14 @@ export class UserAuthService {
   }
 
   // Handles amplify authentification notfications from Hub
-  handleAuthNotification(data) {
-
-  }
+  handleAuthNotification(data) {}
 
   signOut() {
     Auth.signOut();
   }
 
   redirectToSignIn() {
-    Auth.federatedSignIn() ;
+    Auth.federatedSignIn();
   }
 
   // Check Authentication, refreshing if possible. Redirecting to sign in if not authenticated
@@ -54,13 +52,13 @@ export class UserAuthService {
       return new Promise((resolve, reject) => {
         Auth.currentAuthenticatedUser()
           .then((success) => {
-            console.log("LOGGED IN")
+            console.log('LOGGED IN');
             this._setUserName(success);
             this._setIsAdmin(success);
             resolve(true);
           })
           .catch((error) => {
-            console.log("NOT LOGGED IN")
+            console.log('NOT LOGGED IN');
             this.signOut();
             this.redirectToSignIn();
             reject(error);
@@ -115,11 +113,11 @@ export class UserAuthService {
     return this.isAdminSubject;
   }
 
-
   getReportToken() {
     if (environment.authorize) {
       return new Promise((resolve, reject) => {
-        this.route.queryParamMap.toPromise()
+        this.route.queryParamMap
+          .toPromise()
           .then((success) => {
             resolve({
               idToken: success['reportToken'],
@@ -150,8 +148,7 @@ export class UserAuthService {
               this.signOut()
               this.redirectToSignIn();
             });
-        });
-      // }
+      });
     } else {
       return new Promise((resolve, reject) => {
         resolve({

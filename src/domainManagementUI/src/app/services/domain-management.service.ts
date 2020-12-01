@@ -68,41 +68,6 @@ export class DomainManagementService {
       isAvailable: true
     },
   ];
-  // = [
-  //   {
-  //     CallerReference: "c5b77fba-f1a9-4142-b643-7e05603e8b87",
-  //     Config: {
-  //       Comment: "",
-  //       PrivateZone: false
-  //     },
-  //     Id: "/hostedzone/Z04435582T0B0UIE8EHQ9",
-  //     Name: "thisisreal.xyz.",
-  //     ResourceRecordSetCount: 7,
-  //     _id: "5f3c2606a3fd032bbe6e6472"
-  //   },
-  //   {
-  //     CallerReference: "7e1ad916-fefb-4cb8-ad4e-33172c64bdaf",
-  //     Config: {
-  //       Comment: "",
-  //       PrivateZone: false
-  //     },
-  //     Id: "/hostedzone/Z0980501148ZGHN7PD1JC",
-  //     Name: "alivesite.xyz.",
-  //     ResourceRecordSetCount: 2,
-  //     _id: "5f3f564aa6a89900a176b791"
-  //   },
-  //   {
-  //     CallerReference: "8d2caddc-fb70-4f37-9550-54298ebaf8f7",
-  //     Config: {
-  //       Comment: "Con-PCA Dev",
-  //       PrivateZone: false
-  //     },
-  //     Id: "/hostedzone/Z04597996U3L8GB48T8E",
-  //     Name: "inltesting.xyz.",
-  //     ResourceRecordSetCount: 2,
-  //     _id: "5f45612bc401498fcaa89907"
-  //   }
-  // ]
 
   constructor(
     private http: HttpClient,

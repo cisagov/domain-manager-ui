@@ -1,18 +1,9 @@
 <div>
-  <div class="table-list-header flex">
-   <div class="search-bar flex" >
-     <mat-form-field class="w-100" appearance="outline">
-       <mat-label>Search</mat-label>
-       <input [(ngModel)]="search_input" (keyup)="filterList($event.target.value)" matInput placeholder="Search" />
-       <mat-icon matSuffix>search</mat-icon>
-     </mat-form-field>
-   </div>    
-   <div class="add-new-button-container flex" >
-     <button mat-raised-button color="primary" (click)="uploadWebsite()">
-       Upload Website
-     </button>
-   </div>
- </div>
+  <h3>Domains Utilized List Page</h3>
+  <p>
+    Welcome to the domains utilized page. A list of a users utilized templates
+    will be displayed here
+  </p>
 
   <div class="col p-0 w-100">
     <div
@@ -25,7 +16,7 @@
         diameter="50"
       ></mat-spinner>
     </div>
-    <mat-table [hidden]="loading" [dataSource]="websiteList" matSort>
+    <mat-table [hidden]="loading" [dataSource]="domainsUtilizedList" matSort>
       <ng-container matColumnDef="counter">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Counter</mat-header-cell
@@ -35,14 +26,14 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Domain Name</mat-header-cell
+          >Domain Utilized Name</mat-header-cell
         >
         <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="uuid">
         <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Domain UUID</mat-header-cell
+          >Domain Utilized UUID</mat-header-cell
         >
         <mat-cell *matCellDef="let row">{{ row.uuid }}</mat-cell>
       </ng-container>
@@ -51,7 +42,7 @@
       <mat-row
         class="table-row cursor-pointer"
         *matRowDef="let row; columns: displayedColumns"
-        (click)="viewWebsite(row.uuid)"
+        (click)="viewDomainUtilizedDetails(row.uuid)"
       ></mat-row>
     </mat-table>
   </div>

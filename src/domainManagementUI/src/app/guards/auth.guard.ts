@@ -11,7 +11,7 @@ import Auth from '@aws-amplify/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private userAuthSvc: UserAuthService) { }
+  constructor(private userAuthSvc: UserAuthService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,

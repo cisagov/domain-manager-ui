@@ -22,8 +22,8 @@ export class DomainListItemModel extends DomainBaseModel {
   isSelected: boolean = false
 }
 
-export class DomainModel extends DomainBaseModel {  
-  constructor(){
+export class DomainModel extends DomainBaseModel {
+  constructor() {
     super();
     this._id = null;
     this.callerReference = null;

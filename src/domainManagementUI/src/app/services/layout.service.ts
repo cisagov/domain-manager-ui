@@ -2,8 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable, EventEmitter } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
-
-import { UserAuthService } from 'src/app/services/user-auth.service'
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Injectable()
 export class LayoutService {

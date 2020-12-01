@@ -11,14 +11,15 @@ import { switchMap } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
 
-import { SettingsService } from 'src/app/services/settings.service'
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Injectable()
 export class AuthAppendInterceptor implements HttpInterceptor {
   constructor(
-    private userAuthSvc: UserAuthService, 
+    private userAuthSvc: UserAuthService,
     private router: Router,
-    private settingsService: SettingsService) { }
+    private settingsService: SettingsService
+  ) {}
   intercept(
     httpRequest: HttpRequest<any>,
     next: HttpHandler
@@ -31,7 +32,7 @@ export class AuthAppendInterceptor implements HttpInterceptor {
         const headers = httpRequest.headers
           // .set('Authorization','Bearer ' + token['idToken'])
           .append('accept', 'application/json')
-          .append("api_key",this.settingsService.settings.apiKey);
+          .append('api_key', this.settingsService.settings.apiKey);
         const requestClone = httpRequest.clone({
           headers,
         });

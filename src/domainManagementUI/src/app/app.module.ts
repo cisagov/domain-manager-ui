@@ -9,7 +9,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 //Angular Modules
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -38,8 +38,8 @@ import { UserAuthService } from './services/user-auth.service'
 import { WebsiteService } from 'src/app/services/website.service';
 
 //Helpers
-import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor'
-import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor'
+import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
+import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
