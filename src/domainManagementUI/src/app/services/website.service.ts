@@ -8,22 +8,22 @@ const headers = {
 };
 
 @Injectable()
-export class WebsiteTemplatesService {
+export class WebsiteService {
   // Test Data
-  website_templates_example = [
+  website_example = [
     {
       counter: 1,
-      name: 'Test WebSite Template',
+      name: 'Test WebSite ',
       uuid: 'test_uuid_one',
     },
     {
       counter: 2,
-      name: 'Test WebSite Template Two',
+      name: 'Test WebSite  Two',
       uuid: 'test_uuid_two',
     },
     {
       counter: 3,
-      name: 'Test WebSite Template Three',
+      name: 'Test WebSite  Three',
       uuid: 'test_uuid_three',
     },
   ];
@@ -33,7 +33,7 @@ export class WebsiteTemplatesService {
     private settingsService: SettingsService
   ) {}
 
-  getAllWebsiteTemplates() {
+  getAllWebsites() {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/websiteTemplates/`;
 
@@ -41,13 +41,13 @@ export class WebsiteTemplatesService {
 
     //Example observable return for testing purposes
     return new Observable((exampleObs) => {
-      exampleObs.next(this.website_templates_example);
+      exampleObs.next(this.website_example);
     });
   }
 
-  getWebsiteTemplateDetails(website_template_uuid) {
+  getWebsiteDetails(website_template_uuid) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/websiteTemplates/${website_template_uuid}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_template_uuid}`;
 
     // return this.http.get(url,headers)
 

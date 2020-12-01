@@ -29,6 +29,7 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
   domain_uuid = null;
   domain: DomainModel;
   dm_form: FormGroup;
+  selectedTabIndex: number;
 
 
   constructor(
@@ -108,15 +109,13 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
   }
 
   _populateFormWithData(domainData: DomainModel){
-    this.f.domain_name.setValue(domainData.Name ?? null)
-    this.f.registrar_name.setValue(domainData.RegistrarName ?? null)
-    this.f.category_one.setValue(domainData.CategoryOne ?? null)
-    this.f.category_two.setValue(domainData.CategoryTwo ?? null)
-    this.f.category_three.setValue(domainData.CategoryThree ?? null)
-    this.f.is_registered_on_mailgun.setValue(domainData.RegisteredOnMailgun ?? null)
-    this.f.is_registered_on_public_web.setValue(domainData.RegisteredOnPublicWeb ?? null)
-    this.f.purchased_date.setValue(domainData.StandupDate ?? null)
-    this.f.standup_date.setValue(domainData.StandupDate ?? null)
+    this.f.domain_name.setValue(domainData.name ?? null)
+    this.f.registrar_name.setValue(domainData.registrarName ?? null)
+    this.f.category_one.setValue(domainData.categoryOne ?? null)
+    this.f.category_two.setValue(domainData.categoryTwo ?? null)
+    this.f.category_three.setValue(domainData.categoryThree ?? null)
+    this.f.is_registered_on_mailgun.setValue(domainData.registeredOnMailgun ?? null)
+    this.f.is_registered_on_public_web.setValue(domainData.registeredOnPublicWeb ?? null)
     console.log(this.f)
   }
 
@@ -132,6 +131,13 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
         //Change operation here
       })
     );
+  }
+
+  /**
+   * Event fires when a new tab is selected
+   */
+  onTabChanged(event) {
+    console.log(event)
   }
 
   /**

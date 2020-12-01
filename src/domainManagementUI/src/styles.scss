@@ -8,3 +8,24 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+
+
+
+// Table list Header Section (Search Bar and Add New Button)
+.table-list-header {
+  display: flex;
+  flex-direction: row;
+}
+.table-list-header .add-new-button-container {
+  padding: .25em;
+  display: flex;
+  height: 3.6em;
+}
+.table-list-header .search-bar {
+  flex-grow: 5; display: flex
+}
+.table-list-header .search-bar mat-form-field {
+  width: 100%
+}
+

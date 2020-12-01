@@ -3,33 +3,33 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Local Service Imports
-import { DomainUtilizationService } from 'src/app/services/domain-utilization.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { WebsiteService } from 'src/app/services/website.service';
 
 @Component({
-  selector: 'domain-utilization-details',
-  templateUrl: './domain-utilization-details.component.html',
-  styleUrls: ['./domain-utilization-details.component.scss'],
+  selector: 'website-details',
+  templateUrl: './website-details.component.html',
+  styleUrls: ['./website-details.component.scss'],
 })
-export class DomainUtilizedDetailsComponent implements OnInit, OnDestroy {
+export class WebsiteDetailsComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
-  domain_utilized_uuid = null;
+  website_uuid = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
-    public domainUtilizedSvc: DomainUtilizationService,
+    public websiteTemplateSvc: WebsiteService,
     public layoutSvc: LayoutService
   ) {
-    this.layoutSvc.setTitle('Domains Utilized Details');
+    this.layoutSvc.setTitle('Website Details');
   }
 
   ngOnInit(): void {
     //Get the uuid param from the url
     this.component_subscriptions.push(
       this.activeRoute.params.subscribe((params) => {
-        this.domain_utilized_uuid = params['domain_utilized_uuid'];
-        if (this.domain_utilized_uuid !== null) {
-          this.loadDomainUtilized(this.domain_utilized_uuid);
+        this.website_uuid = params['website_uuid'];
+        if (this.website_uuid !== null) {
+          this.loadDomain(this.website_uuid);
         }
       })
     );
@@ -41,12 +41,12 @@ export class DomainUtilizedDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadDomainUtilized(domain_utilized_uuid) {
+  loadDomain(website_template_uuid) {
     console.log(
-      `Component call to service to load domain-utilized with domain uuid of ${domain_utilized_uuid}`
+      `Component call to service to load domain with domain uuid of ${website_template_uuid}`
     );
-    this.domainUtilizedSvc
-      .getDomainUtilizedDetail(domain_utilized_uuid)
+    this.websiteTemplateSvc
+      .getWebsiteDetails(website_template_uuid)
       .subscribe(
         (success) => {
           console.log(`Data received from service : ${success}`);

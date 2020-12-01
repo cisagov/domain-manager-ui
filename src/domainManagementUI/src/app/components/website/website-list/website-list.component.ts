@@ -11,34 +11,35 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 //Local Service Imports
-import { WebsiteTemplatesService } from 'src/app/services/website-templates.service';
+import { WebsiteService } from 'src/app/services/website.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
 //Models
-import { WebsiteTemplateModel } from 'src/app/models/website-templates.model';
+import { WebsiteModel } from 'src/app/models/website.model';
 
 @Component({
-  selector: 'website-templates-list',
-  templateUrl: './website-templates-list.component.html',
-  styleUrls: ['./website-templates-list.component.scss'],
+  selector: 'website-list',
+  templateUrl: './website-list.component.html',
+  styleUrls: ['./website-list.component.scss'],
 })
-export class WebsiteTemplatesListComponent implements OnInit {
+export class WebsiteListComponent implements OnInit {
   component_subscriptions = [];
   displayedColumns = ['counter', 'name', 'uuid'];
-  websiteTemplateList: MatTableDataSource<WebsiteTemplateModel>;
+  search_input = '';
+  websiteList: MatTableDataSource<WebsiteModel>;
   loading = true;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    public websiteTemplateSvc: WebsiteTemplatesService,
+    public websiteSvc: WebsiteService,
     public layoutSvc: LayoutService,
     private router: Router
   ) {
-    this.layoutSvc.setTitle('Website Templates');
+    this.layoutSvc.setTitle('Websites');
   }
 
   ngOnInit(): void {
-    this.getWebsiteTemplates();
+    this.getWebsites();
   }
 
   ngOnDestroy(): void {
@@ -48,29 +49,35 @@ export class WebsiteTemplatesListComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.websiteTemplateList.sort = this.sort;
+    this.websiteList.sort = this.sort;
   }
 
-  getWebsiteTemplates() {
+  getWebsites() {
     this.loading = true;
-    this.websiteTemplateSvc.getAllWebsiteTemplates().subscribe(
+    this.websiteSvc.getAllWebsites().subscribe(
       (success) => {
-        this.websiteTemplateList = new MatTableDataSource<WebsiteTemplateModel>(
-          success as WebsiteTemplateModel[]
+        this.websiteList = new MatTableDataSource<WebsiteModel>(
+          success as WebsiteModel[]
         );
         this.loading = false;
       },
       (error) => {
-        console.log('Error getting website template list');
+        console.log('Error getting website list');
         console.log(error);
         this.loading = false;
       }
     );
   }
 
-  viewWebsiteTemplate(website_template_uuid) {
+  viewWebsite(website_uuid) {
     this.router.navigate([
-      `/website-templates/details/${website_template_uuid}`,
+      `/website/details/${website_uuid}`,
     ]);
   }
+  uploadWebsite(){
+    console.log("Upload Website not yet implemmeneted")
+  }
+  public filterList = (value: string) => {
+    this.websiteList.filter = value.trim().toLocaleLowerCase();
+  };
 }
