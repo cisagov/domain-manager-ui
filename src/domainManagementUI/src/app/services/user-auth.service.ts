@@ -28,21 +28,22 @@ export class UserAuthService {
       if(environment.authorize){
         this.isAdmin = value;
       } else {
-        this.isAdmin = true
+        this.isAdmin = environment.defaultToAdmin;
       }
       
     });
-    console.log(this.isAdmin)
   }
 
   // Handles amplify authentification notfications from Hub
   handleAuthNotification(data) {}
 
   signOut() {
+    console.log("signing out")
     Auth.signOut();
   }
 
   redirectToSignIn() {
+    console.log("redirecting")
     Auth.federatedSignIn();
   }
 
@@ -101,7 +102,7 @@ export class UserAuthService {
       }
     }
     else {
-      this.isAdminSubject.next(true)
+      this.isAdminSubject.next(environment.defaultToAdmin)
     }
 
   }

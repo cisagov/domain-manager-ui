@@ -1,2 +1,82 @@
+<div class="flex flex-container tab">
+    <div  [formGroup]="tabForm">
 
-<p>proxy categorization</p>
+        <mat-label>Category</mat-label>
+        <div class="text-muted">
+            At least one proxy category must be selected.
+        </div>
+        <mat-form-field style="width:20em" appearance="outline">
+            <mat-select
+            formControlName="category_one"
+            >
+            <mat-option [value]="null">--Select--</mat-option>
+            <mat-option
+            *ngFor="let c of filterCategories(categories,'cat_one')"
+                [value]="c.categoryUUID"
+            >
+                {{ c.categoryName }} </mat-option
+            >
+            </mat-select>
+            <mat-error
+            *ngIf="f.category_one.errors?.required"
+            class="invalid-feedback"
+            >
+            A category must be selected
+            </mat-error>
+        </mat-form-field>
+
+        <div class="mb-2" *ngIf="isEmptySelection(f.category_one)">
+            <mat-divider></mat-divider>
+        </div>
+
+        <mat-form-field *ngIf="f.category_one.value != '' "style="width:20em" appearance="outline">
+            <mat-select
+            formControlName="category_two"
+            >
+            <mat-option [value]="null">--Select--</mat-option>
+            <mat-option
+            *ngFor="let c of filterCategories(categories,'cat_two')"
+                [value]="c.categoryUUID"
+            >
+                {{ c.categoryName }} </mat-option
+            >
+            </mat-select>
+            <mat-error
+            *ngIf="f.category_one.errors?.required"
+            class="invalid-feedback"
+            >
+            A category must be selected
+            </mat-error>
+        </mat-form-field>
+
+        <div class="mb-2" *ngIf="isEmptySelection(f.category_two)">
+            <mat-divider></mat-divider> 
+        </div>
+
+        <mat-form-field *ngIf="f.category_two.value != ''" style="width:20em" appearance="outline">
+            <mat-select
+            formControlName="category_three"
+            >
+            <mat-option [value]="null">--Select--</mat-option>
+            <mat-option
+                *ngFor="let c of filterCategories(categories,'cat_three')"
+                [value]="c.categoryUUID"
+            >
+                {{ c.categoryName }} </mat-option
+            >
+            </mat-select>
+            <mat-error
+            *ngIf="f.category_one.errors?.required"
+            class="invalid-feedback"
+            >
+            A category must be selected
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="flex-row flex-end mt-4">
+        <button mat-raised-button color="primary" class="flex"  (click)="nextTab()">
+            Next
+        </button>
+    </div>
+</div>

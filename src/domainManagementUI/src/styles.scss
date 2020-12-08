@@ -1,4 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+$primary-color: #3f51b5;
+$primary-lighter-color: #c5d4dd;
+$primary-darker-color: #275271;
+$primary-contrast-color: #ceb276;
+$text-primary-color: black;
+$text-primary-lighter-color: white;
+
+$table-background: #ffffff;
+$table-background-alt: #f2f2f2;
+$table-background-hover: #dddddd;
+
 
 html,
 body {
@@ -9,6 +22,30 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+//flex basics
+.flex {
+  display: flex !important;
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+// .flex-row {
+//   flex: 1 100%
+// }
+
+.flex-end{
+  justify-content: flex-end;
+}
 
 
 
@@ -29,3 +66,63 @@ body {
   width: 100%
 }
 
+// Angular Material Table
+.mat-header-row{
+  background: $primary-color;
+}
+.mat-header-cell {
+  color: $text-primary-lighter-color;
+}
+
+.mat-row:nth-child(odd){
+  background-color: $table-background-alt;
+}
+
+.mat-row:hover {
+  background: $table-background-hover;
+  cursor: pointer;
+}
+
+//Tab specific styling
+.tab {
+  margin: 3em 0;
+  padding: 0 1em;
+}
+
+//Display table styling (grid excel like structure used to display raw data)
+.display_table{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.display_table td, .display_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.display_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: $primary-color;
+  color: $text-primary-lighter-color;
+}
+
+.display_table tr:nth-child(even)
+{background-color: $table-background-alt;}
+
+.display_table tr:hover
+ {background-color: $table-background-hover;}
+
+
+// ---- Form control styling
+
+//Checkboxes
+.mat-checkbox{
+  margin: .5em .5em 0 .5em
+}
+
+//Button Styling
+.selected_button{
+  background: $primary-contrast-color;
+}

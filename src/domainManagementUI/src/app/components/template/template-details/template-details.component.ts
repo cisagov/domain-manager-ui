@@ -4,32 +4,33 @@ import { ActivatedRoute } from '@angular/router';
 
 // Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
-import { WebsiteService } from 'src/app/services/website.service';
+import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
-  selector: 'website-details',
-  templateUrl: './website-details.component.html',
-  styleUrls: ['./website-details.component.scss'],
+  selector: 'template-details',
+  templateUrl: './template-details.component.html',
+  styleUrls: ['./template-details.component.scss'],
 })
-export class WebsiteDetailsComponent implements OnInit, OnDestroy {
+export class TemplateDetailsComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
-  website_uuid = null;
+  template_uuid = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
-    public websiteTemplateSvc: WebsiteService,
+    public templateSvc: TemplateService,
     public layoutSvc: LayoutService
   ) {
-    this.layoutSvc.setTitle('Website Details');
+    this.layoutSvc.setTitle('Template Details');
   }
 
   ngOnInit(): void {
     //Get the uuid param from the url
     this.component_subscriptions.push(
       this.activeRoute.params.subscribe((params) => {
-        this.website_uuid = params['website_uuid'];
-        if (this.website_uuid !== null) {
-          this.loadWebsite(this.website_uuid);
+        console.log(params)
+        this.template_uuid = params['template_uuid'];
+        if (this.template_uuid !== null) {
+          this.loadTemplate(this.template_uuid);
         }
       })
     );
@@ -41,12 +42,12 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadWebsite(website_uuid) {
+  loadTemplate(template_uuid) {
     console.log(
-      `Component call to service to load domain with domain uuid of ${website_uuid}`
+      `Component call to service to load domain with domain uuid of ${template_uuid}`
     );
-    this.websiteTemplateSvc
-      .getWebsiteDetails(website_uuid)
+    this.templateSvc
+      .getTemplateDetails(template_uuid)
       .subscribe(
         (success) => {
           console.log(`Data received from service : ${success}`);

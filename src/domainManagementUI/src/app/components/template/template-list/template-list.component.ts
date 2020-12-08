@@ -12,34 +12,34 @@ import { Router } from '@angular/router';
 
 //Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
-import { WebsiteService } from 'src/app/services/website.service';
+import { TemplateService } from 'src/app/services/template.service';
 
 //Models
-import { WebsiteModel } from 'src/app/models/website.model';
+import { TemplateModel } from 'src/app/models/template.model';
 
 @Component({
-  selector: 'website-list',
-  templateUrl: './website-list.component.html',
-  styleUrls: ['./website-list.component.scss'],
+  selector: 'template-list',
+  templateUrl: './template-list.component.html',
+  styleUrls: ['./template-list.component.scss'],
 })
-export class WebsiteListComponent implements OnInit {
+export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['website_name','template_base_name','created_date'];
+  displayedColumns = ['template_name','created_date','uploaded_by'];
   search_input = '';
-  websiteList: MatTableDataSource<WebsiteModel>;
+  templateList: MatTableDataSource<TemplateModel>;
   loading = true;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    public websiteSvc: WebsiteService,
+    public templateSvc: TemplateService,
     public layoutSvc: LayoutService,
     private router: Router
   ) {
-    this.layoutSvc.setTitle('Websites');
+    this.layoutSvc.setTitle('Templates');
   }
 
   ngOnInit(): void {
-    this.getWebsites();
+    this.getTemplates();
   }
 
   ngOnDestroy(): void {
@@ -51,15 +51,16 @@ export class WebsiteListComponent implements OnInit {
   ngAfterViewInit(): void {
   }
 
-  getWebsites() {
+  getTemplates() {
     this.loading = true;
-    this.websiteSvc.getAllWebsites().subscribe(
+    this.templateSvc.getAllTemplates().subscribe(
       (success) => {
-        this.websiteList = new MatTableDataSource<WebsiteModel>(
-          success as WebsiteModel[]
+        this.templateList = new MatTableDataSource<TemplateModel>(
+          success as TemplateModel[]
         );
+        console.log(success)
+        this.templateList.sort = this.sort;
         this.loading = false;
-        this.websiteList.sort = this.sort;
       },
       (error) => {
         console.log('Error getting website list');
@@ -69,15 +70,17 @@ export class WebsiteListComponent implements OnInit {
     );
   }
 
-  viewWebsite(website_uuid) {
+  viewTemplate(template_uuid) {
+    console.log(template_uuid)
     this.router.navigate([
-      `/website/details/${website_uuid}`,
+      `/template/details/${template_uuid}`,
     ]);
   }
   uploadWebsite(){
     console.log("Upload Website not yet implemmeneted")
   }
+
   public filterList = (value: string) => {
-    this.websiteList.filter = value.trim().toLocaleLowerCase();
+    this.templateList.filter = value.trim().toLocaleLowerCase();
   };
 }

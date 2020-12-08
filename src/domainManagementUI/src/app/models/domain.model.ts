@@ -1,8 +1,10 @@
 export class DomainBaseModel {
   callerReference: string;
   id: string;
+  uuid: string;
   name: string;
   application: string;
+  application_uuid: string;
   isAvailable: boolean;
   lastUser: string;
   reputation: number;
@@ -10,34 +12,57 @@ export class DomainBaseModel {
   registrarName: string;
   categoryOne: string;
   categoryTwo: string;
-  categoryThree: string;
-  registeredOnMailgun: string;
+  categoryThree: boolean;
+  createMailgun: boolean;
+  createSES: boolean;
   registeredOnPublicWeb: string;
   expirationDate: Date;
   wentLiveDate: Date;
+  useHistory: DomainHistory[] 
+  website_uuid: string;
   _id: string;
-}
 
-export class DomainListItemModel extends DomainBaseModel {
-  isSelected: boolean = false
-}
-
-export class DomainModel extends DomainBaseModel {
   constructor() {
-    super();
     this._id = null;
+    this.uuid = null;
     this.callerReference = null;
     this.id = null;
+    this.application = null,
+    this.application_uuid = null,
+    this.isAvailable = null,
+    this.lastUser = null,
+    this.reputation = null,
     this.name = null;
     this.resourceRecordSetCount = 0;
     this.registrarName = null;
     this.categoryOne = null;
     this.categoryTwo = null;
     this.categoryThree = null;
-    this.registeredOnMailgun = null;
+    this.createMailgun = false;
+    this.createSES = false;
     this.registeredOnPublicWeb = null;
     this.expirationDate = null;
     this.wentLiveDate = null;
-    this._id = null;
+    this.useHistory = [];
+    this.website_uuid = null;
   }
+}
+
+class DomainHistory {
+  applicationThatUsed: string;
+  startDate: Date;
+  stopDate: Date;
+}
+
+export class DomainListItemModel extends DomainBaseModel {
+  isSelected: boolean;
+
+  constructor(){
+    super();
+    this.isSelected = false;
+  }
+}
+
+export class DomainModel extends DomainBaseModel {
+
 }

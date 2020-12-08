@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  authorize: true,
+  authorize: false,
+  defaultToAdmin: true,
+  testingNoAPI: true,
   production: false,
 };
 

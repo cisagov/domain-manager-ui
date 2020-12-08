@@ -101,16 +101,14 @@ export class DomainManagementService {
       exampleObs.next(this.domain_list);
     });
   }
-
-  getDomainDetails(domain_uuid) {
-    //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/domain/${domain_uuid}/`;
-
+  setDomainsAsAvailable(domain_uuid_list) {
+    let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
     //return this.http.get(url,headers)
-
-    //Example observable return for testing purposes
+    console.log("Attempting to set domains as available")
+    console.log(domain_uuid_list)
     return new Observable((exampleObs) => {
-      exampleObs.next('Example data from getDomainDetails - service');
+      exampleObs.next(this.domain_list);
     });
   }
+
 }

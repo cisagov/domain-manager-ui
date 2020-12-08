@@ -9,7 +9,7 @@
    </div>    
    <div class="add-new-button-container flex" >
      <button mat-raised-button color="primary" (click)="uploadWebsite()">
-       Upload Website
+       Upload Template
      </button>
    </div>
  </div>
@@ -26,34 +26,33 @@
       ></mat-spinner>
     </div>
     
-    <mat-table [dataSource]="websiteList" matSort>
+    <mat-table [dataSource]="templateList" matSort>
 
-      <!-- Website Name -->
-      <ng-container matColumnDef="website_name">
+      <!-- Template Name -->
+      <ng-container matColumnDef="template_name">
           <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Website Name</mat-header-cell
+            >Template Name</mat-header-cell
           >
-          <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">{{ row.website_name }}</mat-cell>
+          <mat-cell *matCellDef="let row" (click)="viewTemplate(row.template_uuid)">{{ row.template_name }}</mat-cell>
       </ng-container>
-        
-       
-      <!-- Template Base -->
-      <ng-container matColumnDef="template_base_name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Template Base</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">{{ row.template_base_name }}</mat-cell>
-      </ng-container>
-        
-       
-      <!-- Created Date -->
+
+      <!-- Create Date -->
       <ng-container matColumnDef="created_date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Created Date </mat-header-cell
-          >
-          <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">{{ row.created_date | date: 'MM/dd/yy' }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Created Date</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="viewTemplate(row.template_uuid)">{{ row.created_date | date: 'MM/dd/yy'  }}</mat-cell>
+     </ng-container>
+
+      <!-- Uploaded By -->
+      <ng-container matColumnDef="uploaded_by">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Uploaded By</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="viewTemplate(row.template_uuid)">{{ row.uploaded_by }}</mat-cell>
       </ng-container>
-      
+        
+       
         
      
       <!-- Header Info -->

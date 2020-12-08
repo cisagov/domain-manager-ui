@@ -7,7 +7,7 @@
        <mat-icon matSuffix>search</mat-icon>
      </mat-form-field>
    </div>    
-   <div class="add-new-button-container flex" >
+   <div *ngIf="userIsAdmin" class="add-new-button-container flex" >
      <button mat-raised-button color="primary" (click)="createDomain()">
        Add New Domain
      </button>
@@ -25,6 +25,14 @@
       ></mat-spinner>
     </div>
    
+    <div *ngIf="userIsAdmin" class="add-new-button-container flex" >
+      <button 
+      mat-raised-button color="primary" 
+      (click)="setAvailableDomains()"
+      class="mb-2">
+        Make Selected Available
+      </button>
+    </div>
     <mat-table [hidden]="loading" [dataSource]="domainList" matSort>
       <!-- ActionCheckbox -->
       <ng-container matColumnDef="checked">
@@ -34,7 +42,7 @@
                       [indeterminate]="someChecked()"
                       color="warn"
                       (change)="setAllCheckboxes($event.checked)">
-          </mat-checkbox>
+          </mat-checkbox>Select All
         </mat-header-cell
         >
         <mat-cell *matCellDef="let row">
@@ -49,49 +57,49 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Domain Name</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{ row.name }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.name }}</mat-cell>
       </ng-container>
       <!-- Application -->
       <ng-container matColumnDef="application">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Application</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{ row.application }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.application }}</mat-cell>
       </ng-container>
       <!-- Last User -->
       <ng-container matColumnDef="lastUser">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Last User</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{ row.lastUser }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.lastUser }}</mat-cell>
       </ng-container>
       <!-- Expiration -->
       <ng-container matColumnDef="expirationDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Expiration</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{ row.expirationDate | date: 'MM/dd/yy'}}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.expirationDate | date: 'MM/dd/yy'}}</mat-cell>
       </ng-container>
       <!-- Went Live -->
       <ng-container matColumnDef="wentLiveDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Went Live</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{ row.wentLiveDate | date: 'MM/dd/yy' }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.wentLiveDate | date: 'MM/dd/yy' }}</mat-cell>
       </ng-container>
       <!-- Reputation -->
       <ng-container matColumnDef="reputation">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Reputation</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{ row.reputation | percent }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.reputation | percent }}</mat-cell>
       </ng-container>
       <!-- Is Available -->
       <ng-container matColumnDef="isAvailable">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Is Available</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">
           <mat-icon *ngIf="row.isAvailable" aria-hidden="false" aria-label="check_circle icon">check_circle</mat-icon>
         </mat-cell>
       </ng-container>
@@ -103,7 +111,7 @@
       ></mat-row>
     </mat-table>
   </div>
-  <button mat-raised-button color="primary"  (click)="test()">
+  <!-- <button mat-raised-button color="primary"  (click)="test()">
     %%%MyTestButton
-  </button>
+  </button> -->
 </div>

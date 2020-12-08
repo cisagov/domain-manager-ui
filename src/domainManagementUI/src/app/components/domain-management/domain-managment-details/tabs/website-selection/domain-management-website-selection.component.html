@@ -1,0 +1,94 @@
+<div class="flex flex-container tab">
+    
+    <mat-label class="mt-3">Available Websites</mat-label>
+    <!-- <div class="flex-row ">
+        <table class="display_table">
+            <tr>
+                <th> Application That Used </th>
+                <th> Start Date </th>
+                <th> Stop Date </th>
+            </tr>
+            <tr *ngFor="let history of domainTabSvc?.domainData.useHistory">
+                <td>{{history.applicationThatUsed}}</td>
+                <td>{{history.startDate | date: 'MM/dd/yy'}}</td>
+                <td>{{history.stopDate | date: 'MM/dd/yy'}}</td>
+            </tr>
+        </table>
+    </div> -->
+
+    <div class="search-bar flex" >
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Search</mat-label>
+            <input [(ngModel)]="search_input" (keyup)="filterList($event.target.value)" matInput placeholder="Search" />
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+    <mat-table [dataSource]="websiteList" matSort>
+
+        <!-- Website Name -->
+        <ng-container matColumnDef="website_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Website Name</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row" (click)="displayWebsite(row.website_uuid)">{{ row.website_name }}</mat-cell>
+        </ng-container>
+          
+         
+        <!-- Template Base -->
+        <ng-container matColumnDef="template_base_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Template Base</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row" (click)="displayWebsite(row.website_uuid)">{{ row.template_base_name }}</mat-cell>
+        </ng-container>
+          
+         
+        <!-- Created Date -->
+        <ng-container matColumnDef="created_date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Created Date </mat-header-cell
+            >
+            <mat-cell *matCellDef="let row" (click)="displayWebsite(row.website_uuid)">{{ row.created_date | date: 'MM/dd/yy' }}</mat-cell>
+        </ng-container>
+        
+        <!-- Select Website -->
+        <ng-container matColumnDef="selected_website">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Selected Website
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button *ngIf="row.selected" class="selected_button" mat-raised-button color="accent" class="flex" (click)="deSelectWebsite()">
+                    Selected
+                </button>
+                <button *ngIf="!row.selected"  mat-raised-button color="primary" class="flex"  (click)="selectWebsite(row.website_uuid)">
+                    Select
+                </button>
+            </mat-cell>
+        </ng-container>
+          
+       
+        <!-- Header Info -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row
+          class="table-row cursor-pointer"
+          *matRowDef="let row; columns: displayedColumns"
+        ></mat-row>
+      </mat-table>
+
+      <iframe src="http://localhost:4200/" height="100%" width="100%"></iframe>
+
+      <mat-error
+            *ngIf="f.website_uuid.errors?.required && submitted"
+            class="invalid-feedback"
+            >
+            A website must be selected
+      </mat-error>
+
+    <div class="flex-row flex-end mt-4">
+        <button mat-raised-button color="primary" class="flex"  (click)="nextTab()">
+            Next
+        </button>
+    </div>
+
+    
+</div>

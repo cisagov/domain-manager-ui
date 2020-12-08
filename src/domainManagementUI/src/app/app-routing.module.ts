@@ -3,13 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 //Components
 import { AboutComponent } from 'src/app/components/about/about.component';
-import { ApplicationsComponent } from 'src/app/components/applications/applications.component';
+import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
-import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
-import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
+import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component'
+import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component'
+import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
+import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 
 //Guards
 import { AuthGuard } from 'src/app/guards/auth.guard';
@@ -28,12 +30,7 @@ const routes: Routes = [
   {
     path: 'applications',
     component: LayoutMainComponent,
-    children: [{ path: '', component: ApplicationsComponent }],
-  },
-  {
-    path: 'home',
-    component: LayoutMainComponent,
-    children: [{ path: '', component: HomeComponent }],
+    children: [{ path: '', component: ApplicationListComponent }],
   },
   {
     path: 'domain-management',
@@ -47,12 +44,27 @@ const routes: Routes = [
     children: [{ path: '', component: DomainManagementDetailsComponent }],
   },
   {
+    path: 'home',
+    component: LayoutMainComponent,
+    children: [{ path: '', component: HomeComponent }],
+  },
+  {
+    path: 'template',
+    component: LayoutMainComponent,
+    children: [{ path: '', component: TemplateListComponent }],
+  },
+  {
+    path: 'template/details/:template_uuid',
+    component: LayoutMainComponent,
+    children: [{ path: '', component: TemplateDetailsComponent }],
+  },
+  {
     path: 'website',
     component: LayoutMainComponent,
     children: [{ path: '', component: WebsiteListComponent }],
   },
   {
-    path: 'website/details/:website_template_uuid',
+    path: 'website/details/:website_uuid',
     component: LayoutMainComponent,
     children: [{ path: '', component: WebsiteDetailsComponent }],
   },

@@ -16,7 +16,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 //Models
-import { DomainBaseModel, DomainListItemModel } from 'src/app/models/domain.model';
+import { DomainListItemModel } from 'src/app/models/domain.model';
 
 @Component({
   selector: 'domain-management-list',
@@ -27,11 +27,11 @@ export class DomainManagementListComponent
   implements AfterViewInit, OnInit, OnDestroy {
 
   //Grid Variable
-  search_input = '';
+  allChecked = false;
   component_subscriptions = [];
   displayedColumns = ['name','application','lastUser','expirationDate','wentLiveDate','reputation','isAvailable'];
   domainList: MatTableDataSource<DomainListItemModel>;
-  allChecked = false;
+  search_input = '';
   @ViewChild(MatSort) sort: MatSort;
 
   //General Page Variable
@@ -93,6 +93,7 @@ export class DomainManagementListComponent
   }
 
   _setAdminView(){
+    console.log(this.userIsAdmin)
     if(this.userIsAdmin){
       this.displayedColumns.unshift('checked')
     }
@@ -132,6 +133,24 @@ export class DomainManagementListComponent
     return data.filter(t => t.isChecked).length > 0 && !this.allChecked
   }
 
+  setAvailableDomains(){
+    let selectedItems = this.domainList['_data']['_value'].filter(t => t.isChecked);
+    let uuidsToSetActive = []
+    selectedItems.forEach(t => {
+      uuidsToSetActive.push(t.uuid)
+    });
+    this.domainSvc.setDomainsAsAvailable(uuidsToSetActive).subscribe(
+      (success) => {
+        console.log("set available service method called and completed")
+        this.domainList['_data']['_value'].filter(t => uuidsToSetActive.includes(t.uuid)).forEach(e => e.isAvailable = true)
+        this.domainList['_data']['_value'].forEach(t => t.isChecked = false)
+        this.updateAllCheckboxComplete();
+      },
+      (failure) => {
+        console.log("Failed to update domain status")
+      }
+    )
+  }
 
   test(){
     console.log(this.userIsAdmin);
