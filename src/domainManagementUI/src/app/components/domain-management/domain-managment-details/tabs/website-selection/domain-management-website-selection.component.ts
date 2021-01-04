@@ -1,3 +1,4 @@
+// Angular Imports
 import { 
   Component, 
   OnInit, 
@@ -5,15 +6,15 @@ import {
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
-import { DomainManagementTabService } from 'src/app/services/domain-management-tabs.service';
+import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
 //Models
 import { WebsiteModel, WebSiteParameter } from 'src/app/models/website.model';
-import { domain } from 'process';
 
 @Component({
   selector: 'dmWebsiteSelectionTab',
@@ -28,12 +29,15 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
 
   websiteDataReady: boolean = false;
   domainDataReady: boolean = false;
+  safeURL: SafeResourceUrl = null;
   submitted: boolean = false;
+  url: string;
 
   component_subscriptions = [];
   
   constructor(
     public domainTabSvc: DomainManagementTabService,
+    public domSanitizer: DomSanitizer,
     public layoutSvc: LayoutService,
     public websiteSvc: WebsiteService,
     ) {}
@@ -77,7 +81,9 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
     );
   }
   
-  selectWebsite(website_uuid) {
+  selectWebsite(website: WebsiteModel) {
+    let website_uuid = website.website_uuid;
+    this.displayWebsite(website.website_url)
     if(this.domainDataReady){
       this.submitted = false;
       let data = this.websiteList['_data']['_value']
@@ -94,6 +100,16 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
     this.submitted = false;
 
     this.tabForm.controls.website_uuid.setValue(null)
+  }
+
+  displayWebsite(url){
+    console.log(url)
+    this.url = url;
+    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  openInNewTab(){
+    window.open(this.url,"_blank")
   }
 
   nextTab(){
@@ -131,10 +147,8 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
     this._setSelectedWebsite();
   }
   _setDomainDataStatus(){
-    if(this.domainTabSvc.domainData.uuid){
-      this.domainDataReady = true;
-      console.log(this.domainDataReady)
-    }
+    this.domainDataReady = true;
+    console.log(this.domainDataReady)
     this._setSelectedWebsite();
   }
   _setSelectedWebsite(){
@@ -146,21 +160,14 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
         .filter(t => t.website_uuid == this.domainTabSvc.domainData.website_uuid)
         .forEach(selectedWebsite => {
           selectedWebsite['selected'] = true
+          this.displayWebsite(selectedWebsite.website_url)
         });      
     } else {
       console.log("NOT READY")
+      if(!this.websiteDataReady){console.log("website")}
+      if(!this.domainDataReady){console.log("domain")}
     }
   }
 
-  test() {
-    console.log("test")
-    console.log(this.tabForm)
-  }
 
-  displayWebsite(website_uuid){
-    console.log("Display " + website_uuid + " in the iframe")
-  }
-  selected_website(website_uuid){
-    console.log("SELECTING - " + website_uuid)
-  }
 }

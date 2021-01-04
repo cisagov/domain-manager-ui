@@ -20,6 +20,7 @@ export class DomainBaseModel {
   wentLiveDate: Date;
   useHistory: DomainHistory[] 
   website_uuid: string;
+  update_email: string;
   _id: string;
 
   constructor() {
@@ -45,6 +46,7 @@ export class DomainBaseModel {
     this.wentLiveDate = null;
     this.useHistory = [];
     this.website_uuid = null;
+    this.update_email = null;
   }
 }
 

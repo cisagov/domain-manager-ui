@@ -1,0 +1,31 @@
+
+<div class="flex flex-container tab">
+  <h5>Template : {{tdTabSvc.template_data.template_name}}</h5>
+  <div class="text-muted">
+    A demo of the template as it will be seen prior to attribute subsitions
+  </div>
+
+  <div *ngIf="safeURL" class="iframe_container">
+    <div class="button_contianer">
+      <button mat-button color="primary" (click)="openInNewTab()">
+          <mat-icon>fullscreen</mat-icon>
+      </button>
+    </div>
+    <iframe [src]=safeURL 
+    height="100%" width="100%"></iframe>
+  </div>
+  
+  <mat-label class="mt-3">Template Attributes</mat-label>
+  <div *ngIf="tdTabSvc.template_data_attributes.length" class="flex-row ">
+      <table class="display_table">
+          <tr>
+              <th> Attribute</th>
+              <th> Placeholder </th>
+          </tr>
+          <tr *ngFor="let attribute of this.tdTabSvc.template_data_attributes">
+              <td>{{attribute.key}}</td>
+              <td>{{attribute.place_holder}}</td>
+          </tr>
+      </table>
+  </div>  
+</div>

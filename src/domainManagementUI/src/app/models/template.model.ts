@@ -14,4 +14,23 @@ template_url: string;
     }
 }
 
-export class TemplateModel extends TemplateBaseModel {}
+export class TemplateAttribute {
+    key: string;
+    value: string;
+    place_holder: string;
+    constructor(){
+        this.key = null;
+        this.value = null;
+        this.place_holder = null;
+    }
+}
+
+export class TemplateModel extends TemplateBaseModel {
+    template_attributes: Array<TemplateAttribute>;
+
+    constructor(){
+        super();
+        this.template_attributes = new Array<TemplateAttribute>();
+    }   
+
+}

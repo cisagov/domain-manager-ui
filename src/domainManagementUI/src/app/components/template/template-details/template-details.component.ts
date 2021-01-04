@@ -1,10 +1,15 @@
 // Angular Imports
+import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
+import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service'
+
+//Models
+import { TemplateModel } from 'src/app/models/template.model';
 
 @Component({
   selector: 'template-details',
@@ -12,12 +17,16 @@ import { TemplateService } from 'src/app/services/template.service';
   styleUrls: ['./template-details.component.scss'],
 })
 export class TemplateDetailsComponent implements OnInit, OnDestroy {
+
   component_subscriptions = [];
+  selectedTabIndex: number = 0;
+  template_data : TemplateModel = new TemplateModel();
   template_uuid = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
     public templateSvc: TemplateService,
+    public tdTabSvc: TemplateDetailsTabService,
     public layoutSvc: LayoutService
   ) {
     this.layoutSvc.setTitle('Template Details');
@@ -30,7 +39,7 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
         console.log(params)
         this.template_uuid = params['template_uuid'];
         if (this.template_uuid !== null) {
-          this.loadTemplate(this.template_uuid);
+          this.tdTabSvc.getTemplateDetails(this.template_uuid)
         }
       })
     );
@@ -41,20 +50,7 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
-
-  loadTemplate(template_uuid) {
-    console.log(
-      `Component call to service to load domain with domain uuid of ${template_uuid}`
-    );
-    this.templateSvc
-      .getTemplateDetails(template_uuid)
-      .subscribe(
-        (success) => {
-          console.log(`Data received from service : ${success}`);
-        },
-        (error) => {
-          console.log(`Error from service ${error}`);
-        }
-      );
+  onTabChanged(event){
+    console.log(event)
   }
 }

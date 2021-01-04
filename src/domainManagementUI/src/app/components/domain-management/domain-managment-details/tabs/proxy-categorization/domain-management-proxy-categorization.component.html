@@ -1,9 +1,11 @@
 <div class="flex flex-container tab">
+    <h5>Proxy Categorization</h5>
     <div  [formGroup]="tabForm">
-
-        <mat-label>Category</mat-label>
-        <div class="text-muted">
+        <div class="text-muted mb-3">
             At least one proxy category must be selected.
+        </div>
+        <div>
+            <mat-label class="category_label">Category One</mat-label>
         </div>
         <mat-form-field style="width:20em" appearance="outline">
             <mat-select
@@ -26,10 +28,11 @@
         </mat-form-field>
 
         <div class="mb-2" *ngIf="isEmptySelection(f.category_one)">
-            <mat-divider></mat-divider>
+            <!-- <mat-divider></mat-divider> -->
+            <mat-label class="category_label">Category Two</mat-label>
         </div>
 
-        <mat-form-field *ngIf="f.category_one.value != '' "style="width:20em" appearance="outline">
+        <mat-form-field *ngIf="isEmptySelection(f.category_one)"style="width:20em" appearance="outline">
             <mat-select
             formControlName="category_two"
             >
@@ -50,10 +53,11 @@
         </mat-form-field>
 
         <div class="mb-2" *ngIf="isEmptySelection(f.category_two)">
-            <mat-divider></mat-divider> 
+            <!-- <mat-divider></mat-divider>  -->
+            <mat-label class="category_label">Category Three</mat-label>
         </div>
 
-        <mat-form-field *ngIf="f.category_two.value != ''" style="width:20em" appearance="outline">
+        <mat-form-field *ngIf="isEmptySelection(f.category_two)" style="width:20em" appearance="outline">
             <mat-select
             formControlName="category_three"
             >

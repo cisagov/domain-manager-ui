@@ -1,7 +1,16 @@
 <div>
-  <h3>Template Details Page</h3>
-  <p>
-    Welcome to the template details page. A single template will be displayed with here with detailed information
-  </p>
-  <p>Template UUID - {{template_uuid}}</p>
+  <mat-tab-group (selectedTabChange)="onTabChanged($event)" [(selectedIndex)]="selectedTabIndex">
+    <mat-tab 
+      label="Template Demo">
+      <td-demo></td-demo>
+    </mat-tab>
+    <mat-tab 
+      label="Histroy">
+      <td-historical></td-historical>
+    </mat-tab>
+    <mat-tab 
+      label="Websites Using">
+      <td-connected-websites></td-connected-websites>
+    </mat-tab>
+  </mat-tab-group>
 </div>

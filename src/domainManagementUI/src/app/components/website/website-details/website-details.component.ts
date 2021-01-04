@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 // Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
 import { WebsiteService } from 'src/app/services/website.service';
+import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
 @Component({
   selector: 'website-details',
@@ -12,13 +13,17 @@ import { WebsiteService } from 'src/app/services/website.service';
   styleUrls: ['./website-details.component.scss'],
 })
 export class WebsiteDetailsComponent implements OnInit, OnDestroy {
+  
   component_subscriptions = [];
+  selectedTabIndex: number = 0;
   website_uuid = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
+    public layoutSvc: LayoutService,
+    public wdTabSvc: WebsiteDetailsTabService,
     public websiteTemplateSvc: WebsiteService,
-    public layoutSvc: LayoutService
+    
   ) {
     this.layoutSvc.setTitle('Website Details');
   }
@@ -42,18 +47,12 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
   }
 
   loadWebsite(website_uuid) {
-    console.log(
-      `Component call to service to load domain with domain uuid of ${website_uuid}`
-    );
-    this.websiteTemplateSvc
-      .getWebsiteDetails(website_uuid)
-      .subscribe(
-        (success) => {
-          console.log(`Data received from service : ${success}`);
-        },
-        (error) => {
-          console.log(`Error from service ${error}`);
-        }
-      );
+    this.wdTabSvc.getWebsiteDetails(website_uuid);
+    this.wdTabSvc.getWebsiteHistory(website_uuid);
   }
+
+  onTabChanged(event){
+    console.log(event)
+  }
+  
 }

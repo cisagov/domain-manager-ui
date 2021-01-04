@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 
 // Local Service Imports
 import { ApplicationService } from 'src/app/services/applications.service'
-import { DomainManagementTabService } from 'src/app/services/domain-management-tabs.service';
+import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({

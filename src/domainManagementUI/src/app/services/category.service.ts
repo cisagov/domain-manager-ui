@@ -62,6 +62,12 @@ export class CategoryService {
 
     //Test Data TODO: REMOVE IN PROD
     return this.category_list
-      
+  }
+
+  getCategroyNameByUUID(uuid){
+    if(this.category_list.length){
+      return this.category_list.find(c => c.categoryUUID === uuid)?.categoryName
+    } 
+    return 'ERROR'
   }
 }

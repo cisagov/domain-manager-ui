@@ -1,8 +1,9 @@
+// Angular Imports
 import { Component, OnInit } from '@angular/core';
 
 // Local Service Imports
 import { CategoryService } from 'src/app/services/category.service'
-import { DomainManagementTabService } from 'src/app/services/domain-management-tabs.service';
+import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { BehaviorSubject } from 'rxjs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmailValidator, FormControl, FormGroup, Validators } from '@angular/forms';
 
 //Models
 import { DomainModel } from 'src/app/models/domain.model';
@@ -69,7 +69,9 @@ export class DomainManagementTabService{
             let newData = new DomainModel();
             newData.name += domain_uuid
             newData.uuid = domain_uuid
+            newData.categoryOne = 'UUID-2'
             newData.website_uuid = 'UUID_selected'
+            newData.update_email = 'Test@email.com'
             newData.useHistory = [
                 {
                     applicationThatUsed: "Previous App One",
@@ -96,6 +98,8 @@ export class DomainManagementTabService{
             }, 100)
             // this.domainData = newData
             return true
+        } else {
+            this.domain_data_behavior_subject.next(new DomainModel())
         }
     }
 
@@ -127,17 +131,28 @@ export class DomainManagementTabService{
         )
         this.review_tab_form = new FormGroup(
             {
-                email_address: new FormControl('')                
+                update_email: new FormControl('')                
             }
         )
     }
     _setFormData(){
-        let gfcontrols = this.gen_attribute_tab_form.controls
-        gfcontrols.application_uuid.setValue(this.domainData.application_uuid)
-        gfcontrols.create_mail_gun.setValue(this.domainData.createMailgun)
-        gfcontrols.create_SES.setValue(this.domainData.createSES)
+        let gfCont = this.gen_attribute_tab_form.controls;
+        gfCont.application_uuid.setValue(this.domainData.application_uuid);
+        gfCont.create_mail_gun.setValue(this.domainData.createMailgun);
+        gfCont.create_SES.setValue(this.domainData.createSES);
 
-        this.website_selection_tab_form.controls.website_uuid.setValue(this.domainData.website_uuid)
+        let wsCont = this.website_selection_tab_form.controls;
+        wsCont.website_uuid.setValue(this.domainData.website_uuid);
+
+        let pxCont = this.proxy_categoriztion_tab_form.controls;
+        pxCont.category_one.setValue(this.domainData.categoryOne);
+        pxCont.category_two.setValue(this.domainData.categoryTwo);
+        pxCont.category_three.setValue(this.domainData.categoryThree);
+
+        let rCont = this.review_tab_form.controls;
+        rCont.update_email.setValue(this.domainData.update_email);
+
+
     }
 
     submitTab(form: FormGroup){

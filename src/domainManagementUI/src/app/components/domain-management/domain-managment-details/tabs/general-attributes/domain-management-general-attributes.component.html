@@ -1,7 +1,7 @@
 
 <div class="flex flex-container tab">
+    <h5>Domain General Attributes</h5>
     <div  [formGroup]="domainTabSvc.gen_attribute_tab_form">
-
         <mat-label>Application</mat-label>
         <div class="text-muted">
             The application that will be utilizing the domain
@@ -23,8 +23,7 @@
             class="invalid-feedback"
             >
             A application must be selected
-            </mat-error>
-            
+            </mat-error>            
         </mat-form-field>
         
         <div class="flex-column">
@@ -68,7 +67,5 @@
         <button mat-raised-button color="primary" class="flex"  (click)="nextTab()">
             Next
         </button>
-    </div>
-
-    
+    </div>    
 </div>

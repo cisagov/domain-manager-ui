@@ -12,7 +12,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 
 // Local Service Imports
-import { DomainManagementTabService } from 'src/app/services/domain-management-tabs.service';
+import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
 //Models
@@ -47,10 +47,8 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
       this.activeRoute.params.subscribe(
         (params) => {
           this.domain_uuid = params['domain_uuid'];
-          if (this.domain_uuid !== null) {
-            // this.loadDomain(this.domain_uuid);
-            this.domainTabSvc.getDomainDetails(this.domain_uuid)
-          }
+          this.domainTabSvc.getDomainDetails(this.domain_uuid)
+          
         },
         (error) => {
           console.log('Failed to load domain');

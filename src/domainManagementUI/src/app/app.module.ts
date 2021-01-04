@@ -25,22 +25,33 @@ import { DomainManagementWebsiteSelectionTab }  from 'src/app/components/domain-
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
-import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component'
+import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
+import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/template/template-details/tabs/connected-websites/template-details-connected-websites.component';
+import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
+import { TemplateDetailsHistoricalComponent } from 'src/app/components/template/template-details/tabs/historical/template-details-historical.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
+import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-details/tabs/demo/website-details-demo.component';
+import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
+import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
+import { WebsiteDeleteDialogComponent } from 'src/app/components/website/website-delete-dialog/website-delete-dialog.component';
 
 //Services
+
 import { ApplicationService } from 'src/app/services/applications.service'
 import { CategoryService } from 'src/app/services/category.service'
 import { DomainManagementService } from 'src/app/services/domain-management.service';
-import { DomainManagementTabService } from 'src/app/services/domain-management-tabs.service';
+import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from './services/layout.service';
 import { SettingsHttpService } from 'src/app/services/settings-http.service';
 import { TemplateService } from 'src/app/services/template.service'
 import { ThemeService } from './services/theme.service';
+import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service'
 import { UserAuthService } from './services/user-auth.service'
+import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
+
 
 //Helpers
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
@@ -63,9 +74,16 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DomainManagementReviewTab,
     DomainManagementWebsiteSelectionTab,
     TemplateDetailsComponent,
+    TemplateDetailsConnectedWebsitesComponent,
+    TemplateDetailsDemoComponent,
+    TemplateDetailsHistoricalComponent,
     TemplateListComponent,
     WebsiteDetailsComponent,
+    WebsiteDetailsDemoComponent,
+    WebsiteDetailsHistoricalComponent,
+    WebsiteDetailsSummaryComponent,
     WebsiteListComponent,
+    WebsiteDeleteDialogComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -86,8 +104,10 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     HttpClient,
     LayoutService,
     TemplateService,
+    TemplateDetailsTabService,
     ThemeService,
     UserAuthService,
+    WebsiteDetailsTabService,
     WebsiteService,
     {
       provide: APP_INITIALIZER,

@@ -11,8 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 //Local Service Imports
-import { LayoutService } from 'src/app/services/layout.service';
 import { ApplicationService } from 'src/app/services/applications.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 //Models
 import { ApplicationModel } from 'src/app/models/application.model';
@@ -33,7 +33,7 @@ export class ApplicationListComponent implements OnInit {
   constructor(
     public applicationSvc: ApplicationService,
     public layoutSvc: LayoutService,
-    private router: Router
+    private router: Router,
   ) {
     this.layoutSvc.setTitle('Application');
   }
