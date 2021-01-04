@@ -1,18 +1,23 @@
 <div>
   <div class="table-list-header flex">
-   <div class="search-bar flex" >
-     <mat-form-field class="w-100" appearance="outline">
-       <mat-label>Search</mat-label>
-       <input [(ngModel)]="search_input" (keyup)="filterList($event.target.value)" matInput placeholder="Search" />
-       <mat-icon matSuffix>search</mat-icon>
-     </mat-form-field>
-   </div>    
-   <div *ngIf="userIsAdmin" class="add-new-button-container flex" >
-     <button mat-raised-button color="primary" (click)="createDomain()">
-       Add New Domain
-     </button>
-   </div>
- </div>
+    <div class="search-bar flex">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          [(ngModel)]="search_input"
+          (keyup)="filterList($event.target.value)"
+          matInput
+          placeholder="Search"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div *ngIf="userIsAdmin" class="add-new-button-container flex">
+      <button mat-raised-button color="primary" (click)="createDomain()">
+        Add New Domain
+      </button>
+    </div>
+  </div>
   <div class="col p-0 w-100">
     <div
       *ngIf="loading"
@@ -24,12 +29,14 @@
         diameter="50"
       ></mat-spinner>
     </div>
-   
-    <div *ngIf="userIsAdmin" class="add-new-button-container flex" >
-      <button 
-      mat-raised-button color="primary" 
-      (click)="setAvailableDomains()"
-      class="mb-2">
+
+    <div *ngIf="userIsAdmin" class="add-new-button-container flex">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="setAvailableDomains()"
+        class="mb-2"
+      >
         Make Selected Available
       </button>
     </div>
@@ -37,18 +44,21 @@
       <!-- ActionCheckbox -->
       <ng-container matColumnDef="checked">
         <mat-header-cell *matHeaderCellDef mat-sort-header
-          ><mat-checkbox 
-                      [checked]="allChecked"
-                      [indeterminate]="someChecked()"
-                      color="warn"
-                      (change)="setAllCheckboxes($event.checked)">
-          </mat-checkbox>Select All
-        </mat-header-cell
-        >
+          ><mat-checkbox
+            [checked]="allChecked"
+            [indeterminate]="someChecked()"
+            color="warn"
+            (change)="setAllCheckboxes($event.checked)"
+          >
+          </mat-checkbox
+          >Select All
+        </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <mat-checkbox [(ngModel)]="row.isChecked"
-                      color="primary"
-                      (ngModelChange)="updateAllCheckboxComplete()">
+          <mat-checkbox
+            [(ngModel)]="row.isChecked"
+            color="primary"
+            (ngModelChange)="updateAllCheckboxComplete()"
+          >
           </mat-checkbox>
         </mat-cell>
       </ng-container>
@@ -57,42 +67,54 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Domain Name</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.name }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{
+          row.name
+        }}</mat-cell>
       </ng-container>
       <!-- Application -->
       <ng-container matColumnDef="application">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Application</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.application }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{
+          row.application
+        }}</mat-cell>
       </ng-container>
       <!-- Last User -->
       <ng-container matColumnDef="lastUser">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Last User</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.lastUser }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{
+          row.lastUser
+        }}</mat-cell>
       </ng-container>
       <!-- Expiration -->
       <ng-container matColumnDef="expirationDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Expiration</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.expirationDate | date: 'MM/dd/yy'}}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{
+          row.expirationDate | date: "MM/dd/yy"
+        }}</mat-cell>
       </ng-container>
       <!-- Went Live -->
       <ng-container matColumnDef="wentLiveDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Went Live</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.wentLiveDate | date: 'MM/dd/yy' }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{
+          row.wentLiveDate | date: "MM/dd/yy"
+        }}</mat-cell>
       </ng-container>
       <!-- Reputation -->
       <ng-container matColumnDef="reputation">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Reputation</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{ row.reputation | percent }}</mat-cell>
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">{{
+          row.reputation | percent
+        }}</mat-cell>
       </ng-container>
       <!-- Is Available -->
       <ng-container matColumnDef="isAvailable">
@@ -100,7 +122,12 @@
           >Is Available</mat-header-cell
         >
         <mat-cell *matCellDef="let row" (click)="viewDomain(row.uuid)">
-          <mat-icon *ngIf="row.isAvailable" aria-hidden="false" aria-label="check_circle icon">check_circle</mat-icon>
+          <mat-icon
+            *ngIf="row.isAvailable"
+            aria-hidden="false"
+            aria-label="check_circle icon"
+            >check_circle</mat-icon
+          >
         </mat-cell>
       </ng-container>
 

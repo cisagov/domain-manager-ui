@@ -24,7 +24,7 @@ import { ApplicationModel } from 'src/app/models/application.model';
 })
 export class ApplicationListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['application_name','domains_used_count'];
+  displayedColumns = ['application_name', 'domains_used_count'];
   search_input = '';
   applicationList: MatTableDataSource<ApplicationModel>;
   loading = true;
@@ -33,7 +33,7 @@ export class ApplicationListComponent implements OnInit {
   constructor(
     public applicationSvc: ApplicationService,
     public layoutSvc: LayoutService,
-    private router: Router,
+    private router: Router
   ) {
     this.layoutSvc.setTitle('Application');
   }
@@ -48,8 +48,7 @@ export class ApplicationListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   getApplications() {
     this.loading = true;
@@ -70,13 +69,11 @@ export class ApplicationListComponent implements OnInit {
   }
 
   viewApplication(application_uuid) {
-    this.router.navigate([
-      `/application/details/${application_uuid}`,
-    ]);
+    this.router.navigate([`/application/details/${application_uuid}`]);
   }
 
-  addApplication(){
-    console.log("Upload Website not yet implemmeneted")
+  addApplication() {
+    console.log('Upload Website not yet implemmeneted');
   }
 
   public filterList = (value: string) => {

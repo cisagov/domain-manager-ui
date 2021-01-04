@@ -1,12 +1,11 @@
 .summary_list div div {
-    margin-bottom: .5em;
-    border-bottom: solid 1px rgb(225,225,225);
+  margin-bottom: 0.5em;
+  border-bottom: solid 1px rgb(225, 225, 225);
 }
 
-.summary_list .titles div{
-    padding-right: 2em
-
+.summary_list .titles div {
+  padding-right: 2em;
 }
-.summary_list .values{
-    flex-grow: 1;
+.summary_list .values {
+  flex-grow: 1;
 }

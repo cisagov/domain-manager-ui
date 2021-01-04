@@ -1,71 +1,68 @@
-
 <div class="flex flex-container tab">
-    <h5>Domain General Attributes</h5>
-    <div  [formGroup]="domainTabSvc.gen_attribute_tab_form">
-        <mat-label>Application</mat-label>
-        <div class="text-muted">
-            The application that will be utilizing the domain
-        </div>
-        <mat-form-field style="width:20em" appearance="outline">
-            <mat-select
-            formControlName="application_uuid"
-            >
-            <mat-option [value]="null">--Select--</mat-option>
-            <mat-option
-                *ngFor="let a of applicationSvc.application_list"
-                [value]="a.application_uuid"
-            >
-                {{ a.application_name }} </mat-option
-            >
-            </mat-select>
-            <mat-error
-            *ngIf="f.application_uuid.errors?.required"
-            class="invalid-feedback"
-            >
-            A application must be selected
-            </mat-error>            
-        </mat-form-field>
-        
-        <div class="flex-column">
-            <mat-checkbox class="checkbox"
-                formControlName="create_mail_gun">                
-            </mat-checkbox>
-            <mat-label>Create Mailgun</mat-label>
-            <div class="text-muted ml-4 w-50">
-                Selecting 'Create Mailgun' will generate a mailgun profile for this domain when it is launched.
-            </div>
-        </div>
-        <div class="flex-column">
-            <mat-checkbox  class="checkbox"
-                formControlName="create_SES">                
-            </mat-checkbox>
-            <mat-label>Create SES</mat-label>
-            <div class="text-muted ml-4 w-50">
-                Selecting 'Create SES' will cause a Amazon Simple Email Service profile to be created to handle mail sent to this domain when it is launched.
-            </div>
-        </div>
+  <h5>Domain General Attributes</h5>
+  <div [formGroup]="domainTabSvc.gen_attribute_tab_form">
+    <mat-label>Application</mat-label>
+    <div class="text-muted">
+      The application that will be utilizing the domain
     </div>
+    <mat-form-field style="width: 20em" appearance="outline">
+      <mat-select formControlName="application_uuid">
+        <mat-option [value]="null">--Select--</mat-option>
+        <mat-option
+          *ngFor="let a of applicationSvc.application_list"
+          [value]="a.application_uuid"
+        >
+          {{ a.application_name }}
+        </mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="f.application_uuid.errors?.required"
+        class="invalid-feedback"
+      >
+        A application must be selected
+      </mat-error>
+    </mat-form-field>
 
-    <!-- Use Histroy Table -->
-    <mat-label class="mt-3">Domain Usage History</mat-label>
-    <div class="flex-row ">
-        <table class="display_table">
-            <tr>
-                <th> Application That Used </th>
-                <th> Start Date </th>
-                <th> Stop Date </th>
-            </tr>
-            <tr *ngFor="let history of domainTabSvc.domainData.useHistory">
-                <td>{{history.applicationThatUsed}}</td>
-                <td>{{history.startDate | date: 'MM/dd/yy'}}</td>
-                <td>{{history.stopDate | date: 'MM/dd/yy'}}</td>
-            </tr>
-        </table>
+    <div class="flex-column">
+      <mat-checkbox class="checkbox" formControlName="create_mail_gun">
+      </mat-checkbox>
+      <mat-label>Create Mailgun</mat-label>
+      <div class="text-muted ml-4 w-50">
+        Selecting 'Create Mailgun' will generate a mailgun profile for this
+        domain when it is launched.
+      </div>
     </div>
+    <div class="flex-column">
+      <mat-checkbox class="checkbox" formControlName="create_SES">
+      </mat-checkbox>
+      <mat-label>Create SES</mat-label>
+      <div class="text-muted ml-4 w-50">
+        Selecting 'Create SES' will cause a Amazon Simple Email Service profile
+        to be created to handle mail sent to this domain when it is launched.
+      </div>
+    </div>
+  </div>
 
-    <div class="flex-row flex-end mt-4">
-        <button mat-raised-button color="primary" class="flex"  (click)="nextTab()">
-            Next
-        </button>
-    </div>    
+  <!-- Use Histroy Table -->
+  <mat-label class="mt-3">Domain Usage History</mat-label>
+  <div class="flex-row">
+    <table class="display_table">
+      <tr>
+        <th>Application That Used</th>
+        <th>Start Date</th>
+        <th>Stop Date</th>
+      </tr>
+      <tr *ngFor="let history of domainTabSvc.domainData.useHistory">
+        <td>{{ history.applicationThatUsed }}</td>
+        <td>{{ history.startDate | date: "MM/dd/yy" }}</td>
+        <td>{{ history.stopDate | date: "MM/dd/yy" }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="flex-row flex-end mt-4">
+    <button mat-raised-button color="primary" class="flex" (click)="nextTab()">
+      Next
+    </button>
+  </div>
 </div>

@@ -18,10 +18,10 @@ import { MatTableModule } from '@angular/material/table';
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
-import { DomainManagementGeneralAttributesTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
-import { DomainManagementProxyCategorizaitonTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/proxy-categorization/domain-management-proxy-categorization.component';
-import { DomainManagementReviewTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/review/domain-management-review.component';
-import { DomainManagementWebsiteSelectionTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/website-selection/domain-management-website-selection.component';
+import { DomainManagementGeneralAttributesTab } from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
+import { DomainManagementProxyCategorizaitonTab } from 'src/app/components/domain-management/domain-managment-details/tabs/proxy-categorization/domain-management-proxy-categorization.component';
+import { DomainManagementReviewTab } from 'src/app/components/domain-management/domain-managment-details/tabs/review/domain-management-review.component';
+import { DomainManagementWebsiteSelectionTab } from 'src/app/components/domain-management/domain-managment-details/tabs/website-selection/domain-management-website-selection.component';
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
@@ -39,19 +39,18 @@ import { WebsiteDeleteDialogComponent } from 'src/app/components/website/website
 
 //Services
 
-import { ApplicationService } from 'src/app/services/applications.service'
-import { CategoryService } from 'src/app/services/category.service'
+import { ApplicationService } from 'src/app/services/applications.service';
+import { CategoryService } from 'src/app/services/category.service';
 import { DomainManagementService } from 'src/app/services/domain-management.service';
 import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from './services/layout.service';
 import { SettingsHttpService } from 'src/app/services/settings-http.service';
-import { TemplateService } from 'src/app/services/template.service'
+import { TemplateService } from 'src/app/services/template.service';
 import { ThemeService } from './services/theme.service';
-import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service'
-import { UserAuthService } from './services/user-auth.service'
+import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
+import { UserAuthService } from './services/user-auth.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
-
 
 //Helpers
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
@@ -88,7 +87,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
-    BrowserModule, 
+    BrowserModule,
     FormsModule,
     HttpClientModule,
     MaterialModule,

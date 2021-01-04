@@ -24,7 +24,7 @@ import { WebsiteModel } from 'src/app/models/website.model';
 })
 export class WebsiteListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['website_name','template_base_name','created_date'];
+  displayedColumns = ['website_name', 'template_base_name', 'created_date'];
   search_input = '';
   websiteList: MatTableDataSource<WebsiteModel>;
   loading = true;
@@ -48,8 +48,7 @@ export class WebsiteListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   getWebsites() {
     this.loading = true;
@@ -70,12 +69,10 @@ export class WebsiteListComponent implements OnInit {
   }
 
   viewWebsite(website_uuid) {
-    this.router.navigate([
-      `/website/details/${website_uuid}`,
-    ]);
+    this.router.navigate([`/website/details/${website_uuid}`]);
   }
-  uploadWebsite(){
-    console.log("Upload Website not yet implemmeneted")
+  uploadWebsite() {
+    console.log('Upload Website not yet implemmeneted');
   }
   public filterList = (value: string) => {
     this.websiteList.filter = value.trim().toLocaleLowerCase();
