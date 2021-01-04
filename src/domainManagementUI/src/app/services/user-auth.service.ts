@@ -5,19 +5,31 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { resolve } from 'dns';
 import { switchMap } from 'rxjs/operators';
+import { EINPROGRESS } from 'constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserAuthService {
   currentAuthUser: any;
-  public currentAuthUserSubject: BehaviorSubject<string> = new BehaviorSubject<
-    string
-  >('Not Authorized');
+  isAdmin: any;
+  public currentAuthUserSubject: BehaviorSubject<string> = new BehaviorSubject<string>(
+    'Not Authorized'
+  );
+  public isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentAuthUserSubject.subscribe((value) => {
       this.currentAuthUser = value;
+    });
+    this.isAdminSubject.subscribe((value) => {
+      if (environment.authorize) {
+        this.isAdmin = value;
+      } else {
+        this.isAdmin = environment.defaultToAdmin;
+      }
     });
   }
 
@@ -25,10 +37,12 @@ export class UserAuthService {
   handleAuthNotification(data) {}
 
   signOut() {
+    console.log('signing out');
     Auth.signOut();
   }
 
   redirectToSignIn() {
+    console.log('redirecting');
     Auth.federatedSignIn();
   }
 
@@ -40,6 +54,7 @@ export class UserAuthService {
           .then((success) => {
             console.log('LOGGED IN');
             this._setUserName(success);
+            this._setIsAdmin(success);
             resolve(true);
           })
           .catch((error) => {
@@ -52,6 +67,7 @@ export class UserAuthService {
     } else if (!environment.authorize) {
       return new Promise((resolve, reject) => {
         resolve(true);
+        this._setIsAdmin('not Authenticated');
       });
     }
   }
@@ -71,8 +87,31 @@ export class UserAuthService {
     }
   }
 
+  _setIsAdmin(succesfulAuthObject) {
+    if (environment.authorize) {
+      let groups =
+        succesfulAuthObject['signInUserSession']['idToken']['payload'][
+          'cognito:groups'
+        ];
+      if (groups != undefined && groups instanceof Array) {
+        groups.forEach((group) => {
+          if (group == 'DomainManagerAdmin') {
+            this.isAdminSubject.next(true);
+          }
+        });
+      } else {
+        this.isAdminSubject.next(false);
+      }
+    } else {
+      this.isAdminSubject.next(environment.defaultToAdmin);
+    }
+  }
+
   getUserNameBehaviorSubject(): Observable<any> {
     return this.currentAuthUserSubject;
+  }
+  getUserIsAdminBehaviorSubject(): Observable<any> {
+    return this.isAdminSubject;
   }
 
   getReportToken() {
@@ -94,17 +133,6 @@ export class UserAuthService {
 
   getUserTokens() {
     if (environment.authorize) {
-      // const reportTokenGlobal = (new URL(document.location.toString())).searchParams.get('reportToken');
-
-      // if (reportTokenGlobal) {
-      //   return new Promise((resolve, reject) => {
-      //     resolve({
-      //       idToken: reportTokenGlobal
-      //     });
-      //   });
-      // }
-      // else {
-      console.log('TEST');
       return new Promise((resolve, reject) => {
         Auth.currentAuthenticatedUser()
           .then((success) => {
@@ -122,7 +150,6 @@ export class UserAuthService {
             this.redirectToSignIn();
           });
       });
-      // }
     } else {
       return new Promise((resolve, reject) => {
         resolve({

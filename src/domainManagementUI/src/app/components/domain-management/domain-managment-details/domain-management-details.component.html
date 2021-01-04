@@ -1,47 +1,28 @@
 <div>
-  <h3>Domain Management Details Page</h3>
-  <p>
-    Welcome to the domain management details page. A single domain will be
-    created/viewed/edited here
-  </p>
-
-  <form [formGroup]="dm_form">
-    <div class="mb-3">
-      <mat-label class="h6">Domain Name</mat-label>
-      <!-- <div class="text-muted">
-        Muted text here
-      </div> -->
-      <div></div>
-      <mat-form-field class="w-100" appearance="outline">
-        <input matInput formControlName="domain_name" type="text" trim="blur" />
-        <!-- <mat-error
-          *ngIf="f.domain_name.errors?.required"
-          class="invalid-feedback"
-        >
-          Target Eamil Domain is a a required field
-        </mat-error> -->
-      </mat-form-field>
-    </div>
-    <div class="mb-3">
-      <mat-label class="h6">Registrar Name</mat-label>
-      <!-- <div class="text-muted">
-        Muted text here
-      </div> -->
-      <div></div>
-      <mat-form-field class="w-100" appearance="outline">
-        <input
-          matInput
-          formControlName="registrar_name"
-          type="text"
-          trim="blur"
-        />
-        <!-- <mat-error
-          *ngIf="f.domain_name.errors?.required"
-          class="invalid-feedback"
-        >
-          Target Eamil Domain is a a required field
-        </mat-error> -->
-      </mat-form-field>
-    </div>
-  </form>
+  <mat-tab-group
+    (selectedTabChange)="onTabChanged($event)"
+    [(selectedIndex)]="selectedTabIndex"
+  >
+    <mat-tab label="General Attributes">
+      <dmGeneralAttributesTab></dmGeneralAttributesTab>
+    </mat-tab>
+    <mat-tab
+      [disabled]="!this.domainTabSvc.gen_attribute_tab_form.valid"
+      label="Website Selection"
+    >
+      <dmWebsiteSelectionTab></dmWebsiteSelectionTab>
+    </mat-tab>
+    <mat-tab
+      [disabled]="!this.domainTabSvc.website_selection_tab_form.valid"
+      label="Proxy Categorization"
+    >
+      <dmProxyCategorizaitonTab></dmProxyCategorizaitonTab>
+    </mat-tab>
+    <mat-tab
+      [disabled]="!this.domainTabSvc.proxy_categoriztion_tab_form.valid"
+      label="Review"
+    >
+      <dmReviewTab></dmReviewTab>
+    </mat-tab>
+  </mat-tab-group>
 </div>
