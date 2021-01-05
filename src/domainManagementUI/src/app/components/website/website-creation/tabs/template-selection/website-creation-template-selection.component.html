@@ -1,0 +1,20 @@
+
+<div class="flex flex-container tab">
+  <!-- <h5>Website : {{tdTabSvc.template_data.template_name}}</h5> -->
+  <!-- <h5>Website :  {{wdTabSvc.website_data.website_name}}</h5> -->
+  <div class="text-muted">
+    A demo of the website as it will be seen directly
+  </div>
+
+  <div *ngIf="safeURL" class="iframe_container">
+    <div class="button_contianer">
+      <button mat-button color="primary" (click)="openInNewTab()">
+          <mat-icon>fullscreen</mat-icon>
+      </button>
+    </div>
+    <iframe [src]=safeURL 
+    height="100%" width="100%"></iframe>
+  </div>
+
+
+</div>

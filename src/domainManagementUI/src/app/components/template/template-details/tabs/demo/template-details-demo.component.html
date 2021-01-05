@@ -5,6 +5,8 @@
   <mat-menu #menu="matMenu">
     <button (click)="download()" mat-menu-item>
       <mat-icon  >download</mat-icon>Download ZIP</button>
+      <button (click)="createWebsiteFromTemplate(tdTabSvc.template_data.template_uuid)" mat-menu-item>
+        <mat-icon >build</mat-icon>Create Website</button>
     <button (click)="delete(tdTabSvc.template_data.template_uuid)" mat-menu-item> 
       <mat-icon>delete</mat-icon> Delete</button>
   </mat-menu>

@@ -10,11 +10,10 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
 import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
-import { LayoutService } from 'src/app/services/layout.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
 //Models
-import { WebsiteModel, WebSiteParameter } from 'src/app/models/website.model';
+import { WebsiteModel } from 'src/app/models/website.model';
 
 @Component({
   selector: 'dmWebsiteSelectionTab',
@@ -38,7 +37,6 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
   constructor(
     public domainTabSvc: DomainManagementTabService,
     public domSanitizer: DomSanitizer,
-    public layoutSvc: LayoutService,
     public websiteSvc: WebsiteService,
     ) {}
 
@@ -134,7 +132,6 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
   _formatWebsiteListData(data){   
     if(data instanceof Array){
       data.forEach(websiteItem => {
-        // if(this.domainTabSvc.domainData.)
         websiteItem['selected'] = false
       });
     }

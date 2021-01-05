@@ -44,20 +44,22 @@ export class TemplateService {
         'Test3',
         ]
         this.template_list = []
+        let templateListTemporay = []
         templates.forEach(element => {
-        this.template_list.push({
-            template_name : element,
-            template_uuid : element,
-            uploaded_by : "Template Creator",
-            created_date : new Date('10-10-2020'),
-            template_url : 'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html',
-            template_attributes: Array<any>(),
-        })
+            templateListTemporay.push({
+                template_name : element,
+                template_uuid : element,
+                uploaded_by : "Template Creator",
+                created_date : new Date('10-10-2020'),
+                template_url : 'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html',
+                template_attributes: Array<any>(),
+            })
         });
         
         return new Observable((exampleObs) => {
             setTimeout(() => {
-            exampleObs.next(this.template_list);
+                this.template_list = templateListTemporay
+                exampleObs.next(this.template_list);
             }, 200)
         });
         
@@ -164,8 +166,7 @@ export class TemplateService {
                     }, Math.floor(Math.random() * 1000))
                 });
             }
-        }
-        
+        }        
     }
 
     deleteTemplate(templateUUID){
