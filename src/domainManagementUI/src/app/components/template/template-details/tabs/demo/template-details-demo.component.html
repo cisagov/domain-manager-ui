@@ -1,6 +1,13 @@
 
 <div class="flex flex-container tab">
-  <h5>Template : {{tdTabSvc.template_data.template_name}}</h5>
+  <h5>Template : {{tdTabSvc.template_data.template_name}}</h5>    
+  <button class="manipulate_menu" mat-raised-button color="primary"  [matMenuTriggerFor]="menu">Options</button>
+  <mat-menu #menu="matMenu">
+    <button (click)="download()" mat-menu-item>
+      <mat-icon  >download</mat-icon>Download ZIP</button>
+    <button (click)="delete(tdTabSvc.template_data.template_uuid)" mat-menu-item> 
+      <mat-icon>delete</mat-icon> Delete</button>
+  </mat-menu>
   <div class="text-muted">
     A demo of the template as it will be seen prior to attribute subsitions
   </div>

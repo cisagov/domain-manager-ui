@@ -8,9 +8,9 @@
   <div  *ngIf="wdTabSvc.website_data.website_uuid">
     <h5 >Website: {{wdTabSvc.website_data.website_name}}</h5>
     
-    <button class="manipluate_menu" mat-raised-button color="primary"  [matMenuTriggerFor]="menu">Options</button>
+    <button class="manipulate_menu" mat-raised-button color="primary"  [matMenuTriggerFor]="menu">Options</button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button (click)="downloadWebsite()" mat-menu-item>
         <mat-icon  >download</mat-icon>Download ZIP</button>
       <button (click)="deleteWebsite(wdTabSvc.website_data.website_uuid)" mat-menu-item> 
         <mat-icon>delete</mat-icon> Delete</button>

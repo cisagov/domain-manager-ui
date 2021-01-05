@@ -1,0 +1,136 @@
+<!-- Serious style/css cleaning is needed, Im truely sorry if I dont get to it before
+someone has to deal with this
+-Dylan Johnson -->
+<h2 mat-dialog-title>Upload {{uploadType | titlecase}}</h2>
+<button mat-button
+  style="
+  display: inline-block;
+  float: right;
+  top: -4em;
+  margin-bottom: -4em;"
+  [mat-dialog-close]="true"
+>
+  <mat-icon>close</mat-icon>
+</button>
+<mat-dialog-content class="upload-dialog-content">
+
+
+  
+  <div class="text-muted" style="margin-bottom: 1em">
+    Select one or more {{uploadType}}s to upload. Select the files through your local 
+    file browser by clicked the 'select file below' or drag and drop your files on to the 
+    drag and drop zone below.
+  </div>
+  <ngfFormData
+    [files]      = "files"
+    postName     = "file"
+    [(FormData)] = "sendableFormData">
+  </ngfFormData>
+
+  <!-- Drag and Drop Area -->
+  <div style="display: flex; flex-direction: column;">
+    <div style="width:100%; height: 8em; display:flex; flex-direction: column">
+      <div
+        ngfDrop
+        style="height: 100%; flex-grow: 1"
+        [(validDrag)]    = "baseDropValid"
+        (fileOver)       = "hasBaseDropZoneOver=$event"
+        [(files)]        = "files"
+        [accept]         = "uploadFileType"
+        [maxSize]        = "maxSize"
+        [(dragFiles)]    = "dragFiles"
+        [(lastInvalids)] = "lastInvalids"
+        class            = "well my-drop-zone"
+        [class.invalid-drag] = "baseDropValid===false"
+        [class.valid-drag]   = "baseDropValid"
+        (filesChange) = "lastFileAt=getDate()"
+        [fileDropDisabled] = "fileDropDisabled"
+      >
+      <div style="
+        display: flex; 
+        flex-direction: column; 
+        text-align: center;
+        padding: 1em 0 0 0"
+      >Drag and drop files here<br> or</div>
+        
+          <!-- Open File Browser -->
+        <div style="display: flex; padding: 0 18em">
+          <div
+            ngfSelect      
+            multiple ="1"
+            [accept]  = "uploadFileType"
+            [maxSize] = "maxSize"
+            [(files)] = "files"
+            style="width:100%; display: inline-block"
+            [(lastInvalids)] = "lastInvalids"
+            (filesChange) = "lastFileAt=getDate()"
+          >
+          <button style="width:100%" mat-raised-button color="primary">Select Files</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File List -->
+  <div style="margin-bottom: 40px; margin-top: 2em" >
+    <h3>{{ files.length }} Queued Files</h3>
+    <div >
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Actions</th>
+            <th *ngIf="uploadProcessed">Status</th>
+          </tr>
+        </thead>
+        <tbody style="max-height: 17em; overflow: auto">
+          <tr *ngFor="let item of files;let i=index">
+            <td>
+              <div *ngIf="['image/gif','image/png','image/jpeg'].indexOf(item.type)>=0">
+                <div class="previewIcon" [ngfBackground]="item"></div>
+              </div>
+              <strong>{{ item.name }}</strong>
+            </td>
+            <td nowrap>
+              {{ item.type }}
+            </td>
+            <td nowrap>
+              {{ item.size/1024/1024 | number:'.2' }} MB
+            </td>
+            <td nowrap>
+              <button type="button"
+                class="btn btn-danger btn-xs"
+                (click)="files.splice(i,1)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+            <td *ngIf="uploadProcessed">
+              <div *ngIf="!item.uploadStatus"> 
+                New
+              </div>
+              <div *ngIf="item.uploadStatus == 'Inprogress'"> 
+                <mat-icon>arrow_circle_up</mat-icon>
+              </div>
+              <div *ngIf="item.uploadStatus == 'Complete'"> 
+                <mat-icon>done</mat-icon>
+              </div>
+              <div *ngIf="item.uploadStatus == 'Failed'"> 
+                <mat-icon>priority_high</mat-icon>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="uploadFiles()" mat-raised-button color="primary">Upload</button>
+  <button mat-button color="primary" cdkFocusInitial [mat-dialog-close]="true">Cancel</button>
+</mat-dialog-actions>

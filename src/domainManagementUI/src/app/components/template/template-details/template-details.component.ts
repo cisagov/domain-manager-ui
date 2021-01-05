@@ -1,7 +1,6 @@
 // Angular Imports
-import { Template } from '@angular/compiler/src/render3/r3_ast';
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
@@ -25,9 +24,9 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     public activeRoute: ActivatedRoute,
+    public layoutSvc: LayoutService,
     public templateSvc: TemplateService,
     public tdTabSvc: TemplateDetailsTabService,
-    public layoutSvc: LayoutService
   ) {
     this.layoutSvc.setTitle('Template Details');
   }
@@ -50,7 +49,10 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
+
   onTabChanged(event){
     console.log(event)
   }
+
+
 }

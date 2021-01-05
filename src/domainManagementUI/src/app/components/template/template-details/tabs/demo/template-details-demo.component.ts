@@ -1,6 +1,7 @@
 // Angular Imports
-import { Template } from '@angular/compiler/src/render3/r3_ast';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
@@ -8,7 +9,12 @@ import { TemplateService } from 'src/app/services/template.service';
 import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service'
 
 //Models
+import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 import { TemplateModel } from 'src/app/models/template.model';
+
+//Dialogs
+import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { fileURLToPath } from 'url';
 
 @Component({
   selector: 'td-demo',
@@ -21,8 +27,13 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   safeURL: SafeResourceUrl = null;
   template_data : TemplateModel = new TemplateModel();
 
+
+  deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
+
   constructor(
+    public dialog: MatDialog,
     public domSanitizer: DomSanitizer,
+    private router: Router,
     public tdTabSvc: TemplateDetailsTabService,
   ) {
   }
@@ -53,6 +64,43 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   openInNewTab(){
     window.open(this.tdTabSvc.template_data.template_url,"_blank")
   }
+
+  download(){
+    this.tdTabSvc.downloadTemplate(this.tdTabSvc.template_data.template_uuid)
+    .subscribe(
+      (success) => { console.log(success)},
+      (failure) => { 
+        console.log("Failed to download") 
+        console.log(failure)
+      }
+    );
+  }
+
+  delete(template_uuid){
+    let confirmDialogSettings = new ConfirmDialogSettings();
+    confirmDialogSettings.itemConfirming = "confirm website delete"
+    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.tdTabSvc.template_data.template_name}`
+
+    this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: confirmDialogSettings
+    });
+    this.deleteDialog.afterClosed().subscribe(
+      result => {
+        if(result === "confirmed"){
+          this.tdTabSvc.deleteTemplate(this.tdTabSvc.template_data.template_uuid)
+          .subscribe(
+            (success) => {
+              this.router.navigate([`/template`]);
+            },
+            (failed) => {}
+          )
+        } else {
+          console.log("delete cancled")
+        }
+      }
+    )
+  }
+
   test(){
     console.log(this.tdTabSvc.template_data_attributes[0])
   }

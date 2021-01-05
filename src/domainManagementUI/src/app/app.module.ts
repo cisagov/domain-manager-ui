@@ -14,16 +14,21 @@ import { MaterialModule } from './material.module';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
+//3rd Party Modules
+import { ngfModule, ngf } from "angular-file"
+
 //Custom Components
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
+import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { DomainManagementGeneralAttributesTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
 import { DomainManagementProxyCategorizaitonTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/proxy-categorization/domain-management-proxy-categorization.component';
 import { DomainManagementReviewTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/review/domain-management-review.component';
 import { DomainManagementWebsiteSelectionTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/website-selection/domain-management-website-selection.component';
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
+import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component'
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/template/template-details/tabs/connected-websites/template-details-connected-websites.component';
@@ -35,7 +40,7 @@ import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-
 import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
 import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
-import { WebsiteDeleteDialogComponent } from 'src/app/components/website/website-delete-dialog/website-delete-dialog.component';
+
 
 //Services
 
@@ -73,6 +78,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DomainManagementProxyCategorizaitonTab,
     DomainManagementReviewTab,
     DomainManagementWebsiteSelectionTab,
+    ConfirmDialogComponent,
+    FileUploadDialogComponent,
     TemplateDetailsComponent,
     TemplateDetailsConnectedWebsitesComponent,
     TemplateDetailsDemoComponent,
@@ -83,7 +90,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteDetailsHistoricalComponent,
     WebsiteDetailsSummaryComponent,
     WebsiteListComponent,
-    WebsiteDeleteDialogComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -94,6 +100,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     MaterialModule,
     MatSortModule,
     MatTableModule,
+    ngfModule,
     ReactiveFormsModule,
   ],
   providers: [

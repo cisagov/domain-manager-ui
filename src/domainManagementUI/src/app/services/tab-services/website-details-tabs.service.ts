@@ -31,7 +31,7 @@ export class WebsiteDetailsTabService{
             (data) => {
                 this.website_data = data;                
                 this.initalizeData();
-            }
+            }            
         )
     }
 
@@ -77,7 +77,10 @@ export class WebsiteDetailsTabService{
     }
 
     downloadWebsite(uuid){
-        this.websiteSvc.downloadWebsite(uuid);
+        return this.websiteSvc.downloadWebsite(uuid);
+    }
+    deleteWebsite(uuid){
+        return this.websiteSvc.deleteWebsite(uuid);
     }
 
 }

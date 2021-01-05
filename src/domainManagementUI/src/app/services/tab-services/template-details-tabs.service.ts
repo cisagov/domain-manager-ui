@@ -83,6 +83,13 @@ export class TemplateDetailsTabService{
             }
         );
     }
+    downloadTemplate(uuid){
+        return this.templateSvc.downloadTemplate(uuid);
+    }
+
+    deleteTemplate(templateUUID){
+        return this.templateSvc.deleteTemplate(templateUUID);
+    }
 
     getWebsitesUsed(){
         this.websiteSvc.getAllWebsites().subscribe(
@@ -97,6 +104,7 @@ export class TemplateDetailsTabService{
             }
         )
     }
+
     downloadWebsite(uuid){
         this.websiteSvc.downloadWebsite(uuid);
     }

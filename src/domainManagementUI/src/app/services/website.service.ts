@@ -11,6 +11,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { WebsiteModel } from 'src/app/models/website.model';
 import { TemplateModel } from 'src/app/models/template.model';
 import { env } from 'process';
+import { fileURLToPath } from 'url';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -157,20 +158,20 @@ export class WebsiteService {
         {
           application: "Applicaiton Test value 2",
           domain: "Domain Test Value 2",
-          start_date: '12-12-2012 2',
-          end_date: '12-24-2012 2',
+          start_date: '12-12-2012 ',
+          end_date: '12-24-2012 ',
         },
         {
           application: "Applicaiton Test value 3",
           domain: "Domain Test Value 3",
-          start_date: '12-12-2012 3',
-          end_date: '12-24-2012 3',
+          start_date: '12-12-2012 ',
+          end_date: '12-24-2012 ',
         },
         {
           application: "Applicaiton Test value 4",
           domain: "Domain Test Value 4",
-          start_date: '12-12-2012 4',
-          end_date: '12-24-2012 4',
+          start_date: '12-12-2012',
+          end_date: '12-24-2012',
         },
       ]
 
@@ -189,12 +190,7 @@ export class WebsiteService {
       console.log(this.website_list)
     }
   }
-
-  downloadWebsite(uuid){
-    //TODO: Connect to API
-    console.log("Download website : " + uuid)
-  }
-
+  
   deleteWebsite(website_uuid){
     console.log(website_uuid)
     let url = `${this.settingsService.settings.apiUrl}/api/website/${website_uuid}/`;
@@ -205,6 +201,44 @@ export class WebsiteService {
       }, 1000)
     });
   }
+
+  uploadWebsite(inputFile){        
+      //settings service check required because this function is passed
+      //directly to the file upload modal and requires the settings 
+      if(!this.settingsService){ this.settingsService = new SettingsService();}
+
+      let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+      let formData: FormData = new FormData()
+      formData.append('file', inputFile.data)
+
+      if(!environment.testingNoAPI){
+          return this.http.post(url, formData, headers)
+      }
+
+      if(environment.testingNoAPI){
+          return new Observable((exampleObs) => {
+              setTimeout(() => {
+              exampleObs.next("Webstite uploaded");
+              }, Math.floor(Math.random() * 2000))
+          });
+      }
+  }
+
+  downloadWebsite(uuid){
+    const downloadHeaders = new HttpHeaders().set('content-type', 'application/zip');
+    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    if(!environment.testingNoAPI){
+        return this.http.get(url, { headers: downloadHeaders, responseType: 'blob' });
+    } else {
+        if(environment.testingNoAPI){
+            return new Observable((exampleObs) => {
+                setTimeout(() => {
+                exampleObs.next("website downloaded");
+                }, Math.floor(Math.random() * 1000))
+            });
+        }
+    }        
+}
 
   //TEST FUNCITON TODO: REMOVE
   getTestURL(counter){

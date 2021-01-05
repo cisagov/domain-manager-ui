@@ -5,12 +5,16 @@ import { Observable } from 'rxjs';
 
 //Models
 import { TemplateModel, TemplateAttribute } from 'src/app/models/template.model';
+import { environment } from 'src/environments/environment';
+import { env } from 'process';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
 };
 
-@Injectable()
+@Injectable({
+providedIn: 'root',
+})
 export class TemplateService {
 
     template_list = new Array<TemplateModel>()
@@ -122,4 +126,72 @@ export class TemplateService {
             exampleObs.next(attributeArray)
         })
     }
+
+    uploadTemplate(inputFile){
+
+        //Double check settings, as this function is passed directly to upload modal
+        if(!this.settingsService){ this.settingsService = new SettingsService(); }
+
+        let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+        let formData: FormData = new FormData()
+        formData.append('file', inputFile.data)
+
+
+        console.log(environment)
+
+        if(environment?.testingNoAPI){
+            return new Observable((exampleObs) => {
+                setTimeout(() => {
+                exampleObs.next("Template Uploaded")
+                }, Math.floor(Math.random() * 2000))
+            });
+        }
+
+        if(!environment?.testingNoAPI){
+            return this.http.post(url, formData, headers)
+        }
+    }
+    downloadTemplate(uuid){
+        const downloadHeaders = new HttpHeaders().set('content-type', 'application/zip');
+        let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+        if(!environment.testingNoAPI){
+            return this.http.get(url, { headers: downloadHeaders, responseType: 'blob' });
+        } else {
+            if(environment.testingNoAPI){
+                return new Observable((exampleObs) => {
+                    setTimeout(() => {
+                    exampleObs.next("template downloaded");
+                    }, Math.floor(Math.random() * 1000))
+                });
+            }
+        }
+        
+    }
+
+    deleteTemplate(templateUUID){
+        //Double check settings, as this function is passed directly to delete modal
+        if(!this.settingsService){ this.settingsService = new SettingsService(); }
+
+        let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+        let httpOptions: any = 
+            {
+                body: {
+                    uuid : templateUUID
+                },
+                headers: headers
+            }        
+
+        if(!environment.testingNoAPI){
+            return this.http.post(url, httpOptions)
+        }
+    
+        if(environment.testingNoAPI){
+            return new Observable((exampleObs) => {
+                setTimeout(() => {
+                exampleObs.next("temlpate deleted");
+                }, Math.floor(Math.random() * 200))
+            });
+        }
+    }
+
 }

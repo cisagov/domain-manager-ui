@@ -8,9 +8,13 @@
      </mat-form-field>
    </div>    
    <div class="add-new-button-container flex" >
-     <button mat-raised-button color="primary" (click)="uploadWebsite()">
-       Create Website
-     </button>
+      <button mat-raised-button color="primary"  [matMenuTriggerFor]="menu">Create Website</button>
+      <mat-menu #menu="matMenu">
+        <button (click)="uploadWebsite()" mat-menu-item>
+          <mat-icon  >upload</mat-icon>Upload ZIP</button>
+        <button (click)="test()" mat-menu-item> 
+          <mat-icon>build</mat-icon>Build from template</button>
+      </mat-menu>
    </div>
  </div>
 
