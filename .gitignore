@@ -11,3 +11,5 @@ __pycache__
 
 node_modules
 dist
+
+src/domainManagementUI/src/assets/settings.json
