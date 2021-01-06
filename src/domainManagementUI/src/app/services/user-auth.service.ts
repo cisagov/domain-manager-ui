@@ -13,24 +13,23 @@ import { EINPROGRESS } from 'constants';
 export class UserAuthService {
   currentAuthUser: any;
   isAdmin: any;
-  public currentAuthUserSubject: BehaviorSubject<string> = new BehaviorSubject<
-    string
-  >('Not Authorized');
-  public isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<
-    boolean
-  >(false);
+  public currentAuthUserSubject: BehaviorSubject<string> = new BehaviorSubject<string>(
+    'Not Authorized'
+  );
+  public isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentAuthUserSubject.subscribe((value) => {
       this.currentAuthUser = value;
     });
     this.isAdminSubject.subscribe((value) => {
-      if(environment.authorize){
+      if (environment.authorize) {
         this.isAdmin = value;
       } else {
         this.isAdmin = environment.defaultToAdmin;
       }
-      
     });
   }
 
@@ -38,12 +37,12 @@ export class UserAuthService {
   handleAuthNotification(data) {}
 
   signOut() {
-    console.log("signing out")
+    console.log('signing out');
     Auth.signOut();
   }
 
   redirectToSignIn() {
-    console.log("redirecting")
+    console.log('redirecting');
     Auth.federatedSignIn();
   }
 
@@ -88,23 +87,24 @@ export class UserAuthService {
     }
   }
 
-  _setIsAdmin(succesfulAuthObject){
+  _setIsAdmin(succesfulAuthObject) {
     if (environment.authorize) {
-      let groups = succesfulAuthObject['signInUserSession']['idToken']['payload']['cognito:groups']
-      if(groups != undefined && groups instanceof Array){
-        groups.forEach(group => {
-          if(group == 'DomainManagerAdmin'){
-            this.isAdminSubject.next(true)
+      let groups =
+        succesfulAuthObject['signInUserSession']['idToken']['payload'][
+          'cognito:groups'
+        ];
+      if (groups != undefined && groups instanceof Array) {
+        groups.forEach((group) => {
+          if (group == 'DomainManagerAdmin') {
+            this.isAdminSubject.next(true);
           }
         });
-      }else{
-        this.isAdminSubject.next(false)
+      } else {
+        this.isAdminSubject.next(false);
       }
+    } else {
+      this.isAdminSubject.next(environment.defaultToAdmin);
     }
-    else {
-      this.isAdminSubject.next(environment.defaultToAdmin)
-    }
-
   }
 
   getUserNameBehaviorSubject(): Observable<any> {
@@ -132,23 +132,23 @@ export class UserAuthService {
   }
 
   getUserTokens() {
-      if (environment.authorize) {
-        return new Promise((resolve, reject) => {
-          Auth.currentAuthenticatedUser()
-            .then((success) => {
-              this._setUserName(success);
-              console.log(success)
-              resolve({
-                idToken: success.signInUserSession.accessToken.jwtToken,
-                accessToken: success.signInUserSession.idToken.jwtToken,
-              });
-            })
-            .catch((error) => {
-              console.log(error)
-              reject(error);
-              this.signOut()
-              this.redirectToSignIn();
+    if (environment.authorize) {
+      return new Promise((resolve, reject) => {
+        Auth.currentAuthenticatedUser()
+          .then((success) => {
+            this._setUserName(success);
+            console.log(success);
+            resolve({
+              idToken: success.signInUserSession.accessToken.jwtToken,
+              accessToken: success.signInUserSession.idToken.jwtToken,
             });
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+            this.signOut();
+            this.redirectToSignIn();
+          });
       });
     } else {
       return new Promise((resolve, reject) => {

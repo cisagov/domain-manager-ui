@@ -30,7 +30,7 @@ import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/fil
 })
 export class WebsiteListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['website_name','template_base_name','created_date'];
+  displayedColumns = ['website_name', 'template_base_name', 'created_date'];
   search_input = '';
   websiteList: MatTableDataSource<WebsiteModel>;
   loading = true;
@@ -55,8 +55,7 @@ export class WebsiteListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   getWebsites() {
     this.loading = true;
@@ -77,9 +76,7 @@ export class WebsiteListComponent implements OnInit {
   }
 
   viewWebsite(website_uuid) {
-    this.router.navigate([
-      `/website/details/${website_uuid}`,
-    ]);
+    this.router.navigate([`/website/details/${website_uuid}`]);
   }
 
   uploadWebsite(){

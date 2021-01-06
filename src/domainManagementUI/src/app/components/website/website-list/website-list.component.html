@@ -29,37 +29,44 @@
         diameter="50"
       ></mat-spinner>
     </div>
-    
-    <mat-table [dataSource]="websiteList" matSort>
 
+    <mat-table [dataSource]="websiteList" matSort>
       <!-- Website Name -->
       <ng-container matColumnDef="website_name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Website Name</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">{{ row.website_name }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Website Name</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewWebsite(row.website_uuid)"
+          >{{ row.website_name }}</mat-cell
+        >
       </ng-container>
-        
-       
+
       <!-- Template Base -->
       <ng-container matColumnDef="template_base_name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Template Base</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">{{ row.template_base_name }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Template Base</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewWebsite(row.website_uuid)"
+          >{{ row.template_base_name }}</mat-cell
+        >
       </ng-container>
-        
-       
+
       <!-- Created Date -->
       <ng-container matColumnDef="created_date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Created Date </mat-header-cell
-          >
-          <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">{{ row.created_date | date: 'MM/dd/yy' }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Created Date
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewWebsite(row.website_uuid)"
+          >{{ row.created_date | date: "MM/dd/yy" }}</mat-cell
+        >
       </ng-container>
-      
-        
-     
+
       <!-- Header Info -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row

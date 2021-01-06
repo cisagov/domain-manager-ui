@@ -25,15 +25,18 @@
         diameter="50"
       ></mat-spinner>
     </div>
-    
-    <mat-table [dataSource]="templateList" matSort>
 
+    <mat-table [dataSource]="templateList" matSort>
       <!-- Template Name -->
       <ng-container matColumnDef="template_name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Template Name</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row" (click)="viewTemplate(row.template_uuid)">{{ row.template_name }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Template Name</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewTemplate(row.template_uuid)"
+          >{{ row.template_name }}</mat-cell
+        >
       </ng-container>
 
       <!-- Create Date -->
@@ -41,20 +44,25 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Created Date</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewTemplate(row.template_uuid)">{{ row.created_date | date: 'MM/dd/yy'  }}</mat-cell>
-     </ng-container>
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewTemplate(row.template_uuid)"
+          >{{ row.created_date | date: "MM/dd/yy" }}</mat-cell
+        >
+      </ng-container>
 
       <!-- Uploaded By -->
       <ng-container matColumnDef="uploaded_by">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Uploaded By</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewTemplate(row.template_uuid)">{{ row.uploaded_by }}</mat-cell>
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewTemplate(row.template_uuid)"
+          >{{ row.uploaded_by }}</mat-cell
+        >
       </ng-container>
-        
-       
-        
-     
+
       <!-- Header Info -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
