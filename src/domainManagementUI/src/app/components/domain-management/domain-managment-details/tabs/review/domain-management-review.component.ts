@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Local Service Imports
 import { ApplicationService } from 'src/app/services/applications.service';
-import { CategoryService } from 'src/app/services/category.service';
+import { CategoryService } from 'src/app/services/category.service'
 import { LayoutService } from 'src/app/services/layout.service';
 import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
@@ -14,37 +14,39 @@ import { WebsiteService } from 'src/app/services/website.service';
 })
 export class DomainManagementReviewTab implements OnInit {
   constructor(
-    public applicationSvc: ApplicationService,
+    public applicationSvc : ApplicationService,
     public categorySvc: CategoryService,
     public domainTabSvc: DomainManagementTabService,
     public layoutSvc: LayoutService,
-    public websiteSvc: WebsiteService
-  ) {}
+    public websiteSvc: WebsiteService,
+    ) {}
 
-  ngOnInit(): void {}
-
-  submitDomain() {
-    console.log('submitting');
+  ngOnInit(): void {
   }
 
-  booleanToDisplay(val) {
-    if (val) {
-      return 'Yes';
+  submitDomain(){
+    console.log("submitting")
+  }
+
+  booleanToDisplay(val){
+    if(val){
+      return 'Yes'
     } else {
-      return 'No';
+      return 'No'
     }
   }
 
-  get genFrmCnt() {
-    return this.domainTabSvc.gen_attribute_tab_form.controls;
+  get genFrmCnt(){
+    return this.domainTabSvc.gen_attribute_tab_form.controls
   }
-  get webFrmCnt() {
-    return this.domainTabSvc.website_selection_tab_form.controls;
+  get webFrmCnt(){
+    return this.domainTabSvc.website_selection_tab_form.controls
   }
-  get pxyFrmCnt() {
-    return this.domainTabSvc.proxy_categoriztion_tab_form.controls;
+  get pxyFrmCnt(){
+    return this.domainTabSvc.proxy_categoriztion_tab_form.controls
   }
-  get rvwFrmCnt() {
-    return this.domainTabSvc.review_tab_form.controls;
+  get rvwFrmCnt(){
+    return this.domainTabSvc.review_tab_form.controls
   }
+
 }

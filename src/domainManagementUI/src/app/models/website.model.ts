@@ -1,4 +1,4 @@
-import { TemplateModel } from './template.model';
+import {  TemplateModel } from './template.model'
 
 export interface IWebsiteBaseModel {
   website_name: string;
@@ -16,7 +16,7 @@ export class WebsiteBaseModel {
   website_parameters: WebSiteParameter[];
   application_using_uuid: string;
 
-  constructor() {
+  constructor(){
     this.website_name = null;
     this.website_uuid = null;
     this.created_date = null;

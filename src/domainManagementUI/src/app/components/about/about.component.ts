@@ -8,7 +8,9 @@ import { LayoutService } from 'src/app/services/layout.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  constructor(public layoutSvc: LayoutService) {}
+  constructor(
+    public layoutSvc: LayoutService
+    ) {}
 
   ngOnInit(): void {
     this.layoutSvc.setTitle('About Page');

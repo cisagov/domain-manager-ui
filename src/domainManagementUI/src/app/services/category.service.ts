@@ -9,41 +9,43 @@ const headers = {
 
 @Injectable()
 export class CategoryService {
-  category_list = new Array();
+
+  category_list = new Array()
 
   category_list_testing_data = [
-    {
-      categoryName: 'Internets',
-      categoryUUID: 'UUID-1',
+    { 
+        categoryName: 'Internets',
+        categoryUUID: 'UUID-1'
     },
-    {
-      categoryName: 'Websites',
-      categoryUUID: 'UUID-2',
+    { 
+        categoryName: 'Websites',
+        categoryUUID: 'UUID-2'
     },
-    {
-      categoryName: 'SearchEngines',
-      categoryUUID: 'UUID-3',
+    { 
+        categoryName: 'SearchEngines',
+        categoryUUID: 'UUID-3'
     },
-    {
-      categoryName: 'Video Hosting Sites',
-      categoryUUID: 'UUID-4',
+    { 
+        categoryName: 'Video Hosting Sites',
+        categoryUUID: 'UUID-4'
     },
-    {
-      categoryName: 'News',
-      categoryUUID: 'UUID-5',
+    { 
+        categoryName: 'News',
+        categoryUUID: 'UUID-5'
     },
-    {
-      categoryName: 'Streaming Service',
-      categoryUUID: 'UUID-6',
+    { 
+        categoryName: 'Streaming Service',
+        categoryUUID: 'UUID-6'
     },
-  ];
+]
 
   constructor(
     private http: HttpClient,
     private settingsService: SettingsService
   ) {
     //TODO: REMOVE AFTER TESTING
-    this.category_list = this.category_list_testing_data;
+    this.category_list = this.category_list_testing_data
+
   }
 
   getAllCategories() {
@@ -59,14 +61,13 @@ export class CategoryService {
     // );
 
     //Test Data TODO: REMOVE IN PROD
-    return this.category_list;
+    return this.category_list
   }
 
-  getCategroyNameByUUID(uuid) {
-    if (this.category_list.length) {
-      return this.category_list.find((c) => c.categoryUUID === uuid)
-        ?.categoryName;
-    }
-    return 'ERROR';
+  getCategroyNameByUUID(uuid){
+    if(this.category_list.length){
+      return this.category_list.find(c => c.categoryUUID === uuid)?.categoryName
+    } 
+    return 'ERROR'
   }
 }

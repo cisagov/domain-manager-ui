@@ -6,6 +6,7 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -16,6 +17,11 @@ import { TemplateService } from 'src/app/services/template.service';
 
 //Models
 import { TemplateModel } from 'src/app/models/template.model';
+import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
+
+// Dialogs
+import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component'
+
 
 @Component({
   selector: 'template-list',
@@ -24,16 +30,17 @@ import { TemplateModel } from 'src/app/models/template.model';
 })
 export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['template_name', 'created_date', 'uploaded_by'];
+  displayedColumns = ['template_name','created_date','uploaded_by'];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
   loading = true;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    public templateSvc: TemplateService,
+    public dialog: MatDialog,
     public layoutSvc: LayoutService,
-    private router: Router
+    private router: Router,
+    public templateSvc: TemplateService,
   ) {
     this.layoutSvc.setTitle('Templates');
   }
@@ -48,7 +55,8 @@ export class TemplateListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+  }
 
   getTemplates() {
     this.loading = true;
@@ -57,7 +65,7 @@ export class TemplateListComponent implements OnInit {
         this.templateList = new MatTableDataSource<TemplateModel>(
           success as TemplateModel[]
         );
-        console.log(success);
+        console.log(success)
         this.templateList.sort = this.sort;
         this.loading = false;
       },
@@ -70,11 +78,22 @@ export class TemplateListComponent implements OnInit {
   }
 
   viewTemplate(template_uuid) {
-    console.log(template_uuid);
-    this.router.navigate([`/template/details/${template_uuid}`]);
+    console.log(template_uuid)
+    this.router.navigate([
+      `/template/details/${template_uuid}`,
+    ]);
   }
-  uploadWebsite() {
-    console.log('Upload Website not yet implemmeneted');
+  uploadTemplate(){
+    console.log("opening upload template dialog")
+    
+    let fileUploadSettings = new FileUploadSettings();
+    fileUploadSettings.uploadType = "template";
+    fileUploadSettings.uploadFileType = "application/zip"
+    fileUploadSettings.uploadFunction = this.templateSvc.uploadTemplate;
+      
+    this.dialog.open(FileUploadDialogComponent, {
+      data: fileUploadSettings
+    });
   }
 
   public filterList = (value: string) => {

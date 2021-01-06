@@ -9,11 +9,7 @@ import { UserAuthService } from '../services/user-auth.service';
 import { Observable, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
-import {
-  ActivatedRouteSnapshot,
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
 
 import { SettingsService } from 'src/app/services/settings.service';
 
@@ -30,12 +26,9 @@ export class AuthAppendInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return from(this.userAuthSvc.getUserTokens()).pipe(
       switchMap((token) => {
-        if (
-          this.settingsService.settings.apiKey == undefined &&
-          !environment.authorize
-        ) {
+        if(this.settingsService.settings.apiKey == undefined && !environment.authorize){
           return next.handle(httpRequest);
-        }
+        }        
         const headers = httpRequest.headers
           // .set('Authorization','Bearer ' + token['idToken'])
           .append('accept', 'application/json')

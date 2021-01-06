@@ -13,6 +13,7 @@ import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-
   styleUrls: ['./website-details.component.scss'],
 })
 export class WebsiteDetailsComponent implements OnInit, OnDestroy {
+  
   component_subscriptions = [];
   selectedTabIndex: number = 0;
   website_uuid = null;
@@ -21,7 +22,8 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     public activeRoute: ActivatedRoute,
     public layoutSvc: LayoutService,
     public wdTabSvc: WebsiteDetailsTabService,
-    public websiteTemplateSvc: WebsiteService
+    public websiteTemplateSvc: WebsiteService,
+    
   ) {
     this.layoutSvc.setTitle('Website Details');
   }
@@ -49,7 +51,8 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     this.wdTabSvc.getWebsiteHistory(website_uuid);
   }
 
-  onTabChanged(event) {
-    console.log(event);
+  onTabChanged(event){
+    console.log(event)
   }
+  
 }
