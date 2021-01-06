@@ -77,11 +77,11 @@ export class WebsiteService {
             },
             {
               param_name: "Param Two",
-              value: "Param_Value_One"
+              value: "Param_Value_TWO"
             },
             {
               param_name: "Param Three",
-              value: "Param_Value_One"
+              value: "Param_Value_THREE"
             },
           ],
         }
