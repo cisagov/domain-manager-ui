@@ -1,5 +1,4 @@
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 
@@ -11,9 +10,6 @@ import { environment } from 'src/environments/environment';
 import { WebsiteModel, WebsiteHistory } from 'src/app/models/website.model'
 
 
-const headers = {
-  headers: new HttpHeaders().set('Content-Type', 'application/json'),
-};
 
 @Injectable()
 export class WebsiteDetailsTabService{
@@ -23,7 +19,6 @@ export class WebsiteDetailsTabService{
     public website_history : WebsiteHistory[] = new Array<WebsiteHistory>();
 
     constructor(
-        private http: HttpClient,
         private settingsService: SettingsService,
         private websiteSvc: WebsiteService,
     ) {
@@ -77,7 +72,10 @@ export class WebsiteDetailsTabService{
     }
 
     downloadWebsite(uuid){
-        this.websiteSvc.downloadWebsite(uuid);
+        return this.websiteSvc.downloadWebsite(uuid);
+    }
+    deleteWebsite(uuid){
+        return this.websiteSvc.deleteWebsite(uuid);
     }
 
 }

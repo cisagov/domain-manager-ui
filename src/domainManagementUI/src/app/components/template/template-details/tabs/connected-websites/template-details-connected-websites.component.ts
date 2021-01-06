@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // Local Service Imports
 import { ApplicationService } from 'src/app/services/applications.service';
-import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
+import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service'
 
 //Models
 import { TemplateModel } from 'src/app/models/template.model';
@@ -14,17 +14,20 @@ import { TemplateModel } from 'src/app/models/template.model';
   templateUrl: './template-details-connected-websites.component.html',
   styleUrls: ['./template-details-connected-websites.component.scss'],
 })
-export class TemplateDetailsConnectedWebsitesComponent
-  implements OnInit, OnDestroy {
+export class TemplateDetailsConnectedWebsitesComponent implements OnInit, OnDestroy {
+
   component_subscriptions = [];
-  template_data: TemplateModel = new TemplateModel();
+  template_data : TemplateModel = new TemplateModel();
 
   constructor(
     public applicationSvc: ApplicationService,
-    public tdTabSvc: TemplateDetailsTabService
-  ) {}
+    public tdTabSvc: TemplateDetailsTabService,
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {

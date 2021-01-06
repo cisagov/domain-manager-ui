@@ -51,13 +51,14 @@ import { DomainManagementService } from 'src/app/services/domain-management.serv
 import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from './services/layout.service';
 import { SettingsHttpService } from 'src/app/services/settings-http.service';
-import { TemplateService } from 'src/app/services/template.service';
+import { TemplateService } from 'src/app/services/template.service'
 import { ThemeService } from './services/theme.service';
-import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
-import { UserAuthService } from './services/user-auth.service';
+import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service'
+import { UserAuthService } from './services/user-auth.service'
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteCreationTabService } from 'src/app/services/tab-services/website-creation-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
+
 
 //Helpers
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
@@ -97,7 +98,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
-    BrowserModule,
+    BrowserModule, 
     FormsModule,
     HttpClientModule,
     MaterialModule,

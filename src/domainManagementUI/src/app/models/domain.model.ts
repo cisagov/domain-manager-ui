@@ -18,7 +18,7 @@ export class DomainBaseModel {
   registeredOnPublicWeb: string;
   expirationDate: Date;
   wentLiveDate: Date;
-  useHistory: DomainHistory[];
+  useHistory: DomainHistory[] 
   website_uuid: string;
   update_email: string;
   _id: string;
@@ -28,12 +28,12 @@ export class DomainBaseModel {
     this.uuid = null;
     this.callerReference = null;
     this.id = null;
-    (this.application = null),
-      (this.application_uuid = null),
-      (this.isAvailable = null),
-      (this.lastUser = null),
-      (this.reputation = null),
-      (this.name = null);
+    this.application = null,
+    this.application_uuid = null,
+    this.isAvailable = null,
+    this.lastUser = null,
+    this.reputation = null,
+    this.name = null;
     this.resourceRecordSetCount = 0;
     this.registrarName = null;
     this.categoryOne = null;
@@ -59,10 +59,12 @@ class DomainHistory {
 export class DomainListItemModel extends DomainBaseModel {
   isSelected: boolean;
 
-  constructor() {
+  constructor(){
     super();
     this.isSelected = false;
   }
 }
 
-export class DomainModel extends DomainBaseModel {}
+export class DomainModel extends DomainBaseModel {
+
+}

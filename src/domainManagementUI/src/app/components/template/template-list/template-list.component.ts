@@ -30,7 +30,7 @@ import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/fil
 })
 export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['template_name', 'created_date', 'uploaded_by'];
+  displayedColumns = ['template_name','created_date','uploaded_by'];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
   loading = true;
@@ -55,7 +55,8 @@ export class TemplateListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+  }
 
   getTemplates() {
     this.loading = true;
@@ -64,7 +65,7 @@ export class TemplateListComponent implements OnInit {
         this.templateList = new MatTableDataSource<TemplateModel>(
           success as TemplateModel[]
         );
-        console.log(success);
+        console.log(success)
         this.templateList.sort = this.sort;
         this.loading = false;
       },
@@ -77,10 +78,11 @@ export class TemplateListComponent implements OnInit {
   }
 
   viewTemplate(template_uuid) {
-    console.log(template_uuid);
-    this.router.navigate([`/template/details/${template_uuid}`]);
+    console.log(template_uuid)
+    this.router.navigate([
+      `/template/details/${template_uuid}`,
+    ]);
   }
-<<<<<<< HEAD
   uploadTemplate(){
     console.log("opening upload template dialog")
     
@@ -92,10 +94,6 @@ export class TemplateListComponent implements OnInit {
     this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings
     });
-=======
-  uploadWebsite() {
-    console.log('Upload Website not yet implemmeneted');
->>>>>>> develop
   }
 
   public filterList = (value: string) => {

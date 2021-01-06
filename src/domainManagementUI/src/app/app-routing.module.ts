@@ -8,8 +8,8 @@ import { DomainManagementDetailsComponent } from 'src/app/components/domain-mana
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
-import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
-import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
+import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component'
+import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component'
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';

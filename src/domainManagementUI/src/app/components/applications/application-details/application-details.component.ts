@@ -45,13 +45,15 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     console.log(
       `Component call to service to load domain with domain uuid of ${website_uuid}`
     );
-    this.websiteTemplateSvc.getWebsiteDetails(website_uuid).subscribe(
-      (success) => {
-        console.log(`Data received from service : ${success}`);
-      },
-      (error) => {
-        console.log(`Error from service ${error}`);
-      }
-    );
+    this.websiteTemplateSvc
+      .getWebsiteDetails(website_uuid)
+      .subscribe(
+        (success) => {
+          console.log(`Data received from service : ${success}`);
+        },
+        (error) => {
+          console.log(`Error from service ${error}`);
+        }
+      );
   }
 }

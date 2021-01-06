@@ -6,7 +6,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
 import { TemplateService } from 'src/app/services/template.service';
-import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
+import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service'
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
@@ -22,9 +22,10 @@ import { fileURLToPath } from 'url';
   styleUrls: ['./template-details-demo.component.scss'],
 })
 export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
+
   component_subscriptions = [];
   safeURL: SafeResourceUrl = null;
-  template_data: TemplateModel = new TemplateModel();
+  template_data : TemplateModel = new TemplateModel();
 
 
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
@@ -41,11 +42,11 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     this.component_subscriptions.push(
       this.tdTabSvc.getTemplateDataBehaviorSubject().subscribe(
         (success) => {
-          this.setURL(success);
+          this.setURL(success)
         },
-        (failure) => {}
+        (failure) => {} 
       )
-    );
+    )    
   }
 
   ngOnDestroy(): void {
@@ -54,16 +55,14 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     });
   }
 
-  setURL(template: TemplateModel) {
-    console.log(template);
-    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      template.template_url
-    );
-    console.log(this.safeURL);
+  setURL(template: TemplateModel){
+    console.log(template)
+    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(template.template_url);
+    console.log(this.safeURL)
   }
 
-  openInNewTab() {
-    window.open(this.tdTabSvc.template_data.template_url, '_blank');
+  openInNewTab(){
+    window.open(this.tdTabSvc.template_data.template_url,"_blank")
   }
 
   download(){

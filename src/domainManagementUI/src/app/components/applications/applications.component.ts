@@ -8,7 +8,9 @@ import { LayoutService } from 'src/app/services/layout.service';
   styleUrls: ['./applications.component.scss'],
 })
 export class ApplicationsComponent implements OnInit {
-  constructor(public layoutSvc: LayoutService) {}
+  constructor(
+    public layoutSvc: LayoutService
+    ) {}
 
   ngOnInit(): void {
     this.layoutSvc.setTitle('Applications');

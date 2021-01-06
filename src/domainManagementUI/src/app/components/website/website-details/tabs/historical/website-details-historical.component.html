@@ -1,23 +1,26 @@
+
 <div class="flex flex-container tab">
   <!-- <h5>Website : {{tdTabSvc.template_data.template_name}}</h5> -->
   <h5>Website : REPLACE WITH VAL</h5>
-  <div class="text-muted">History</div>
+  <div class="text-muted">
+    History
+  </div>
   <!-- Use Histroy Table -->
   <mat-label class="mt-3">Website Usage History</mat-label>
-  <div class="flex-row">
-    <table class="display_table">
-      <tr>
-        <th>Domain</th>
-        <th>Application</th>
-        <th>Start Date</th>
-        <th>Stop Date</th>
-      </tr>
-      <tr *ngFor="let history of wdTabSvc.website_history">
-        <td>{{ history.domain }}</td>
-        <td>{{ history.application }}</td>
-        <td>{{ history.start_date | date: "MM/dd/yy" }}</td>
-        <td>{{ history.end_date | date: "MM/dd/yy" }}</td>
-      </tr>
-    </table>
+  <div class="flex-row ">
+      <table class="display_table">
+          <tr>
+            <th> Domain </th>
+            <th> Application </th>
+            <th> Start Date </th>
+            <th> Stop Date </th>
+          </tr>
+          <tr *ngFor="let history of wdTabSvc.website_history">
+            <td>{{history.domain}}</td>
+            <td>{{history.application}}</td>
+            <td>{{history.start_date | date: 'MM/dd/yy'}}</td>
+            <td>{{history.end_date | date: 'MM/dd/yy'}}</td>
+          </tr>
+      </table>
   </div>
 </div>
