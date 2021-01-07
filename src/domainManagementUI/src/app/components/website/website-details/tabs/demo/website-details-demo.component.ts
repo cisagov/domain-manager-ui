@@ -4,7 +4,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
 import { WebsiteService } from 'src/app/services/website.service';
-import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service'
+import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
 //Models
 import { WebsiteModel } from 'src/app/models/website.model';
@@ -15,26 +15,24 @@ import { WebsiteModel } from 'src/app/models/website.model';
   styleUrls: ['./website-details-demo.component.scss'],
 })
 export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
-
   component_subscriptions = [];
   safeURL: SafeResourceUrl = null;
-  template_data : WebsiteModel = new WebsiteModel();
+  template_data: WebsiteModel = new WebsiteModel();
 
   constructor(
     public domSanitizer: DomSanitizer,
-    public wdTabSvc: WebsiteDetailsTabService,
-  ) {
-  }
+    public wdTabSvc: WebsiteDetailsTabService
+  ) {}
 
   ngOnInit(): void {
     this.component_subscriptions.push(
       this.wdTabSvc.getWebsiteDataBehaviorSubject().subscribe(
         (success) => {
-          this.setURL(success)
+          this.setURL(success);
         },
-        (failure) => {} 
+        (failure) => {}
       )
-    )    
+    );
   }
 
   ngOnDestroy(): void {
@@ -43,16 +41,16 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
     });
   }
 
-  setURL(website: WebsiteModel){
-    console.log(website)
-    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(website.website_url);
-    console.log(this.safeURL)
+  setURL(website: WebsiteModel) {
+    console.log(website);
+    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
+      website.website_url
+    );
+    console.log(this.safeURL);
   }
 
-  openInNewTab(){
-    window.open(this.wdTabSvc.website_data.website_url,"_blank")
+  openInNewTab() {
+    window.open(this.wdTabSvc.website_data.website_url, '_blank');
   }
-  test(){
-    
-  }
+  test() {}
 }

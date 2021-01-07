@@ -29,7 +29,7 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
   domain: DomainModel;
   dm_form: FormGroup;
   selectedTabIndex: number = 0;
-  completedTabs: number[] = []
+  completedTabs: number[] = [];
 
   constructor(
     public activeRoute: ActivatedRoute,
@@ -47,8 +47,7 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
       this.activeRoute.params.subscribe(
         (params) => {
           this.domain_uuid = params['domain_uuid'];
-          this.domainTabSvc.getDomainDetails(this.domain_uuid)
-          
+          this.domainTabSvc.getDomainDetails(this.domain_uuid);
         },
         (error) => {
           console.log('Failed to load domain');
@@ -76,25 +75,22 @@ export class DomainManagementDetailsComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  _getNextTabObservable(){
+  _getNextTabObservable() {
     this.component_subscriptions.push(
-      this.domainTabSvc.tabCompleteBehvaiorSubject.subscribe(
-        (tabComplete) => {
-          if(tabComplete){
-            this.selectedTabIndex += 1;
-          }
+      this.domainTabSvc.tabCompleteBehvaiorSubject.subscribe((tabComplete) => {
+        if (tabComplete) {
+          this.selectedTabIndex += 1;
         }
-    ))
+      })
+    );
   }
-  tabIsActive(){
-
-  }
+  tabIsActive() {}
 
   /**
    * Event fires when a new tab is selected
    */
   onTabChanged(event) {
-    console.log(event)
+    console.log(event);
   }
 
   /**

@@ -13,7 +13,6 @@ import { WebsiteCreationTabService } from 'src/app/services/tab-services/website
   styleUrls: ['./website-creation.component.scss'],
 })
 export class WebsiteCreationComponent implements OnInit, OnDestroy {
-  
   component_subscriptions = [];
   selectedTabIndex: number = 0;
   selected_template_uuid = null;
@@ -22,22 +21,25 @@ export class WebsiteCreationComponent implements OnInit, OnDestroy {
     public activeRoute: ActivatedRoute,
     public layoutSvc: LayoutService,
     public wcTabSvc: WebsiteCreationTabService,
-    public websiteTemplateSvc: WebsiteService,
-    
+    public websiteTemplateSvc: WebsiteService
   ) {
-    this.layoutSvc.setTitle('Website Details');
+    this.layoutSvc.setTitle('Create Website');
   }
 
   ngOnInit(): void {
-    //Get the template uuid param from the url if one is presenet
     this.component_subscriptions.push(
-      this.activeRoute.params.subscribe((params) => {
-        this.selected_template_uuid = params['template_uuid'];
-        if (this.selected_template_uuid !== null) {
-          this.selectTemplate(this.selected_template_uuid);
+      this.activeRoute.params.subscribe(
+        (params) => {
+          this.selected_template_uuid = params['template_uuid'];
+          this.wcTabSvc.updateTemplateSelection(this.selected_template_uuid);
+        },
+        (error) => {
+          console.log('Failed to load domain');
+          console.log(error);
         }
-      })
+      )
     );
+    this._getNextTabObservable();
   }
 
   ngOnDestroy(): void {
@@ -46,11 +48,17 @@ export class WebsiteCreationComponent implements OnInit, OnDestroy {
     });
   }
 
-  onTabChanged(event){
-    console.log(event)
+  onTabChanged(event) {
+    console.log(event);
   }
-  
-  selectTemplate(uuid){
 
+  _getNextTabObservable() {
+    this.component_subscriptions.push(
+      this.wcTabSvc.tabCompleteBehvaiorSubject.subscribe((tabComplete) => {
+        if (tabComplete) {
+          this.selectedTabIndex += 1;
+        }
+      })
+    );
   }
 }

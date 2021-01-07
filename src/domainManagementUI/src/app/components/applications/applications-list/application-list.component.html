@@ -1,18 +1,23 @@
 <div>
   <div class="table-list-header flex">
-   <div class="search-bar flex" >
-     <mat-form-field class="w-100" appearance="outline">
-       <mat-label>Search</mat-label>
-       <input [(ngModel)]="search_input" (keyup)="filterList($event.target.value)" matInput placeholder="Search" />
-       <mat-icon matSuffix>search</mat-icon>
-     </mat-form-field>
-   </div>    
-   <div class="add-new-button-container flex" >
-     <button mat-raised-button color="primary" (click)="addApplication()">
-       Add New Application
-     </button>
-   </div>
- </div>
+    <div class="search-bar flex">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          [(ngModel)]="search_input"
+          (keyup)="filterList($event.target.value)"
+          matInput
+          placeholder="Search"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="add-new-button-container flex">
+      <button mat-raised-button color="primary" (click)="addApplication()">
+        Add New Application
+      </button>
+    </div>
+  </div>
 
   <div class="col p-0 w-100">
     <div
@@ -25,26 +30,32 @@
         diameter="50"
       ></mat-spinner>
     </div>
-    
-    <mat-table [dataSource]="applicationList" matSort>
 
-    <!-- Application Name -->
-    <ng-container matColumnDef="application_name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Application Name</mat-header-cell
-      >
-      <mat-cell *matCellDef="let row" (click)="viewApplication(row.application_uuid)">{{ row.application_name }}</mat-cell>
-    </ng-container>
+    <mat-table [hidden]="loading" [dataSource]="applicationList" matSort>
+      <!-- Application Name -->
+      <ng-container matColumnDef="application_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Application Name</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewApplication(row.application_uuid)"
+          >{{ row.application_name }}</mat-cell
+        >
+      </ng-container>
 
-    <!-- Domains Used Count -->
-    <ng-container matColumnDef="domains_used_count">
+      <!-- Domains Used Count -->
+      <ng-container matColumnDef="domains_used_count">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Domain Used Count</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewApplication(row.application_uuid)">{{ row.domains_used_count }}</mat-cell>
-    </ng-container>
-        
-     
+        <mat-cell
+          *matCellDef="let row"
+          (click)="viewApplication(row.application_uuid)"
+          >{{ row.domains_used_count }}</mat-cell
+        >
+      </ng-container>
+
       <!-- Header Info -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row

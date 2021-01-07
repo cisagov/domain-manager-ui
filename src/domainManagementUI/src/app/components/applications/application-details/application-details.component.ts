@@ -1,36 +1,43 @@
 // Angular Imports
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
+import { ApplicationService } from 'src/app/services/applications.service';
 import { LayoutService } from 'src/app/services/layout.service';
-import { WebsiteService } from 'src/app/services/website.service';
+
+//Models
+import { ApplicationModel } from 'src/app/models/application.model';
 
 @Component({
-  selector: 'website-details',
-  templateUrl: './website-details.component.html',
-  styleUrls: ['./website-details.component.scss'],
+  selector: 'application-details',
+  templateUrl: './application-details.component.html',
+  styleUrls: ['./application-details.component.scss'],
 })
-export class WebsiteDetailsComponent implements OnInit, OnDestroy {
+export class ApplicationDetailsComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
-  website_uuid = null;
+  application_data: ApplicationModel = new ApplicationModel();
+  applicationLoaded: boolean = false;
+  application_uuid = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
-    public websiteTemplateSvc: WebsiteService,
-    public layoutSvc: LayoutService
+    public alerts: AlertsService,
+    public applicationSvc: ApplicationService,
+    public layoutSvc: LayoutService,
+    private router: Router
   ) {
-    this.layoutSvc.setTitle('Website Details');
+    this.layoutSvc.setTitle('Create Domain');
   }
 
   ngOnInit(): void {
     //Get the uuid param from the url
     this.component_subscriptions.push(
       this.activeRoute.params.subscribe((params) => {
-        this.website_uuid = params['website_uuid'];
-        if (this.website_uuid !== null) {
-          this.loadWebsite(this.website_uuid);
-        }
+        this.application_uuid = params['application_uuid'];
+        this.loadApplication(this.application_uuid);
       })
     );
   }
@@ -41,19 +48,37 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadWebsite(website_uuid) {
-    console.log(
-      `Component call to service to load domain with domain uuid of ${website_uuid}`
+  loadApplication(application_uuid) {
+    this.applicationSvc.getApplication(application_uuid).subscribe(
+      (success) => {
+        this.application_data = success as ApplicationModel;
+        this.applicationLoaded = true;
+      },
+      (failure) => {
+        console.log('failed to load application');
+        console.log(failure);
+      }
     );
-    this.websiteTemplateSvc
-      .getWebsiteDetails(website_uuid)
-      .subscribe(
+  }
+
+  delete() {
+    if (this.application_data.domains_used_count == 0) {
+      this.applicationSvc.deleteApplication(this.application_uuid).subscribe(
         (success) => {
-          console.log(`Data received from service : ${success}`);
+          console.log('Application Deleted');
+          this.router.navigate([`/application`]);
         },
-        (error) => {
-          console.log(`Error from service ${error}`);
+        (failure) => {
+          console.log('failed to delete the applicaiton');
+          console.log(failure);
         }
       );
+    } else {
+      this.alerts.alert('Can not delete an application that is using a domain');
+    }
+  }
+
+  test() {
+    console.log('test');
   }
 }
