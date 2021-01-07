@@ -8,7 +8,7 @@
      </mat-form-field>
    </div>    
    <div *ngIf="userIsAdmin" class="add-new-button-container flex" >
-     <button mat-raised-button color="primary" (click)="createDomain()">
+     <button mat-raised-button color="primary" routerLink="/domain-management/create">
        Add New Domain
      </button>
    </div>

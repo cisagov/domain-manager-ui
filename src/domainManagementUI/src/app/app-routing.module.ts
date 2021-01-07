@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component'
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
+import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
@@ -44,6 +45,12 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: DomainManagementListComponent }],
+  },
+  {
+    path: 'domain-management/create',
+    component: LayoutMainComponent,
+    canActivate: [AuthGuard],
+    children: [{ path: '', component: DomainManagementCreateComponent }],
   },
   {
     path: 'domain-management/details/:domain_uuid',

@@ -41,6 +41,7 @@ export class WebsiteCreationComponent implements OnInit, OnDestroy {
         }
       )
     );
+    this._getNextTabObservable();
   }
   
 
@@ -52,6 +53,17 @@ export class WebsiteCreationComponent implements OnInit, OnDestroy {
 
   onTabChanged(event){
     console.log(event)
+  }
+
+  _getNextTabObservable(){
+    this.component_subscriptions.push(
+      this.wcTabSvc.tabCompleteBehvaiorSubject.subscribe(
+        (tabComplete) => {
+          if(tabComplete){
+            this.selectedTabIndex += 1;
+          }
+        }
+    ))
   }
   
 }

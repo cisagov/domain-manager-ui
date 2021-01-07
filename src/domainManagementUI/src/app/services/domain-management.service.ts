@@ -1,7 +1,15 @@
+//Angular Imports
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Observable } from 'rxjs';
+
+
+//Local Services
+import { environment } from 'src/environments/environment';
+
+// Models
+import { DomainModel } from '../models/domain.model';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -109,6 +117,20 @@ export class DomainManagementService {
     return new Observable((exampleObs) => {
       exampleObs.next(this.domain_list);
     });
+  }
+
+  createDomain(new_domain: DomainModel){
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/`;
+    
+    if(!environment.testingNoAPI){
+      return this.http.post(url, new_domain);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+        exampleObs.next("Domain Created");
+        }, Math.floor(Math.random() * 500))
+      });
+    }
   }
 
 }

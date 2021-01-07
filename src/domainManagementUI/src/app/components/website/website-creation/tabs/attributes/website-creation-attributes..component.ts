@@ -52,7 +52,6 @@ export class WebsiteCreationAttrbutesComponent implements OnInit, OnDestroy {
 
   test(){
     this.nextTab();
-    console.log("test")  
     console.log(this.tabForm)
   }
 

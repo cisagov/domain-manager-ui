@@ -83,7 +83,6 @@ export class WebsiteListComponent implements OnInit {
   }
 
   uploadWebsite(){
-    console.log("TEST")
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = "website";
     fileUploadSettings.uploadFileType = "application/zip"
@@ -99,6 +98,6 @@ export class WebsiteListComponent implements OnInit {
   };
 
   test(){
-    console.log("test")
+    
   }
 }

@@ -53,8 +53,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
       return "Loading Application List"
     }
   }
-  test(){
-    console.log("test")      
+  test(){    
   }
 
   downloadWebsite(){

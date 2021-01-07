@@ -1,74 +1,8 @@
-<div *ngIf="applicationLoaded" style="min-height:5em;">
+<div style="min-height:5em;">
   <h3 class="single_page_header">{{application_data.application_name}}</h3>
-  <button *ngIf="applicationLoaded" class="manipulate_menu" mat-raised-button color="primary"  [matMenuTriggerFor]="menu">Options</button>
-  <mat-menu #menu="matMenu">
-    <button (click)="delete()" mat-menu-item> 
-      <mat-icon>delete</mat-icon> Delete</button>
-  </mat-menu>
+
   <div class="flex flex-column">
-    <div class="flex summary_list" >    
-      <div class="flex-column titles">
-        <div class="flex-row"> Application Name</div>
-        <div class="flex-row"> Domains in use</div>
-        <div class="flex-row"> Requester Name</div>
-        <div class="flex-row"> Date Created</div>
-      </div>
-
-      <div class="flex-column values">
-        <div class="flex-row"> {{ application_data.application_name }}</div>
-        <div class="flex-row"> {{ application_data.domains_used_count }} </div>
-        <div class="flex-row"> {{ application_data.requester_name }} </div>
-        <div class="flex-row"> {{ application_data.date_created | date: 'MM/dd/yy' }} </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- <div class="flex flex-container tab">
-  <div class="flex flex-center " *ngIf="!wdTabSvc.website_data.website_uuid">
-    <mat-spinner></mat-spinner>
-  </div>
-  
-  <div  *ngIf="wdTabSvc.website_data.website_uuid">
-    <h5 >Website: {{wdTabSvc.website_data.website_name}}</h5>
     
-
-
-
-
-    <div class="text-muted mb-4">
-      Detailed information for the website
-    </div>
-
-
-    <div class="flex summary_list" *ngIf="wdTabSvc.website_data.website_uuid">    
-      <div class="flex-column titles">
-        <div class="flex-row"> Website Name</div>
-        <div class="flex-row"> Website URL</div>
-        <div class="flex-row"> Template Base Name</div>
-        <div class="flex-row"> Applications Using </div>
-      </div>
-
-      <div class="flex-column values">
-        <div class="flex-row"> {{wdTabSvc.website_data.website_name}}</div>
-        <div class="flex-row"> {{wdTabSvc.website_data.website_url}}</div>
-        <div class="flex-row"> {{wdTabSvc.website_data.template_base_name}}</div>
-        <div class="flex-row"> {{getApplicationName()}}</div>
-      </div>
-    </div>
   </div>
-  <mat-label class="mt-3">Website Attributes</mat-label>
-  <div class="flex-row ">
-      <table class="display_table">
-          <tr>
-              <th> Attribute/Parameter Name</th>
-              <th> Current Value </th>              
-          </tr>
-          <tr *ngFor="let parameter of wdTabSvc?.website_data?.website_parameters">
-              <td>{{parameter.param_name}}</td>
-              <td>{{parameter.value}}</td>              
-          </tr>
-      </table>
-  </div>
-</div> -->
+
+</div>

@@ -93,7 +93,6 @@ export class ApplicationListComponent implements OnInit {
             console.log(result)
             this.applicationSvc.createApplication(result).subscribe(
               (success) => {
-                this.loading = true;
                 console.log(success)
                 this.getApplications();
               },

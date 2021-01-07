@@ -56,15 +56,16 @@ class DomainHistory {
   stopDate: Date;
 }
 
-export class DomainListItemModel extends DomainBaseModel {
+
+export class DomainModel extends DomainBaseModel {
+
+}
+
+export class DomainListItemModel extends DomainModel {
   isSelected: boolean;
 
   constructor(){
     super();
     this.isSelected = false;
   }
-}
-
-export class DomainModel extends DomainBaseModel {
-
 }

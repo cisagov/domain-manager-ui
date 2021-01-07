@@ -32,7 +32,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     public layoutSvc: LayoutService,
     private router: Router,
   ) {
-    this.layoutSvc.setTitle('Application Details');
+    this.layoutSvc.setTitle('Create Domain');
   }
 
   ngOnInit(): void {

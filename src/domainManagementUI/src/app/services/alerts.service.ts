@@ -19,18 +19,6 @@ export class AlertsService {
 
   constructor(private _snackBar: MatSnackBar) { }
 
- //Horizontal Positions
- // start
- // center
- // end
- // left
- // right
-
-//Vertical Postions
-// top
-// bottom
-
-
   alert(
       alertMessage: string, 
       closeMessage: string = "Close", 
@@ -48,5 +36,17 @@ export class AlertsService {
       verticalPosition: this.verticalPosition,
     });
   }
+
+  //Horizontal Positions
+  // start
+  // center
+  // end
+  // left
+  // right
+
+  //Vertical Postions
+  // top
+  // bottom
+
 
 }

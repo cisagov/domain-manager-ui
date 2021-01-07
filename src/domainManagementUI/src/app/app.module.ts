@@ -24,6 +24,7 @@ import { ApplicationCreateDialog } from 'src/app/components/applications/applica
 import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component'
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
 import { DomainManagementGeneralAttributesTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
 import { DomainManagementProxyCategorizaitonTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/proxy-categorization/domain-management-proxy-categorization.component';
 import { DomainManagementReviewTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/review/domain-management-review.component';
@@ -80,6 +81,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationDetailsComponent,
     ApplicationListComponent,
     LayoutMainComponent,
+    DomainManagementCreateComponent,
     DomainManagementDetailsComponent,
     DomainManagementListComponent,
     DomainManagementGeneralAttributesTab,
