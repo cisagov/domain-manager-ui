@@ -12,7 +12,7 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
-    <div class="add-new-button-container flex">
+    <!-- <div class="add-new-button-container flex">
       <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
         Create Website
       </button>
@@ -24,7 +24,7 @@
           <mat-icon>build</mat-icon>Build from template
         </button>
       </mat-menu>
-    </div>
+    </div> -->
   </div>
 
   <div class="col p-0 w-100">
@@ -39,7 +39,40 @@
       ></mat-spinner>
     </div>
 
+    <div *ngIf="userIsAdmin" class="add-new-button-container flex">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="setAvailableWebsites()"
+        class="mb-2"
+      >
+        Make Selected Available
+      </button>
+    </div>
+    
     <mat-table [hidden]="loading" [dataSource]="websiteList" matSort>
+      <!-- ActionCheckbox -->
+      <ng-container matColumnDef="checked">
+        <mat-header-cell *matHeaderCellDef
+          ><mat-checkbox
+            [checked]="allChecked"
+            [indeterminate]="someChecked()"
+            color="warn"
+            (change)="setAllCheckboxes($event.checked)"
+          >
+          </mat-checkbox
+          >
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox
+            [(ngModel)]="row.isChecked"
+            color="primary"
+            (ngModelChange)="updateAllCheckboxComplete()"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
       <!-- Website Name -->
       <ng-container matColumnDef="website_name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -74,6 +107,22 @@
           (click)="viewWebsite(row.website_uuid)"
           >{{ row.created_date | date: "MM/dd/yy" }}</mat-cell
         >
+      </ng-container>
+
+
+      <!-- Is Available -->
+      <ng-container matColumnDef="isAvailable">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Is Available</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">
+          <mat-icon
+            *ngIf="row.isAvailable"
+            aria-hidden="false"
+            aria-label="check_circle icon"
+            >check_circle</mat-icon
+          >
+        </mat-cell>
       </ng-container>
 
       <!-- Header Info -->

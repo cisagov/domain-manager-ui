@@ -88,6 +88,7 @@ export class UserAuthService {
   }
 
   _setIsAdmin(succesfulAuthObject) {
+    console.log("in subject")
     if (environment.authorize) {
       let groups =
         succesfulAuthObject['signInUserSession']['idToken']['payload'][
@@ -103,6 +104,7 @@ export class UserAuthService {
         this.isAdminSubject.next(false);
       }
     } else {
+      console.log("in subject")
       this.isAdminSubject.next(environment.defaultToAdmin);
     }
   }

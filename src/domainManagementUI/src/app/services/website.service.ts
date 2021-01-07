@@ -253,6 +253,22 @@ export class WebsiteService {
     }
   }
 
+  setWebsitesAsAvailable(websiteIDArray){
+    console.log(websiteIDArray)
+    //NOT IMPLEMENTED YET
+    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+
+    if (!environment.testingNoAPI) {
+      // return this.http.post(url, newWebsite);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('website Created');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
   //TEST FUNCITON TODO: REMOVE
   getTestURL(counter) {
     if (counter % 2 == 0) {

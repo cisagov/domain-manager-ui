@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 
 //Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
 //Models
@@ -28,24 +29,36 @@ import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/fil
   styleUrls: ['./website-list.component.scss'],
 })
 export class WebsiteListComponent implements OnInit {
+
+
+  allChecked = false;
   component_subscriptions = [];
   displayedColumns = ['website_name', 'template_base_name', 'created_date'];
   search_input = '';
-  websiteList: MatTableDataSource<WebsiteModel>;
+  websiteList: MatTableDataSource<WebsiteModel> = new MatTableDataSource<WebsiteModel>();
   loading = true;
+
+  userIsAdmin: boolean = false;
+
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public websiteSvc: WebsiteService
+    private userAuthSvc: UserAuthService,
+    public websiteSvc: WebsiteService,
   ) {
     this.layoutSvc.setTitle('Websites');
+    this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
+      console.log(value)
+      this.userIsAdmin = value;
+    });
   }
 
   ngOnInit(): void {
     this.getWebsites();
+    this._setAdminView();
   }
 
   ngOnDestroy(): void {
@@ -54,12 +67,14 @@ export class WebsiteListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.websiteList.sort = this.sort;}
 
   getWebsites() {
     this.loading = true;
     this.websiteSvc.getAllWebsites().subscribe(
       (success) => {
+        this._formatWebsiteListData(success)
         this.websiteList = new MatTableDataSource<WebsiteModel>(
           success as WebsiteModel[]
         );
@@ -88,6 +103,70 @@ export class WebsiteListComponent implements OnInit {
       data: fileUploadSettings,
     });
   }
+
+  _formatWebsiteListData(data) {
+    if (this.userIsAdmin && data instanceof Array) {
+      data.forEach((domainItem) => {
+        domainItem['isChecked'] = false;
+      });
+    }
+    return data;
+  }
+
+  _setAdminView() {
+    console.log(this.userIsAdmin);
+    if (this.userIsAdmin) {
+      this.displayedColumns.unshift('checked');
+      this.displayedColumns.push('isAvailable');
+    }
+  }
+
+  updateAllCheckboxComplete() {
+    let data = this.websiteList['_data']['_value'];
+    this.allChecked = data != null && data.every((t) => t.isChecked);
+  }
+  setAllCheckboxes(checked: boolean) {
+    console.log(checked);
+    let data = this.websiteList['_data']['_value'];
+    if (data == null || data == undefined) {
+      return false;
+    }
+    this.allChecked = checked;
+    data.forEach((t) => (t.isChecked = checked));
+    console.log('updateAll');
+  }
+  someChecked() {
+    let data = this.websiteList['_data']['_value'];
+    if (data == null || data == undefined) {
+      return false;
+    }
+    return data.filter((t) => t.isChecked).length > 0 && !this.allChecked;
+  }
+  setAvailableWebsites() {
+    let selectedItems = this.websiteList['_data']['_value'].filter(
+      (t) => t.isChecked
+    );
+    let uuidsToSetActive = [];
+    selectedItems.forEach((t) => {
+      uuidsToSetActive.push(t.uuid);
+    });
+    this.websiteSvc.setWebsitesAsAvailable(uuidsToSetActive).subscribe(
+      (success) => {
+        console.log('set available service method called and completed');
+        this.websiteList['_data']['_value']
+          .filter((t) => uuidsToSetActive.includes(t.uuid))
+          .forEach((e) => (e.isAvailable = true));
+        this.websiteList['_data']['_value'].forEach(
+          (t) => (t.isChecked = false)
+        );
+        this.updateAllCheckboxComplete();
+      },
+      (failure) => {
+        console.log('Failed to update domain status');
+      }
+    );
+  }
+
 
   public filterList = (value: string) => {
     this.websiteList.filter = value.trim().toLocaleLowerCase();

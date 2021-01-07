@@ -49,7 +49,7 @@ export class DomainManagementListComponent
     public domainSvc: DomainManagementService,
     public layoutSvc: LayoutService,
     private router: Router,
-    private userAuthSvc: UserAuthService
+    private userAuthSvc: UserAuthService,
   ) {
     this.layoutSvc.setTitle('Domain Management');
     this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {

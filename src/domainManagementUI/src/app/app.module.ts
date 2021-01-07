@@ -43,8 +43,8 @@ import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-
 import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
 import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
 import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
-import { WebsiteCreationAttrbutesComponent } from 'src/app/components/website/website-creation/tabs/attributes/website-creation-attributes..component';
-import { WebsiteCreationTemplateSelectionComponent } from 'src/app/components/website/website-creation/tabs/template-selection/website-creation-template-selection.component';
+import { WebsiteCreationAttrbutesComponent } from 'src/app/components/website/website-details/tabs/attributes/website-creation-attributes..component';
+import { WebsiteCreationTemplateSelectionComponent } from 'src/app/components/website/website-details/tabs/template-selection/website-creation-template-selection.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 
 //Services
