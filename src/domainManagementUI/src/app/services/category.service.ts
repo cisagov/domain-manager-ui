@@ -50,7 +50,7 @@ export class CategoryService {
 
   getAllCategories() {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/categories/`;
     // return this.http.get(url,headers).subscribe(
     //   (success) => {
     //     this.template_list = success as Array<TemplateModel>;

@@ -5,8 +5,9 @@
       <wc-template-selection></wc-template-selection>
     </mat-tab>
     <mat-tab 
+      [disabled]='!this.wcTabSvc.template_selection_form.valid' 
       label="Attributes">
-      <!-- <wc-attributes></wc-attributes> -->
+      <wc-attributes></wc-attributes>
     </mat-tab>
   </mat-tab-group>
 </div>

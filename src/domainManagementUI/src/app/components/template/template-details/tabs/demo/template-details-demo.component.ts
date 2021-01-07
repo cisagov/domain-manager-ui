@@ -103,8 +103,10 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
 
   createWebsiteFromTemplate(uuid){
     console.log(`going to website creation page, using ${uuid} as uuid for template selection`)
-    //TODO: 
-    //route to and pass uuid as param
+    
+    this.router.navigate([
+      `/website/creation/${uuid}`,
+    ]);
   }
 
   test(){

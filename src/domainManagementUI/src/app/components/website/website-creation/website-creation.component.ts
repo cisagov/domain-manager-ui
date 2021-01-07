@@ -25,20 +25,24 @@ export class WebsiteCreationComponent implements OnInit, OnDestroy {
     public websiteTemplateSvc: WebsiteService,
     
   ) {
-    this.layoutSvc.setTitle('Website Details');
+    this.layoutSvc.setTitle('Create Website');
   }
 
-  ngOnInit(): void {
-    //Get the template uuid param from the url if one is presenet
+  ngOnInit(): void {    
     this.component_subscriptions.push(
-      this.activeRoute.params.subscribe((params) => {
-        this.selected_template_uuid = params['template_uuid'];
-        if (this.selected_template_uuid !== null) {
-          this.selectTemplate(this.selected_template_uuid);
+      this.activeRoute.params.subscribe(
+        (params) => {
+          this.selected_template_uuid = params['template_uuid'];
+          this.wcTabSvc.updateTemplateSelection(this.selected_template_uuid)
+        },
+        (error) => {
+          console.log('Failed to load domain');
+          console.log(error);
         }
-      })
+      )
     );
   }
+  
 
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {
@@ -50,7 +54,4 @@ export class WebsiteCreationComponent implements OnInit, OnDestroy {
     console.log(event)
   }
   
-  selectTemplate(uuid){
-
-  }
 }

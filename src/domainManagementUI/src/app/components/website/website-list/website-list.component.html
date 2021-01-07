@@ -30,7 +30,7 @@
       ></mat-spinner>
     </div>
     
-    <mat-table [dataSource]="websiteList" matSort>
+    <mat-table [hidden]="loading"  [dataSource]="websiteList" matSort>
 
       <!-- Website Name -->
       <ng-container matColumnDef="website_name">

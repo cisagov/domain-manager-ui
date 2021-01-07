@@ -1,61 +1,82 @@
 
 <div class="flex flex-container tab">
-  <!-- <h5>Template : {{tdTabSvc.template_data.template_name}}</h5> -->
-  <div class="flex flex-center " *ngIf="!wdTabSvc.website_data.website_uuid">
-    <mat-spinner></mat-spinner>
-  </div>
-  
-  <div  *ngIf="wdTabSvc.website_data.website_uuid">
-    <h5 >Website: {{wdTabSvc.website_data.website_name}}</h5>
-    
-    <button class="manipulate_menu" mat-raised-button color="primary"  [matMenuTriggerFor]="menu">Options</button>
-    <mat-menu #menu="matMenu">
-      <button (click)="downloadWebsite()" mat-menu-item>
-        <mat-icon  >download</mat-icon>Download ZIP</button>
-      <button (click)="deleteWebsite(wdTabSvc.website_data.website_uuid)" mat-menu-item> 
-        <mat-icon>delete</mat-icon> Delete</button>
-    </mat-menu>
+  <h5>Assign Website Attributes</h5>
 
+  <!-- FORM GROUP -->
+  <div class="flex-column" [formGroup]="tabForm">
 
+    <!-- WEBSITE NAME -->
 
-    <div class="text-muted mb-4">
-      Detailed information for the website
+    <div class="flex flex-column">
+        <mat-label>Name</mat-label>
+          <div class="text-muted">
+              The application that will be utilizing the domain
+          </div>
+          <mat-form-field style="width:20em" appearance="outline">
+            <mat-label>Website Name</mat-label>
+            <input
+              matInput
+              trim="blur"
+              type="text"
+              formControlName="website_name"
+              placeholder=" Type Attribute Here"
+              />        
+        </mat-form-field>
     </div>
 
-
-    <div class="flex summary_list" *ngIf="wdTabSvc.website_data.website_uuid">    
-      <div class="flex-column titles">
-        <div class="flex-row"> Website Name</div>
-        <div class="flex-row"> Website URL</div>
-        <div class="flex-row"> Template Base Name</div>
-        <div class="flex-row"> Applications Using </div>
+    <!-- APPLICATION -->
+      <div class="flex flex-column">
+        <mat-label>Application</mat-label>
+          <div class="text-muted">
+              The application that will be utilizing the domain. <br>This is used as an identifier and will not be displayed on the website itself.
+          </div>
+          <mat-form-field style="width:20em" appearance="outline">
+              <mat-select
+              formControlName="application_using_uuid"
+              >
+              <mat-option [value]="null">--Select--</mat-option>
+              <mat-option
+                  *ngFor="let a of applicationSvc.application_list"
+                  [value]="a.application_uuid"
+              >
+                  {{ a.application_name }} </mat-option
+              >
+              </mat-select>
+              <!-- <mat-error
+              *ngIf="f.application_using_uuid.errors?.required"
+              class="invalid-feedback"
+              >
+              A application must be selected
+              </mat-error>             -->
+          </mat-form-field>
       </div>
-
-      <div class="flex-column values">
-        <div class="flex-row"> {{wdTabSvc.website_data.website_name}}</div>
-        <div class="flex-row"> {{wdTabSvc.website_data.website_url}}</div>
-        <div class="flex-row"> {{wdTabSvc.website_data.template_base_name}}</div>
-        <div class="flex-row"> {{getApplicationName()}}</div>
-      </div>
+    <!-- ATTRIBUTES -->
+    <div class="text-muted">
+      Assign the attributes that will be used to populate 
+      the fields within your selected template
     </div>
+    <div class="flex flex-row" *ngFor="let attribute of wcTabSvc.attribueList; let i index">
+      <mat-form-field style="width:20em" appearance="outline">
+        <mat-label>{{attribute.key}}</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          formControlName={{attribute.key}}
+          placeholder=" Type Attribute Here"
+          />        
+      </mat-form-field>
+    </div>
+
   </div>
-  <!-- <mat-label class="mt-3">Template Attributes</mat-label>
-  <div *ngIf="tdTabSvc.template_data_attributes.length" class="flex-row ">
-      <table class="display_table">
-          <tr>
-              <th> Website Name</th>
-              <th> Application Using </th>
-              <th> Download </th>
-          </tr>
-          <tr *ngFor="let website of this.tdTabSvc.websites_used_list">
-              <td>{{website.website_name}}</td>
-              <td>{{applicationSvc.getApplicationNameByUUID(website.application_using_uuid)}}</td>
-              <td>
-                  <button mat-raised-button color="primary" class="flex"  (click)="tdTabSvc.downloadWebsite(website.website_uuid)">
-                  Download
-              </button>
-            </td>
-          </tr>
-      </table>
-  </div>   -->
+  <div class="flex-row flex-end mt-4">
+    <button mat-raised-button color="primary" 
+    class="flex"  
+    (click)="create()"
+    >
+        Create
+    </button>
+  </div>   
+
 </div>
+        

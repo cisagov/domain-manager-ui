@@ -1,10 +1,66 @@
 
 <div class="flex flex-container tab">
-  <!-- <h5>Website : {{tdTabSvc.template_data.template_name}}</h5> -->
-  <!-- <h5>Website :  {{wdTabSvc.website_data.website_name}}</h5> -->
+  <h5>Select a Template Base</h5>
   <div class="text-muted">
-    A demo of the website as it will be seen directly
+    Select a template base that will be used to generate your website.
   </div>
+
+  <div class="search-bar flex" >
+      <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Search</mat-label>
+          <input [(ngModel)]="search_input" (keyup)="filterList($event.target.value)" matInput placeholder="Search" />
+          <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+  </div>
+  <mat-table [dataSource]="templateList" matSort class="mb-5">
+
+    <!-- Template Name -->
+    <ng-container matColumnDef="template_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Template Name</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="displayTemplate(row.template_url)">{{ row.template_name }}</mat-cell>
+    </ng-container>          
+     
+    <!-- Created By -->
+    <ng-container matColumnDef="created_by">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Created By</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="displayTemplate(row.template_url)">{{ row.uploaded_by }}</mat-cell>
+    </ng-container>          
+     
+    <!-- Created Date -->
+    <ng-container matColumnDef="created_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Created Date </mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="displayTemplate(row.template_url)">{{ row.created_date | date: 'MM/dd/yy' }}</mat-cell>
+    </ng-container>
+    
+    <!-- Select Template -->
+    <ng-container matColumnDef="selected_template">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Selected Template
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button *ngIf="row.selected" class="selected_button" mat-raised-button color="accent" class="flex" (click)="deSelectTemplate()">
+                Selected
+            </button>
+            <button *ngIf="!row.selected"  mat-raised-button color="primary" class="flex"  (click)="selectTemplate(row)">
+                Select
+            </button>
+        </mat-cell>
+    </ng-container>          
+   
+    <!-- Header Info -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row cursor-pointer"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+
+  </mat-table>
 
   <div *ngIf="safeURL" class="iframe_container">
     <div class="button_contianer">
@@ -15,6 +71,16 @@
     <iframe [src]=safeURL 
     height="100%" width="100%"></iframe>
   </div>
+
+  <div class="flex-row flex-end mt-4">
+    <button mat-raised-button color="primary" 
+    class="flex"  
+    (click)="nextTab()"
+    [disabled]='!this.wcTabSvc.template_selection_form.valid' 
+    >
+        Next
+    </button>
+  </div>    
 
 
 </div>

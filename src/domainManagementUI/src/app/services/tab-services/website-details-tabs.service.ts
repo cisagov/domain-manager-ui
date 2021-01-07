@@ -11,7 +11,9 @@ import { WebsiteModel, WebsiteHistory } from 'src/app/models/website.model'
 
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+  })
 export class WebsiteDetailsTabService{
     
     public website_data : WebsiteModel = new WebsiteModel();

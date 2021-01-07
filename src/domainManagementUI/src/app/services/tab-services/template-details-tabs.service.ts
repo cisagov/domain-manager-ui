@@ -17,7 +17,9 @@ const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+  })
 export class TemplateDetailsTabService{
     
     public template_data : TemplateModel = new TemplateModel()

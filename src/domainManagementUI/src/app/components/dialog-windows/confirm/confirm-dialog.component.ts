@@ -32,7 +32,7 @@ import {ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model
       }
 
     closeDialog() {
-      this.dialogRef.close('Confirmed');
+      this.dialogRef.close('closed');
     }
 
     confirm(){

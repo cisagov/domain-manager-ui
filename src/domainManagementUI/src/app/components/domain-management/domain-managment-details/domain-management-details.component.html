@@ -9,12 +9,17 @@
       <dmWebsiteSelectionTab></dmWebsiteSelectionTab>
     </mat-tab>
     <mat-tab 
-      [disabled]='!this.domainTabSvc.website_selection_tab_form.valid' 
+      [disabled]='
+      !this.domainTabSvc.website_selection_tab_form.valid 
+      || !this.domainTabSvc.gen_attribute_tab_form.valid' 
       label="Proxy Categorization">
       <dmProxyCategorizaitonTab></dmProxyCategorizaitonTab>
     </mat-tab>
     <mat-tab 
-      [disabled]='!this.domainTabSvc.proxy_categoriztion_tab_form.valid' 
+      [disabled]='
+      !this.domainTabSvc.proxy_categoriztion_tab_form.valid 
+      || !this.domainTabSvc.website_selection_tab_form.valid 
+      || !this.domainTabSvc.gen_attribute_tab_form.valid' 
       label="Review">
       <dmReviewTab></dmReviewTab>
     </mat-tab>

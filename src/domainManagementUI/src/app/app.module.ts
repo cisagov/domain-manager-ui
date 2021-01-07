@@ -20,6 +20,8 @@ import { ngfModule, ngf } from "angular-file"
 //Custom Components
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
+import { ApplicationCreateDialog } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
+import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component'
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { DomainManagementGeneralAttributesTab }  from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
@@ -40,11 +42,13 @@ import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-
 import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
 import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
 import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
+import { WebsiteCreationAttrbutesComponent } from 'src/app/components/website/website-creation/tabs/attributes/website-creation-attributes..component';
 import { WebsiteCreationTemplateSelectionComponent } from 'src/app/components/website/website-creation/tabs/template-selection/website-creation-template-selection.component'
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 
 
 //Services
+import { AlertsService } from 'src/app/services/alerts.service'
 import { ApplicationService } from 'src/app/services/applications.service'
 import { CategoryService } from 'src/app/services/category.service'
 import { DomainManagementService } from 'src/app/services/domain-management.service';
@@ -72,6 +76,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   declarations: [
     AboutComponent,
     AppComponent,
+    ApplicationCreateDialog,
+    ApplicationDetailsComponent,
     ApplicationListComponent,
     LayoutMainComponent,
     DomainManagementDetailsComponent,
@@ -92,6 +98,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteDetailsHistoricalComponent,
     WebsiteDetailsSummaryComponent,
     WebsiteCreationComponent,
+    WebsiteCreationAttrbutesComponent,
     WebsiteCreationTemplateSelectionComponent,
     WebsiteListComponent,
   ],
@@ -108,6 +115,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ReactiveFormsModule,
   ],
   providers: [
+    AlertsService,
     ApplicationService,
     CategoryService,
     DomainManagementService,

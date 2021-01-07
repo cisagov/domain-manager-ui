@@ -9,9 +9,6 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
 import { WebsiteModel } from 'src/app/models/website.model';
-import { TemplateModel } from 'src/app/models/template.model';
-import { env } from 'process';
-import { fileURLToPath } from 'url';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -230,15 +227,29 @@ export class WebsiteService {
     if(!environment.testingNoAPI){
         return this.http.get(url, { headers: downloadHeaders, responseType: 'blob' });
     } else {
-        if(environment.testingNoAPI){
-            return new Observable((exampleObs) => {
-                setTimeout(() => {
-                exampleObs.next("website downloaded");
-                }, Math.floor(Math.random() * 1000))
-            });
-        }
+      if(environment.testingNoAPI){
+          return new Observable((exampleObs) => {
+              setTimeout(() => {
+              exampleObs.next("website downloaded");
+              }, Math.floor(Math.random() * 1000))
+          });
+      }
     }        
-}
+  }
+
+  createWebsite(newWebsite: WebsiteModel){
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${newWebsite.template_base_uuid}/generate/`;
+    
+    if(!environment.testingNoAPI){
+      return this.http.post( url, newWebsite);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+        exampleObs.next("website Created");
+        }, Math.floor(Math.random() * 1500))
+      });
+    }
+  }
 
   //TEST FUNCITON TODO: REMOVE
   getTestURL(counter){

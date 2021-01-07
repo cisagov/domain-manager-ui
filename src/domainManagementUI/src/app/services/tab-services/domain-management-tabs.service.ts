@@ -14,7 +14,9 @@ const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+  })
 export class DomainManagementTabService{
 
     gen_attribute_tab_form: FormGroup

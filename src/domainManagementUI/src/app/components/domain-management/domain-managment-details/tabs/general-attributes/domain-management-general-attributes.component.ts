@@ -1,11 +1,5 @@
 // Angular Imports
 import { Component, OnInit } from '@angular/core';
-import {
-    FormGroup,
-    FormControl,
-    FormBuilder,
-    Validators,
-  } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 // Local Service Imports
@@ -24,7 +18,6 @@ export class DomainManagementGeneralAttributesTab implements OnInit {
     constructor(
         public applicationSvc : ApplicationService,
         public domainTabSvc: DomainManagementTabService,
-        public formBuilder: FormBuilder,
         public layoutSvc: LayoutService,
     ) {}
 

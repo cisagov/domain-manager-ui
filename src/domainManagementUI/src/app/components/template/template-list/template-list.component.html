@@ -26,7 +26,7 @@
       ></mat-spinner>
     </div>
     
-    <mat-table [dataSource]="templateList" matSort>
+    <mat-table [hidden]="loading"  [dataSource]="templateList" matSort>
 
       <!-- Template Name -->
       <ng-container matColumnDef="template_name">

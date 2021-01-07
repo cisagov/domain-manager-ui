@@ -50,6 +50,25 @@ body {
   justify-content: center;
 }
 
+
+//Information Page 
+.single_page_header{
+  padding-top: 14px;
+}
+
+.summary_list div div {
+  margin-bottom: 1em;
+  border-bottom: solid 1px rgb(225,225,225);
+}
+
+.summary_list .titles div{
+  padding-right: 2em
+
+}
+.summary_list .values{
+  flex-grow: 1;
+}
+
 // Dialogs
 .dialog button {
   float: right;
