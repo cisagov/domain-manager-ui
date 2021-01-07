@@ -36,7 +36,7 @@ export class ApplicationCreateDialog implements OnInit {
 
   buildForm() {
     this.application_form_group = new FormGroup({
-      application_name: new FormControl('', {
+      name: new FormControl('', {
         validators: Validators.required,
       }),
       requester_name: new FormControl('', { validators: Validators.required }),
@@ -45,7 +45,7 @@ export class ApplicationCreateDialog implements OnInit {
 
   formToApplicationModel() {
     let retVal = new ApplicationModel();
-    retVal.application_name = this.controls['application_name'].value;
+    retVal.name = this.controls['name'].value;
     retVal.requester_name = this.controls['requester_name'].value;
     return retVal;
   }

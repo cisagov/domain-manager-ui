@@ -37,11 +37,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Application Name</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewApplication(row.application_uuid)"
-          >{{ row.application_name }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
       </ng-container>
 
       <!-- Domains Used Count -->
@@ -49,11 +45,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Domain Used Count</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewApplication(row.application_uuid)"
-          >{{ row.domains_used_count }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row">{{ row.domains_used_count }}</mat-cell>
       </ng-container>
 
       <!-- Header Info -->
@@ -61,6 +53,7 @@
       <mat-row
         class="table-row cursor-pointer"
         *matRowDef="let row; columns: displayedColumns"
+        (click)="viewApplication(row._id)"
       ></mat-row>
     </mat-table>
   </div>

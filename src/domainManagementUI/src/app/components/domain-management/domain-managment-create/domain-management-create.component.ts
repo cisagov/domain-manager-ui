@@ -59,7 +59,7 @@ export class DomainManagementCreateComponent implements OnInit {
   formToApplicationModel() {
     let retVal = new DomainModel();
     retVal.name = this.controls['name'].value;
-    retVal.application_uuid = this.controls['application_uuid'].value;
+    retVal._id = this.controls['application_uuid'].value;
     retVal.registrarName = this.controls['registrarName'].value;
     return retVal;
   }
