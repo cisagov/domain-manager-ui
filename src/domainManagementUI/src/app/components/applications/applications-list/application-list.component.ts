@@ -21,17 +21,15 @@ import { ApplicationModel } from 'src/app/models/application.model';
 //Dialogs
 import { ApplicationCreateDialog } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
 
-
 @Component({
   selector: 'application-list',
   templateUrl: './application-list.component.html',
   styleUrls: ['./application-list.component.scss'],
 })
 export class ApplicationListComponent implements OnInit {
-
-  create_dialog : MatDialogRef<ApplicationCreateDialog> = null;
+  create_dialog: MatDialogRef<ApplicationCreateDialog> = null;
   component_subscriptions = [];
-  displayedColumns = ['application_name','domains_used_count'];
+  displayedColumns = ['application_name', 'domains_used_count'];
   search_input = '';
   applicationList: MatTableDataSource<ApplicationModel>;
   loading = true;
@@ -41,7 +39,7 @@ export class ApplicationListComponent implements OnInit {
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
-    private router: Router,
+    private router: Router
   ) {
     this.layoutSvc.setTitle('Application');
   }
@@ -56,8 +54,7 @@ export class ApplicationListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   getApplications() {
     this.loading = true;
@@ -78,34 +75,31 @@ export class ApplicationListComponent implements OnInit {
   }
 
   viewApplication(application_uuid) {
-    this.router.navigate([
-      `/application/details/${application_uuid}`,
-    ]);
+    this.router.navigate([`/application/details/${application_uuid}`]);
   }
 
-  addApplication(){
-    console.log("Upload Website not yet implemmeneted")
+  addApplication() {
+    console.log('Upload Website not yet implemmeneted');
     this.create_dialog = this.dialog.open(ApplicationCreateDialog);
-    this.create_dialog.afterClosed().subscribe(
-      result => {
-        if(result){
-          if(result instanceof ApplicationModel){
-            console.log(result)
-            this.applicationSvc.createApplication(result).subscribe(
-              (success) => {
-                console.log(success)
-                this.getApplications();
-              },
-              (failure) => {
-                console.log('Failed to create application')
-                console.log(failure)
-              })
-          }
-        } else {
-          console.log("dialog closed")
+    this.create_dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result instanceof ApplicationModel) {
+          console.log(result);
+          this.applicationSvc.createApplication(result).subscribe(
+            (success) => {
+              console.log(success);
+              this.getApplications();
+            },
+            (failure) => {
+              console.log('Failed to create application');
+              console.log(failure);
+            }
+          );
         }
+      } else {
+        console.log('dialog closed');
       }
-    )
+    });
   }
 
   public filterList = (value: string) => {

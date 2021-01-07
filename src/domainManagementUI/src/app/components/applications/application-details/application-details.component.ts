@@ -4,13 +4,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Local Service Imports
-import { AlertsService } from 'src/app/services/alerts.service'
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
 //Models
 import { ApplicationModel } from 'src/app/models/application.model';
-
 
 @Component({
   selector: 'application-details',
@@ -18,19 +17,17 @@ import { ApplicationModel } from 'src/app/models/application.model';
   styleUrls: ['./application-details.component.scss'],
 })
 export class ApplicationDetailsComponent implements OnInit, OnDestroy {
-  
   component_subscriptions = [];
-  application_data : ApplicationModel = new ApplicationModel()
-  applicationLoaded : boolean = false;
+  application_data: ApplicationModel = new ApplicationModel();
+  applicationLoaded: boolean = false;
   application_uuid = null;
-
 
   constructor(
     public activeRoute: ActivatedRoute,
     public alerts: AlertsService,
     public applicationSvc: ApplicationService,
     public layoutSvc: LayoutService,
-    private router: Router,
+    private router: Router
   ) {
     this.layoutSvc.setTitle('Create Domain');
   }
@@ -58,30 +55,30 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
         this.applicationLoaded = true;
       },
       (failure) => {
-        console.log("failed to load application")
-        console.log(failure)
+        console.log('failed to load application');
+        console.log(failure);
       }
-    )
+    );
   }
 
-  delete(){
-    if(this.application_data.domains_used_count == 0){
+  delete() {
+    if (this.application_data.domains_used_count == 0) {
       this.applicationSvc.deleteApplication(this.application_uuid).subscribe(
         (success) => {
-          console.log("Application Deleted")
-          this.router.navigate([`/application`,]);
+          console.log('Application Deleted');
+          this.router.navigate([`/application`]);
         },
         (failure) => {
-          console.log("failed to delete the applicaiton")
-          console.log(failure)
+          console.log('failed to delete the applicaiton');
+          console.log(failure);
         }
-      )
+      );
     } else {
-      this.alerts.alert("Can not delete an application that is using a domain")
+      this.alerts.alert('Can not delete an application that is using a domain');
     }
   }
 
-  test(){
-    console.log("test")
+  test() {
+    console.log('test');
   }
 }

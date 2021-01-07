@@ -1,95 +1,84 @@
-<div style="min-height:5em;">
-    <h3 class="single_page_header">Add New Domain</h3>
-    <div class="text-muted">
-        Fill in all the fields and hit the submit bottom located at the bottom of the form to create add a domain
-    </div>
+<div style="min-height: 5em">
+  <h3 class="single_page_header">Add New Domain</h3>
+  <div class="text-muted">
+    Fill in all the fields and hit the submit bottom located at the bottom of
+    the form to create add a domain
+  </div>
 
-    <div  class="mt-3" [formGroup]="domain_form_group">
-
-
-        <div class="flex flex-column">
-            <mat-label>Name</mat-label>
-                <div class="text-muted">
-                    The name of the new application
-                </div>
-                <mat-form-field style="width:30em" appearance="outline">
-                <mat-label>Application Name</mat-label>
-                <input
-                    matInput
-                    trim="blur"
-                    type="text"
-                    formControlName="name"
-                    placeholder=" The name of the new application"
-                    />        
-                    <mat-error
-                    *ngIf="controls?.name.errors?.required"
-                    class="invalid-feedback"
-                    >
-                    A name must be provided
-                    </mat-error>
-            </mat-form-field>
-        </div>
-        
-        <div class="flex flex-column">
-            <mat-label>Assigned Application</mat-label>
-            <div class="text-muted">
-                The application that can use the domain
-            </div>
-            <mat-form-field style="width:30em" appearance="outline">
-                <mat-select
-                formControlName="application_uuid"
-                >
-                <mat-option [value]="null">--Select--</mat-option>
-                <mat-option
-                    *ngFor="let a of applicationSvc.application_list"
-                    [value]="a.application_uuid"
-                >
-                    {{ a.application_name }} </mat-option
-                >
-                </mat-select>
-                <mat-error
-                *ngIf="controls.application_uuid.errors?.required"
-                class="invalid-feedback"
-                >
-                An application must be selected
-                </mat-error>            
-            </mat-form-field>
-        </div>
-
-        <div class="flex flex-column">
-            <mat-label>Registrar Name</mat-label>
-                <div class="text-muted">
-                    The name of the domains registrar
-                </div>
-                <mat-form-field style="width:30em" appearance="outline">
-                <mat-label>Registrar Name</mat-label>
-                <input
-                    matInput
-                    trim="blur"
-                    type="text"
-                    formControlName="registrarName"
-                    placeholder=" The name of the domain registrar"
-                    />        
-                    <mat-error
-                    *ngIf="controls?.registrarName.errors?.required"
-                    class="invalid-feedback"
-                    >
-                    A registrar must be provided
-                    </mat-error>
-            </mat-form-field>
-        </div>      
-
-    </div>
-
-    <div class="flex-row flex-end mt-4">
-        <button mat-raised-button color="primary" 
-        class="flex"  
-        (click)="createDomain()"
+  <div class="mt-3" [formGroup]="domain_form_group">
+    <div class="flex flex-column">
+      <mat-label>Name</mat-label>
+      <div class="text-muted">The name of the new application</div>
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Application Name</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          formControlName="name"
+          placeholder=" The name of the new application"
+        />
+        <mat-error
+          *ngIf="controls?.name.errors?.required"
+          class="invalid-feedback"
         >
-            Create
-        </button>
-    </div>   
+          A name must be provided
+        </mat-error>
+      </mat-form-field>
+    </div>
 
+    <div class="flex flex-column">
+      <mat-label>Assigned Application</mat-label>
+      <div class="text-muted">The application that can use the domain</div>
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-select formControlName="application_uuid">
+          <mat-option [value]="null">--Select--</mat-option>
+          <mat-option
+            *ngFor="let a of applicationSvc.application_list"
+            [value]="a.application_uuid"
+          >
+            {{ a.application_name }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="controls.application_uuid.errors?.required"
+          class="invalid-feedback"
+        >
+          An application must be selected
+        </mat-error>
+      </mat-form-field>
+    </div>
 
+    <div class="flex flex-column">
+      <mat-label>Registrar Name</mat-label>
+      <div class="text-muted">The name of the domains registrar</div>
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Registrar Name</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          formControlName="registrarName"
+          placeholder=" The name of the domain registrar"
+        />
+        <mat-error
+          *ngIf="controls?.registrarName.errors?.required"
+          class="invalid-feedback"
+        >
+          A registrar must be provided
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="flex-row flex-end mt-4">
+    <button
+      mat-raised-button
+      color="primary"
+      class="flex"
+      (click)="createDomain()"
+    >
+      Create
+    </button>
+  </div>
 </div>
-  

@@ -3,15 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 //Components
 import { AboutComponent } from 'src/app/components/about/about.component';
-import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component'
+import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
-import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component'
-import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component'
+import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
+import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';

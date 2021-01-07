@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 // Local Service Imports
 import { ApplicationService } from 'src/app/services/applications.service';
-import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service'
+import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
 //Models
@@ -15,14 +15,12 @@ import { WebsiteModel } from 'src/app/models/website.model';
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 
-
 @Component({
   selector: 'wd-summary',
   templateUrl: './website-details-summary.component.html',
   styleUrls: ['./website-details-summary.component.scss'],
 })
 export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
-
   component_subscriptions = [];
   // website_data : WebsiteModel = new WebsiteModel();
 
@@ -33,12 +31,10 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     public wdTabSvc: WebsiteDetailsTabService,
-    public websiteSvc: WebsiteService,
-  ) {
-  }
+    public websiteSvc: WebsiteService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {
@@ -46,49 +42,55 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     });
   }
 
-  getApplicationName(){
-    if(this.wdTabSvc.website_data.application_using_uuid && this.applicationSvc.application_list.length){
-      return this.applicationSvc.getApplicationNameByUUID(this.wdTabSvc.website_data.application_using_uuid);
+  getApplicationName() {
+    if (
+      this.wdTabSvc.website_data.application_using_uuid &&
+      this.applicationSvc.application_list.length
+    ) {
+      return this.applicationSvc.getApplicationNameByUUID(
+        this.wdTabSvc.website_data.application_using_uuid
+      );
     } else {
-      return "Loading Application List"
+      return 'Loading Application List';
     }
   }
-  test(){    
+  test() {}
+
+  downloadWebsite() {
+    this.wdTabSvc
+      .downloadWebsite(this.wdTabSvc.website_data.website_uuid)
+      .subscribe(
+        (success) => {
+          console.log(success);
+        },
+        (failure) => {
+          console.log('download Website Failed');
+          console.log(failure);
+        }
+      );
   }
 
-  downloadWebsite(){
-    this.wdTabSvc.downloadWebsite(this.wdTabSvc.website_data.website_uuid)
-    .subscribe(
-      (success) => {console.log(success)},
-      (failure) => {
-        console.log("download Website Failed")
-        console.log(failure)
-      }
-      )
-  }
-
-  deleteWebsite(website_uuid){
+  deleteWebsite(website_uuid) {
     let confirmDialogSettings = new ConfirmDialogSettings();
-    confirmDialogSettings.itemConfirming = "confirm template delete"
-    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.website_name}`
+    confirmDialogSettings.itemConfirming = 'confirm template delete';
+    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.website_name}`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: confirmDialogSettings
+      data: confirmDialogSettings,
     });
-    this.deleteDialog.afterClosed().subscribe(
-      result => {
-        if(result === "confirmed"){
-          this.wdTabSvc.deleteWebsite(this.wdTabSvc.website_data.website_uuid)
+    this.deleteDialog.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.wdTabSvc
+          .deleteWebsite(this.wdTabSvc.website_data.website_uuid)
           .subscribe(
             (success) => {
               this.router.navigate([`/website`]);
             },
             (failed) => {}
-          )
-        } else {
-          console.log("delete cancled")
-        }
+          );
+      } else {
+        console.log('delete cancled');
       }
-    )
+    });
   }
 }

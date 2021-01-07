@@ -20,8 +20,7 @@ import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
 import { WebsiteModel } from 'src/app/models/website.model';
 
 // Dialogs
-import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component'
-
+import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
 
 @Component({
   selector: 'website-list',
@@ -30,7 +29,7 @@ import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/fil
 })
 export class WebsiteListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['website_name','template_base_name','created_date'];
+  displayedColumns = ['website_name', 'template_base_name', 'created_date'];
   search_input = '';
   websiteList: MatTableDataSource<WebsiteModel>;
   loading = true;
@@ -40,7 +39,7 @@ export class WebsiteListComponent implements OnInit {
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public websiteSvc: WebsiteService,
+    public websiteSvc: WebsiteService
   ) {
     this.layoutSvc.setTitle('Websites');
   }
@@ -55,8 +54,7 @@ export class WebsiteListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   getWebsites() {
     this.loading = true;
@@ -77,19 +75,17 @@ export class WebsiteListComponent implements OnInit {
   }
 
   viewWebsite(website_uuid) {
-    this.router.navigate([
-      `/website/details/${website_uuid}`,
-    ]);
+    this.router.navigate([`/website/details/${website_uuid}`]);
   }
 
-  uploadWebsite(){
+  uploadWebsite() {
     let fileUploadSettings = new FileUploadSettings();
-    fileUploadSettings.uploadType = "website";
-    fileUploadSettings.uploadFileType = "application/zip"
+    fileUploadSettings.uploadType = 'website';
+    fileUploadSettings.uploadFileType = 'application/zip';
     fileUploadSettings.uploadFunction = this.websiteSvc.uploadWebsite;
-      
+
     this.dialog.open(FileUploadDialogComponent, {
-      data: fileUploadSettings
+      data: fileUploadSettings,
     });
   }
 
@@ -97,7 +93,5 @@ export class WebsiteListComponent implements OnInit {
     this.websiteList.filter = value.trim().toLocaleLowerCase();
   };
 
-  test(){
-    
-  }
+  test() {}
 }

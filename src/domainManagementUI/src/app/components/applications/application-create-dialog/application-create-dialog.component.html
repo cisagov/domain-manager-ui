@@ -1,70 +1,68 @@
 <h2 mat-dialog-title>Create New Application</h2>
-<button mat-button
-  style="
-  display: inline-block;
-  float: right;
-  top: -4em;
-  margin-bottom: -4em;"
+<button
+  mat-button
+  style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
   [mat-dialog-close]="false"
 ></button>
 <div class="dialog text-muted" mat-dialog-content>
-  <div class="text-muted mb-4" >
+  <div class="text-muted mb-4">
     Fill in all fields and hit submit to create a new application
   </div>
 
   <div class="flex-column" [formGroup]="application_form_group">
-
     <div class="flex flex-column">
       <mat-label>Name</mat-label>
-        <!-- <div class="text-muted">
+      <!-- <div class="text-muted">
             The Name of the new application
         </div> -->
-        <mat-form-field style="width:30em" appearance="outline">
-          <mat-label>Application Name</mat-label>
-          <input
-            matInput
-            trim="blur"
-            type="text"
-            formControlName="application_name"
-            placeholder=" The name of the new application"
-            />        
-            <mat-error
-            *ngIf="controls?.application_name.errors?.required"
-            class="invalid-feedback"
-            >
-            A name must be provided
-            </mat-error>
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Application Name</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          formControlName="application_name"
+          placeholder=" The name of the new application"
+        />
+        <mat-error
+          *ngIf="controls?.application_name.errors?.required"
+          class="invalid-feedback"
+        >
+          A name must be provided
+        </mat-error>
       </mat-form-field>
     </div>
-
 
     <div class="flex flex-column">
       <mat-label>Name</mat-label>
-        <!-- <div class="text-muted">
+      <!-- <div class="text-muted">
             The Name of the application requester
         </div> -->
-        <mat-form-field style="width:30em" appearance="outline">
-          <mat-label>Requester Name</mat-label>
-          <input
-            matInput
-            trim="blur"
-            type="text"
-            formControlName="requester_name"
-            placeholder=" The name of the person requesting the new application"
-            />        
-            <mat-error
-            *ngIf="controls?.requester_name.errors?.required"
-            class="invalid-feedback"
-            >
-            A requesters name must be provided
-            </mat-error>
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Requester Name</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          formControlName="requester_name"
+          placeholder=" The name of the person requesting the new application"
+        />
+        <mat-error
+          *ngIf="controls?.requester_name.errors?.required"
+          class="invalid-feedback"
+        >
+          A requesters name must be provided
+        </mat-error>
       </mat-form-field>
     </div>
-
   </div>
 </div>
 
 <mat-dialog-actions align="end">
-  <button (click)="createApplication()" mat-raised-button color="warn">Submit</button>
-  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">Cancel</button>
+  <button (click)="createApplication()" mat-raised-button color="warn">
+    Submit
+  </button>
+  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">
+    Cancel
+  </button>
 </mat-dialog-actions>

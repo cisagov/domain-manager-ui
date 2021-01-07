@@ -2,8 +2,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // Local Service Imports
-import { ApplicationService } from 'src/app/services/applications.service'
-import { WebsiteCreationTabService } from 'src/app/services/tab-services/website-creation-tabs.service'
+import { ApplicationService } from 'src/app/services/applications.service';
+import { WebsiteCreationTabService } from 'src/app/services/tab-services/website-creation-tabs.service';
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
@@ -13,26 +13,23 @@ import { WebsiteModel } from 'src/app/models/website.model';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 
-
 @Component({
   selector: 'wc-attributes',
   templateUrl: './website-creation-attributes.component.html',
   styleUrls: ['./website-creation-attributes.component.scss'],
 })
 export class WebsiteCreationAttrbutesComponent implements OnInit, OnDestroy {
-
   component_subscriptions = [];
   submitted = false;
 
   constructor(
     public applicationSvc: ApplicationService,
-    public wcTabSvc: WebsiteCreationTabService,
-  ) {
-  }
+    public wcTabSvc: WebsiteCreationTabService
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.tabForm)
-    console.log(this.f)
+    console.log(this.tabForm);
+    console.log(this.f);
   }
 
   ngOnDestroy(): void {
@@ -41,31 +38,28 @@ export class WebsiteCreationAttrbutesComponent implements OnInit, OnDestroy {
     });
   }
 
-  create(){
-    console.log(this.tabForm)
-    if(this.wcTabSvc.isValid(this.tabForm)){
+  create() {
+    console.log(this.tabForm);
+    if (this.wcTabSvc.isValid(this.tabForm)) {
       this.wcTabSvc.createWebsite();
     } else {
-      console.log("invlaid")
+      console.log('invlaid');
     }
   }
 
-  test(){
+  test() {
     this.nextTab();
-    console.log(this.tabForm)
+    console.log(this.tabForm);
   }
 
-  get tabForm(){
+  get tabForm() {
     return this.wcTabSvc.attributes_form;
   }
 
-  get f(){
-      return this.wcTabSvc.attributes_form.controls
+  get f() {
+    return this.wcTabSvc.attributes_form.controls;
   }
-  nextTab(){
-    this.wcTabSvc.submitTab(this.tabForm)
+  nextTab() {
+    this.wcTabSvc.submitTab(this.tabForm);
   }
-
-
-
 }

@@ -1,14 +1,11 @@
-<h2 mat-dialog-title>{{itemConfirming | titlecase}}</h2>
-<button mat-button
-  style="
-  display: inline-block;
-  float: right;
-  top: -4em;
-  margin-bottom: -4em;"
+<h2 mat-dialog-title>{{ itemConfirming | titlecase }}</h2>
+<button
+  mat-button
+  style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
   [mat-dialog-close]="true"
 ></button>
 <div *ngIf="actionConfirming" class="dialog" mat-dialog-content>
-  {{actionConfirming}}?
+  {{ actionConfirming }}?
 </div>
 <div *ngIf="!actionConfirming" class="dialog" mat-dialog-content>
   Are you sure?
@@ -18,5 +15,7 @@
 </div>
 <mat-dialog-actions align="end">
   <button (click)="confirm()" mat-raised-button color="warn">Confirm</button>
-  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">Cancel</button>
+  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">
+    Cancel
+  </button>
 </mat-dialog-actions>

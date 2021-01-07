@@ -1,34 +1,30 @@
 //Angular Imports
 import { Injectable } from '@angular/core';
 import {
-    MatSnackBar,
-    MatSnackBarHorizontalPosition,
-    MatSnackBarVerticalPosition,
-  } from '@angular/material/snack-bar';
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 //Local Services
 import { environment } from 'src/environments/environment';
 
-
 @Injectable()
 export class AlertsService {
+  private horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  private verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-
-    private horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-    private verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private _snackBar: MatSnackBar) {}
 
   alert(
-      alertMessage: string, 
-      closeMessage: string = "Close", 
-      duration: number = 2000,
-      horizPosition :string = "center",
-      vertPosition: string = "top"
-      ) {
-
-    this.horizontalPosition = horizPosition as MatSnackBarHorizontalPosition
-    this.verticalPosition = vertPosition as MatSnackBarVerticalPosition
+    alertMessage: string,
+    closeMessage: string = 'Close',
+    duration: number = 2000,
+    horizPosition: string = 'center',
+    vertPosition: string = 'top'
+  ) {
+    this.horizontalPosition = horizPosition as MatSnackBarHorizontalPosition;
+    this.verticalPosition = vertPosition as MatSnackBarVerticalPosition;
 
     this._snackBar.open(alertMessage, closeMessage, {
       duration: duration,
@@ -47,6 +43,4 @@ export class AlertsService {
   //Vertical Postions
   // top
   // bottom
-
-
 }
