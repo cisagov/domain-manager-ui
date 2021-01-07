@@ -29,7 +29,7 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     public layoutSvc: LayoutService,
     private router: Router
   ) {
-    this.layoutSvc.setTitle('Create Domain');
+    this.layoutSvc.setTitle('Application Details');
   }
 
   ngOnInit(): void {
@@ -48,8 +48,8 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadApplication(application_uuid) {
-    this.applicationSvc.getApplication(application_uuid).subscribe(
+  loadApplication(application_id) {
+    this.applicationSvc.getApplication(application_id).subscribe(
       (success) => {
         this.application_data = success as ApplicationModel;
         this.applicationLoaded = true;
@@ -62,20 +62,20 @@ export class ApplicationDetailsComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    if (this.application_data.domains_used_count == 0) {
-      this.applicationSvc.deleteApplication(this.application_uuid).subscribe(
-        (success) => {
-          console.log('Application Deleted');
-          this.router.navigate([`/application`]);
-        },
-        (failure) => {
-          console.log('failed to delete the applicaiton');
-          console.log(failure);
-        }
-      );
-    } else {
-      this.alerts.alert('Can not delete an application that is using a domain');
-    }
+    // if (this.application_data.domains_used_count == 0) {
+    //   this.applicationSvc.deleteApplication(this.application_uuid).subscribe(
+    //     (success) => {
+    //       console.log('Application Deleted');
+    //       this.router.navigate([`/application`]);
+    //     },
+    //     (failure) => {
+    //       console.log('failed to delete the applicaiton');
+    //       console.log(failure);
+    //     }
+    //   );
+    // } else {
+    //   this.alerts.alert('Can not delete an application that is using a domain');
+    // }
   }
 
   test() {

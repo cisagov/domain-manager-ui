@@ -1,18 +1,14 @@
-//Angular Imports
+// Angular Imports
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SettingsService } from 'src/app/services/settings.service';
 
-//Local Services
+// Local Services
 import { environment } from 'src/environments/environment';
 
 // Models
 import { ApplicationModel } from 'src/app/models/application.model';
-
-const headers = {
-  headers: new HttpHeaders().set('Content-Type', 'application/json'),
-};
 
 @Injectable()
 export class ApplicationService {
@@ -22,25 +18,25 @@ export class ApplicationService {
   // Test Data
   private application_list_test_data = [
     {
-      application_uuid: 'application-1-UUID',
-      application_name: 'Redteam',
+      _id: 'application-1-UUID',
+      name: 'Redteam',
       requester_name: 'Requester Name Here',
-      date_created: new Date('09-12-2020'),
-      domains_used_count: 0,
+      created: new Date('09-12-2020'),
+      // domains_used_count: 0,
     },
     {
-      application_uuid: 'application-2-UUID',
-      application_name: 'RVA',
+      _id: 'application-2-UUID',
+      name: 'RVA',
       requester_name: 'Requester Name Here',
-      date_created: new Date('03-12-2020'),
-      domains_used_count: 8,
+      created: new Date('03-12-2020'),
+      // domains_used_count: 8,
     },
     {
-      application_uuid: 'application-3-UUID',
-      application_name: 'Con-PCA',
-      requester_name: 'Requester Name Here',
+      _id: 'application-3-UUID',
+      name: 'Con-PCA',
+      created: 'Requester Name Here',
       date_created: new Date('12-12-2020'),
-      domains_used_count: 2,
+      // domains_used_count: 2,
     },
   ];
 
@@ -57,21 +53,10 @@ export class ApplicationService {
   }
 
   getAllApplications() {
-    //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/applications/`;
-    console.log(url);
-    // this.http.get(url,headers).subscribe(
-    //   (val) => {
-    //       this.application_list = val as [];
-    //     console.log(val)
-    //   },
-    //   (error) => {
-    //     console.log(error)
-    // }
-    // )
-    // return this.http.get(url,headers)
-
-    //Examplefor testing purposes
+    const url = `${this.settingsService.settings.apiUrl}/api/applications/`;
+    if (!environment.testingNoAPI) {
+      return this.http.get(url);
+    }
 
     return new Observable((exampleObs) => {
       setTimeout(() => {
@@ -81,14 +66,14 @@ export class ApplicationService {
     });
   }
 
-  getApplication(application_uuid) {
-    let url = `${this.settingsService.settings.apiUrl}/api/application/${application_uuid}/`;
+  getApplication(id: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/application/${id}/`;
 
     if (!environment.testingNoAPI) {
       return this.http.get(url);
     } else {
-      let retVal = this.application_list_test_data.filter(
-        (f) => f.application_uuid == application_uuid
+      const retVal = this.application_list_test_data.filter(
+        (f) => f._id === id
       )[0];
       return new Observable((exampleObs) => {
         setTimeout(() => {
@@ -98,17 +83,15 @@ export class ApplicationService {
     }
   }
 
-  getApplicationNameByUUID(application_uuid) {
+  getApplicationNameByUUID(application_id) {
     if (this.application_list.length) {
-      return this.application_list.find(
-        (a) => a.application_uuid === application_uuid
-      )?.application_name;
+      return this.application_list.find((a) => a._id === application_id)?.name;
     }
     return '...Loading applications';
   }
 
-  deleteApplication(application_uuid) {
-    let url = `${this.settingsService.settings.apiUrl}/api/application/${application_uuid}/`;
+  deleteApplication(application_id) {
+    const url = `${this.settingsService.settings.apiUrl}/api/application/${application_id}/`;
 
     if (!environment.testingNoAPI) {
       return this.http.delete(url);
@@ -122,7 +105,7 @@ export class ApplicationService {
   }
 
   createApplication(application: ApplicationModel) {
-    let url = `${this.settingsService.settings.apiUrl}/api/applications/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/applications/`;
 
     if (!environment.testingNoAPI) {
       return this.http.post(url, application);

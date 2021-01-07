@@ -1,21 +1,15 @@
-export class ApplicationBaseModel {
-  application_name: string;
-  application_uuid: string;
-
-  constructor() {
-    this.application_name = null;
-    this.application_uuid = null;
-  }
-}
-
-export class ApplicationModel extends ApplicationBaseModel {
-  domains_used_count: number;
-  date_created: Date;
+export class ApplicationModel {
+  _id: string;
+  name: string;
   requester_name: string;
+  created: Date;
+  updated: Date;
 
   constructor() {
-    super();
-    this.domains_used_count = null;
+    this._id = null;
+    this.name = null;
     this.requester_name = null;
+    this.created = null;
+    this.updated = null;
   }
 }

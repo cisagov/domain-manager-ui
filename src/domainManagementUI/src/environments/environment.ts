@@ -7,6 +7,7 @@ export const environment = {
   defaultToAdmin: true,
   testingNoAPI: true,
   production: false,
+  
 };
 
 /*
