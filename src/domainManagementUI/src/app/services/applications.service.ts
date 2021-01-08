@@ -117,4 +117,9 @@ export class ApplicationService {
       });
     }
   }
+
+  getDomainsByApplication(applicationId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/websites/?application_id=${applicationId}`;
+    return this.http.get(url);
+  }
 }

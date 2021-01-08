@@ -26,12 +26,13 @@ import { ApplicationCreateDialog } from 'src/app/components/applications/applica
   templateUrl: './application-list.component.html',
   styleUrls: ['./application-list.component.scss'],
 })
-export class ApplicationListComponent implements OnInit {
+export class ApplicationListComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   create_dialog: MatDialogRef<ApplicationCreateDialog> = null;
   component_subscriptions = [];
   displayedColumns = ['application_name', 'domains_used_count'];
   search_input = '';
-  applicationList: MatTableDataSource<ApplicationModel>;
+  applicationList = new MatTableDataSource<ApplicationModel>();
   loading = true;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -59,10 +60,18 @@ export class ApplicationListComponent implements OnInit {
   getApplications() {
     this.loading = true;
     this.applicationSvc.getAllApplications().subscribe(
-      (success) => {
-        this.applicationList = new MatTableDataSource<ApplicationModel>(
-          success as ApplicationModel[]
-        );
+      (applications: ApplicationModel[]) => {
+        applications.forEach((app: ApplicationModel) => {
+          // Get Domains used count
+          this.applicationSvc
+            .getDomainsByApplication(app._id)
+            .subscribe((websites: any[]) => {
+              app.domains_used_count = Number(websites.length);
+              const data = this.applicationList.data;
+              data.push(app);
+              this.applicationList.data = data;
+            });
+        });
         this.loading = false;
         this.applicationList.sort = this.sort;
       },
