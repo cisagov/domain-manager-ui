@@ -1,41 +1,42 @@
-//Angular Imports
+// Angular Imports
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-//Models
+// Models
 import { ApplicationModel } from 'src/app/models/application.model';
+import { ApplicationService } from 'src/app/services/applications.service';
 
 @Component({
-  selector: 'application-create',
+  selector: 'app-application-create',
   templateUrl: 'application-create-dialog.component.html',
 })
-export class ApplicationCreateDialog implements OnInit {
-  application_data: ApplicationModel = new ApplicationModel();
-  application_form_group: FormGroup;
+export class ApplicationCreateDialogComponent implements OnInit {
+  applicationFormGroup: FormGroup;
 
   constructor(
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<ApplicationCreateDialog>
+    private dialogRef: MatDialogRef<ApplicationCreateDialogComponent>,
+    private applicationSvc: ApplicationService
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
   }
-  closeDialog() {
-    this.dialogRef.close(false);
-  }
 
   createApplication() {
-    if (this.isValid(this.application_form_group)) {
-      this.dialogRef.close(this.formToApplicationModel());
+    if (this.isValid(this.applicationFormGroup)) {
+      const data = this.formToApplicationModel();
+      this.applicationSvc.createApplication(data).subscribe(() => {
+        this.dialogRef.close(true);
+      });
     } else {
-      console.log('invlid form');
+      console.log('invalid form');
     }
   }
 
   buildForm() {
-    this.application_form_group = new FormGroup({
+    this.applicationFormGroup = new FormGroup({
       name: new FormControl('', {
         validators: Validators.required,
       }),
@@ -44,9 +45,9 @@ export class ApplicationCreateDialog implements OnInit {
   }
 
   formToApplicationModel() {
-    let retVal = new ApplicationModel();
-    retVal.name = this.controls['name'].value;
-    retVal.requester_name = this.controls['requester_name'].value;
+    const retVal = new ApplicationModel();
+    retVal.name = this.controls.name.value;
+    retVal.requester_name = this.controls.requester_name.value;
     return retVal;
   }
 
@@ -60,6 +61,6 @@ export class ApplicationCreateDialog implements OnInit {
   }
 
   get controls() {
-    return this.application_form_group.controls;
+    return this.applicationFormGroup.controls;
   }
 }

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Create New Application</h2>
+<h2 mat-dialog-title>Edit Application</h2>
 <button
   mat-button
   style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
@@ -9,57 +9,41 @@
     Fill in all fields and hit submit to create a new application
   </div>
 
-  <div class="flex-column" [formGroup]="applicationFormGroup">
+  <div class="flex-column">
     <div class="flex flex-column">
       <mat-label>Name</mat-label>
-      <!-- <div class="text-muted">
-            The Name of the new application
-        </div> -->
       <mat-form-field style="width: 30em" appearance="outline">
         <mat-label>Application Name</mat-label>
         <input
           matInput
           trim="blur"
           type="text"
-          formControlName="name"
+          required
+          [(ngModel)]="application.name"
           placeholder=" The name of the new application"
         />
-        <mat-error
-          *ngIf="controls?.name.errors?.required"
-          class="invalid-feedback"
-        >
-          A name must be provided
-        </mat-error>
       </mat-form-field>
     </div>
 
     <div class="flex flex-column">
       <mat-label>Name</mat-label>
-      <!-- <div class="text-muted">
-            The Name of the application requester
-        </div> -->
       <mat-form-field style="width: 30em" appearance="outline">
         <mat-label>Requester Name</mat-label>
         <input
           matInput
           trim="blur"
           type="text"
-          formControlName="requester_name"
+          required
+          [(ngModel)]="application.requester_name"
           placeholder=" The name of the person requesting the new application"
         />
-        <mat-error
-          *ngIf="controls?.requester_name.errors?.required"
-          class="invalid-feedback"
-        >
-          A requesters name must be provided
-        </mat-error>
       </mat-form-field>
     </div>
   </div>
 </div>
 
 <mat-dialog-actions align="end">
-  <button (click)="createApplication()" mat-raised-button color="primary">
+  <button (click)="updateApplication()" mat-raised-button color="primary">
     Submit
   </button>
   <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">

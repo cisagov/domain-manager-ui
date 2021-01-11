@@ -5,7 +5,7 @@
 export const environment = {
   authorize: false,
   defaultToAdmin: true,
-  testingNoAPI: true,
+  testingNoAPI: false,
   production: false,
 };
 

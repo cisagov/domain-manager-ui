@@ -20,8 +20,7 @@ import { ngfModule, ngf } from 'angular-file';
 //Custom Components
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
-import { ApplicationCreateDialog } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
-import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component';
+import { ApplicationCreateDialogComponent } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
@@ -66,6 +65,7 @@ import { WebsiteService } from 'src/app/services/website.service';
 //Helpers
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
 import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor';
+import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -75,8 +75,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   declarations: [
     AboutComponent,
     AppComponent,
-    ApplicationCreateDialog,
-    ApplicationDetailsComponent,
+    ApplicationCreateDialogComponent,
     ApplicationListComponent,
     LayoutMainComponent,
     DomainManagementCreateComponent,
@@ -101,6 +100,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteCreationAttrbutesComponent,
     WebsiteCreationTemplateSelectionComponent,
     WebsiteListComponent,
+    ApplicationEditDialogComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 //Components
 import { AboutComponent } from 'src/app/components/about/about.component';
-import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
@@ -34,11 +33,6 @@ const routes: Routes = [
     path: 'application',
     component: LayoutMainComponent,
     children: [{ path: '', component: ApplicationListComponent }],
-  },
-  {
-    path: 'application/details/:application_uuid',
-    component: LayoutMainComponent,
-    children: [{ path: '', component: ApplicationDetailsComponent }],
   },
   {
     path: 'domain-management',
