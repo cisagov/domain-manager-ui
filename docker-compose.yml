@@ -1,22 +1,19 @@
----
 version: "3.7"
-
 services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: domain-management
+    container_name: dm-ui-prod
     restart: unless-stopped
     ports:
-      - "4200:4200"
-    volumes:
-      - /app/node_modules
-      - ./src/domainManagementUI:/app
+      - "4200:80"
     networks:
       - frontend
+      - backend
     env_file:
       - .env
 networks:
   frontend:
-    name: domain_management_frontend
+    name: dm_frontend
+  backend:
+    name: dm_backend

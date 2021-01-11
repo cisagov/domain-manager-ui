@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: local.Dockerfile
+    container_name: dm-ui
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    volumes:
+      - /app/node_modules
+      - ./src/domainManagementUI:/app
+    networks:
+      - frontend
+      - backend
+    env_file:
+      - .env
+networks:
+  frontend:
+    name: dm_frontend
+  backend:
+    name: dm_backend

@@ -1,7 +1,14 @@
+//Angular Imports
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Observable } from 'rxjs';
+
+//Local Services
+import { environment } from 'src/environments/environment';
+
+// Models
+import { DomainModel } from '../models/domain.model';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -10,8 +17,7 @@ const headers = {
 @Injectable()
 export class DomainManagementService {
   // Test Data
-  domain_list 
-  = [
+  domain_list = [
     {
       counter: 1,
       name: 'Test Domain',
@@ -20,8 +26,8 @@ export class DomainManagementService {
       lastUser: 'myLastUser',
       expirationDate: Date.now() + 1000000000,
       wentLiveDate: Date.now() - 1000000000,
-      reputation: .75,
-      isAvailable: true
+      reputation: 0.75,
+      isAvailable: true,
     },
     {
       counter: 2,
@@ -31,8 +37,8 @@ export class DomainManagementService {
       lastUser: 'myLastUser',
       expirationDate: Date.now() + 1000000000,
       wentLiveDate: Date.now() - 1000000000,
-      reputation: .85,
-      isAvailable: false
+      reputation: 0.85,
+      isAvailable: false,
     },
     {
       counter: 3,
@@ -42,8 +48,8 @@ export class DomainManagementService {
       lastUser: 'myLastUser',
       expirationDate: Date.now() + 1000000000,
       wentLiveDate: Date.now() - 1000000000,
-      reputation: .65,
-      isAvailable: true
+      reputation: 0.65,
+      isAvailable: true,
     },
     {
       counter: 4,
@@ -53,8 +59,8 @@ export class DomainManagementService {
       lastUser: 'myLastUser',
       expirationDate: Date.now() + 1000000000,
       wentLiveDate: Date.now() - 1000000000,
-      reputation: .95,
-      isAvailable: false
+      reputation: 0.95,
+      isAvailable: false,
     },
     {
       counter: 5,
@@ -64,8 +70,8 @@ export class DomainManagementService {
       lastUser: 'myLastUser',
       expirationDate: Date.now() + 1000000000,
       wentLiveDate: Date.now() - 1000000000,
-      reputation: .70,
-      isAvailable: true
+      reputation: 0.7,
+      isAvailable: true,
     },
   ];
 
@@ -77,15 +83,15 @@ export class DomainManagementService {
   getAllDomainsTest() {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
-    console.log(url)
-    this.http.get(url,headers).subscribe(
+    console.log(url);
+    this.http.get(url, headers).subscribe(
       (val) => {
-        console.log(val)
+        console.log(val);
       },
       (error) => {
-        console.log(error)
-    }  
-    )
+        console.log(error);
+      }
+    );
     // return this.http.get(url,headers)
 
     //Example observable return for testing purposes
@@ -104,11 +110,24 @@ export class DomainManagementService {
   setDomainsAsAvailable(domain_uuid_list) {
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
     //return this.http.get(url,headers)
-    console.log("Attempting to set domains as available")
-    console.log(domain_uuid_list)
+    console.log('Attempting to set domains as available');
+    console.log(domain_uuid_list);
     return new Observable((exampleObs) => {
       exampleObs.next(this.domain_list);
     });
   }
 
+  createDomain(new_domain: DomainModel) {
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/`;
+
+    if (!environment.testingNoAPI) {
+      return this.http.post(url, new_domain);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('Domain Created');
+        }, Math.floor(Math.random() * 500));
+      });
+    }
+  }
 }

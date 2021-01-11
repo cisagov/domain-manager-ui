@@ -1,12 +1,9 @@
 // Angular Imports
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 
 // Local Service Imports
 import { ApplicationService } from 'src/app/services/applications.service';
-import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service'
-import { WebsiteService } from 'src/app/services/website.service';
+import { WebsiteCreationTabService } from 'src/app/services/tab-services/website-creation-tabs.service';
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
@@ -14,30 +11,25 @@ import { WebsiteModel } from 'src/app/models/website.model';
 
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
-
+import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 
 @Component({
   selector: 'wc-attributes',
-  templateUrl: './website-details-summary.component.html',
-  styleUrls: ['./website-details-summary.component.scss'],
+  templateUrl: './website-creation-attributes.component.html',
+  styleUrls: ['./website-creation-attributes.component.scss'],
 })
-export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
-
+export class WebsiteCreationAttrbutesComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
-  // website_data : WebsiteModel = new WebsiteModel();
-
-  deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
+  submitted = false;
 
   constructor(
     public applicationSvc: ApplicationService,
-    public dialog: MatDialog,
-    private router: Router,
-    public wdTabSvc: WebsiteDetailsTabService,
-    public websiteSvc: WebsiteService,
-  ) {
-  }
+    public wcTabSvc: WebsiteCreationTabService
+  ) {}
 
   ngOnInit(): void {
+    console.log(this.tabForm);
+    console.log(this.f);
   }
 
   ngOnDestroy(): void {
@@ -46,50 +38,28 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     });
   }
 
-  getApplicationName(){
-    if(this.wdTabSvc.website_data.application_using_uuid && this.applicationSvc.application_list.length){
-      return this.applicationSvc.getApplicationNameByUUID(this.wdTabSvc.website_data.application_using_uuid);
+  create() {
+    console.log(this.tabForm);
+    if (this.wcTabSvc.isValid(this.tabForm)) {
+      this.wcTabSvc.createWebsite();
     } else {
-      return "Loading Application List"
+      console.log('invlaid');
     }
   }
-  test(){
-    console.log("test")      
+
+  test() {
+    this.nextTab();
+    console.log(this.tabForm);
   }
 
-  downloadWebsite(){
-    this.wdTabSvc.downloadWebsite(this.wdTabSvc.website_data.website_uuid)
-    .subscribe(
-      (success) => {console.log(success)},
-      (failure) => {
-        console.log("download Website Failed")
-        console.log(failure)
-      }
-      )
+  get tabForm() {
+    return this.wcTabSvc.attributes_form;
   }
 
-  deleteWebsite(website_uuid){
-    let confirmDialogSettings = new ConfirmDialogSettings();
-    confirmDialogSettings.itemConfirming = "confirm template delete"
-    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.website_name}`
-
-    this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: confirmDialogSettings
-    });
-    this.deleteDialog.afterClosed().subscribe(
-      result => {
-        if(result === "confirmed"){
-          this.wdTabSvc.deleteWebsite(this.wdTabSvc.website_data.website_uuid)
-          .subscribe(
-            (success) => {
-              this.router.navigate([`/website`]);
-            },
-            (failed) => {}
-          )
-        } else {
-          console.log("delete cancled")
-        }
-      }
-    )
+  get f() {
+    return this.wcTabSvc.attributes_form.controls;
+  }
+  nextTab() {
+    this.wcTabSvc.submitTab(this.tabForm);
   }
 }

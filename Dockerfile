@@ -1,16 +1,22 @@
-FROM node:13-alpine
+FROM nginx:1.19
 
 WORKDIR /app
 
-COPY ./src/domainManagementUI/package.json /app/package.json
+RUN apt update -y
+RUN apt install npm -y
 
-RUN npm install --loglevel=error
-RUN npm install -g @angular/cli@9.1.8
+COPY ./src/domainManagementUI/package.json ./
 
-ENV PATH /app/node_modules/.bin:$PATH
+RUN npm install
 
-COPY ./src/domainManagementUI /app
+RUN npm install -g @angular/cli
 
-RUN ng build
+COPY ./src/domainManagementUI .
 
-CMD ng serve --host 0.0.0.0 --disable-host-check
+COPY ./etc/default.conf /etc/nginx/conf.d/default.conf
+COPY ./etc/mime.types /etc/nginx/mime.types
+
+COPY ./etc/entrypoint.sh /usr/share/nginx/entrypoint.sh
+RUN chmod 755 /usr/share/nginx/entrypoint.sh
+
+ENTRYPOINT ["/usr/share/nginx/entrypoint.sh"]
