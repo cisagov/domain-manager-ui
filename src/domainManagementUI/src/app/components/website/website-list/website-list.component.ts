@@ -45,8 +45,10 @@ export class WebsiteListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getWebsites();
   }
+  
 
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {
@@ -81,7 +83,7 @@ export class WebsiteListComponent implements OnInit {
   uploadWebsite() {
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'website';
-    fileUploadSettings.uploadFileType = 'application/zip';
+    fileUploadSettings.uploadFileType = 'application/x-zip-compressed';
     fileUploadSettings.uploadFunction = this.websiteSvc.uploadWebsite;
 
     this.dialog.open(FileUploadDialogComponent, {

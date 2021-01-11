@@ -44,7 +44,8 @@ export class FileUploadDialogComponent {
     dialogRef.disableClose = true;
     this.uploadType = data.uploadType;
     this.uploadFunction = data.uploadFunction;
-    this.uploadFileType = data.uploadFileType;
+    console.log(data);
+    this.uploadFileType = this.getNativeMimeType(data.uploadFileType);
   }
 
   uploadFiles() {
@@ -69,6 +70,44 @@ export class FileUploadDialogComponent {
   }
 
   getDate() {
+    console.log("get date for file called");
     return new Date();
+  }
+  
+  getNativeMimeType(mimeType:string){
+    let re = new RegExp('application/.*zip.*');
+    if(re.test(mimeType)){
+      switch(this.getOS()){
+        case 'Android':
+        case 'Linux':
+        case 'Mac OS':
+        case 'iOS':
+          return 'application/zip';
+        case 'Windows':
+          return 'application/x-zip-compressed';          
+      }
+    }
+    return mimeType;    
+  }
+
+  getOS() {
+    var userAgent = window.navigator.userAgent,
+        platform = window.navigator.platform,
+        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+        os = null;
+    if (macosPlatforms.indexOf(platform) !== -1) {
+      os = 'Mac OS';      
+    } else if (iosPlatforms.indexOf(platform) !== -1) {
+      os = 'iOS';
+    } else if (windowsPlatforms.indexOf(platform) !== -1) {
+      os = 'Windows';
+    } else if (/Android/.test(userAgent)) {
+      os = 'Android';
+    } else if (!os && /Linux/.test(platform)) {
+      os = 'Linux';
+    }    
+    return os;
   }
 }
