@@ -4,5 +4,21 @@
   <div class="text-muted">
     History
   </div>
-  
+  <mat-label class="mt-3">Website Usage History</mat-label>
+  <div class="flex-row ">
+      <table class="display_table">
+          <tr>
+            <th> Domain </th>
+            <th> Application </th>
+            <th> Start Date </th>
+            <th> Stop Date </th>
+          </tr>
+          <tr *ngFor="let history of tdTabSvc.websites_used_list">
+            <td>{{history.domain}}</td>
+            <td>{{history.application}}</td>
+            <td>{{history.start_date | date: 'MM/dd/yy'}}</td>
+            <td>{{history.end_date | date: 'MM/dd/yy'}}</td>
+          </tr>
+      </table>
+  </div>
 </div>
