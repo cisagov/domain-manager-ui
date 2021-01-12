@@ -4,17 +4,29 @@
     This websites associated hosted zones
   </div>
 
-  <div style="margin-top: 2em;" class="flex-column flex-full summary_list_rows" >
-    <div class="flex-row" *ngIf="wdTabSvc.website_data?.route53">
+  <div style="margin-top: 2em;" *ngIf="wdTabSvc.website_data?.hosted_zones" class="flex-column flex-full summary_list_rows" >
+    <!-- <div class="flex-row" *ngIf="wdTabSvc.website_data?.hosted_zones">
       <div class="flex sl_flex_content">
-        {{wdTabSvc.website_data.route53.id}}
-      </div>
-    </div>
-    <!-- <div class="flex-row" *ngFor="let zone of wdTabSvc.website_data.route53">
-      <div class="flex sl_flex_content">
-        {{zone.id}}
+        {{wdTabSvc.website_data.hosted_zones.id}}
       </div>
     </div> -->
+    <div class="flex-column summary_list_item" *ngFor="let zone of wdTabSvc.website_data?.hosted_zones">
+      <div class="flex sl_flex_content font-weight-bold">
+        {{zone.Name}}
+      </div>
+      <div class="flex sl_flex_content ml-2">
+        TTL: {{zone.TTL}}
+      </div>
+      <div class="flex sl_flex_content  ml-2">
+        Type: {{zone.Type}}
+      </div>
+      <div class="flex-column sl_flex_content  ml-2">
+        Resource Records:
+        <div class="flex ml-4" *ngFor="let resource of zone.ResourceRecords">
+          {{resource.Value}}
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

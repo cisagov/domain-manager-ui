@@ -59,7 +59,8 @@ export class WebsiteService {
         application_using: new ApplicationModel(),
         is_active: true,
         history: new Array<WebsiteHistoryModel>(),
-        route53: new HostedZoneModel(),
+        route53: null,
+        hosted_zones: new Array<HostedZoneModel>(),
         // template: new TemplateModel(),
         website_parameters: [
           {

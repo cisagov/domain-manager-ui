@@ -1,5 +1,6 @@
 import { TemplateModel } from './template.model';
 import { ApplicationModel } from './application.model'
+import { stringify } from '@angular/compiler/src/util';
 
 export interface IWebsiteBaseModel {
   name: string;
@@ -21,8 +22,9 @@ export class WebsiteBaseModel {
   is_active: boolean;
   application_using: ApplicationModel;
   history: WebsiteHistoryModel[];
-  // route53: string[];
-  route53: HostedZoneModel;
+  // hosted_zones: string[];
+  route53: string;
+  hosted_zones: HostedZoneModel[];
 
   constructor() {
     this.name = null;
@@ -39,8 +41,9 @@ export class WebsiteBaseModel {
     this.application_using = new ApplicationModel();
     this.is_active = null;
     this.history = new Array<WebsiteHistoryModel>();
-    // this.route53 = new Array<string>();
-    this.route53 = new HostedZoneModel();
+    // this.hosted_zones = new Array<string>();
+    this.route53 = null;
+    this.hosted_zones = new Array<HostedZoneModel>();
   }
 
 }
