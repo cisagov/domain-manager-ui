@@ -7,13 +7,4 @@ export class ApplicationModel {
 
   // Helper attributes
   domains_used_count: Number;
-
-  constructor() {
-    this._id = null;
-    this.domains_used_count = 0;
-    this.name = null;
-    this.requester_name = null;
-    this.created = null;
-    this.updated = null;
-  }
 }

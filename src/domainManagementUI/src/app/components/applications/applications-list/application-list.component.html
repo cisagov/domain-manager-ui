@@ -4,7 +4,7 @@
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Search</mat-label>
         <input
-          [(ngModel)]="search_input"
+          [(ngModel)]="searchInput"
           (keyup)="filterList($event.target.value)"
           matInput
           placeholder="Search"
@@ -48,12 +48,35 @@
         <mat-cell *matCellDef="let row">{{ row.domains_used_count }}</mat-cell>
       </ng-container>
 
+      <!-- Edit/Delete Icons -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+          <button
+            class="table-btn-icon"
+            mat-flat-button
+            color="warn"
+            (click)="deleteApplication(row)"
+          >
+            <mat-icon class="table-btn-icon-size">delete</mat-icon>
+          </button>
+          <button
+            class="table-btn-icon"
+            mat-flat-button
+            color="primary"
+            (click)="editApplication(row)"
+          >
+            <mat-icon class="table-btn-icon-size">edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
       <!-- Header Info -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
         class="table-row cursor-pointer"
         *matRowDef="let row; columns: displayedColumns"
-        (click)="viewApplication(row._id)"
+        (click)="editApplication(row)"
       ></mat-row>
     </mat-table>
   </div>
