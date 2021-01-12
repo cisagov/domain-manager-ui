@@ -10,6 +10,7 @@ import {
 } from 'src/app/models/template.model';
 import { environment } from 'src/environments/environment';
 import { env } from 'process';
+import { AbstractUploadService } from './abstract-upload.service';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -18,17 +19,19 @@ const headers = {
 @Injectable({
   providedIn: 'root',
 })
-export class TemplateService {
+export class TemplateService extends AbstractUploadService {  
   template_list = new Array<TemplateModel>();
 
   constructor(
     private http: HttpClient,
     private settingsService: SettingsService
-  ) {}
+  ) {
+    super();
+  }
 
   getAllTemplates() {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    let url = `${environment.apiUrl}templates/`;
     // return this.http.get(url,headers).subscribe(
     //   (success) => {
     //     this.template_list = success as Array<TemplateModel>;
@@ -64,7 +67,7 @@ export class TemplateService {
 
   getTemplateDetails(website_template_uuid) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/${website_template_uuid}`;
+    let url = `${environment.apiUrl}templates/${website_template_uuid}`;
 
     // return this.http.get(url,headers)
 
@@ -95,7 +98,7 @@ export class TemplateService {
     //Unsure if all temlpates will share the same attributes or if they
     //will be tmeplate specific
 
-    // let url = `${this.settingsService.settings.apiUrl}/api/templatesAttributes`;
+    // let url = `${environment.apiUrl}templatesAttributes`;
     // return this.http.get(url,headers)
 
     let key_val_pairs = [
@@ -137,18 +140,11 @@ export class TemplateService {
     });
   }
 
-  uploadTemplate(inputFile) {
-    //Double check settings, as this function is passed directly to upload modal
-    if (!this.settingsService) {
-      this.settingsService = new SettingsService();
-    }
-
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    let formData: FormData = new FormData();
-    formData.append('file', inputFile.data);
-
-    console.log(environment);
-
+  uploadTemplate(formData:FormData) {
+    //Double check settings, as this function is passed directly to upload modal    
+    let url = `${environment.apiUrl}templates?category=`+(<File>formData.get("zip")).name.replace(".zip","");
+    // let formData: FormData = new FormData();
+    // formData.append('file', inputFile);
     if (environment?.testingNoAPI) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
@@ -157,7 +153,7 @@ export class TemplateService {
       });
     }
 
-    if (!environment?.testingNoAPI) {
+    if (!environment?.testingNoAPI) {      
       return this.http.post(url, formData, headers);
     }
   }
@@ -166,7 +162,7 @@ export class TemplateService {
       'content-type',
       'application/zip'
     );
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    let url = `${environment.apiUrl}templates/`;
     if (!environment.testingNoAPI) {
       return this.http.get(url, {
         headers: downloadHeaders,
@@ -189,7 +185,7 @@ export class TemplateService {
       this.settingsService = new SettingsService();
     }
 
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    let url = `${environment.apiUrl}templates/`;
     let httpOptions: any = {
       body: {
         uuid: templateUUID,
@@ -208,5 +204,10 @@ export class TemplateService {
         }, Math.floor(Math.random() * 200));
       });
     }
+  }
+
+  //I'm not so sure about this we may want to find a different way
+  public uploadFile(obj: TemplateService,file:any): any {
+    return obj.uploadTemplate(file);    
   }
 }

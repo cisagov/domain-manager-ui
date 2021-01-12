@@ -15,8 +15,10 @@ someone has to deal with this
     your local file browser by clicked the 'select file below' or drag and drop
     your files on to the drag and drop zone below.
   </div>
-  <ngfFormData [files]="files" postName="file" [(FormData)]="sendableFormData">
-  </ngfFormData>
+  <form enctype="multipart/form-data" >
+    <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData">
+    </ngfFormData>
+  </form>
 
   <!-- Drag and Drop Area -->
   <div style="display: flex; flex-direction: column">
@@ -71,7 +73,7 @@ someone has to deal with this
       </div>
     </div>
   </div>
-
+  
   <!-- File List -->
   <div style="margin-bottom: 40px; margin-top: 2em">
     <h3>{{ files.length }} Queued Files</h3>

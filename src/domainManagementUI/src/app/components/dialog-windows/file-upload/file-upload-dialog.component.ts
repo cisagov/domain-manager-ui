@@ -9,6 +9,7 @@ import { ngfModule, ngf } from 'angular-file';
 
 // Models
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
+import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
   selector: 'file-upload-dialog',
@@ -18,7 +19,6 @@ import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
 export class FileUploadDialogComponent {
   uploadType = 'File';
   uploadFileType = '*';
-  uploadFunction = null;
 
   uploadProcessed = false;
   filesCurrentlyUploading = 0;
@@ -35,28 +35,33 @@ export class FileUploadDialogComponent {
   fileDropDisabled: any;
   maxSize: any;
   baseDropValid: any;
-
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: FileUploadSettings,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<FileUploadDialogComponent>
   ) {
     dialogRef.disableClose = true;
-    this.uploadType = data.uploadType;
-    this.uploadFunction = data.uploadFunction;
     console.log(data);
     this.uploadFileType = this.getNativeMimeType(data.uploadFileType);
   }
 
   uploadFiles() {
-    console.log(this.uploadFunction);
+    
+    //TODO: This is currently iterating over all files for 
+    //all files need to change it to only do 1 file at a time
     this.uploadProcessed = true;
     console.log(this.files);
+    console.log(this.sendableFormData);
     this.files.forEach((file) => {
       if (file['uploadStatus'] != 'Complete') {
         this.filesCurrentlyUploading += 1;
         file['uploadStatus'] = 'Inprogress';
-        this.uploadFunction(file).subscribe(
+        if(this.sendableFormData.has("zip"))
+          this.sendableFormData.set("zip", file, file.name);
+        else
+          this.sendableFormData.append("zip",file,file.name);
+        this.data.uploadFunction(this.data.uploadService, this.sendableFormData).subscribe(
           (success) => {
             file['uploadStatus'] = 'Complete';
           },

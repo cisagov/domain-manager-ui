@@ -21,6 +21,7 @@ import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
 
 // Dialogs
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'template-list',
@@ -39,7 +40,7 @@ export class TemplateListComponent implements OnInit {
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public templateSvc: TemplateService
+    public templateSvc: TemplateService    
   ) {
     this.layoutSvc.setTitle('Templates');
   }
@@ -79,20 +80,29 @@ export class TemplateListComponent implements OnInit {
     console.log(template_uuid);
     this.router.navigate([`/template/details/${template_uuid}`]);
   }
+
+
+
   uploadTemplate() {
     console.log('opening upload template dialog');
 
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'template';
     fileUploadSettings.uploadFileType = 'application/x-zip-compressed';
-    fileUploadSettings.uploadFunction = this.templateSvc.uploadTemplate;
+    fileUploadSettings.uploadFunction =  this.templateSvc.uploadFile;
+    fileUploadSettings.uploadService = this.templateSvc;
 
     this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });
   }
 
+
+
   public filterList = (value: string) => {
     this.templateList.filter = value.trim().toLocaleLowerCase();
   };
 }
+
+
+

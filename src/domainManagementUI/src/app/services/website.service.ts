@@ -8,23 +8,27 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
 import { WebsiteModel } from 'src/app/models/website.model';
+import { AbstractUploadService } from './abstract-upload.service';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
 };
 
 @Injectable()
-export class WebsiteService {
+export class WebsiteService extends AbstractUploadService{
+  
   website_list = new Array<WebsiteModel>();
 
   constructor(
     private http: HttpClient,
     private settingsService: SettingsService
-  ) {}
+  ) {
+    super();
+  }
 
   getAllWebsites() {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/websiteTemplates/`;
+    let url = `${environment.apiUrl}websiteTemplates/`;
     // return this.http.get(url,headers).subscribe(
     //   (success) => {
     //     this.website_list = success as Array<WebsiteModel>;
@@ -86,7 +90,7 @@ export class WebsiteService {
 
   getWebsiteDetails(website_uuid) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_uuid}`;
+    let url = `${environment.apiUrl}website/${website_uuid}`;
 
     // return this.http.get(url,headers)
 
@@ -131,7 +135,7 @@ export class WebsiteService {
 
   getWebsiteHistory(website_uuid) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_uuid}/history`;
+    let url = `${environment.apiUrl}website/${website_uuid}/history`;
 
     // return this.http.get(url,headers)
 
@@ -184,7 +188,7 @@ export class WebsiteService {
 
   deleteWebsite(website_uuid) {
     console.log(website_uuid);
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_uuid}/`;
+    let url = `${environment.apiUrl}website/${website_uuid}/`;
     // return this.http.delete(url,headers)
     return new Observable((exampleObs) => {
       setTimeout(() => {
@@ -200,7 +204,7 @@ export class WebsiteService {
       this.settingsService = new SettingsService();
     }
 
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    let url = `${environment.apiUrl}website/`;
     let formData: FormData = new FormData();
     formData.append('file', inputFile.data);
 
@@ -216,13 +220,16 @@ export class WebsiteService {
       });
     }
   }
+  uploadFile(obj: WebsiteService, file: any) {
+   obj.uploadWebsite(file);
+  }
 
   downloadWebsite(uuid) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
       'application/zip'
     );
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    let url = `${environment.apiUrl}website/`;
     if (!environment.testingNoAPI) {
       return this.http.get(url, {
         headers: downloadHeaders,
@@ -240,7 +247,7 @@ export class WebsiteService {
   }
 
   createWebsite(newWebsite: WebsiteModel) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${newWebsite.template_base_uuid}/generate/`;
+    let url = `${environment.apiUrl}website/${newWebsite.template_base_uuid}/generate/`;
 
     if (!environment.testingNoAPI) {
       return this.http.post(url, newWebsite);

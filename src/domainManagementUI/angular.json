@@ -3,7 +3,8 @@
   "defaultProject": "domainManagementUI",
   "newProjectRoot": "projects",
   "projects": {
-    "domainManagementUI": {
+    "domainManagementUI": {      
+      "sourceRoot": "src",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -115,8 +116,7 @@
         "@schematics/angular:component": {
           "style": "scss"
         }
-      },
-      "sourceRoot": "src"
+      }
     }
   },
   "version": 1

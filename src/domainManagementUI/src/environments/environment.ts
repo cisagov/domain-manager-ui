@@ -5,8 +5,11 @@
 export const environment = {
   authorize: false,
   defaultToAdmin: true,
-  testingNoAPI: true,
+  testingNoAPI: false,
   production: false,
+  appUrl: 'http://localhost:4200/',
+  apiUrl: 'http://localhost:5000/api/'
+  
 };
 
 /*
