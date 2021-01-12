@@ -7,7 +7,11 @@ import { environment } from 'src/environments/environment';
 import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
-import { WebsiteModel, WebsiteHistoryModel, HostedZoneModel } from 'src/app/models/website.model';
+import {
+  WebsiteModel,
+  WebsiteHistoryModel,
+  HostedZoneModel,
+} from 'src/app/models/website.model';
 import { ApplicationModel } from '../models/application.model';
 
 const headers = {
@@ -270,7 +274,7 @@ export class WebsiteService {
     }
   }
 
-  getHostedZones(website_id){
+  getHostedZones(website_id) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/records/`;
 
     if (!environment.localData) {

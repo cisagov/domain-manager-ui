@@ -44,7 +44,6 @@ export class WebsiteBaseModel {
     this.route53 = null;
     this.hosted_zones = new Array<HostedZoneModel>();
   }
-
 }
 
 export class HostedZoneModel {
@@ -54,7 +53,7 @@ export class HostedZoneModel {
   TTL: number;
   Type: string;
 
-  constructor(){
+  constructor() {
     this.Name = null;
     this.ResourceRecords = null;
     this.TTL = null;
@@ -68,7 +67,7 @@ export class AliasTargetModel {
   EvaluateTargetHealth: boolean;
   HostedZoneId: string;
 
-  constructor(){
+  constructor() {
     this.DNSName = null;
     this.EvaluateTargetHealth = null;
     this.HostedZoneId = null;

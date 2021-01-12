@@ -19,7 +19,11 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
 import { ApplicationModel } from 'src/app/models/application.model';
 import { environment } from 'src/environments/environment';
 import { TemplateAttribute } from 'src/app/models/template.model';
-import { WebsiteModel, WebsiteHistoryModel, HostedZoneModel } from 'src/app/models/website.model';
+import {
+  WebsiteModel,
+  WebsiteHistoryModel,
+  HostedZoneModel,
+} from 'src/app/models/website.model';
 
 @Injectable({
   providedIn: 'root',
@@ -96,37 +100,38 @@ export class WebsiteDetailsTabService {
   }
 
   initalizeData() {
-
     //reInitalize default values of variables when a new website is loaded
-  this.templateExists = false;
-  this.templateSelectinoMethod = null;
+    this.templateExists = false;
+    this.templateSelectinoMethod = null;
 
     this.setTemplateStatus();
-    if(this.website_data.application_id){
+    if (this.website_data.application_id) {
       //If application data received
-        //get application list
-      this.applicationSvc.getApplication(this.website_data.application_id).subscribe(
-        (success) => {
-          this.website_data.application_using = success as ApplicationModel
-        },
-        (failure) => {}
-      )     
-    } 
-      //set template status
+      //get application list
+      this.applicationSvc
+        .getApplication(this.website_data.application_id)
+        .subscribe(
+          (success) => {
+            this.website_data.application_using = success as ApplicationModel;
+          },
+          (failure) => {}
+        );
+    }
+    //set template status
     this.setTemplateStatus();
 
-      //Get hosted zones if route 53 exists
-    if(this.website_data.route53){
+    //Get hosted zones if route 53 exists
+    if (this.website_data.route53) {
       this.websiteSvc.getHostedZones(this.website_data._id).subscribe(
         (success) => {
-          this.website_data.hosted_zones = success as HostedZoneModel[]
-          console.log(success)},
-        (failure) => {console.log("failed to get hosted zones")}
-      )
+          this.website_data.hosted_zones = success as HostedZoneModel[];
+          console.log(success);
+        },
+        (failure) => {
+          console.log('failed to get hosted zones');
+        }
+      );
     }
-
-    
-    
   }
   getAllTemplates() {
     return this.templateSvc.getAllTemplates();
@@ -175,8 +180,10 @@ export class WebsiteDetailsTabService {
     });
   }
 
-  _setFormData(){
-    this.summary_form.controls.application_id.setValue(this.website_data.application_id);
+  _setFormData() {
+    this.summary_form.controls.application_id.setValue(
+      this.website_data.application_id
+    );
   }
 
   downloadWebsite(uuid) {

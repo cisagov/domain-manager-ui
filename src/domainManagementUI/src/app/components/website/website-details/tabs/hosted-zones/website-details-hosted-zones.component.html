@@ -2,38 +2,41 @@
   <h5>Hosted Zones</h5>
   <div class="text-muted">This websites associated hosted zones</div>
 
-  <div style="margin-top: 2em;" *ngIf="wdTabSvc.website_data?.hosted_zones" class="flex-column flex-full summary_list_rows" >
+  <div
+    style="margin-top: 2em"
+    *ngIf="wdTabSvc.website_data?.hosted_zones"
+    class="flex-column flex-full summary_list_rows"
+  >
     <!-- <div class="flex-row" *ngIf="wdTabSvc.website_data?.hosted_zones">
       <div class="flex sl_flex_content">
         {{wdTabSvc.website_data.hosted_zones.id}}
       </div>
     </div> -->
-    <div class="flex-column summary_list_item" *ngFor="let zone of wdTabSvc.website_data?.hosted_zones">
+    <div
+      class="flex-column summary_list_item"
+      *ngFor="let zone of wdTabSvc.website_data?.hosted_zones"
+    >
       <div class="flex sl_flex_content font-weight-bold">
-        {{zone.Name}}
+        {{ zone.Name }}
       </div>
       <div *ngIf="zone.TTL" class="flex sl_flex_content ml-2">
-        TTL: {{zone.TTL}}
+        TTL: {{ zone.TTL }}
       </div>
-      <div class="flex sl_flex_content  ml-2">
-        Type: {{zone.Type}}
-      </div>
-      <div *ngIf="!zone.AliasTarget" class="flex-column sl_flex_content  ml-2">
+      <div class="flex sl_flex_content ml-2">Type: {{ zone.Type }}</div>
+      <div *ngIf="!zone.AliasTarget" class="flex-column sl_flex_content ml-2">
         Resource Records:
         <div class="flex ml-4" *ngFor="let resource of zone.ResourceRecords">
-          {{resource.Value}}
+          {{ resource.Value }}
         </div>
       </div>
-      <div *ngIf="zone.AliasTarget" class="flex-column sl_flex_content  ml-2">
+      <div *ngIf="zone.AliasTarget" class="flex-column sl_flex_content ml-2">
         Alias Target:
-        <div class="flex ml-4" >
-          DNSName: {{zone.AliasTarget.DNSName}}
+        <div class="flex ml-4">DNSName: {{ zone.AliasTarget.DNSName }}</div>
+        <div class="flex ml-4">
+          Evaluate Target Health: {{ zone.AliasTarget.EvaluateTargetHealth }}
         </div>
-        <div class="flex ml-4" >
-          Evaluate Target Health: {{zone.AliasTarget.EvaluateTargetHealth}}
-        </div>
-        <div class="flex ml-4" >
-          Hosted Zone ID: {{zone.AliasTarget.HostedZoneId}}
+        <div class="flex ml-4">
+          Hosted Zone ID: {{ zone.AliasTarget.HostedZoneId }}
         </div>
       </div>
     </div>
