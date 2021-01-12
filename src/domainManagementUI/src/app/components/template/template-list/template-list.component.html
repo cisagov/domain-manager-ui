@@ -37,11 +37,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Template Name</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewTemplate(row._id)"
-          >{{ row.name }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
+          row.name
+        }}</mat-cell>
       </ng-container>
 
       <!-- Create Date -->
@@ -49,11 +47,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Created Date</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewTemplate(row._id)"
-          >{{ row.created | date: "MM/dd/yy" }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
+          row.created | date: "MM/dd/yy"
+        }}</mat-cell>
       </ng-container>
 
       <!-- Uploaded By -->
@@ -61,11 +57,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Uploaded By</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewTemplate(row._id)"
-          >{{ row.uploaded_by }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
+          row.uploaded_by
+        }}</mat-cell>
       </ng-container>
 
       <!-- Header Info -->

@@ -65,17 +65,15 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   download() {
-    this.tdTabSvc
-      .downloadTemplate(this.tdTabSvc.template_data._id)
-      .subscribe(
-        (success) => {
-          console.log(success);
-        },
-        (failure) => {
-          console.log('Failed to download');
-          console.log(failure);
-        }
-      );
+    this.tdTabSvc.downloadTemplate(this.tdTabSvc.template_data._id).subscribe(
+      (success) => {
+        console.log(success);
+      },
+      (failure) => {
+        console.log('Failed to download');
+        console.log(failure);
+      }
+    );
   }
 
   delete(_id) {
@@ -88,14 +86,12 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     });
     this.deleteDialog.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
-        this.tdTabSvc
-          .deleteTemplate(this.tdTabSvc.template_data._id)
-          .subscribe(
-            (success) => {
-              this.router.navigate([`/template`]);
-            },
-            (failed) => {}
-          );
+        this.tdTabSvc.deleteTemplate(this.tdTabSvc.template_data._id).subscribe(
+          (success) => {
+            this.router.navigate([`/template`]);
+          },
+          (failed) => {}
+        );
       } else {
         console.log('delete cancled');
       }

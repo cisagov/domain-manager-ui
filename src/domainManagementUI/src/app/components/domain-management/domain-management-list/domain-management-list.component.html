@@ -44,7 +44,12 @@
         Make Selected Available
       </button>
     </div>
-    <mat-table [hidden]="loading" class="flex" [dataSource]="domainList" matSort>
+    <mat-table
+      [hidden]="loading"
+      class="flex"
+      [dataSource]="domainList"
+      matSort
+    >
       <!-- ActionCheckbox -->
       <ng-container matColumnDef="checked">
         <mat-header-cell *matHeaderCellDef mat-sort-header

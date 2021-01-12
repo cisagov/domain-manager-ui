@@ -122,9 +122,7 @@ export class WebsiteCreationTabService {
   createWebsite() {
     let newWebsite = new WebsiteModel();
 
-    newWebsite.name = this.attributes_form.controls[
-      'name'
-    ].value;
+    newWebsite.name = this.attributes_form.controls['name'].value;
     newWebsite.template_base_uuid = this.template_selection_form.controls[
       '_id'
     ].value;

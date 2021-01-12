@@ -3,14 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-
-
 @Component({
   selector: 'domain-create',
   templateUrl: 'domain-create-dialog.component.html',
 })
 export class DomainCreateDialog implements OnInit {
-
   domain_form_group: FormGroup;
 
   constructor(

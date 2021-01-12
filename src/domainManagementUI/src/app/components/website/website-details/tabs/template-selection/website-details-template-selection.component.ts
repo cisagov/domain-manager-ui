@@ -43,7 +43,7 @@ export class WebsiteDetailsTemplateSelectionComponent
     public dialog: MatDialog,
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
-    public wdTabSvc: WebsiteDetailsTabService,
+    public wdTabSvc: WebsiteDetailsTabService
   ) {}
 
   ngOnInit(): void {
@@ -132,7 +132,7 @@ export class WebsiteDetailsTemplateSelectionComponent
     );
     console.log(this.safeURL);
   }
-  uploadWebsite(){    
+  uploadWebsite() {
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'website';
     fileUploadSettings.uploadFileType = 'application/zip';
@@ -144,10 +144,10 @@ export class WebsiteDetailsTemplateSelectionComponent
     });
   }
 
-  createWebsiteHTML(){
-    console.log("create website with params")
-    console.log(this.tabForm.controls)
-    console.log(this.attributeForm.controls)
+  createWebsiteHTML() {
+    console.log('create website with params');
+    console.log(this.tabForm.controls);
+    console.log(this.attributeForm.controls);
 
     //let templateData = formsToProperModel()
     //this.SVC.generateWebsite(templateData).subscribe(

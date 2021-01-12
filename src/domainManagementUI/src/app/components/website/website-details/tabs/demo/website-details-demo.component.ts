@@ -52,7 +52,7 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
   openInNewTab() {
     window.open(this.wdTabSvc.website_data.s3_url, '_blank');
   }
-  newTemplate(){
+  newTemplate() {
     this.wdTabSvc.templateExists = false;
   }
   test() {}

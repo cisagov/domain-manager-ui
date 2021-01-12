@@ -16,7 +16,7 @@ import { WebsiteService } from 'src/app/services/website.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 //Models
-import { ApplicationModel } from 'src/app/models/application.model'
+import { ApplicationModel } from 'src/app/models/application.model';
 import { environment } from 'src/environments/environment';
 import { TemplateAttribute } from 'src/app/models/template.model';
 import { WebsiteModel, WebsiteHistoryModel, HostedZoneModel } from 'src/app/models/website.model';
@@ -25,7 +25,6 @@ import { WebsiteModel, WebsiteHistoryModel, HostedZoneModel } from 'src/app/mode
   providedIn: 'root',
 })
 export class WebsiteDetailsTabService {
-
   attributes_form: FormGroup;
   summary_form: FormGroup;
   template_selection_form: FormGroup;
@@ -75,9 +74,9 @@ export class WebsiteDetailsTabService {
     this.website_data = new WebsiteModel();
     this.websiteSvc.getWebsiteDetails(_id).subscribe(
       (success) => {
-          this.website_data = success as WebsiteModel;
-          this.website_data_behavior_subject.next(this.website_data);
-          this.initalizeData();
+        this.website_data = success as WebsiteModel;
+        this.website_data_behavior_subject.next(this.website_data);
+        this.initalizeData();
       },
       (error) => {
         console.log(`Error from service ${error}`);
@@ -129,7 +128,7 @@ export class WebsiteDetailsTabService {
     
     
   }
-  getAllTemplates(){
+  getAllTemplates() {
     return this.templateSvc.getAllTemplates();
   }
 
@@ -139,8 +138,7 @@ export class WebsiteDetailsTabService {
     this._buildAttributesForm();
   }
 
-  
-  _buildTemplateSelectionForm(){
+  _buildTemplateSelectionForm() {
     this.template_selection_form = new FormGroup({
       _id: new FormControl('', { validators: Validators.required }),
     });
@@ -148,28 +146,30 @@ export class WebsiteDetailsTabService {
 
   _buildAttributesForm() {
     this.attributes_form = new FormGroup({});
-    
+
     this.templateSvc.getTemplateAttributes().subscribe(
       (success) => {
-        let formatedAttributeList = this.templateSvc.toTemplateAttributeModels(success)
+        let formatedAttributeList = this.templateSvc.toTemplateAttributeModels(
+          success
+        );
         this.attribueList = formatedAttributeList as TemplateAttribute[];
         if (Array.isArray(this.attribueList)) {
           this.attribueList.forEach((attribute) => {
-            console.log(attribute)
+            console.log(attribute);
             this.attributes_form.addControl(
               attribute.key,
               new FormControl('', Validators.required)
             );
           });
         }
-        console.log(this.attributes_form)
+        console.log(this.attributes_form);
       },
       (failure) => {
-        console.log(failure)
+        console.log(failure);
       }
     );
   }
-  _buildSummaryForm(){
+  _buildSummaryForm() {
     this.summary_form = new FormGroup({
       application_id: new FormControl('', {}),
     });
@@ -179,7 +179,6 @@ export class WebsiteDetailsTabService {
     this.summary_form.controls.application_id.setValue(this.website_data.application_id);
   }
 
-
   downloadWebsite(uuid) {
     return this.websiteSvc.downloadWebsite(uuid);
   }
@@ -187,25 +186,25 @@ export class WebsiteDetailsTabService {
     return this.websiteSvc.deleteWebsite(uuid);
   }
 
-  isSiteLaunched(){
-    if(this.website_data.is_active){
+  isSiteLaunched() {
+    if (this.website_data.is_active) {
       return true;
     }
   }
-  hashistory(){
-    if(this.website_data.history?.length){
+  hashistory() {
+    if (this.website_data.history?.length) {
       return true;
     }
   }
 
-  setTemplateStatus(input = null){
-    if(this.website_data.s3_url && input == null){
+  setTemplateStatus(input = null) {
+    if (this.website_data.s3_url && input == null) {
       this.templateExists = true;
-    } else if (input){
-      this.templateExists = input
+    } else if (input) {
+      this.templateExists = input;
     }
 
-    console.log(this.templateExists)
+    console.log(this.templateExists);
   }
 
   isValid(form: FormGroup) {

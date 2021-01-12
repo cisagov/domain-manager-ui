@@ -26,9 +26,9 @@ export class WebsiteService {
   getAllWebsites() {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
-    
+
     if (!environment.localData) {
-      return this.http.get(url,headers)
+      return this.http.get(url, headers);
     }
     //Test Data TODO: REMOVE IN PROD
     let websites = [
@@ -52,7 +52,7 @@ export class WebsiteService {
         s3_url: this.getTestURL(counter),
         created_date: new Date('2019-06-26'),
         launch_date: new Date('2019-07-21'),
-        category: "Test",
+        category: 'Test',
         template_base_name: 'Template_Name_Base_' + element,
         template_base_uuid: templates_used[counter % templates_used.length],
         application_id: 'application-' + ((counter % 3) + 1) + '-UUID',
@@ -92,7 +92,7 @@ export class WebsiteService {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}`;
 
     if (!environment.localData) {
-      return this.http.get(url,headers)
+      return this.http.get(url, headers);
     }
     //Example observable return for testing purposes
     let retVal = new WebsiteModel();
@@ -119,9 +119,7 @@ export class WebsiteService {
       retVal.application_id = 'application-3-UUID';
     }
 
-    let website = this.website_list.filter(
-      (f) => f._id === _id
-    );
+    let website = this.website_list.filter((f) => f._id === _id);
     if (website.length) {
       retVal = website[0];
       retVal.s3_url =
@@ -177,8 +175,7 @@ export class WebsiteService {
 
   getWebsiteNameByUUID(uuid) {
     if (this.website_list.length) {
-      return this.website_list.find((w) => w._id === uuid)
-        ?.name;
+      return this.website_list.find((w) => w._id === uuid)?.name;
     } else {
       console.log('error finding website name by uuid');
       console.log(uuid);
@@ -257,8 +254,8 @@ export class WebsiteService {
     }
   }
 
-  setWebsitesAsAvailable(websiteIDArray){
-    console.log(websiteIDArray)
+  setWebsitesAsAvailable(websiteIDArray) {
+    console.log(websiteIDArray);
     //NOT IMPLEMENTED YET
     let url = `${this.settingsService.settings.apiUrl}/api/website/`;
 
@@ -288,7 +285,7 @@ export class WebsiteService {
   }
 
   createDomain(domainUrl: string) {
-    console.log(domainUrl)
+    console.log(domainUrl);
 
     let url = `${this.settingsService.settings.apiUrl}/api/website/`;
 
