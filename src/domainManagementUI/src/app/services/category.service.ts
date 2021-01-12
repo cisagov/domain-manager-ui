@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Observable } from 'rxjs';
 
+//Local Service Imports
+import { environment } from 'src/environments/environment';
+
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
 };
@@ -13,28 +16,28 @@ export class CategoryService {
 
   category_list_testing_data = [
     {
-      categoryName: 'Internets',
-      categoryUUID: 'UUID-1',
+      name: 'Internets',
+      _id: 'UUID-1',
     },
     {
-      categoryName: 'Websites',
-      categoryUUID: 'UUID-2',
+      name: 'Websites',
+      _id: 'UUID-2',
     },
     {
-      categoryName: 'SearchEngines',
-      categoryUUID: 'UUID-3',
+      name: 'SearchEngines',
+      _id: 'UUID-3',
     },
     {
-      categoryName: 'Video Hosting Sites',
-      categoryUUID: 'UUID-4',
+      name: 'Video Hosting Sites',
+      _id: 'UUID-4',
     },
     {
-      categoryName: 'News',
-      categoryUUID: 'UUID-5',
+      name: 'News',
+      _id: 'UUID-5',
     },
     {
-      categoryName: 'Streaming Service',
-      categoryUUID: 'UUID-6',
+      name: 'Streaming Service',
+      _id: 'UUID-6',
     },
   ];
 
@@ -42,30 +45,28 @@ export class CategoryService {
     private http: HttpClient,
     private settingsService: SettingsService
   ) {
-    //TODO: REMOVE AFTER TESTING
-    this.category_list = this.category_list_testing_data;
+    this.getAllCategories();
   }
 
   getAllCategories() {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/categories/`;
-    // return this.http.get(url,headers).subscribe(
-    //   (success) => {
-    //     this.template_list = success as Array<TemplateModel>;
-    //   },
-    //   (error) => {
-    //     console.log(`Error from service ${error}`);
-    //   }
-    // );
 
-    //Test Data TODO: REMOVE IN PROD
-    return this.category_list;
+    if (!environment.localData) {
+      this.http.get(url, headers).subscribe(
+      (success) => {
+        this.category_list = success as []
+        console.log(this.category_list)
+      },
+      (failure) => {console.log("failed to get the category list")},
+      );
+    }
   }
 
   getCategroyNameByUUID(uuid) {
     if (this.category_list.length) {
-      return this.category_list.find((c) => c.categoryUUID === uuid)
-        ?.categoryName;
+      return this.category_list.find((c) => c._id === uuid)
+        ?.name;
     }
     return 'ERROR';
   }

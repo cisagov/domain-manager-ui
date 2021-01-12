@@ -44,7 +44,7 @@ export class  WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
       filterArray.push(this.f.category_three.value);
     }
     let retVal = this.categories.filter(
-      (t) => !filterArray.includes(t.categoryUUID)
+      (t) => !filterArray.includes(t._id)
     );
     return retVal;
   }

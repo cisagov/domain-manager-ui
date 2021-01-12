@@ -12,9 +12,9 @@
         <mat-option [value]="null">--Select--</mat-option>
         <mat-option
           *ngFor="let c of filterCategories(categories, 'cat_one')"
-          [value]="c.categoryUUID"
+          [value]="c._id"
         >
-          {{ c.categoryName }}
+          {{ c.name }}
         </mat-option>
       </mat-select>
       <mat-error
@@ -39,9 +39,9 @@
         <mat-option [value]="null">--Select--</mat-option>
         <mat-option
           *ngFor="let c of filterCategories(categories, 'cat_two')"
-          [value]="c.categoryUUID"
+          [value]="c._id"
         >
-          {{ c.categoryName }}
+          {{ c.name }}
         </mat-option>
       </mat-select>
       <mat-error
@@ -66,9 +66,9 @@
         <mat-option [value]="null">--Select--</mat-option>
         <mat-option
           *ngFor="let c of filterCategories(categories, 'cat_three')"
-          [value]="c.categoryUUID"
+          [value]="c._id"
         >
-          {{ c.categoryName }}
+          {{ c.name }}
         </mat-option>
       </mat-select>
       <mat-error
