@@ -46,9 +46,9 @@ export class TemplateDetailsTabService {
     return this.template_data_behavior_subject;
   }
 
-  getTemplateDetails(template_uuid) {
-    console.log(template_uuid);
-    this.templateSvc.getTemplateDetails(template_uuid).subscribe(
+  getTemplateDetails(_id) {
+    console.log(_id);
+    this.templateSvc.getTemplateDetails(_id).subscribe(
       (success) => {
         console.log(success);
         //TODO: Remove timeoutsection that is being used for testing pre -API
@@ -73,9 +73,7 @@ export class TemplateDetailsTabService {
     this.templateSvc.getTemplateAttributes().subscribe(
       (success) => {
         console.log(success);
-        // setTimeout(() => {
-        this.template_data_attributes = success;
-        // },100)
+        this.template_data_attributes = success as any;
       },
       (error) => {
         console.log(`Error from service ${error}`);
@@ -95,7 +93,7 @@ export class TemplateDetailsTabService {
       (success) => {
         let data = success as Array<WebsiteModel>;
         this.websites_used_list = data.filter(
-          (ws) => ws.template_base_uuid === this.template_data.template_uuid
+          (ws) => ws.template_base_uuid === this.template_data._id
         );
         console.log(this.websites_used_list);
       },

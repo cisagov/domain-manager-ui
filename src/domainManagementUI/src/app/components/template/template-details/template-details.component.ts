@@ -19,7 +19,7 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
   selectedTabIndex: number = 0;
   template_data: TemplateModel = new TemplateModel();
-  template_uuid = null;
+  _id = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
@@ -35,9 +35,9 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
     this.component_subscriptions.push(
       this.activeRoute.params.subscribe((params) => {
         console.log(params);
-        this.template_uuid = params['template_uuid'];
-        if (this.template_uuid !== null) {
-          this.tdTabSvc.getTemplateDetails(this.template_uuid);
+        this._id = params['_id'];
+        if (this._id !== null) {
+          this.tdTabSvc.getTemplateDetails(this._id);
         }
       })
     );

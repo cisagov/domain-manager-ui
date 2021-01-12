@@ -24,6 +24,7 @@ import { ApplicationCreateDialog } from 'src/app/components/applications/applica
 import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { DomainCreateDialog } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component';
 import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
 import { DomainManagementGeneralAttributesTab } from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
 import { DomainManagementProxyCategorizaitonTab } from 'src/app/components/domain-management/domain-managment-details/tabs/proxy-categorization/domain-management-proxy-categorization.component';
@@ -38,13 +39,14 @@ import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/te
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
 import { TemplateDetailsHistoricalComponent } from 'src/app/components/template/template-details/tabs/historical/template-details-historical.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
+import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
+import { WebsiteDetailsAttrbutesComponent } from 'src/app/components/website/website-details/tabs/attributes/website-details-attributes.component';
 import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-details/tabs/demo/website-details-demo.component';
 import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
+import { WebsiteDetailsHostedZonesComponent } from 'src/app/components/website/website-details/tabs/hosted-zones/website-details-hosted-zones.component';
 import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
-import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
-import { WebsiteCreationAttrbutesComponent } from 'src/app/components/website/website-creation/tabs/attributes/website-creation-attributes..component';
-import { WebsiteCreationTemplateSelectionComponent } from 'src/app/components/website/website-creation/tabs/template-selection/website-creation-template-selection.component';
+import { WebsiteDetailsTemplateSelectionComponent } from 'src/app/components/website/website-details/tabs/template-selection/website-details-template-selection.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 
 //Services
@@ -79,6 +81,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationDetailsComponent,
     ApplicationListComponent,
     LayoutMainComponent,
+    DomainCreateDialog,
     DomainManagementCreateComponent,
     DomainManagementDetailsComponent,
     DomainManagementListComponent,
@@ -96,10 +99,11 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteDetailsComponent,
     WebsiteDetailsDemoComponent,
     WebsiteDetailsHistoricalComponent,
+    WebsiteDetailsHostedZonesComponent,
     WebsiteDetailsSummaryComponent,
     WebsiteCreationComponent,
-    WebsiteCreationAttrbutesComponent,
-    WebsiteCreationTemplateSelectionComponent,
+    WebsiteDetailsAttrbutesComponent,
+    WebsiteDetailsTemplateSelectionComponent,
     WebsiteListComponent,
   ],
   imports: [

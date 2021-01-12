@@ -1,4 +1,16 @@
 <div>
+  <button
+    class="all_tab_option_button"
+    mat-raised-button
+    color="primary"
+    [matMenuTriggerFor]="menu"
+  >
+    Options
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item><mat-icon>download</mat-icon>Download ZIP</button>
+    <button mat-menu-item><mat-icon>delete</mat-icon> Delete</button>
+  </mat-menu>
   <mat-tab-group
     (selectedTabChange)="onTabChanged($event)"
     [(selectedIndex)]="selectedTabIndex"
@@ -6,9 +18,25 @@
     <mat-tab label="Website Summary">
       <wd-summary></wd-summary>
     </mat-tab>
-    <mat-tab label="Demo">
+
+    <mat-tab *ngIf="!wdTabSvc.templateExists" label="Template">
+      <wc-template-selection></wc-template-selection>
+    </mat-tab>
+
+    <!-- <mat-tab *ngIf="wdTabSvc.templateSelectinoMethod === 'template_selection'"
+      label="Template's Attributes"
+    >
+      <wc-attributes></wc-attributes>
+    </mat-tab> -->
+
+    <mat-tab *ngIf="wdTabSvc.templateExists" label="Demo">
       <wd-demo></wd-demo>
     </mat-tab>
+
+    <mat-tab label="Hosted Zones">
+      <wd-hosted-zones></wd-hosted-zones>
+    </mat-tab>
+
     <mat-tab label="History">
       <wd-historical></wd-historical>
     </mat-tab>

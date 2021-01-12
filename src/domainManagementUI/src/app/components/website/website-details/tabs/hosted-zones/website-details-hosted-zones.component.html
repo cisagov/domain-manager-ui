@@ -1,0 +1,17 @@
+<div class="flex flex-container tab">
+  <h5>Hosted Zones</h5>
+  <div class="text-muted">This websites associated hosted zones</div>
+
+  <div style="margin-top: 2em" class="flex-column flex-full summary_list_rows">
+    <div class="flex-row" *ngIf="wdTabSvc.website_data?.route53">
+      <div class="flex sl_flex_content">
+        {{ wdTabSvc.website_data.route53.id }}
+      </div>
+    </div>
+    <!-- <div class="flex-row" *ngFor="let zone of wdTabSvc.website_data.route53">
+      <div class="flex sl_flex_content">
+        {{zone.id}}
+      </div>
+    </div> -->
+  </div>
+</div>

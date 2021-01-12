@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // Local Service Imports
 import { ApplicationService } from 'src/app/services/applications.service';
-import { WebsiteCreationTabService } from 'src/app/services/tab-services/website-creation-tabs.service';
+import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
@@ -15,16 +15,16 @@ import { ApplicationListComponent } from 'src/app/components/applications/applic
 
 @Component({
   selector: 'wc-attributes',
-  templateUrl: './website-creation-attributes.component.html',
-  styleUrls: ['./website-creation-attributes.component.scss'],
+  templateUrl: './website-details-attributes.component.html',
+  styleUrls: ['./website-details-attributes.component.scss'],
 })
-export class WebsiteCreationAttrbutesComponent implements OnInit, OnDestroy {
+export class WebsiteDetailsAttrbutesComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
   submitted = false;
 
   constructor(
     public applicationSvc: ApplicationService,
-    public wcTabSvc: WebsiteCreationTabService
+    public wdTabSvc: WebsiteDetailsTabService
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +40,8 @@ export class WebsiteCreationAttrbutesComponent implements OnInit, OnDestroy {
 
   create() {
     console.log(this.tabForm);
-    if (this.wcTabSvc.isValid(this.tabForm)) {
-      this.wcTabSvc.createWebsite();
+    if (this.wdTabSvc.isValid(this.tabForm)) {
+      //this.wdTabSvc.createWebsite();
     } else {
       console.log('invlaid');
     }
@@ -53,13 +53,13 @@ export class WebsiteCreationAttrbutesComponent implements OnInit, OnDestroy {
   }
 
   get tabForm() {
-    return this.wcTabSvc.attributes_form;
+    return this.wdTabSvc.attributes_form;
   }
 
   get f() {
-    return this.wcTabSvc.attributes_form.controls;
+    return this.wdTabSvc.attributes_form.controls;
   }
   nextTab() {
-    this.wcTabSvc.submitTab(this.tabForm);
+    this.wdTabSvc.submitTab(this.tabForm);
   }
 }

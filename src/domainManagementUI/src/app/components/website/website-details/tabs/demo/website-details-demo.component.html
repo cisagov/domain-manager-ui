@@ -1,6 +1,6 @@
 <div class="flex flex-container tab">
-  <!-- <h5>Website : {{tdTabSvc.template_data.template_name}}</h5> -->
-  <h5>Website : {{ wdTabSvc.website_data.website_name }}</h5>
+  <!-- <h5>Website : {{tdTabSvc.template_data.name}}</h5> -->
+  <h5>Website : {{ wdTabSvc.website_data.name }}</h5>
   <div class="text-muted">
     A demo of the website as it will be seen directly
   </div>
@@ -13,4 +13,8 @@
     </div>
     <iframe [src]="safeURL" height="100%" width="100%"></iframe>
   </div>
+
+  <button mat-raised-button color="primary" (click)="newTemplate()">
+    Select New Template
+  </button>
 </div>

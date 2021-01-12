@@ -1,5 +1,5 @@
 <div class="flex flex-container tab">
-  <h5>Template : {{ tdTabSvc.template_data.template_name }}</h5>
+  <h5>Template : {{ tdTabSvc.template_data.name }}</h5>
   <button
     class="manipulate_menu"
     mat-raised-button
@@ -12,16 +12,13 @@
     <button (click)="download()" mat-menu-item>
       <mat-icon>download</mat-icon>Download ZIP
     </button>
-    <button
-      (click)="createWebsiteFromTemplate(tdTabSvc.template_data.template_uuid)"
+    <!-- <button
+      (click)="createWebsiteFromTemplate(tdTabSvc.template_data._id)"
       mat-menu-item
     >
       <mat-icon>build</mat-icon>Create Website
-    </button>
-    <button
-      (click)="delete(tdTabSvc.template_data.template_uuid)"
-      mat-menu-item
-    >
+    </button> -->
+    <button (click)="delete(tdTabSvc.template_data._id)" mat-menu-item>
       <mat-icon>delete</mat-icon> Delete
     </button>
   </mat-menu>

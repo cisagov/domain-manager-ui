@@ -29,7 +29,7 @@ import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/fil
 })
 export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['template_name', 'created_date', 'uploaded_by'];
+  displayedColumns = ['name', 'created_date', 'uploaded_by'];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
   loading = true;
@@ -75,16 +75,16 @@ export class TemplateListComponent implements OnInit {
     );
   }
 
-  viewTemplate(template_uuid) {
-    console.log(template_uuid);
-    this.router.navigate([`/template/details/${template_uuid}`]);
+  viewTemplate(_id) {
+    console.log(_id);
+    this.router.navigate([`/template/details/${_id}`]);
   }
   uploadTemplate() {
     console.log('opening upload template dialog');
 
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'template';
-    fileUploadSettings.uploadFileType = 'application/zip';
+    fileUploadSettings.uploadFileType = 'application/x-zip-compressed';
     fileUploadSettings.uploadFunction = this.templateSvc.uploadTemplate;
 
     this.dialog.open(FileUploadDialogComponent, {
