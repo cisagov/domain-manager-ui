@@ -44,6 +44,7 @@ import { WebsiteDetailsAttrbutesComponent } from 'src/app/components/website/web
 import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-details/tabs/demo/website-details-demo.component';
 import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
 import { WebsiteDetailsHostedZonesComponent } from 'src/app/components/website/website-details/tabs/hosted-zones/website-details-hosted-zones.component';
+import { WebsiteDetailsProxyCategorizaitonComponent } from 'src/app/components/website/website-details/tabs/proxy-categorization/website-details-proxy-categorization.component' 
 import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
 import { WebsiteDetailsTemplateSelectionComponent } from 'src/app/components/website/website-details/tabs/template-selection/website-details-template-selection.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
@@ -95,13 +96,14 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     TemplateDetailsDemoComponent,
     TemplateDetailsHistoricalComponent,
     TemplateListComponent,
+    WebsiteCreationComponent,
     WebsiteDetailsComponent,
+    WebsiteDetailsAttrbutesComponent,
     WebsiteDetailsDemoComponent,
     WebsiteDetailsHistoricalComponent,
     WebsiteDetailsHostedZonesComponent,
+    WebsiteDetailsProxyCategorizaitonComponent,
     WebsiteDetailsSummaryComponent,
-    WebsiteCreationComponent,
-    WebsiteDetailsAttrbutesComponent,
     WebsiteDetailsTemplateSelectionComponent,
     WebsiteListComponent,
     ApplicationEditDialogComponent,

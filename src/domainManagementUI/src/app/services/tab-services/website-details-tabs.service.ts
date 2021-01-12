@@ -29,6 +29,7 @@ import {
 })
 export class WebsiteDetailsTabService {
   attributes_form: FormGroup;
+  proxy_categoriztion_tab_form: FormGroup;
   summary_form: FormGroup;
   template_selection_form: FormGroup;
 
@@ -126,6 +127,7 @@ export class WebsiteDetailsTabService {
     this._buildTemplateSelectionForm();
     this._buildSummaryForm();
     this._buildAttributesForm();
+    this._buildCategoryForm();
   }
 
   _buildTemplateSelectionForm() {
@@ -162,6 +164,13 @@ export class WebsiteDetailsTabService {
   _buildSummaryForm() {
     this.summary_form = new FormGroup({
       application_id: new FormControl('', {}),
+    });
+  }
+  _buildCategoryForm() {
+    this.proxy_categoriztion_tab_form = new FormGroup({
+      category_one: new FormControl('', { validators: Validators.required }),
+      category_two: new FormControl(''),
+      category_three: new FormControl(''),
     });
   }
 
