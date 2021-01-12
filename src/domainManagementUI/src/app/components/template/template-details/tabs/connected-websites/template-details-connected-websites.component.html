@@ -1,5 +1,5 @@
 <div class="flex flex-container tab">
-  <h5>Template : {{ tdTabSvc.template_data.template_name }}</h5>
+  <h5>Template : {{ tdTabSvc.template_data.name }}</h5>
   <div class="text-muted">
     A list of all websites that are currently using this template
   </div>
@@ -12,20 +12,16 @@
         <th>Download</th>
       </tr>
       <tr *ngFor="let website of this.tdTabSvc.websites_used_list">
-        <td>{{ website.website_name }}</td>
+        <td>{{ website.name }}</td>
         <td>
-          {{
-            applicationSvc.getApplicationNameByUUID(
-              website.application_using_uuid
-            )
-          }}
+          {{ applicationSvc.getApplicationNameByUUID(website.application_id) }}
         </td>
         <td>
           <button
             mat-raised-button
             color="primary"
             class="flex"
-            (click)="tdTabSvc.downloadWebsite(website.website_uuid)"
+            (click)="tdTabSvc.downloadWebsite(website._id)"
           >
             Download
           </button>

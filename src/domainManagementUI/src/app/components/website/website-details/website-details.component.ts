@@ -15,7 +15,7 @@ import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-
 export class WebsiteDetailsComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
   selectedTabIndex: number = 0;
-  website_uuid = null;
+  _id = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
@@ -30,9 +30,9 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     //Get the uuid param from the url
     this.component_subscriptions.push(
       this.activeRoute.params.subscribe((params) => {
-        this.website_uuid = params['website_uuid'];
-        if (this.website_uuid !== null) {
-          this.loadWebsite(this.website_uuid);
+        this._id = params['_id'];
+        if (this._id !== null) {
+          this.loadWebsite(this._id);
         }
       })
     );
@@ -44,9 +44,9 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadWebsite(website_uuid) {
-    this.wdTabSvc.getWebsiteDetails(website_uuid);
-    this.wdTabSvc.getWebsiteHistory(website_uuid);
+  loadWebsite(_id) {
+    this.wdTabSvc.getWebsiteDetails(_id);
+    this.wdTabSvc.getWebsiteHistory(_id);
   }
 
   onTabChanged(event) {

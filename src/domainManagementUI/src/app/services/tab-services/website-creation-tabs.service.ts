@@ -61,7 +61,7 @@ export class WebsiteCreationTabService {
 
   _rebuildForms() {
     this.template_selection_form = new FormGroup({
-      template_uuid: new FormControl('', { validators: Validators.required }),
+      _id: new FormControl('', { validators: Validators.required }),
     });
     this._buildAttributesForm();
   }
@@ -78,10 +78,10 @@ export class WebsiteCreationTabService {
       }
     );
     this.attributes_form = new FormGroup({
-      application_using_uuid: new FormControl('', {
+      application_id: new FormControl('', {
         validators: Validators.required,
       }),
-      website_name: new FormControl('', { validators: Validators.required }),
+      name: new FormControl('', { validators: Validators.required }),
     });
     if (Array.isArray(this.attribueList)) {
       this.attribueList.forEach((attribute) => {
@@ -96,8 +96,8 @@ export class WebsiteCreationTabService {
 
   //Updates template selection, used when redirectedfrom a template and it should be
   //automatically selected
-  updateTemplateSelection(template_uuid) {
-    this.templateSelectionBehaviorSubject.next(template_uuid);
+  updateTemplateSelection(_id) {
+    this.templateSelectionBehaviorSubject.next(_id);
   }
 
   getAllWebsites() {
@@ -122,14 +122,12 @@ export class WebsiteCreationTabService {
   createWebsite() {
     let newWebsite = new WebsiteModel();
 
-    newWebsite.website_name = this.attributes_form.controls[
-      'website_name'
-    ].value;
+    newWebsite.name = this.attributes_form.controls['name'].value;
     newWebsite.template_base_uuid = this.template_selection_form.controls[
-      'template_uuid'
+      '_id'
     ].value;
-    newWebsite.application_using_uuid = this.attributes_form.controls[
-      'application_using_uuid'
+    newWebsite.application_id = this.attributes_form.controls[
+      'application_id'
     ].value;
 
     let submittedAttributeList = new Array<WebSiteParameter>();

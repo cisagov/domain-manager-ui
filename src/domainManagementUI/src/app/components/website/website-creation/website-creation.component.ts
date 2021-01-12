@@ -15,7 +15,7 @@ import { WebsiteCreationTabService } from 'src/app/services/tab-services/website
 export class WebsiteCreationComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
   selectedTabIndex: number = 0;
-  selected_template_uuid = null;
+  selected__id = null;
 
   constructor(
     public activeRoute: ActivatedRoute,
@@ -30,8 +30,8 @@ export class WebsiteCreationComponent implements OnInit, OnDestroy {
     this.component_subscriptions.push(
       this.activeRoute.params.subscribe(
         (params) => {
-          this.selected_template_uuid = params['template_uuid'];
-          this.wcTabSvc.updateTemplateSelection(this.selected_template_uuid);
+          this.selected__id = params['_id'];
+          this.wcTabSvc.updateTemplateSelection(this.selected__id);
         },
         (error) => {
           console.log('Failed to load domain');

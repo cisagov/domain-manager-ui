@@ -1,16 +1,16 @@
 export class TemplateBaseModel {
-  template_name: string;
-  template_uuid: string;
-  created_date: Date;
+  name: string;
+  _id: string;
+  created: Date;
   uploaded_by: string;
-  template_url: string;
+  s3_url: string;
 
   constructor() {
-    this.template_name = null;
-    this.template_uuid = null;
+    this.name = null;
+    this._id = null;
     this.uploaded_by = null;
-    this.created_date = null;
-    this.template_url = null;
+    this.created = null;
+    this.s3_url = null;
   }
 }
 

@@ -28,15 +28,12 @@ export class TemplateService {
 
   getAllTemplates() {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    // return this.http.get(url,headers).subscribe(
-    //   (success) => {
-    //     this.template_list = success as Array<TemplateModel>;
-    //   },
-    //   (error) => {
-    //     console.log(`Error from service ${error}`);
-    //   }
-    // );
+
+    console.log('test 1');
+    if (!environment.localData) {
+      let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+      return this.http.get(url, headers);
+    }
 
     //Test Data TODO: REMOVE IN PROD
     let templates = ['Template One', 'Temp_two', 'selected', 'Test3'];
@@ -44,11 +41,11 @@ export class TemplateService {
     let templateListTemporay = [];
     templates.forEach((element) => {
       templateListTemporay.push({
-        template_name: element,
-        template_uuid: element,
+        name: element,
+        _id: element,
         uploaded_by: 'Template Creator',
-        created_date: new Date('10-10-2020'),
-        template_url:
+        created: new Date('10-10-2020'),
+        s3_url:
           'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html',
         template_attributes: Array<any>(),
       });
@@ -62,9 +59,9 @@ export class TemplateService {
     });
   }
 
-  getTemplateDetails(website_template_uuid) {
+  getTemplateDetails(website__id) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/${website_template_uuid}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/${website__id}`;
 
     // return this.http.get(url,headers)
 
@@ -74,15 +71,11 @@ export class TemplateService {
       if (this.template_list.length === 0) {
         this.getAllTemplates();
       }
-      let retVal = this.template_list.find(
-        (t) => t.template_uuid === website_template_uuid
-      );
+      let retVal = this.template_list.find((t) => t._id === website__id);
       if (retVal) {
         exampleObs.next(retVal);
       } else {
-        exampleObs.error(
-          'Failed to find template with uuid: ' + website_template_uuid
-        );
+        exampleObs.error('Failed to find template with uuid: ' + website__id);
       }
     });
   }
@@ -90,13 +83,15 @@ export class TemplateService {
   // Seperated out to allow for differing sources of attributes to be used
   // Current plan on attribute sourcing has changed rapidly and should be
   // modular to allow for the inevitable future changes
-  getTemplateAttributes(): Observable<Array<TemplateAttribute>> {
+  getTemplateAttributes() {
     //Current plan is to have an api endpoint with all template attributes
     //Unsure if all temlpates will share the same attributes or if they
     //will be tmeplate specific
 
-    // let url = `${this.settingsService.settings.apiUrl}/api/templatesAttributes`;
-    // return this.http.get(url,headers)
+    if (!environment.localData) {
+      let url = `${this.settingsService.settings.apiUrl}/api/templates/keys/`;
+      return this.http.get(url, headers);
+    }
 
     let key_val_pairs = [
       { key: 'Name', value: 'Dentist-r-us' },
@@ -137,6 +132,19 @@ export class TemplateService {
     });
   }
 
+  toTemplateAttributeModels(input) {
+    console.log(input);
+    let retVal = new Array<TemplateAttribute>();
+    input.forEach((kv) => {
+      retVal.push({
+        key: kv,
+        value: null,
+        place_holder: '{{%%' + kv + '%%}}',
+      });
+    });
+    return retVal;
+  }
+
   uploadTemplate(inputFile) {
     //Double check settings, as this function is passed directly to upload modal
     if (!this.settingsService) {
@@ -149,7 +157,7 @@ export class TemplateService {
 
     console.log(environment);
 
-    if (environment?.testingNoAPI) {
+    if (environment?.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('Template Uploaded');
@@ -157,23 +165,23 @@ export class TemplateService {
       });
     }
 
-    if (!environment?.testingNoAPI) {
+    if (!environment?.localData) {
       return this.http.post(url, formData, headers);
     }
   }
   downloadTemplate(uuid) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
-      'application/zip'
+      'application/*zip*'
     );
     let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.get(url, {
         headers: downloadHeaders,
         responseType: 'blob',
       });
     } else {
-      if (environment.testingNoAPI) {
+      if (environment.localData) {
         return new Observable((exampleObs) => {
           setTimeout(() => {
             exampleObs.next('template downloaded');
@@ -197,11 +205,11 @@ export class TemplateService {
       headers: headers,
     };
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, httpOptions);
     }
 
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('temlpate deleted');
