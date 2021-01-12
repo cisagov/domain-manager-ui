@@ -20,7 +20,6 @@ import { ngfModule, ngf } from 'angular-file';
 //Custom Components
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
-import { ApplicationCreateDialogComponent } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { DomainCreateDialog } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component';
@@ -77,7 +76,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   declarations: [
     AboutComponent,
     AppComponent,
-    ApplicationCreateDialogComponent,
     ApplicationListComponent,
     LayoutMainComponent,
     DomainCreateDialog,

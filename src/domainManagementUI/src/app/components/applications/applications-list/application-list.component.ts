@@ -19,7 +19,6 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { ApplicationModel } from 'src/app/models/application.model';
 
 // Dialogs
-import { ApplicationCreateDialogComponent } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
 import { ApplicationEditDialogComponent } from '../application-edit-dialog/application-edit-dialog.component';
 import { ConfirmDialogComponent } from '../../dialog-windows/confirm/confirm-dialog.component';
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
@@ -116,7 +115,7 @@ export class ApplicationListComponent
   }
 
   addApplication() {
-    const dialogRef = this.dialog.open(ApplicationCreateDialogComponent);
+    const dialogRef = this.dialog.open(ApplicationEditDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.getApplications();
