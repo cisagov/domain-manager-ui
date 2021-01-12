@@ -50,6 +50,7 @@ export class WebsiteBaseModel {
 export class HostedZoneModel {
   Name: string;
   ResourceRecords: Array<any>;
+  AliasTarget: AliasTargetModel;
   TTL: number;
   Type: string;
 
@@ -57,7 +58,20 @@ export class HostedZoneModel {
     this.Name = null;
     this.ResourceRecords = null;
     this.TTL = null;
+    this.AliasTarget = null;
     this.Type = null;
+  }
+}
+
+export class AliasTargetModel {
+  DNSName: string;
+  EvaluateTargetHealth: boolean;
+  HostedZoneId: string;
+
+  constructor(){
+    this.DNSName = null;
+    this.EvaluateTargetHealth = null;
+    this.HostedZoneId = null;
   }
 }
 

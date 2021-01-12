@@ -12,16 +12,28 @@
       <div class="flex sl_flex_content font-weight-bold">
         {{zone.Name}}
       </div>
-      <div class="flex sl_flex_content ml-2">
+      <div *ngIf="zone.TTL" class="flex sl_flex_content ml-2">
         TTL: {{zone.TTL}}
       </div>
       <div class="flex sl_flex_content  ml-2">
         Type: {{zone.Type}}
       </div>
-      <div class="flex-column sl_flex_content  ml-2">
+      <div *ngIf="!zone.AliasTarget" class="flex-column sl_flex_content  ml-2">
         Resource Records:
         <div class="flex ml-4" *ngFor="let resource of zone.ResourceRecords">
           {{resource.Value}}
+        </div>
+      </div>
+      <div *ngIf="zone.AliasTarget" class="flex-column sl_flex_content  ml-2">
+        Alias Target:
+        <div class="flex ml-4" >
+          DNSName: {{zone.AliasTarget.DNSName}}
+        </div>
+        <div class="flex ml-4" >
+          Evaluate Target Health: {{zone.AliasTarget.EvaluateTargetHealth}}
+        </div>
+        <div class="flex ml-4" >
+          Hosted Zone ID: {{zone.AliasTarget.HostedZoneId}}
         </div>
       </div>
     </div>
