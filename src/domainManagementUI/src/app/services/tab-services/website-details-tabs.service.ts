@@ -207,6 +207,16 @@ export class WebsiteDetailsTabService {
       return true;
     }
   }
+
+  canBeLaunched(){
+    if(this.isSiteLaunched){
+      return false;
+    }
+    //If website is associated with the site, it can be launched
+    if(this.website_data.s3_url){
+      return true;
+    }
+  }
   hashistory() {
     if (this.website_data.history?.length) {
       return true;
