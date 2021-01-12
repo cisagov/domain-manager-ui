@@ -57,17 +57,15 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   test() {}
 
   downloadWebsite() {
-    this.wdTabSvc
-      .downloadWebsite(this.wdTabSvc.website_data._id)
-      .subscribe(
-        (success) => {
-          console.log(success);
-        },
-        (failure) => {
-          console.log('download Website Failed');
-          console.log(failure);
-        }
-      );
+    this.wdTabSvc.downloadWebsite(this.wdTabSvc.website_data._id).subscribe(
+      (success) => {
+        console.log(success);
+      },
+      (failure) => {
+        console.log('download Website Failed');
+        console.log(failure);
+      }
+    );
   }
 
   deleteWebsite(_id) {
@@ -80,20 +78,18 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     });
     this.deleteDialog.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
-        this.wdTabSvc
-          .deleteWebsite(this.wdTabSvc.website_data._id)
-          .subscribe(
-            (success) => {
-              this.router.navigate([`/website`]);
-            },
-            (failed) => {}
-          );
+        this.wdTabSvc.deleteWebsite(this.wdTabSvc.website_data._id).subscribe(
+          (success) => {
+            this.router.navigate([`/website`]);
+          },
+          (failed) => {}
+        );
       } else {
         console.log('delete cancled');
       }
     });
   }
-  get tabForm(){
-    return this.wdTabSvc.summary_form
+  get tabForm() {
+    return this.wdTabSvc.summary_form;
   }
 }

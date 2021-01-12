@@ -17,12 +17,9 @@ import { WebsiteModel } from 'src/app/models/website.model';
 export class WebsiteDetailsHostedZonesComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
 
-  constructor(
-    public wdTabSvc: WebsiteDetailsTabService,
-  ) {}
+  constructor(public wdTabSvc: WebsiteDetailsTabService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {

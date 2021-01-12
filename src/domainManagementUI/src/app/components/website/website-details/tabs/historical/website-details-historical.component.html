@@ -1,9 +1,14 @@
 <div class="flex flex-container tab">
   <!-- <h5>Website : {{tdTabSvc.template_data.name}}</h5> -->
-  <h5>Website : {{wdTabSvc.website_data.name}}</h5>
-  <div *ngIf="wdTabSvc.hashistory()" class="text-muted">A detailed list of the history of this website</div>
-  <div *ngIf="!wdTabSvc.hashistory()" class="text-muted">This website has no history. History will be logged here once this website has been launched for the first time.</div>
-  
+  <h5>Website : {{ wdTabSvc.website_data.name }}</h5>
+  <div *ngIf="wdTabSvc.hashistory()" class="text-muted">
+    A detailed list of the history of this website
+  </div>
+  <div *ngIf="!wdTabSvc.hashistory()" class="text-muted">
+    This website has no history. History will be logged here once this website
+    has been launched for the first time.
+  </div>
+
   <!-- Use History Table -->
   <!-- <mat-label class="mt-3">Website Usage History</mat-label> -->
   <div *ngIf="wdTabSvc.hashistory()" class="flex-row">

@@ -29,12 +29,11 @@ export class TemplateService {
   getAllTemplates() {
     //Example url, needs to be changed when API is in place
 
-    console.log("test 1")
+    console.log('test 1');
     if (!environment.localData) {
       let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-      return this.http.get(url,headers)
+      return this.http.get(url, headers);
     }
-
 
     //Test Data TODO: REMOVE IN PROD
     let templates = ['Template One', 'Temp_two', 'selected', 'Test3'];
@@ -72,15 +71,11 @@ export class TemplateService {
       if (this.template_list.length === 0) {
         this.getAllTemplates();
       }
-      let retVal = this.template_list.find(
-        (t) => t._id === website__id
-      );
+      let retVal = this.template_list.find((t) => t._id === website__id);
       if (retVal) {
         exampleObs.next(retVal);
       } else {
-        exampleObs.error(
-          'Failed to find template with uuid: ' + website__id
-        );
+        exampleObs.error('Failed to find template with uuid: ' + website__id);
       }
     });
   }
@@ -95,7 +90,7 @@ export class TemplateService {
 
     if (!environment.localData) {
       let url = `${this.settingsService.settings.apiUrl}/api/templates/keys/`;
-      return this.http.get(url,headers)
+      return this.http.get(url, headers);
     }
 
     let key_val_pairs = [
@@ -137,8 +132,8 @@ export class TemplateService {
     });
   }
 
-  toTemplateAttributeModels(input){
-    console.log(input)
+  toTemplateAttributeModels(input) {
+    console.log(input);
     let retVal = new Array<TemplateAttribute>();
     input.forEach((kv) => {
       retVal.push({
@@ -147,7 +142,7 @@ export class TemplateService {
         place_holder: '{{%%' + kv + '%%}}',
       });
     });
-    return retVal
+    return retVal;
   }
 
   uploadTemplate(inputFile) {

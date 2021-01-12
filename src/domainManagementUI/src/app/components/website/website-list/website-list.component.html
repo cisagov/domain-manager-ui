@@ -13,7 +13,12 @@
       </mat-form-field>
     </div>
     <div class="add-new-button-container flex">
-      <button style="height:50px" (click)="addDomain()" mat-raised-button color="primary">
+      <button
+        style="height: 50px"
+        (click)="addDomain()"
+        mat-raised-button
+        color="primary"
+      >
         Add New Domain
       </button>
       <!-- <button style="height: 50px" mat-raised-button color="primary" [matMenuTriggerFor]="menu">
@@ -52,7 +57,7 @@
         Make Selected Available
       </button>
     </div>
-    
+
     <mat-table [hidden]="loading" [dataSource]="websiteList" matSort>
       <!-- ActionCheckbox -->
       <ng-container matColumnDef="checked">
@@ -63,8 +68,7 @@
             color="warn"
             (change)="setAllCheckboxes($event.checked)"
           >
-          </mat-checkbox
-          >
+          </mat-checkbox>
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <mat-checkbox
@@ -81,11 +85,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Website Name</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewWebsite(row._id)"
-          >{{ row.name }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="viewWebsite(row._id)">{{
+          row.name
+        }}</mat-cell>
       </ng-container>
 
       <!-- Template Base -->
@@ -93,11 +95,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Template Base</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewWebsite(row._id)"
-          >{{ row.category }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="viewWebsite(row._id)">{{
+          row.category
+        }}</mat-cell>
       </ng-container>
 
       <!-- Created Date -->
@@ -105,13 +105,10 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Created Date
         </mat-header-cell>
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewWebsite(row._id)"
-          >{{ row.created_date | date: "MM/dd/yy" }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="viewWebsite(row._id)">{{
+          row.created_date | date: "MM/dd/yy"
+        }}</mat-cell>
       </ng-container>
-
 
       <!-- Is Available -->
       <ng-container matColumnDef="isAvailable">
@@ -126,7 +123,7 @@
             >check_circle</mat-icon
           >
         </mat-cell>
-      </ng-container>      
+      </ng-container>
 
       <!-- Is Launched -->
       <ng-container matColumnDef="is_launched">

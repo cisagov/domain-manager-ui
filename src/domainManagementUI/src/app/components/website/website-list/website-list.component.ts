@@ -22,7 +22,7 @@ import { WebsiteModel } from 'src/app/models/website.model';
 
 // Dialogs
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
-import { DomainCreateDialog } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component'
+import { DomainCreateDialog } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component';
 
 @Component({
   selector: 'website-list',
@@ -30,12 +30,15 @@ import { DomainCreateDialog } from 'src/app/components/website/domain-create-dia
   styleUrls: ['./website-list.component.scss'],
 })
 export class WebsiteListComponent implements OnInit {
-
-
   allChecked = false;
   component_subscriptions = [];
   create_dialog: MatDialogRef<DomainCreateDialog> = null;
-  displayedColumns = ['name', 'template_base_name', 'created_date', 'is_launched'];
+  displayedColumns = [
+    'name',
+    'template_base_name',
+    'created_date',
+    'is_launched',
+  ];
   search_input = '';
   websiteList: MatTableDataSource<WebsiteModel> = new MatTableDataSource<WebsiteModel>();
   loading = true;
@@ -49,11 +52,11 @@ export class WebsiteListComponent implements OnInit {
     public layoutSvc: LayoutService,
     private router: Router,
     private userAuthSvc: UserAuthService,
-    public websiteSvc: WebsiteService,
+    public websiteSvc: WebsiteService
   ) {
     this.layoutSvc.setTitle('Websites');
     this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
-      console.log(value)
+      console.log(value);
       this.userIsAdmin = value;
     });
   }
@@ -70,17 +73,18 @@ export class WebsiteListComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.websiteList.sort = this.sort;}
+    this.websiteList.sort = this.sort;
+  }
 
   getWebsites() {
     this.loading = true;
     this.websiteSvc.getAllWebsites().subscribe(
       (success) => {
-        this._formatWebsiteListData(success)
+        this._formatWebsiteListData(success);
         this.websiteList = new MatTableDataSource<WebsiteModel>(
           success as WebsiteModel[]
         );
-        console.log(this.websiteList)
+        console.log(this.websiteList);
         this.loading = false;
         this.websiteList.sort = this.sort;
       },
@@ -179,17 +183,17 @@ export class WebsiteListComponent implements OnInit {
     this.create_dialog = this.dialog.open(DomainCreateDialog);
     this.create_dialog.afterClosed().subscribe((urlToCreate) => {
       if (urlToCreate) {
-          console.log(urlToCreate);
-          this.websiteSvc.createDomain(urlToCreate as string).subscribe(
-            (success) => {
-              console.log(success);
-              this.getWebsites();
-            },
-            (failure) => {
-              console.log('Failed to create application');
-              console.log(failure);
-            }
-          );        
+        console.log(urlToCreate);
+        this.websiteSvc.createDomain(urlToCreate as string).subscribe(
+          (success) => {
+            console.log(success);
+            this.getWebsites();
+          },
+          (failure) => {
+            console.log('Failed to create application');
+            console.log(failure);
+          }
+        );
       } else {
         console.log('dialog closed');
       }

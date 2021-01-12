@@ -39,7 +39,7 @@
             {{ a.name }}
           </mat-option>
         </mat-select>
-        
+
       </mat-form-field>
     </div> -->
     <!-- ATTRIBUTES -->
@@ -52,7 +52,7 @@
       *ngFor="let attribute of wdTabSvc.attribueList; let i; index"
     >
       <mat-form-field style="width: 20em" appearance="outline">
-        <mat-label>{{ attribute.key | titlecase}}</mat-label>
+        <mat-label>{{ attribute.key | titlecase }}</mat-label>
         <input
           matInput
           trim="blur"

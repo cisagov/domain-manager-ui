@@ -1,26 +1,33 @@
 <div class="flex flex-container tab">
-  
-  <div class="template_mode"> 
+  <div class="template_mode">
     <h5>Select a Template For This Website</h5>
-    <div class="text-muted">
-      Select your method to select a template
-    </div>
+    <div class="text-muted">Select your method to select a template</div>
     <div>
       <mat-radio-group
         aria-labelledby="template-selection-radio-group"
         class="example-radio-group"
-        [(ngModel)]="wdTabSvc.templateSelectinoMethod">
-        <mat-radio-button class="template-selection-radio-button" value="upload">
+        [(ngModel)]="wdTabSvc.templateSelectinoMethod"
+      >
+        <mat-radio-button
+          class="template-selection-radio-button"
+          value="upload"
+        >
           Upload from zip
         </mat-radio-button>
-        <mat-radio-button class="template-selection-radio-button" value="template_selection">
+        <mat-radio-button
+          class="template-selection-radio-button"
+          value="template_selection"
+        >
           Select from templates
         </mat-radio-button>
       </mat-radio-group>
     </div>
   </div>
 
-  <div class="template_upload_section" *ngIf="wdTabSvc.templateSelectinoMethod === 'upload'"> 
+  <div
+    class="template_upload_section"
+    *ngIf="wdTabSvc.templateSelectinoMethod === 'upload'"
+  >
     <button
       class="all_tab_option_button"
       mat-raised-button
@@ -28,10 +35,13 @@
       (click)="uploadWebsite()"
     >
       Upload
-  </button>
+    </button>
   </div>
 
-  <div class="template_selection_section"  *ngIf="wdTabSvc.templateSelectinoMethod === 'template_selection'">
+  <div
+    class="template_selection_section"
+    *ngIf="wdTabSvc.templateSelectinoMethod === 'template_selection'"
+  >
     <h5>Select a Template Base</h5>
     <div class="text-muted">
       Select a template base that will be used to generate your website.
@@ -55,11 +65,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Template Name</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="displayTemplate(row.s3_url)"
-          >{{ row.name }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="displayTemplate(row.s3_url)">{{
+          row.name
+        }}</mat-cell>
       </ng-container>
 
       <!-- Created By -->
@@ -79,11 +87,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Created Date
         </mat-header-cell>
-        <mat-cell
-          *matCellDef="let row"
-          (click)="displayTemplate(row.s3_url)"
-          >{{ row.created | date: "MM/dd/yy" }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row" (click)="displayTemplate(row.s3_url)">{{
+          row.created | date: "MM/dd/yy"
+        }}</mat-cell>
       </ng-container>
 
       <!-- Select Template -->
@@ -130,19 +136,23 @@
       </div>
       <iframe [src]="safeURL" height="100%" width="100%"></iframe>
     </div>
-    <div style="margin-top: 2em" *ngIf="wdTabSvc.template_selection_form.valid" [formGroup]="attributeForm">
-    <h5>Assing the Templates Attributes</h5>
-    <!-- ATTRIBUTES -->
+    <div
+      style="margin-top: 2em"
+      *ngIf="wdTabSvc.template_selection_form.valid"
+      [formGroup]="attributeForm"
+    >
+      <h5>Assing the Templates Attributes</h5>
+      <!-- ATTRIBUTES -->
       <div class="text-muted">
-        Assign the attributes that will be used to populate the fields within your
-        selected template
+        Assign the attributes that will be used to populate the fields within
+        your selected template
       </div>
       <div
         class="flex flex-row"
         *ngFor="let attribute of wdTabSvc.attribueList; let i; index"
       >
         <mat-form-field style="width: 20em" appearance="outline">
-          <mat-label>{{ attribute.key | titlecase}}</mat-label>
+          <mat-label>{{ attribute.key | titlecase }}</mat-label>
           <input
             matInput
             trim="blur"

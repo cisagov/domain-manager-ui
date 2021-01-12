@@ -47,8 +47,8 @@ export class FileUploadDialogComponent {
     this.uploadFunction = data.uploadFunction;
     this.uploadFileType = data.uploadFileType;
     this.multiple = data.multipleFileUpload;
-    console.log(data)
-    console.log(this.getOS())
+    console.log(data);
+    console.log(this.getOS());
   }
 
   uploadFiles() {
@@ -73,17 +73,17 @@ export class FileUploadDialogComponent {
   }
 
   getDate() {
-    console.log("new files")
+    console.log('new files');
     return new Date();
   }
   getOS() {
     var userAgent = window.navigator.userAgent,
-        platform = window.navigator.platform,
-        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
-        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-        os = null;
-  
+      platform = window.navigator.platform,
+      macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+      windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+      iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+      os = null;
+
     if (macosPlatforms.indexOf(platform) !== -1) {
       os = 'Mac OS';
     } else if (iosPlatforms.indexOf(platform) !== -1) {
@@ -95,7 +95,6 @@ export class FileUploadDialogComponent {
     } else if (!os && /Linux/.test(platform)) {
       os = 'Linux';
     }
-  console.log(os)
+    console.log(os);
   }
-  
 }

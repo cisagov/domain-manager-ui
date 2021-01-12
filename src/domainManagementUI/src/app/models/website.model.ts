@@ -1,5 +1,5 @@
 import { TemplateModel } from './template.model';
-import { ApplicationModel } from './application.model'
+import { ApplicationModel } from './application.model';
 
 export interface IWebsiteBaseModel {
   name: string;
@@ -30,7 +30,7 @@ export class WebsiteBaseModel {
     this.created_date = null;
     this.launch_date = null;
     this.s3_url = null;
-    this.category = null
+    this.category = null;
     this.template_base_name = null;
     this.template_base_uuid = null;
     // this.template = new TemplateModel();
@@ -44,8 +44,6 @@ export class WebsiteBaseModel {
   }
 }
 
-
-
 export class WebSiteParameter {
   param_name: string;
   value: string;
@@ -57,7 +55,7 @@ export class WebsiteHistoryModel {
   application: ApplicationModel;
   launch_date: Date;
 
-  constructor(){
+  constructor() {
     this.application = new ApplicationModel();
     this.launch_date = null;
   }
