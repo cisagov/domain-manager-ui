@@ -17,7 +17,7 @@ import { WebsiteModel } from 'src/app/models/website.model';
 })
 export class DomainManagementWebsiteSelectionTab implements OnInit {
   displayedColumns = [
-    'website_name',
+    'name',
     'template_base_name',
     'created_date',
     'selected_website',
@@ -78,25 +78,25 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
   }
 
   selectWebsite(website: WebsiteModel) {
-    let website_uuid = website.website_uuid;
-    this.displayWebsite(website.website_url);
+    let _id = website._id;
+    this.displayWebsite(website.s3_url);
     if (this.domainDataReady) {
       this.submitted = false;
       let data = this.websiteList['_data']['_value'];
       data.forEach((t) => (t.selected = false));
       data
-        .filter((t) => t.website_uuid == website_uuid)
+        .filter((t) => t._id == _id)
         .forEach((selectedWebsite) => {
           selectedWebsite['selected'] = true;
         });
-      this.tabForm.controls.website_uuid.setValue(website_uuid);
+      this.tabForm.controls._id.setValue(_id);
     }
   }
   deSelectWebsite() {
     this.websiteList['_data']['_value'].forEach((t) => (t.selected = false));
     this.submitted = false;
 
-    this.tabForm.controls.website_uuid.setValue(null);
+    this.tabForm.controls._id.setValue(null);
   }
 
   displayWebsite(url) {
@@ -154,7 +154,7 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
       console.log(this.websiteList['_data']['_value']);
       this.websiteList['_data']['_value']
         .filter(
-          (t) => t.website_uuid == this.domainTabSvc.domainData.website_uuid
+          (t) => t._id == this.domainTabSvc.domainData._id
         )
         .forEach((selectedWebsite) => {
           selectedWebsite['selected'] = true;

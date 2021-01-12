@@ -55,18 +55,18 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   setURL(template: TemplateModel) {
     console.log(template);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      template.template_url
+      template.s3_url
     );
     console.log(this.safeURL);
   }
 
   openInNewTab() {
-    window.open(this.tdTabSvc.template_data.template_url, '_blank');
+    window.open(this.tdTabSvc.template_data.s3_url, '_blank');
   }
 
   download() {
     this.tdTabSvc
-      .downloadTemplate(this.tdTabSvc.template_data.template_uuid)
+      .downloadTemplate(this.tdTabSvc.template_data._id)
       .subscribe(
         (success) => {
           console.log(success);
@@ -78,10 +78,10 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
       );
   }
 
-  delete(template_uuid) {
+  delete(_id) {
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm website delete';
-    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.tdTabSvc.template_data.template_name}`;
+    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.tdTabSvc.template_data.name}`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: confirmDialogSettings,
@@ -89,7 +89,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     this.deleteDialog.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
         this.tdTabSvc
-          .deleteTemplate(this.tdTabSvc.template_data.template_uuid)
+          .deleteTemplate(this.tdTabSvc.template_data._id)
           .subscribe(
             (success) => {
               this.router.navigate([`/template`]);

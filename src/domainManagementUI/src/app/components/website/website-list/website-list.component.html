@@ -12,8 +12,11 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
-    <!-- <div class="add-new-button-container flex">
-      <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
+    <div class="add-new-button-container flex">
+      <button style="height:50px" (click)="addDomain()" mat-raised-button color="primary">
+        Add New Domain
+      </button>
+      <!-- <button style="height: 50px" mat-raised-button color="primary" [matMenuTriggerFor]="menu">
         Create Website
       </button>
       <mat-menu #menu="matMenu">
@@ -23,8 +26,8 @@
         <button routerLink="/website/creation" mat-menu-item>
           <mat-icon>build</mat-icon>Build from template
         </button>
-      </mat-menu>
-    </div> -->
+      </mat-menu> -->
+    </div>
   </div>
 
   <div class="col p-0 w-100">
@@ -74,14 +77,14 @@
       </ng-container>
 
       <!-- Website Name -->
-      <ng-container matColumnDef="website_name">
+      <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Website Name</mat-header-cell
         >
         <mat-cell
           *matCellDef="let row"
-          (click)="viewWebsite(row.website_uuid)"
-          >{{ row.website_name }}</mat-cell
+          (click)="viewWebsite(row._id)"
+          >{{ row.name }}</mat-cell
         >
       </ng-container>
 
@@ -92,8 +95,8 @@
         >
         <mat-cell
           *matCellDef="let row"
-          (click)="viewWebsite(row.website_uuid)"
-          >{{ row.template_base_name }}</mat-cell
+          (click)="viewWebsite(row._id)"
+          >{{ row.category }}</mat-cell
         >
       </ng-container>
 
@@ -104,7 +107,7 @@
         </mat-header-cell>
         <mat-cell
           *matCellDef="let row"
-          (click)="viewWebsite(row.website_uuid)"
+          (click)="viewWebsite(row._id)"
           >{{ row.created_date | date: "MM/dd/yy" }}</mat-cell
         >
       </ng-container>
@@ -115,9 +118,24 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Is Available</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewWebsite(row.website_uuid)">
+        <mat-cell *matCellDef="let row" (click)="viewWebsite(row._id)">
           <mat-icon
             *ngIf="row.isAvailable"
+            aria-hidden="false"
+            aria-label="check_circle icon"
+            >check_circle</mat-icon
+          >
+        </mat-cell>
+      </ng-container>      
+
+      <!-- Is Launched -->
+      <ng-container matColumnDef="is_launched">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Is Live</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="viewWebsite(row._id)">
+          <mat-icon
+            *ngIf="row.is_active"
             aria-hidden="false"
             aria-label="check_circle icon"
             >check_circle</mat-icon

@@ -33,6 +33,7 @@ export class FileUploadDialogComponent {
   validComboDrag: any;
   lastInvalids: any;
   fileDropDisabled: any;
+  multiple: boolean;
   maxSize: any;
   baseDropValid: any;
 
@@ -45,6 +46,9 @@ export class FileUploadDialogComponent {
     this.uploadType = data.uploadType;
     this.uploadFunction = data.uploadFunction;
     this.uploadFileType = data.uploadFileType;
+    this.multiple = data.multipleFileUpload;
+    console.log(data)
+    console.log(this.getOS())
   }
 
   uploadFiles() {
@@ -69,6 +73,29 @@ export class FileUploadDialogComponent {
   }
 
   getDate() {
+    console.log("new files")
     return new Date();
   }
+  getOS() {
+    var userAgent = window.navigator.userAgent,
+        platform = window.navigator.platform,
+        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+        os = null;
+  
+    if (macosPlatforms.indexOf(platform) !== -1) {
+      os = 'Mac OS';
+    } else if (iosPlatforms.indexOf(platform) !== -1) {
+      os = 'iOS';
+    } else if (windowsPlatforms.indexOf(platform) !== -1) {
+      os = 'Windows';
+    } else if (/Android/.test(userAgent)) {
+      os = 'Android';
+    } else if (!os && /Linux/.test(platform)) {
+      os = 'Linux';
+    }
+  console.log(os)
+  }
+  
 }

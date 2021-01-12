@@ -44,11 +44,11 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
 
   getApplicationName() {
     if (
-      this.wdTabSvc.website_data.application_using_uuid &&
+      this.wdTabSvc.website_data.application_id &&
       this.applicationSvc.application_list.length
     ) {
       return this.applicationSvc.getApplicationNameByUUID(
-        this.wdTabSvc.website_data.application_using_uuid
+        this.wdTabSvc.website_data.application_id
       );
     } else {
       return 'Loading Application List';
@@ -58,7 +58,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
 
   downloadWebsite() {
     this.wdTabSvc
-      .downloadWebsite(this.wdTabSvc.website_data.website_uuid)
+      .downloadWebsite(this.wdTabSvc.website_data._id)
       .subscribe(
         (success) => {
           console.log(success);
@@ -70,10 +70,10 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
       );
   }
 
-  deleteWebsite(website_uuid) {
+  deleteWebsite(_id) {
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm template delete';
-    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.website_name}`;
+    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: confirmDialogSettings,
@@ -81,7 +81,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     this.deleteDialog.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
         this.wdTabSvc
-          .deleteWebsite(this.wdTabSvc.website_data.website_uuid)
+          .deleteWebsite(this.wdTabSvc.website_data._id)
           .subscribe(
             (success) => {
               this.router.navigate([`/website`]);
@@ -92,5 +92,8 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
         console.log('delete cancled');
       }
     });
+  }
+  get tabForm(){
+    return this.wdTabSvc.summary_form
   }
 }

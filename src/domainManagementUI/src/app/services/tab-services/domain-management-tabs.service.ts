@@ -78,7 +78,7 @@ export class DomainManagementTabService {
       newData.name += domain_uuid;
       newData.uuid = domain_uuid;
       newData.categoryOne = 'UUID-2';
-      newData.website_uuid = 'UUID_selected';
+      newData._id = 'UUID_selected';
       newData.update_email = 'Test@email.com';
       newData.useHistory = [
         {
@@ -125,7 +125,7 @@ export class DomainManagementTabService {
       create_SES: new FormControl(''),
     });
     this.website_selection_tab_form = new FormGroup({
-      website_uuid: new FormControl('', { validators: Validators.required }),
+      _id: new FormControl('', { validators: Validators.required }),
     });
     this.proxy_categoriztion_tab_form = new FormGroup({
       category_one: new FormControl('', { validators: Validators.required }),
@@ -143,7 +143,7 @@ export class DomainManagementTabService {
     gfCont.create_SES.setValue(this.domainData.createSES);
 
     let wsCont = this.website_selection_tab_form.controls;
-    wsCont.website_uuid.setValue(this.domainData.website_uuid);
+    wsCont._id.setValue(this.domainData._id);
 
     let pxCont = this.proxy_categoriztion_tab_form.controls;
     pxCont.category_one.setValue(this.domainData.categoryOne);

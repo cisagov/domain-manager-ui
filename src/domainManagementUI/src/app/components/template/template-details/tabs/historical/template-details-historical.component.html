@@ -1,4 +1,13 @@
 <div class="flex flex-container tab">
-  <h5>Template : {{ tdTabSvc.template_data.template_name }}</h5>
+  <h5>Template : {{ tdTabSvc.template_data.name }}</h5>
   <div class="text-muted">History</div>
+  <div class="flex summary_list" >
+    <div class="flex-column titles">
+      <div class="flex-row">Created Date</div>
+    </div>
+
+    <div class="flex-column values">
+      <div class="flex-row">{{ tdTabSvc.template_data.created }}</div>
+    </div>
+  </div>
 </div>

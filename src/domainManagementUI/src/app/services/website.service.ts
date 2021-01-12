@@ -7,7 +7,8 @@ import { environment } from 'src/environments/environment';
 import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
-import { WebsiteModel } from 'src/app/models/website.model';
+import { WebsiteModel, WebsiteHistoryModel } from 'src/app/models/website.model';
+import { ApplicationModel } from '../models/application.model';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -24,16 +25,11 @@ export class WebsiteService {
 
   getAllWebsites() {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/websiteTemplates/`;
-    // return this.http.get(url,headers).subscribe(
-    //   (success) => {
-    //     this.website_list = success as Array<WebsiteModel>;
-    //   },
-    //   (error) => {
-    //     console.log(`Error from service ${error}`);
-    //   }
-    // );
-
+    let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
+    
+    if (!environment.testingNoAPI) {
+      return this.http.get(url,headers)
+    }
     //Test Data TODO: REMOVE IN PROD
     let websites = [
       'WebsiteOne',
@@ -51,13 +47,19 @@ export class WebsiteService {
     let counter = 0;
     websites.forEach((element) => {
       this.website_list.push({
-        website_name: element,
-        website_uuid: 'UUID_' + element,
-        website_url: this.getTestURL(counter),
+        name: element,
+        _id: 'UUID_' + element,
+        s3_url: this.getTestURL(counter),
         created_date: new Date('2019-06-26'),
+        launch_date: new Date('2019-07-21'),
+        category: "Test",
         template_base_name: 'Template_Name_Base_' + element,
         template_base_uuid: templates_used[counter % templates_used.length],
-        application_using_uuid: 'application-' + ((counter % 3) + 1) + '-UUID',
+        application_id: 'application-' + ((counter % 3) + 1) + '-UUID',
+        application_using: new ApplicationModel(),
+        is_active: true,
+        history: new Array<WebsiteHistoryModel>(),
+        route53: "testRoute53",
         // template: new TemplateModel(),
         website_parameters: [
           {
@@ -84,20 +86,21 @@ export class WebsiteService {
     });
   }
 
-  getWebsiteDetails(website_uuid) {
+  getWebsiteDetails(_id) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_uuid}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}`;
 
-    // return this.http.get(url,headers)
-
+    if (!environment.testingNoAPI) {
+      return this.http.get(url,headers)
+    }
     //Example observable return for testing purposes
     let retVal = new WebsiteModel();
 
     console.log(environment.testingNoAPI);
     if (environment.testingNoAPI) {
-      retVal.website_name = 'Example Website';
-      retVal.website_uuid = website_uuid;
-      retVal.website_url =
+      retVal.name = 'Example Website';
+      retVal._id = _id;
+      retVal.s3_url =
         'https://domain-manager-test.s3.amazonaws.com/pesticide/inltesting.xyz/home.html';
       retVal.created_date = new Date('12/12/20');
       retVal.template_base_name = 'Template Base Name Test';
@@ -112,15 +115,15 @@ export class WebsiteService {
           value: 'Author Value Test',
         },
       ];
-      retVal.application_using_uuid = 'application-3-UUID';
+      retVal.application_id = 'application-3-UUID';
     }
 
     let website = this.website_list.filter(
-      (f) => f.website_uuid === website_uuid
+      (f) => f._id === _id
     );
     if (website.length) {
       retVal = website[0];
-      retVal.website_url =
+      retVal.s3_url =
         'https://domain-manager-test.s3.amazonaws.com/pesticide/inltesting.xyz/home.html';
     }
 
@@ -129,9 +132,9 @@ export class WebsiteService {
     });
   }
 
-  getWebsiteHistory(website_uuid) {
+  getWebsiteHistory(_id) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_uuid}/history`;
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}/history`;
 
     // return this.http.get(url,headers)
 
@@ -173,8 +176,8 @@ export class WebsiteService {
 
   getWebsiteNameByUUID(uuid) {
     if (this.website_list.length) {
-      return this.website_list.find((w) => w.website_uuid === uuid)
-        ?.website_name;
+      return this.website_list.find((w) => w._id === uuid)
+        ?.name;
     } else {
       console.log('error finding website name by uuid');
       console.log(uuid);
@@ -182,9 +185,9 @@ export class WebsiteService {
     }
   }
 
-  deleteWebsite(website_uuid) {
-    console.log(website_uuid);
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_uuid}/`;
+  deleteWebsite(_id) {
+    console.log(_id);
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}/`;
     // return this.http.delete(url,headers)
     return new Observable((exampleObs) => {
       setTimeout(() => {
@@ -267,6 +270,23 @@ export class WebsiteService {
         }, Math.floor(Math.random() * 1500));
       });
     }
+  }
+
+  createDomain(domainUrl: string) {
+    console.log(domainUrl)
+
+    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+
+    if (!environment.testingNoAPI) {
+      // return this.http.post(url, newWebsite);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('website Created');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+
   }
 
   //TEST FUNCITON TODO: REMOVE

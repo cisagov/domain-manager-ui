@@ -1,11 +1,11 @@
 <div class="flex flex-container tab">
-  <!-- <h5>Template : {{tdTabSvc.template_data.template_name}}</h5> -->
-  <div class="flex flex-center" *ngIf="!wdTabSvc.website_data.website_uuid">
+  <!-- <h5>Template : {{tdTabSvc.template_data.name}}</h5> -->
+  <div class="flex flex-center" *ngIf="!wdTabSvc.website_data._id">
     <mat-spinner></mat-spinner>
   </div>
 
-  <div *ngIf="wdTabSvc.website_data.website_uuid">
-    <h5>Website: {{ wdTabSvc.website_data.website_name }}</h5>
+  <div *ngIf="wdTabSvc.website_data._id">
+    <h5>Website: {{ wdTabSvc.website_data.name }}</h5>
 <!-- 
     <button
       class="manipulate_menu"
@@ -20,7 +20,7 @@
         <mat-icon>download</mat-icon>Download ZIP
       </button>
       <button
-        (click)="deleteWebsite(wdTabSvc.website_data.website_uuid)"
+        (click)="deleteWebsite(wdTabSvc.website_data._id)"
         mat-menu-item
       >
         <mat-icon>delete</mat-icon> Delete
@@ -29,25 +29,89 @@
 
     <div class="text-muted mb-4">Detailed information for the website</div>
 
-    <div class="flex summary_list" *ngIf="wdTabSvc.website_data.website_uuid">
+    <div class="flex-column flex-full summary_list_rows" [formGroup]="tabForm">
+
+
+      <div class="flex-row" >
+        <div class="flex sl_flex_title" >
+            Website Name
+        </div>
+        <div class="flex sl_flex_content">
+            {{ wdTabSvc.website_data.name }}
+        </div>
+      </div>
+
+      <div class="flex-row" *ngIf="wdTabSvc.website_data?.category">
+        <div class="flex sl_flex_title"  >
+            Template Base Name
+        </div>
+        <div class="flex sl_flex_content">
+            {{ wdTabSvc.website_data.category }}
+        </div>
+      </div>
+      
+      <!-- Application If ADMIN -->
+      <div class="flex-row" *ngIf="wdTabSvc.userIsAdmin">
+        <div class="flex sl_flex_title">
+            Applications Using
+        </div>
+        <div class="flex sl_flex_content">
+          <mat-form-field style="width: 20em" appearance="outline">
+            <mat-select formControlName="application_id">
+              <mat-option [value]="null">--Select--</mat-option>
+              <mat-option
+                *ngFor="let a of applicationSvc.application_list"
+                [value]="a._id"
+              >
+                {{ a.name }}
+              </mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+        </div>
+      </div>
+      
+
+      <!-- Application If base user -->
+      <div class="flex-row" *ngIf="!wdTabSvc.userIsAdmin">
+        <div class="flex sl_flex_title">
+            Applications Assigned To
+        </div>
+        <div *ngIf="wdTabSvc.website_data.application_using?.name" class="flex sl_flex_content">          
+          {{ wdTabSvc.website_data.application_using?.name }}
+        </div>
+        <div *ngIf="!wdTabSvc.website_data.application_using?.name" class="flex sl_flex_content">          
+          No application assigned
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- <div class="flex summary_list" *ngIf="wdTabSvc.website_data._id" [formGroup]="tabForm">
       <div class="flex-column titles">
         <div class="flex-row">Website Name</div>
-        <div class="flex-row">Website URL</div>
-        <div class="flex-row">Template Base Name</div>
-        <div class="flex-row">Applications Using</div>
+        <div class="flex-row">Website URL</div> 
+        <div *ngIf="wdTabSvc.website_data?.category"  class="flex-row">Template Base Name</div>
+        <div *ngIf="wdTabSvc.website_data?.application_using?._id" class="flex-row">Applications Using</div>
+        <div *ngIf="wdTabSvc.userIsAdmin" class="flex-row">Applications Using</div>
       </div>
 
       <div class="flex-column values">
-        <div class="flex-row">{{ wdTabSvc.website_data.website_name }}</div>
+        <div class="flex-row">{{ wdTabSvc.website_data.name }}</div>
         <div class="flex-row">{{ wdTabSvc.website_data.website_url }}</div>
-        <div class="flex-row">
-          {{ wdTabSvc.website_data.template_base_name }}
+        <div *ngIf="wdTabSvc.website_data?.category"  class="flex-row">
+          {{ wdTabSvc.website_data.category }}
         </div>
-        <div class="flex-row">{{ getApplicationName() }}</div>
+        <div *ngIf="wdTabSvc.website_data?.application_using?._id" class="flex-row">{{ wdTabSvc.website_data.application_using.name }}</div>
+        <div *ngIf="wdTabSvc.userIsAdmin" class="flex-row">
+
+
+        </div>
       </div>
-    </div>
+    </div> -->
   </div>
-  <mat-label class="mt-3">Website Attributes</mat-label>
+
+  <!-- <mat-label class="mt-3">Website Attributes</mat-label>
   <div class="flex-row">
     <table class="display_table">
       <tr>
@@ -59,5 +123,5 @@
         <td>{{ parameter.value }}</td>
       </tr>
     </table>
-  </div>
+  </div> -->
 </div>

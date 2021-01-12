@@ -4,8 +4,8 @@
 
 export const environment = {
   authorize: false,
-  defaultToAdmin: true,
-  testingNoAPI: true,
+  defaultToAdmin: false,
+  testingNoAPI: false,
   production: false,
   
 };

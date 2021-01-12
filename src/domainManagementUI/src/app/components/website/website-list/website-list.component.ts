@@ -6,15 +6,15 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 //Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
-import { UserAuthService } from 'src/app/services/user-auth.service';
 import { WebsiteService } from 'src/app/services/website.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 //Models
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
@@ -22,6 +22,7 @@ import { WebsiteModel } from 'src/app/models/website.model';
 
 // Dialogs
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
+import { DomainCreateDialog } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component'
 
 @Component({
   selector: 'website-list',
@@ -33,7 +34,8 @@ export class WebsiteListComponent implements OnInit {
 
   allChecked = false;
   component_subscriptions = [];
-  displayedColumns = ['website_name', 'template_base_name', 'created_date'];
+  create_dialog: MatDialogRef<DomainCreateDialog> = null;
+  displayedColumns = ['name', 'template_base_name', 'created_date', 'is_launched'];
   search_input = '';
   websiteList: MatTableDataSource<WebsiteModel> = new MatTableDataSource<WebsiteModel>();
   loading = true;
@@ -78,6 +80,7 @@ export class WebsiteListComponent implements OnInit {
         this.websiteList = new MatTableDataSource<WebsiteModel>(
           success as WebsiteModel[]
         );
+        console.log(this.websiteList)
         this.loading = false;
         this.websiteList.sort = this.sort;
       },
@@ -89,8 +92,8 @@ export class WebsiteListComponent implements OnInit {
     );
   }
 
-  viewWebsite(website_uuid) {
-    this.router.navigate([`/website/details/${website_uuid}`]);
+  viewWebsite(_id) {
+    this.router.navigate([`/website/details/${_id}`]);
   }
 
   uploadWebsite() {
@@ -148,13 +151,13 @@ export class WebsiteListComponent implements OnInit {
     );
     let uuidsToSetActive = [];
     selectedItems.forEach((t) => {
-      uuidsToSetActive.push(t.uuid);
+      uuidsToSetActive.push(t._id);
     });
     this.websiteSvc.setWebsitesAsAvailable(uuidsToSetActive).subscribe(
       (success) => {
         console.log('set available service method called and completed');
         this.websiteList['_data']['_value']
-          .filter((t) => uuidsToSetActive.includes(t.uuid))
+          .filter((t) => uuidsToSetActive.includes(t._id))
           .forEach((e) => (e.isAvailable = true));
         this.websiteList['_data']['_value'].forEach(
           (t) => (t.isChecked = false)
@@ -167,10 +170,31 @@ export class WebsiteListComponent implements OnInit {
     );
   }
 
-
+  //Used by mat table for filtering with the search bar
   public filterList = (value: string) => {
     this.websiteList.filter = value.trim().toLocaleLowerCase();
   };
+
+  addDomain() {
+    this.create_dialog = this.dialog.open(DomainCreateDialog);
+    this.create_dialog.afterClosed().subscribe((urlToCreate) => {
+      if (urlToCreate) {
+          console.log(urlToCreate);
+          this.websiteSvc.createDomain(urlToCreate as string).subscribe(
+            (success) => {
+              console.log(success);
+              this.getWebsites();
+            },
+            (failure) => {
+              console.log('Failed to create application');
+              console.log(failure);
+            }
+          );        
+      } else {
+        console.log('dialog closed');
+      }
+    });
+  }
 
   test() {}
 }

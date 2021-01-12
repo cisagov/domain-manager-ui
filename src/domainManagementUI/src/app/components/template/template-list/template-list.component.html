@@ -33,14 +33,14 @@
 
     <mat-table [hidden]="loading" [dataSource]="templateList" matSort>
       <!-- Template Name -->
-      <ng-container matColumnDef="template_name">
+      <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Template Name</mat-header-cell
         >
         <mat-cell
           *matCellDef="let row"
-          (click)="viewTemplate(row.template_uuid)"
-          >{{ row.template_name }}</mat-cell
+          (click)="viewTemplate(row._id)"
+          >{{ row.name }}</mat-cell
         >
       </ng-container>
 
@@ -51,8 +51,8 @@
         >
         <mat-cell
           *matCellDef="let row"
-          (click)="viewTemplate(row.template_uuid)"
-          >{{ row.created_date | date: "MM/dd/yy" }}</mat-cell
+          (click)="viewTemplate(row._id)"
+          >{{ row.created | date: "MM/dd/yy" }}</mat-cell
         >
       </ng-container>
 
@@ -63,7 +63,7 @@
         >
         <mat-cell
           *matCellDef="let row"
-          (click)="viewTemplate(row.template_uuid)"
+          (click)="viewTemplate(row._id)"
           >{{ row.uploaded_by }}</mat-cell
         >
       </ng-container>

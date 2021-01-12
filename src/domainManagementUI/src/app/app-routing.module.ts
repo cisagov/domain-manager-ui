@@ -75,7 +75,7 @@ const routes: Routes = [
     children: [{ path: '', component: TemplateListComponent }],
   },
   {
-    path: 'template/details/:template_uuid',
+    path: 'template/details/:_id',
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: TemplateDetailsComponent }],
@@ -93,13 +93,13 @@ const routes: Routes = [
     children: [{ path: '', component: WebsiteCreationComponent }],
   },
   {
-    path: 'website/creation/:template_uuid',
+    path: 'website/creation/:_id',
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: WebsiteCreationComponent }],
   },
   {
-    path: 'website/details/:website_uuid',
+    path: 'website/details/:_id',
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: WebsiteDetailsComponent }],

@@ -26,19 +26,23 @@
       <wd-summary></wd-summary>
     </mat-tab>
 
-    <mat-tab label="Template Selection">
+    <mat-tab *ngIf="!wdTabSvc.templateExists"  label="Template">
       <wc-template-selection></wc-template-selection>
     </mat-tab>
 
-    <mat-tab
-      label="Attributes"
+    <!-- <mat-tab *ngIf="wdTabSvc.templateSelectinoMethod === 'template_selection'"
+      label="Template's Attributes"
     >
       <wc-attributes></wc-attributes>
+    </mat-tab> -->
+
+    <mat-tab *ngIf="wdTabSvc.templateExists" label="Demo">
+      <wd-demo></wd-demo>
     </mat-tab>
 
-    <!-- <mat-tab label="Demo">
-      <wd-demo></wd-demo>
-    </mat-tab> -->
+    <mat-tab label="Hosted Zones">
+      <wd-hosted-zones></wd-hosted-zones>
+    </mat-tab>
 
     <mat-tab label="History">
       <wd-historical></wd-historical>

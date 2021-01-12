@@ -44,13 +44,16 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
   setURL(website: WebsiteModel) {
     console.log(website);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      website.website_url
+      website.s3_url
     );
     console.log(this.safeURL);
   }
 
   openInNewTab() {
-    window.open(this.wdTabSvc.website_data.website_url, '_blank');
+    window.open(this.wdTabSvc.website_data.s3_url, '_blank');
+  }
+  newTemplate(){
+    this.wdTabSvc.templateExists = false;
   }
   test() {}
 }

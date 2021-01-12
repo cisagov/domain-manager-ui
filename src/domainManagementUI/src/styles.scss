@@ -38,6 +38,9 @@ body {
   display: flex;
   flex-direction: row;
 }
+.flex-full {
+  flex-grow: 1;
+}
 // .flex-row {
 //   flex: 1 100%
 // }
@@ -54,7 +57,7 @@ body {
   padding-top: 14px;
 }
 
-.summary_list div div {
+.summary_list div .flex-row {
   margin-bottom: 1em;
   border-bottom: solid 1px rgb(225, 225, 225);
 }
@@ -63,6 +66,19 @@ body {
   padding-right: 2em;
 }
 .summary_list .values {
+  flex-grow: 1;
+}
+
+.summary_list_rows .flex-row{
+  flex-grow: 1;
+  border-bottom: solid 1px rgb(225, 225, 225);
+  margin-bottom: 1.25em;
+
+}
+.sl_flex_title {
+  flex-basis: 12em;
+}
+.sl_flex_content {
   flex-grow: 1;
 }
 

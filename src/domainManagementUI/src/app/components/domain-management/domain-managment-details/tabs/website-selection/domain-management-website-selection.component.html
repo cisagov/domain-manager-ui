@@ -14,14 +14,14 @@
   </div>
   <mat-table [dataSource]="websiteList" matSort class="mb-5">
     <!-- Website Name -->
-    <ng-container matColumnDef="website_name">
+    <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Website Name</mat-header-cell
       >
       <mat-cell
         *matCellDef="let row"
         (click)="displayWebsite(row.website_url)"
-        >{{ row.website_name }}</mat-cell
+        >{{ row.name }}</mat-cell
       >
     </ng-container>
 
@@ -94,7 +94,7 @@
     <iframe [src]="safeURL" height="100%" width="100%"></iframe>
   </div>
   <mat-error
-    *ngIf="f.website_uuid.errors?.required && submitted"
+    *ngIf="f._id.errors?.required && submitted"
     class="invalid-feedback"
   >
     A website must be selected

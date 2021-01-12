@@ -5,7 +5,7 @@
   <div class="flex-column" [formGroup]="tabForm">
     <!-- WEBSITE NAME -->
 
-    <div class="flex flex-column">
+    <!-- <div class="flex flex-column">
       <mat-label>Name</mat-label>
       <div class="text-muted">
         The application that will be utilizing the domain
@@ -16,37 +16,32 @@
           matInput
           trim="blur"
           type="text"
-          formControlName="website_name"
+          formControlName="name"
           placeholder=" Type Attribute Here"
         />
       </mat-form-field>
-    </div>
+    </div> -->
 
     <!-- APPLICATION -->
-    <div class="flex flex-column">
+    <!-- <div class="flex flex-column">
       <mat-label>Application</mat-label>
       <div class="text-muted">
         The application that will be utilizing the domain. <br />This is used as
         an identifier and will not be displayed on the website itself.
       </div>
       <mat-form-field style="width: 20em" appearance="outline">
-        <mat-select formControlName="application_using_uuid">
+        <mat-select formControlName="application_id">
           <mat-option [value]="null">--Select--</mat-option>
           <mat-option
             *ngFor="let a of applicationSvc.application_list"
-            [value]="a.application_uuid"
+            [value]="a._id"
           >
-            {{ a.application_name }}
+            {{ a.name }}
           </mat-option>
         </mat-select>
-        <!-- <mat-error
-              *ngIf="f.application_using_uuid.errors?.required"
-              class="invalid-feedback"
-              >
-              A application must be selected
-              </mat-error>             -->
+        
       </mat-form-field>
-    </div>
+    </div> -->
     <!-- ATTRIBUTES -->
     <div class="text-muted">
       Assign the attributes that will be used to populate the fields within your
@@ -54,10 +49,10 @@
     </div>
     <div
       class="flex flex-row"
-      *ngFor="let attribute of wcTabSvc.attribueList; let i; index"
+      *ngFor="let attribute of wdTabSvc.attribueList; let i; index"
     >
       <mat-form-field style="width: 20em" appearance="outline">
-        <mat-label>{{ attribute.key }}</mat-label>
+        <mat-label>{{ attribute.key | titlecase}}</mat-label>
         <input
           matInput
           trim="blur"
