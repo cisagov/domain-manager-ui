@@ -22,6 +22,7 @@ import { TemplateAttribute } from 'src/app/models/template.model';
 import {
   WebsiteModel,
   WebsiteHistoryModel,
+  HostedZoneModel,
 } from 'src/app/models/website.model';
 
 @Injectable({
@@ -62,7 +63,6 @@ export class WebsiteDetailsTabService {
       this._setFormData();
     });
     this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
-      console.log(value);
       this.userIsAdmin = value;
     });
   }
@@ -76,7 +76,6 @@ export class WebsiteDetailsTabService {
 
   getWebsiteDetails(_id) {
     this.website_data = new WebsiteModel();
-    console.log(_id);
     this.websiteSvc.getWebsiteDetails(_id).subscribe(
       (success) => {
         this.website_data = success as WebsiteModel;
@@ -101,21 +100,37 @@ export class WebsiteDetailsTabService {
   }
 
   initalizeData() {
+    //reInitalize default values of variables when a new website is loaded
     this.templateExists = false;
     this.templateSelectinoMethod = null;
-    console.log(this.templateExists);
+
     this.setTemplateStatus();
     if (this.website_data.application_id) {
-      this.setTemplateStatus();
+      //If application data received
+      //get application list
       this.applicationSvc
         .getApplication(this.website_data.application_id)
         .subscribe(
           (success) => {
             this.website_data.application_using = success as ApplicationModel;
-            console.log(this.website_data);
           },
           (failure) => {}
         );
+    }
+    //set template status
+    this.setTemplateStatus();
+
+    //Get hosted zones if route 53 exists
+    if (this.website_data.route53) {
+      this.websiteSvc.getHostedZones(this.website_data._id).subscribe(
+        (success) => {
+          this.website_data.hosted_zones = success as HostedZoneModel[];
+          console.log(success);
+        },
+        (failure) => {
+          console.log('failed to get hosted zones');
+        }
+      );
     }
   }
   getAllTemplates() {
@@ -169,7 +184,6 @@ export class WebsiteDetailsTabService {
     this.summary_form.controls.application_id.setValue(
       this.website_data.application_id
     );
-    console.log(this.summary_form);
   }
 
   downloadWebsite(uuid) {
