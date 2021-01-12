@@ -10,6 +10,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import {
   WebsiteModel,
   WebsiteHistoryModel,
+  HostedZoneModel,
 } from 'src/app/models/website.model';
 import { ApplicationModel } from '../models/application.model';
 
@@ -62,7 +63,8 @@ export class WebsiteService {
         application_using: new ApplicationModel(),
         is_active: true,
         history: new Array<WebsiteHistoryModel>(),
-        route53: 'testRoute53',
+        route53: null,
+        hosted_zones: new Array<HostedZoneModel>(),
         // template: new TemplateModel(),
         website_parameters: [
           {
@@ -263,6 +265,20 @@ export class WebsiteService {
 
     if (!environment.localData) {
       // return this.http.post(url, newWebsite);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('website Created');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
+  getHostedZones(website_id) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/records/`;
+
+    if (!environment.localData) {
+      return this.http.get(url);
     } else {
       return new Observable((exampleObs) => {
         setTimeout(() => {

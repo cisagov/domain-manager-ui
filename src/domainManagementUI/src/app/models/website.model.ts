@@ -21,8 +21,9 @@ export class WebsiteBaseModel {
   is_active: boolean;
   application_using: ApplicationModel;
   history: WebsiteHistoryModel[];
-  // route53: string[];
-  route53: any;
+  // hosted_zones: string[];
+  route53: string;
+  hosted_zones: HostedZoneModel[];
 
   constructor() {
     this.name = null;
@@ -39,8 +40,37 @@ export class WebsiteBaseModel {
     this.application_using = new ApplicationModel();
     this.is_active = null;
     this.history = new Array<WebsiteHistoryModel>();
-    // this.route53 = new Array<string>();
+    // this.hosted_zones = new Array<string>();
     this.route53 = null;
+    this.hosted_zones = new Array<HostedZoneModel>();
+  }
+}
+
+export class HostedZoneModel {
+  Name: string;
+  ResourceRecords: Array<any>;
+  AliasTarget: AliasTargetModel;
+  TTL: number;
+  Type: string;
+
+  constructor() {
+    this.Name = null;
+    this.ResourceRecords = null;
+    this.TTL = null;
+    this.AliasTarget = null;
+    this.Type = null;
+  }
+}
+
+export class AliasTargetModel {
+  DNSName: string;
+  EvaluateTargetHealth: boolean;
+  HostedZoneId: string;
+
+  constructor() {
+    this.DNSName = null;
+    this.EvaluateTargetHealth = null;
+    this.HostedZoneId = null;
   }
 }
 
