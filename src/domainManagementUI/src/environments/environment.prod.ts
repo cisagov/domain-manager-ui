@@ -1,6 +1,6 @@
 export const environment = {
   authorize: true,
   defaultToAdmin: true,
-  testingNoAPI: false,
+  localData: false,
   production: true,
 };

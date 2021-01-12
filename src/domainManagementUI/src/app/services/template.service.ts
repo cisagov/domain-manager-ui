@@ -30,7 +30,7 @@ export class TemplateService {
     //Example url, needs to be changed when API is in place
 
     console.log("test 1")
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
       return this.http.get(url,headers)
     }
@@ -93,7 +93,7 @@ export class TemplateService {
     //Unsure if all temlpates will share the same attributes or if they
     //will be tmeplate specific
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       let url = `${this.settingsService.settings.apiUrl}/api/templates/keys/`;
       return this.http.get(url,headers)
     }
@@ -162,7 +162,7 @@ export class TemplateService {
 
     console.log(environment);
 
-    if (environment?.testingNoAPI) {
+    if (environment?.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('Template Uploaded');
@@ -170,7 +170,7 @@ export class TemplateService {
       });
     }
 
-    if (!environment?.testingNoAPI) {
+    if (!environment?.localData) {
       return this.http.post(url, formData, headers);
     }
   }
@@ -180,13 +180,13 @@ export class TemplateService {
       'application/*zip*'
     );
     let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.get(url, {
         headers: downloadHeaders,
         responseType: 'blob',
       });
     } else {
-      if (environment.testingNoAPI) {
+      if (environment.localData) {
         return new Observable((exampleObs) => {
           setTimeout(() => {
             exampleObs.next('template downloaded');
@@ -210,11 +210,11 @@ export class TemplateService {
       headers: headers,
     };
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, httpOptions);
     }
 
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('temlpate deleted');

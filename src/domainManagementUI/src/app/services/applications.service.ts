@@ -54,7 +54,7 @@ export class ApplicationService {
 
   getAllApplications() {
     const url = `${this.settingsService.settings.apiUrl}/api/applications/`;
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.get(url);
     }
 
@@ -69,7 +69,7 @@ export class ApplicationService {
   getApplication(id: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/application/${id}/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.get(url);
     } else {
       const retVal = this.application_list_test_data.filter(
@@ -93,7 +93,7 @@ export class ApplicationService {
   deleteApplication(application_id) {
     const url = `${this.settingsService.settings.apiUrl}/api/application/${application_id}/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.delete(url);
     } else {
       return new Observable((exampleObs) => {
@@ -107,7 +107,7 @@ export class ApplicationService {
   createApplication(application: ApplicationModel) {
     const url = `${this.settingsService.settings.apiUrl}/api/applications/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, application);
     } else {
       return new Observable((exampleObs) => {

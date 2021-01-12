@@ -27,7 +27,7 @@ export class WebsiteService {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
     
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.get(url,headers)
     }
     //Test Data TODO: REMOVE IN PROD
@@ -90,14 +90,14 @@ export class WebsiteService {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.get(url,headers)
     }
     //Example observable return for testing purposes
     let retVal = new WebsiteModel();
 
-    console.log(environment.testingNoAPI);
-    if (environment.testingNoAPI) {
+    console.log(environment.localData);
+    if (environment.localData) {
       retVal.name = 'Example Website';
       retVal._id = _id;
       retVal.s3_url =
@@ -140,7 +140,7 @@ export class WebsiteService {
 
     //Example data return, remove when API in place
 
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       let retVal = [
         {
           application: 'Applicaiton Test value',
@@ -207,11 +207,11 @@ export class WebsiteService {
     let formData: FormData = new FormData();
     formData.append('file', inputFile.data);
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, formData, headers);
     }
 
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('Webstite uploaded');
@@ -226,13 +226,13 @@ export class WebsiteService {
       'application/zip'
     );
     let url = `${this.settingsService.settings.apiUrl}/api/website/`;
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.get(url, {
         headers: downloadHeaders,
         responseType: 'blob',
       });
     } else {
-      if (environment.testingNoAPI) {
+      if (environment.localData) {
         return new Observable((exampleObs) => {
           setTimeout(() => {
             exampleObs.next('website downloaded');
@@ -245,7 +245,7 @@ export class WebsiteService {
   createWebsite(newWebsite: WebsiteModel) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${newWebsite.template_base_uuid}/generate/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, newWebsite);
     } else {
       return new Observable((exampleObs) => {
@@ -261,7 +261,7 @@ export class WebsiteService {
     //NOT IMPLEMENTED YET
     let url = `${this.settingsService.settings.apiUrl}/api/website/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       // return this.http.post(url, newWebsite);
     } else {
       return new Observable((exampleObs) => {
@@ -277,7 +277,7 @@ export class WebsiteService {
 
     let url = `${this.settingsService.settings.apiUrl}/api/website/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       // return this.http.post(url, newWebsite);
     } else {
       return new Observable((exampleObs) => {

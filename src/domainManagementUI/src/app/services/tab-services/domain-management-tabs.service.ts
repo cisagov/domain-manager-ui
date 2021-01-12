@@ -73,7 +73,7 @@ export class DomainManagementTabService {
     // );
 
     //Testing harness
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       let newData = new DomainModel();
       newData.name += domain_uuid;
       newData.uuid = domain_uuid;
