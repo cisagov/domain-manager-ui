@@ -105,7 +105,10 @@ export class WebsiteDetailsTabService {
     console.log(this.templateExists)
     this.setTemplateStatus();
     if(this.website_data.application_id){
+      //If application data received
+        //set template status
       this.setTemplateStatus();
+        //get application list
       this.applicationSvc.getApplication(this.website_data.application_id).subscribe(
         (success) => {
           this.website_data.application_using = success as ApplicationModel
@@ -113,6 +116,14 @@ export class WebsiteDetailsTabService {
         },
         (failure) => {}
       )      
+        //Get hosted zones if route 53 exists
+      if(this.website_data.route53){
+        this.websiteSvc.getHostedZones(this.website_data._id).subscribe(
+          (success) => {console.log(success)},
+          (failure) => {console.log("failed to get hosted zones")}
+        )
+      }
+
     }
     
   }

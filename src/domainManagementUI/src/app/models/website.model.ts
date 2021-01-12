@@ -22,7 +22,7 @@ export class WebsiteBaseModel {
   application_using: ApplicationModel;
   history: WebsiteHistoryModel[];
   // route53: string[];
-  route53: any;
+  route53: HostedZoneModel;
 
   constructor() {
     this.name = null;
@@ -40,11 +40,24 @@ export class WebsiteBaseModel {
     this.is_active = null;
     this.history = new Array<WebsiteHistoryModel>();
     // this.route53 = new Array<string>();
-    this.route53 = null;
+    this.route53 = new HostedZoneModel();
   }
+
 }
 
+export class HostedZoneModel {
+  Name: string;
+  ResourceRecords: Array<any>;
+  TTL: number;
+  Type: string;
 
+  constructor(){
+    this.Name = null;
+    this.ResourceRecords = null;
+    this.TTL = null;
+    this.Type = null;
+  }
+}
 
 export class WebSiteParameter {
   param_name: string;
