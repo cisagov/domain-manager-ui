@@ -61,7 +61,9 @@ export class FileUploadDialogComponent {
           this.sendableFormData.set("zip", file, file.name);
         else
           this.sendableFormData.append("zip",file,file.name);
-        this.data.uploadFunction(this.data.uploadService, this.sendableFormData).subscribe(
+        
+        //this.data.uploadFunction(this.data.uploadService, this.sendableFormData).subscribe(
+        this.data.uploadService.uploadFile(this.sendableFormData).subscribe(
           (success) => {
             file['uploadStatus'] = 'Complete';
           },

@@ -88,8 +88,7 @@ export class TemplateListComponent implements OnInit {
 
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'template';
-    fileUploadSettings.uploadFileType = 'application/x-zip-compressed';
-    fileUploadSettings.uploadFunction =  this.templateSvc.uploadFile;
+    fileUploadSettings.uploadFileType = 'application/x-zip-compressed';    
     fileUploadSettings.uploadService = this.templateSvc;
 
     this.dialog.open(FileUploadDialogComponent, {

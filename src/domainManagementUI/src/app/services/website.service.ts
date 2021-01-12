@@ -220,8 +220,8 @@ export class WebsiteService extends AbstractUploadService{
       });
     }
   }
-  uploadFile(obj: WebsiteService, file: any) {
-   obj.uploadWebsite(file);
+  uploadFile(file: any) {
+   this.uploadWebsite(file);
   }
 
   downloadWebsite(uuid) {

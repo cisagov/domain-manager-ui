@@ -207,7 +207,7 @@ export class TemplateService extends AbstractUploadService {
   }
 
   //I'm not so sure about this we may want to find a different way
-  public uploadFile(obj: TemplateService,file:any): any {
-    return obj.uploadTemplate(file);    
+  public uploadFile(file:any): any {
+    return this.uploadTemplate(file);    
   }
 }
