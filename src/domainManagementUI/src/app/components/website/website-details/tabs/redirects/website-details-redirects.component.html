@@ -1,0 +1,53 @@
+<div class="flex flex-container tab">
+  <h5>Redirects</h5>
+  <mat-table [dataSource]="wdTabSvc.website_data?.redirects" matSort>
+    <ng-container matColumnDef="subdomain">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Subdomain</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.subdomain }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="redirect_url">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Redirect Url</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.redirect_url }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+        <button
+          class="table-btn-icon"
+          mat-flat-button
+          color="warn"
+          (click)="deleteRedirect(row)"
+        >
+          <mat-icon class="table-btn-icon-size">delete</mat-icon>
+        </button>
+        <button
+          class="table-btn-icon"
+          mat-flat-button
+          color="primary"
+          (click)="editRedirect(row)"
+        >
+          <mat-icon class="table-btn-icon-size">edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row cursor-pointer"
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="editRedirect(row)"
+    ></mat-row>
+  </mat-table>
+
+  <div class="text-right mt-3">
+    <button mat-raised-button color="primary" (click)="addRedirect()">
+      Add New Redirect
+    </button>
+  </div>
+</div>
