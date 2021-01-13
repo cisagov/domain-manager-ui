@@ -87,7 +87,6 @@ export class ApplicationListComponent
     const dialogRef = this.dialog.open(ApplicationEditDialogComponent, {
       data: application,
     });
-    const original = Object.assign({}, application);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.getApplications();

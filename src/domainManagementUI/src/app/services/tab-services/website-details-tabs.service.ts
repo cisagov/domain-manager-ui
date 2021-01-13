@@ -125,7 +125,6 @@ export class WebsiteDetailsTabService {
       this.websiteSvc.getHostedZones(this.website_data._id).subscribe(
         (success) => {
           this.website_data.hosted_zones = success as HostedZoneModel[];
-          console.log(success);
         },
         (failure) => {
           console.log('failed to get hosted zones');
@@ -160,14 +159,12 @@ export class WebsiteDetailsTabService {
         this.attribueList = formatedAttributeList as TemplateAttribute[];
         if (Array.isArray(this.attribueList)) {
           this.attribueList.forEach((attribute) => {
-            console.log(attribute);
             this.attributes_form.addControl(
               attribute.key,
               new FormControl('', Validators.required)
             );
           });
         }
-        console.log(this.attributes_form);
       },
       (failure) => {
         console.log(failure);
@@ -210,8 +207,6 @@ export class WebsiteDetailsTabService {
     } else if (input) {
       this.templateExists = input;
     }
-
-    console.log(this.templateExists);
   }
 
   isValid(form: FormGroup) {
