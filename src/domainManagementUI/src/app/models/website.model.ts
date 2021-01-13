@@ -1,12 +1,6 @@
-import { TemplateModel } from './template.model';
 import { ApplicationModel } from './application.model';
 
-export interface IWebsiteBaseModel {
-  name: string;
-  uuid: string;
-}
-
-export class WebsiteBaseModel {
+export class WebsiteModel {
   name: string;
   _id: string;
   s3_url: string;
@@ -24,26 +18,7 @@ export class WebsiteBaseModel {
   // hosted_zones: string[];
   route53: string;
   hosted_zones: HostedZoneModel[];
-
-  constructor() {
-    this.name = null;
-    this._id = null;
-    this.created_date = null;
-    this.launch_date = null;
-    this.s3_url = null;
-    this.category = null;
-    this.template_base_name = null;
-    this.template_base_uuid = null;
-    // this.template = new TemplateModel();
-    this.website_parameters = [];
-    this.application_id = null;
-    this.application_using = new ApplicationModel();
-    this.is_active = null;
-    this.history = new Array<WebsiteHistoryModel>();
-    // this.hosted_zones = new Array<string>();
-    this.route53 = null;
-    this.hosted_zones = new Array<HostedZoneModel>();
-  }
+  redirects: RedirectModel[];
 }
 
 export class HostedZoneModel {
@@ -79,8 +54,6 @@ export class WebSiteParameter {
   value: string;
 }
 
-export class WebsiteModel extends WebsiteBaseModel {}
-
 export class WebsiteHistoryModel {
   application: ApplicationModel;
   launch_date: Date;
@@ -89,4 +62,9 @@ export class WebsiteHistoryModel {
     this.application = new ApplicationModel();
     this.launch_date = null;
   }
+}
+
+export class RedirectModel {
+  subdomain: string;
+  redirect_url: string;
 }

@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
@@ -14,6 +15,15 @@ import { ApplicationService } from 'src/app/services/applications.service';
 })
 export class ApplicationEditDialogComponent implements OnInit {
   application: ApplicationModel;
+  isNewApp = false;
+
+  applicationForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    requesterName: new FormControl('', [Validators.required]),
+    contactName: new FormControl(),
+    contactEmail: new FormControl('', [Validators.email]),
+    contactPhone: new FormControl(),
+  });
 
   constructor(
     public dialog: MatDialog,
@@ -23,7 +33,12 @@ export class ApplicationEditDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.application = JSON.parse(JSON.stringify(this.data));
+    if (this.data) {
+      this.application = JSON.parse(JSON.stringify(this.data));
+    } else {
+      this.isNewApp = true;
+      this.application = new ApplicationModel();
+    }
   }
 
   updateApplication() {
@@ -32,5 +47,11 @@ export class ApplicationEditDialogComponent implements OnInit {
       .subscribe(() => {
         this.dialogRef.close(true);
       });
+  }
+
+  createApplication() {
+    this.applicationSvc.createApplication(this.application).subscribe(() => {
+      this.dialogRef.close(true);
+    });
   }
 }

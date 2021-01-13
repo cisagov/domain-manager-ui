@@ -1,17 +1,15 @@
-<h2 mat-dialog-title>Edit Application</h2>
-<button
-  mat-button
-  style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
-  [mat-dialog-close]="false"
-></button>
-<div class="dialog text-muted" mat-dialog-content>
+<h2 mat-dialog-title>Manage Application</h2>
+<form
+  [formGroup]="applicationForm"
+  class="dialog text-muted"
+  mat-dialog-content
+>
   <div class="text-muted mb-4">
     Fill in all fields and hit submit to create a new application
   </div>
 
   <div class="flex-column">
     <div class="flex flex-column">
-      <mat-label>Name</mat-label>
       <mat-form-field style="width: 30em" appearance="outline">
         <mat-label>Application Name</mat-label>
         <input
@@ -19,14 +17,17 @@
           trim="blur"
           type="text"
           required
+          formControlName="name"
           [(ngModel)]="application.name"
           placeholder=" The name of the new application"
         />
+        <mat-error *ngIf="applicationForm.get('name').invalid"
+          >This is a required field.</mat-error
+        >
       </mat-form-field>
     </div>
 
     <div class="flex flex-column">
-      <mat-label>Name</mat-label>
       <mat-form-field style="width: 30em" appearance="outline">
         <mat-label>Requester Name</mat-label>
         <input
@@ -34,17 +35,81 @@
           trim="blur"
           type="text"
           required
+          formControlName="requesterName"
           [(ngModel)]="application.requester_name"
+          placeholder=" The name of the person requesting the new application"
+        />
+        <mat-error *ngIf="applicationForm.get('requesterName').invalid"
+          >This is a required field.</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-column">
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Contact Name</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          formControlName="contactName"
+          [(ngModel)]="application.contact_name"
+          placeholder=" The name of the person requesting the new application"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-column">
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Contact Email</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="email"
+          formControlName="contactEmail"
+          [(ngModel)]="application.contact_email"
+          placeholder=" The name of the person requesting the new application"
+        />
+        <mat-error *ngIf="applicationForm.get('contactEmail').invalid"
+          >This needs to be a valid email.</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-column">
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Contact Phone</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          formControlName="contactPhone"
+          [(ngModel)]="application.contact_phone"
           placeholder=" The name of the person requesting the new application"
         />
       </mat-form-field>
     </div>
   </div>
-</div>
+</form>
 
 <mat-dialog-actions align="end">
-  <button (click)="updateApplication()" mat-raised-button color="primary">
-    Submit
+  <button
+    *ngIf="isNewApp"
+    [disabled]="!applicationForm.valid"
+    (click)="createApplication()"
+    mat-raised-button
+    color="primary"
+  >
+    Create & Close
+  </button>
+  <button
+    *ngIf="!isNewApp"
+    [disabled]="!applicationForm.valid"
+    (click)="updateApplication()"
+    mat-raised-button
+    color="primary"
+  >
+    Edit & Close
   </button>
   <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">
     Cancel

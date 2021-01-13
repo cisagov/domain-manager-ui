@@ -42,6 +42,9 @@
     <mat-tab *ngIf="wdTabSvc.isSiteLaunched()" label="Proxy Category">
       <wd-proxy-categorizaiton></wd-proxy-categorizaiton>
     </mat-tab>
+    <mat-tab label="Redirects">
+      <app-website-details-redirects></app-website-details-redirects>
+    </mat-tab>
 
     <mat-tab label="History">
       <wd-historical></wd-historical>

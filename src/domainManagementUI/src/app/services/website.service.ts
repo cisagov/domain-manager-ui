@@ -11,6 +11,7 @@ import {
   WebsiteModel,
   WebsiteHistoryModel,
   HostedZoneModel,
+  RedirectModel,
 } from 'src/app/models/website.model';
 import { ApplicationModel } from '../models/application.model';
 
@@ -65,6 +66,7 @@ export class WebsiteService {
         history: new Array<WebsiteHistoryModel>(),
         route53: null,
         hosted_zones: new Array<HostedZoneModel>(),
+        redirects: new Array<RedirectModel>(),
         // template: new TemplateModel(),
         website_parameters: [
           {
@@ -365,5 +367,20 @@ export class WebsiteService {
     } else {
       return 'http://localhost:4200/';
     }
+  }
+
+  deleteRedirect(websiteId: string, subdomain: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/?subdomain=${subdomain}`;
+    return this.http.delete(url);
+  }
+
+  createRedirect(websiteId: string, redirect: RedirectModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/`;
+    return this.http.post(url, redirect);
+  }
+
+  updateRedirect(websiteId: string, redirect: RedirectModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/`;
+    return this.http.put(url, redirect);
   }
 }
