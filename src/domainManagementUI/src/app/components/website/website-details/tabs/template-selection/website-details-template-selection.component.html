@@ -183,7 +183,7 @@
         mat-raised-button
         color="primary"
         class="flex"
-        (click)="createWebsiteHTML()"
+        (click)="wdTabSvc.generateFromTemplate()"
         [disabled]="!attributeForm.valid"
       >
         Create Website HTML

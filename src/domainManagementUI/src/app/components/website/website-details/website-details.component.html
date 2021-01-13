@@ -8,8 +8,24 @@
     Options
   </button>
   <mat-menu #menu="matMenu">
+    <button
+      *ngIf="!wdTabSvc.isSiteLaunched()"
+      (click)="wdTabSvc.launchSite()"
+      mat-menu-item
+    >
+      <mat-icon>keyboard_arrow_up</mat-icon>Launch Site
+    </button>
+    <button
+      *ngIf="wdTabSvc.isSiteLaunched()"
+      (click)="wdTabSvc.takeDownSite()"
+      mat-menu-item
+    >
+      <mat-icon>keyboard_arrow_down</mat-icon>Take Down Site
+    </button>
     <button mat-menu-item><mat-icon>download</mat-icon>Download ZIP</button>
-    <button mat-menu-item><mat-icon>delete</mat-icon> Delete</button>
+    <button mat-menu-item (click)="deleteWebsite()">
+      <mat-icon>delete</mat-icon> Delete
+    </button>
   </mat-menu>
   <mat-tab-group
     (selectedTabChange)="onTabChanged($event)"
@@ -37,6 +53,9 @@
       <wd-hosted-zones></wd-hosted-zones>
     </mat-tab>
 
+    <mat-tab *ngIf="wdTabSvc.isSiteLaunched()" label="Proxy Category">
+      <wd-proxy-categorizaiton></wd-proxy-categorizaiton>
+    </mat-tab>
     <mat-tab label="Redirects">
       <app-website-details-redirects></app-website-details-redirects>
     </mat-tab>

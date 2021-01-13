@@ -30,6 +30,7 @@ import {
 })
 export class WebsiteDetailsTabService {
   attributes_form: FormGroup;
+  proxy_categoriztion_tab_form: FormGroup;
   summary_form: FormGroup;
   template_selection_form: FormGroup;
 
@@ -50,6 +51,7 @@ export class WebsiteDetailsTabService {
   public userIsAdmin: boolean = false;
 
   constructor(
+    public alertsSvc: AlertsService,
     private applicationSvc: ApplicationService,
     private settingsService: SettingsService,
     private templateSvc: TemplateService,
@@ -140,11 +142,13 @@ export class WebsiteDetailsTabService {
     this._buildTemplateSelectionForm();
     this._buildSummaryForm();
     this._buildAttributesForm();
+    this._buildCategoryForm();
   }
 
   _buildTemplateSelectionForm() {
     this.template_selection_form = new FormGroup({
       _id: new FormControl('', { validators: Validators.required }),
+      name: new FormControl('', { validators: Validators.required }),
     });
   }
 
@@ -176,6 +180,13 @@ export class WebsiteDetailsTabService {
       application_id: new FormControl('', {}),
     });
   }
+  _buildCategoryForm() {
+    this.proxy_categoriztion_tab_form = new FormGroup({
+      category_one: new FormControl('', { validators: Validators.required }),
+      category_two: new FormControl(''),
+      category_three: new FormControl(''),
+    });
+  }
 
   _setFormData() {
     this.summary_form.controls.application_id.setValue(
@@ -190,15 +201,114 @@ export class WebsiteDetailsTabService {
     return this.websiteSvc.deleteWebsite(uuid);
   }
 
+  hasTemplateAttached() {
+    if (this.website_data.s3_url) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  hasHistory() {
+    if (this.website_data.history?.length) {
+      return true;
+    }
+  }
+
   isSiteLaunched() {
     if (this.website_data.is_active) {
       return true;
     }
   }
-  hashistory() {
-    if (this.website_data.history?.length) {
+
+  canBeTakenDown() {
+    if (this.isSiteLaunched()) {
       return true;
     }
+  }
+
+  canBeLaunched() {
+    if (this.isSiteLaunched()) {
+      return false;
+    }
+    //If website is associated with the site, it can be launched
+    if (this.hasTemplateAttached()) {
+      return true;
+    }
+  }
+
+  takeDownSite() {
+    if (this.canBeTakenDown()) {
+      this.websiteSvc.takeDownWebsite(this.website_data._id).subscribe(
+        (success) => {
+          console.log(success);
+        },
+        (failure) => {
+          console.log(failure);
+        }
+      );
+    } else {
+      console.log('cant be launched');
+    }
+  }
+
+  launchSite() {
+    if (this.canBeLaunched()) {
+      this.websiteSvc.launchWebsite(this.website_data._id).subscribe(
+        (success) => {
+          console.log(success);
+        },
+        (failure) => {
+          console.log(failure);
+        }
+      );
+    } else {
+      if (!this.hasTemplateAttached()) {
+        this.alertsSvc.alert(
+          'Please attach a template prior to launching the site'
+        );
+      }
+    }
+  }
+
+  removeTemplate() {
+    if (this.hasTemplateAttached()) {
+      this.websiteSvc.removeTemplate(this.website_data._id).subscribe(
+        (success) => {
+          console.log(success);
+        },
+        (failure) => {
+          console.log(failure);
+        }
+      );
+    } else {
+      console.log(this.website_data.s3_url);
+    }
+  }
+
+  generateFromTemplate() {
+    let website_id = this.website_data._id;
+    let template_name = this.template_selection_form.controls.name.value;
+
+    console.log(website_id);
+    console.log(template_name);
+    console.log(this.attribueList);
+    console.log(this.attributes_form.controls);
+    let attributeDictionary = {};
+    let key = null;
+    this.attribueList.forEach((attribute) => {
+      attributeDictionary[attribute.key] = this.attributes_form.controls[
+        attribute.key
+      ].value;
+    });
+    console.log(attributeDictionary);
+
+    this.websiteSvc
+      .generateFromTemplate(website_id, template_name, attributeDictionary)
+      .subscribe(
+        (success) => {},
+        (failure) => {}
+      );
   }
 
   setTemplateStatus(input = null) {

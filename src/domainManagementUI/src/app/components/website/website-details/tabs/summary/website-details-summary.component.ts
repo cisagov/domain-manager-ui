@@ -68,7 +68,8 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteWebsite(_id) {
+  deleteWebsite() {
+    console.log('trying to delte');
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm template delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}`;

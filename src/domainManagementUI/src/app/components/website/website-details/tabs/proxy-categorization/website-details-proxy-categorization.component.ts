@@ -7,10 +7,10 @@ import { DomainManagementTabService } from 'src/app/services/tab-services/domain
 import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
-  selector: 'dmProxyCategorizaitonTab',
-  templateUrl: './domain-management-proxy-categorization.component.html',
+  selector: 'wd-proxy-categorizaiton',
+  templateUrl: './website-details-proxy-categorization.component.html',
 })
-export class DomainManagementProxyCategorizaitonTab implements OnInit {
+export class WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
   constructor(
     public categorySvc: CategoryService,
     public domainTabSvc: DomainManagementTabService,
