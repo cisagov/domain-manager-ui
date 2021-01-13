@@ -106,6 +106,7 @@ export class WebsiteDetailsTemplateSelectionComponent
         selectedTemplate['selected'] = true;
       });
     this.tabForm.controls._id.setValue(_id);
+    this.tabForm.controls.name.setValue(template.name);
 
     console.log(this.templateList['_data']['_value']);
   }
@@ -139,9 +140,11 @@ export class WebsiteDetailsTemplateSelectionComponent
     fileUploadSettings.multipleFileUpload = false;
     fileUploadSettings.uploadFunction = this.wdTabSvc.websiteSvc.uploadWebsite;
 
-    this.dialog.open(FileUploadDialogComponent, {
+    let dialogRef = this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });
+
+    dialogRef.close()
   }
 
   createWebsiteHTML() {

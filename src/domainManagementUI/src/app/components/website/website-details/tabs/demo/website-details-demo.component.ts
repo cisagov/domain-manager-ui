@@ -1,5 +1,6 @@
 // Angular Imports
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
@@ -7,7 +8,11 @@ import { WebsiteService } from 'src/app/services/website.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
 //Models
+import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 import { WebsiteModel } from 'src/app/models/website.model';
+
+//Dialogs
+import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 
 @Component({
   selector: 'wd-demo',
@@ -19,7 +24,11 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
   safeURL: SafeResourceUrl = null;
   template_data: WebsiteModel = new WebsiteModel();
 
+
+  deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
+
   constructor(
+    public dialog: MatDialog,
     public domSanitizer: DomSanitizer,
     public wdTabSvc: WebsiteDetailsTabService
   ) {}
@@ -53,7 +62,23 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
     window.open(this.wdTabSvc.website_data.s3_url, '_blank');
   }
   newTemplate() {
-    this.wdTabSvc.templateExists = false;
+    let confirmDialogSettings = new ConfirmDialogSettings();
+    confirmDialogSettings.itemConfirming = 'Select New Website Content Data?';
+    confirmDialogSettings.actionConfirming = `Are you sure you want to select new website conten? This will remove the current content permanently`;
+
+
+    this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: confirmDialogSettings,
+    });
+    this.deleteDialog.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.wdTabSvc.templateExists = false;
+        this.wdTabSvc.removeTemplate();
+      } else {
+        console.log('delete cancled');
+      }
+    });
+
   }
   test() {}
 }

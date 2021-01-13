@@ -188,14 +188,8 @@ export class WebsiteService {
   }
 
   deleteWebsite(_id) {
-    console.log(_id);
     let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}/`;
-    // return this.http.delete(url,headers)
-    return new Observable((exampleObs) => {
-      setTimeout(() => {
-        exampleObs.next(this.website_list);
-      }, 1000);
-    });
+    return this.http.delete(url,headers)
   }
 
   uploadWebsite(inputFile) {
@@ -303,6 +297,66 @@ export class WebsiteService {
       });
     }
   }
+
+  launchWebsite(website_id){
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/launch/`;
+
+    if (!environment.localData) {
+      return this.http.get(url);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('Website Launched');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
+  takeDownWebsite(website_id){
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/launch/`;
+
+    if (!environment.localData) {
+      return this.http.delete(url);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('Website Taken Down');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
+  generateFromTemplate(website_id, template_name, attributes: {}){
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/generate/?category=${template_name}`;
+    console.log(url)
+
+    if (!environment.localData) {
+      return this.http.post(url,attributes);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('Template content removed');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+
+  }
+
+  removeTemplate(website_id){
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/content/`;
+
+    if (!environment.localData) {
+      return this.http.delete(url);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('Template content removed');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+    
+  }
+  
 
   //TEST FUNCITON TODO: REMOVE
   getTestURL(counter) {
