@@ -144,7 +144,7 @@ export class WebsiteDetailsTemplateSelectionComponent
       data: fileUploadSettings,
     });
 
-    dialogRef.close()
+    dialogRef.close();
   }
 
   createWebsiteHTML() {

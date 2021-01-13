@@ -191,7 +191,7 @@ export class WebsiteService {
 
   deleteWebsite(_id) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}/`;
-    return this.http.delete(url,headers)
+    return this.http.delete(url, headers);
   }
 
   uploadWebsite(inputFile) {
@@ -300,7 +300,7 @@ export class WebsiteService {
     }
   }
 
-  launchWebsite(website_id){
+  launchWebsite(website_id) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/launch/`;
 
     if (!environment.localData) {
@@ -314,7 +314,7 @@ export class WebsiteService {
     }
   }
 
-  takeDownWebsite(website_id){
+  takeDownWebsite(website_id) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/launch/`;
 
     if (!environment.localData) {
@@ -328,12 +328,12 @@ export class WebsiteService {
     }
   }
 
-  generateFromTemplate(website_id, template_name, attributes: {}){
+  generateFromTemplate(website_id, template_name, attributes: {}) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/generate/?category=${template_name}`;
-    console.log(url)
+    console.log(url);
 
     if (!environment.localData) {
-      return this.http.post(url,attributes);
+      return this.http.post(url, attributes);
     } else {
       return new Observable((exampleObs) => {
         setTimeout(() => {
@@ -341,10 +341,9 @@ export class WebsiteService {
         }, Math.floor(Math.random() * 1500));
       });
     }
-
   }
 
-  removeTemplate(website_id){
+  removeTemplate(website_id) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/content/`;
 
     if (!environment.localData) {
@@ -356,9 +355,7 @@ export class WebsiteService {
         }, Math.floor(Math.random() * 1500));
       });
     }
-    
   }
-  
 
   //TEST FUNCITON TODO: REMOVE
   getTestURL(counter) {

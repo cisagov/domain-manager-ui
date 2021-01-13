@@ -10,7 +10,7 @@ import { LayoutService } from 'src/app/services/layout.service';
   selector: 'wd-proxy-categorizaiton',
   templateUrl: './website-details-proxy-categorization.component.html',
 })
-export class  WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
+export class WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
   constructor(
     public categorySvc: CategoryService,
     public domainTabSvc: DomainManagementTabService,
@@ -43,9 +43,7 @@ export class  WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
     if (target_category != 'cat_three') {
       filterArray.push(this.f.category_three.value);
     }
-    let retVal = this.categories.filter(
-      (t) => !filterArray.includes(t._id)
-    );
+    let retVal = this.categories.filter((t) => !filterArray.includes(t._id));
     return retVal;
   }
 

@@ -54,19 +54,20 @@ export class CategoryService {
 
     if (!environment.localData) {
       this.http.get(url, headers).subscribe(
-      (success) => {
-        this.category_list = success as []
-        console.log(this.category_list)
-      },
-      (failure) => {console.log("failed to get the category list")},
+        (success) => {
+          this.category_list = success as [];
+          console.log(this.category_list);
+        },
+        (failure) => {
+          console.log('failed to get the category list');
+        }
       );
     }
   }
 
   getCategroyNameByUUID(uuid) {
     if (this.category_list.length) {
-      return this.category_list.find((c) => c._id === uuid)
-        ?.name;
+      return this.category_list.find((c) => c._id === uuid)?.name;
     }
     return 'ERROR';
   }
