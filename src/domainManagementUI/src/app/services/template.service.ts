@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Observable } from 'rxjs';
@@ -51,8 +51,7 @@ export class TemplateService extends AbstractUploadService {
         template_uuid: element,
         uploaded_by: 'Template Creator',
         created_date: new Date('10-10-2020'),
-        template_url:
-          'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html',
+        template_url: 'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html',
         template_attributes: Array<any>(),
       });
     });
@@ -140,11 +139,9 @@ export class TemplateService extends AbstractUploadService {
     });
   }
 
-  uploadTemplate(formData:FormData) {
+  uploadTemplate(formData:FormData, overwrite:boolean) {
     //Double check settings, as this function is passed directly to upload modal    
-    let url = `${environment.apiUrl}templates?category=`+(<File>formData.get("zip")).name.replace(".zip","");
-    // let formData: FormData = new FormData();
-    // formData.append('file', inputFile);
+    let url = `${environment.apiUrl}templates?overwrite=`+overwrite;    
     if (environment?.testingNoAPI) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
@@ -154,7 +151,8 @@ export class TemplateService extends AbstractUploadService {
     }
 
     if (!environment?.testingNoAPI) {      
-      return this.http.post(url, formData, headers);
+      const config = new HttpRequest('POST',url,formData);
+      return this.http.request( config );      
     }
   }
   downloadTemplate(uuid) {
@@ -207,7 +205,7 @@ export class TemplateService extends AbstractUploadService {
   }
 
   //I'm not so sure about this we may want to find a different way
-  public uploadFile(file:any): any {
-    return this.uploadTemplate(file);    
+  public uploadFile(file:any, overwrite:boolean): any {
+    return this.uploadTemplate(file,overwrite);    
   }
 }

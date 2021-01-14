@@ -14,17 +14,16 @@ someone has to deal with this
     Select one or more {{ uploadType }}s to upload. Select the files through
     your local file browser by clicked the 'select file below' or drag and drop
     your files on to the drag and drop zone below.
-  </div>
-  <form enctype="multipart/form-data" >
-    <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData">
-    </ngfFormData>
-  </form>
-
+  </div>  
+  <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData" >
+  </ngfFormData>
   <!-- Drag and Drop Area -->
   <div style="display: flex; flex-direction: column">
     <div
       style="width: 100%; height: 8em; display: flex; flex-direction: column"
     >
+      <ngfUploadStatus [(percent)]="uploadPercent" [httpEvent]="httpEvent">
+      </ngfUploadStatus>
       <div
         ngfDrop
         style="height: 100%; flex-grow: 1"
@@ -38,7 +37,7 @@ someone has to deal with this
         class="well my-drop-zone"
         [class.invalid-drag]="baseDropValid === false"
         [class.valid-drag]="baseDropValid"
-        (filesChange)="lastFileAt = getDate()"
+        (filesChange)="fileAdded()"
         [fileDropDisabled]="fileDropDisabled"
       >
         <div
@@ -63,7 +62,7 @@ someone has to deal with this
             [(files)]="files"
             style="width: 100%; display: inline-block"
             [(lastInvalids)]="lastInvalids"
-            (filesChange)="lastFileAt = getDate()"
+            (filesChange)="fileAdded()"
           >
             <button style="width: 100%" mat-raised-button color="primary">
               Select Files
@@ -138,5 +137,5 @@ someone has to deal with this
   </button>
   <button mat-button color="primary" cdkFocusInitial [mat-dialog-close]="true">
     Cancel
-  </button>
+  </button>  
 </mat-dialog-actions>

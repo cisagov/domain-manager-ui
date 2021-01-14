@@ -8,5 +8,5 @@ export abstract class AbstractUploadService {
 
   constructor() { }
 
-  abstract uploadFile(file:any) :any;
+  abstract uploadFile(file:any,overwrite:boolean) :any;
 }
