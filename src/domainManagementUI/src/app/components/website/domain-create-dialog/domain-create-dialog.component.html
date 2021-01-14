@@ -1,20 +1,17 @@
 <h2 mat-dialog-title>Add New Domain</h2>
 <button
   mat-button
-  style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
+  style="display: inline-block; top: -4em; margin-bottom: -4em"
   [mat-dialog-close]="false"
 ></button>
-<div class="dialog text-muted" mat-dialog-content>
+<form [formGroup]="domainForm" class="dialog text-muted" mat-dialog-content>
   <div class="text-muted mb-4">
     Provide a domain and select submit to create a new domain
   </div>
 
-  <div class="flex-column" [formGroup]="domain_form_group">
+  <div class="flex-column" [formGroup]="domainForm">
     <div class="flex flex-column">
-      <mat-label>Name</mat-label>
-      <!-- <div class="text-muted">
-            The Name of the new application
-        </div> -->
+      <mat-label>Domain</mat-label>
       <mat-form-field style="width: 30em" appearance="outline">
         <mat-label>Domain URL</mat-label>
         <input
@@ -25,18 +22,23 @@
           placeholder=" The url of the new domain"
         />
         <mat-error
-          *ngIf="controls?.url.errors?.required"
+          *ngIf="domainForm.get('url').invalid"
           class="invalid-feedback"
         >
-          A url must be provided
+          A url must be provided.
         </mat-error>
       </mat-form-field>
     </div>
   </div>
-</div>
+</form>
 
 <mat-dialog-actions align="end">
-  <button (click)="createDomain()" mat-raised-button color="primary">
+  <button
+    [disabled]="!domainForm.valid"
+    (click)="createDomain()"
+    mat-raised-button
+    color="primary"
+  >
     Submit
   </button>
   <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">

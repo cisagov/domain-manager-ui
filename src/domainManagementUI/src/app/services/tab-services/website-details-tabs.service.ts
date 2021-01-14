@@ -197,8 +197,8 @@ export class WebsiteDetailsTabService {
   downloadWebsite(uuid) {
     return this.websiteSvc.downloadWebsite(uuid);
   }
-  deleteWebsite(uuid) {
-    return this.websiteSvc.deleteWebsite(uuid);
+  deleteWebsite(websiteId: string) {
+    return this.websiteSvc.deleteWebsite(websiteId);
   }
 
   hasTemplateAttached() {
