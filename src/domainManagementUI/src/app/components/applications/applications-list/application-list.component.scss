@@ -1,4 +1,16 @@
 .mat-column-select {
-  flex: 0 0 10%;
-  min-width: 52px;
+  flex: 0 0 15%;
+  min-width: 100px;
+  padding-right: 4px;
+  justify-content: flex-end;
+}
+
+.mat-column-domains_used_count {
+  max-width: 200px;
+}
+
+.table-btn-icon {
+  min-width: 40px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
