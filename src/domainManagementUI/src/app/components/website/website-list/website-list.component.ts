@@ -22,7 +22,7 @@ import { WebsiteModel } from 'src/app/models/website.model';
 
 // Dialogs
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
-import { DomainCreateDialog } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component';
+import { DomainCreateDialogComponent } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component';
 
 @Component({
   selector: 'website-list',
@@ -32,7 +32,7 @@ import { DomainCreateDialog } from 'src/app/components/website/domain-create-dia
 export class WebsiteListComponent implements OnInit {
   allChecked = false;
   component_subscriptions = [];
-  create_dialog: MatDialogRef<DomainCreateDialog> = null;
+  create_dialog: MatDialogRef<DomainCreateDialogComponent> = null;
   displayedColumns = [
     'name',
     'template_base_name',
@@ -180,22 +180,10 @@ export class WebsiteListComponent implements OnInit {
   };
 
   addDomain() {
-    this.create_dialog = this.dialog.open(DomainCreateDialog);
-    this.create_dialog.afterClosed().subscribe((urlToCreate) => {
-      if (urlToCreate) {
-        console.log(urlToCreate);
-        this.websiteSvc.createDomain(urlToCreate as string).subscribe(
-          (success) => {
-            console.log(success);
-            this.getWebsites();
-          },
-          (failure) => {
-            console.log('Failed to create application');
-            console.log(failure);
-          }
-        );
-      } else {
-        console.log('dialog closed');
+    this.create_dialog = this.dialog.open(DomainCreateDialogComponent);
+    this.create_dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getWebsites();
       }
     });
   }

@@ -189,8 +189,8 @@ export class WebsiteService {
     }
   }
 
-  deleteWebsite(_id) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}/`;
+  deleteWebsite(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/`;
     return this.http.delete(url, headers);
   }
 
@@ -285,19 +285,8 @@ export class WebsiteService {
   }
 
   createDomain(domainUrl: string) {
-    console.log(domainUrl);
-
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
-
-    if (!environment.localData) {
-      // return this.http.post(url, newWebsite);
-    } else {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('website Created');
-        }, Math.floor(Math.random() * 1500));
-      });
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/websites/`;
+    return this.http.post(url, { name: domainUrl });
   }
 
   launchWebsite(websiteId: string) {

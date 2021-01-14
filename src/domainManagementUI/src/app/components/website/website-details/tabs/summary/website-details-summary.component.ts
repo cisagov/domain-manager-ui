@@ -86,7 +86,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
           (failed) => {}
         );
       } else {
-        console.log('delete cancled');
+        console.log('delete canceled');
       }
     });
   }
