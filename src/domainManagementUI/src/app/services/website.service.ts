@@ -300,32 +300,14 @@ export class WebsiteService {
     }
   }
 
-  launchWebsite(website_id) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/launch/`;
-
-    if (!environment.localData) {
-      return this.http.get(url);
-    } else {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('Website Launched');
-        }, Math.floor(Math.random() * 1500));
-      });
-    }
+  launchWebsite(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/launch/`;
+    return this.http.get(url);
   }
 
-  takeDownWebsite(website_id) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/launch/`;
-
-    if (!environment.localData) {
-      return this.http.delete(url);
-    } else {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('Website Taken Down');
-        }, Math.floor(Math.random() * 1500));
-      });
-    }
+  takeDownWebsite(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/launch/`;
+    return this.http.delete(url);
   }
 
   generateFromTemplate(website_id, template_name, attributes: {}) {
