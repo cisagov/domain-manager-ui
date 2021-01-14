@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 //Components
 import { AboutComponent } from 'src/app/components/about/about.component';
-import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
 import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
@@ -23,22 +22,20 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: HomeComponent }],
   },
   {
     path: 'about',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: AboutComponent }],
   },
   {
     path: 'application',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: ApplicationListComponent }],
-  },
-  {
-    path: 'application/details/:application_uuid',
-    component: LayoutMainComponent,
-    children: [{ path: '', component: ApplicationDetailsComponent }],
   },
   {
     path: 'domain-management',
@@ -55,41 +52,49 @@ const routes: Routes = [
   {
     path: 'domain-management/details/:domain_uuid',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: DomainManagementDetailsComponent }],
   },
   {
     path: 'home',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: HomeComponent }],
   },
   {
     path: 'template',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: TemplateListComponent }],
   },
   {
-    path: 'template/details/:template_uuid',
+    path: 'template/details/:_id',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: TemplateDetailsComponent }],
   },
   {
     path: 'website',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: WebsiteListComponent }],
   },
   {
     path: 'website/creation',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: WebsiteCreationComponent }],
   },
   {
-    path: 'website/creation/:template_uuid',
+    path: 'website/creation/:_id',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: WebsiteCreationComponent }],
   },
   {
-    path: 'website/details/:website_uuid',
+    path: 'website/details/:_id',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [{ path: '', component: WebsiteDetailsComponent }],
   },
 ];

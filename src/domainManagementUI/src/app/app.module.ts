@@ -20,10 +20,9 @@ import { ngfModule, ngf } from 'angular-file';
 //Custom Components
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
-import { ApplicationCreateDialog } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
-import { ApplicationDetailsComponent } from 'src/app/components/applications/application-details/application-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { DomainCreateDialogComponent } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component';
 import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
 import { DomainManagementGeneralAttributesTab } from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
 import { DomainManagementProxyCategorizaitonTab } from 'src/app/components/domain-management/domain-managment-details/tabs/proxy-categorization/domain-management-proxy-categorization.component';
@@ -38,13 +37,15 @@ import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/te
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
 import { TemplateDetailsHistoricalComponent } from 'src/app/components/template/template-details/tabs/historical/template-details-historical.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
+import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
+import { WebsiteDetailsAttrbutesComponent } from 'src/app/components/website/website-details/tabs/attributes/website-details-attributes.component';
 import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-details/tabs/demo/website-details-demo.component';
 import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
+import { WebsiteDetailsHostedZonesComponent } from 'src/app/components/website/website-details/tabs/hosted-zones/website-details-hosted-zones.component';
+import { WebsiteDetailsProxyCategorizaitonComponent } from 'src/app/components/website/website-details/tabs/proxy-categorization/website-details-proxy-categorization.component';
 import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
-import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
-import { WebsiteCreationAttrbutesComponent } from 'src/app/components/website/website-creation/tabs/attributes/website-creation-attributes..component';
-import { WebsiteCreationTemplateSelectionComponent } from 'src/app/components/website/website-creation/tabs/template-selection/website-creation-template-selection.component';
+import { WebsiteDetailsTemplateSelectionComponent } from 'src/app/components/website/website-details/tabs/template-selection/website-details-template-selection.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 
 //Services
@@ -66,6 +67,9 @@ import { WebsiteService } from 'src/app/services/website.service';
 //Helpers
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
 import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor';
+import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
+import { WebsiteDetailsRedirectsComponent } from './components/website/website-details/tabs/redirects/website-details-redirects.component';
+import { ManageRedirectDialogComponent } from './components/website/website-details/tabs/redirects/manage-redirect-dialog/manage-redirect-dialog.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -75,10 +79,9 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   declarations: [
     AboutComponent,
     AppComponent,
-    ApplicationCreateDialog,
-    ApplicationDetailsComponent,
     ApplicationListComponent,
     LayoutMainComponent,
+    DomainCreateDialogComponent,
     DomainManagementCreateComponent,
     DomainManagementDetailsComponent,
     DomainManagementListComponent,
@@ -93,14 +96,19 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     TemplateDetailsDemoComponent,
     TemplateDetailsHistoricalComponent,
     TemplateListComponent,
+    WebsiteCreationComponent,
     WebsiteDetailsComponent,
+    WebsiteDetailsAttrbutesComponent,
     WebsiteDetailsDemoComponent,
     WebsiteDetailsHistoricalComponent,
+    WebsiteDetailsHostedZonesComponent,
+    WebsiteDetailsProxyCategorizaitonComponent,
     WebsiteDetailsSummaryComponent,
-    WebsiteCreationComponent,
-    WebsiteCreationAttrbutesComponent,
-    WebsiteCreationTemplateSelectionComponent,
+    WebsiteDetailsTemplateSelectionComponent,
     WebsiteListComponent,
+    ApplicationEditDialogComponent,
+    WebsiteDetailsRedirectsComponent,
+    ManageRedirectDialogComponent,
   ],
   imports: [
     AppRoutingModule,

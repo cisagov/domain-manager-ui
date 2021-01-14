@@ -1,4 +1,4 @@
-//Angular Imports
+// Angular Imports
 import {
   AfterViewInit,
   Component,
@@ -6,43 +6,43 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
-//Local Service Imports
+// Local Service Imports
 import { ApplicationService } from 'src/app/services/applications.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
-//Models
+// Models
 import { ApplicationModel } from 'src/app/models/application.model';
 
-//Dialogs
-import { ApplicationCreateDialog } from 'src/app/components/applications/application-create-dialog/application-create-dialog.component';
+// Dialogs
+import { ApplicationEditDialogComponent } from '../application-edit-dialog/application-edit-dialog.component';
+import { ConfirmDialogComponent } from '../../dialog-windows/confirm/confirm-dialog.component';
+import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 
 @Component({
-  selector: 'application-list',
+  selector: 'app-application-list',
   templateUrl: './application-list.component.html',
   styleUrls: ['./application-list.component.scss'],
 })
 export class ApplicationListComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  create_dialog: MatDialogRef<ApplicationCreateDialog> = null;
-  component_subscriptions = [];
-  displayedColumns = ['application_name', 'domains_used_count'];
-  search_input = '';
+  componentSubscriptions = [];
+  displayedColumns = ['application_name', 'domains_used_count', 'select'];
   applicationList = new MatTableDataSource<ApplicationModel>();
   loading = true;
+  searchInput = '';
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
-    public layoutSvc: LayoutService,
-    private router: Router
+    public layoutSvc: LayoutService
   ) {
-    this.layoutSvc.setTitle('Application');
+    this.layoutSvc.setTitle('Applications');
   }
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class ApplicationListComponent
   }
 
   ngOnDestroy(): void {
-    this.component_subscriptions.forEach((sub) => {
+    this.componentSubscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -59,6 +59,7 @@ export class ApplicationListComponent
 
   getApplications() {
     this.loading = true;
+    const data = [];
     this.applicationSvc.getAllApplications().subscribe(
       (applications: ApplicationModel[]) => {
         applications.forEach((app: ApplicationModel) => {
@@ -67,7 +68,6 @@ export class ApplicationListComponent
             .getDomainsByApplication(app._id)
             .subscribe((websites: any[]) => {
               app.domains_used_count = Number(websites.length);
-              const data = this.applicationList.data;
               data.push(app);
               this.applicationList.data = data;
             });
@@ -83,30 +83,41 @@ export class ApplicationListComponent
     );
   }
 
-  viewApplication(application_uuid) {
-    this.router.navigate([`/application/details/${application_uuid}`]);
+  editApplication(application: ApplicationModel) {
+    const dialogRef = this.dialog.open(ApplicationEditDialogComponent, {
+      data: application,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getApplications();
+      }
+    });
+  }
+
+  deleteApplication(application: ApplicationModel) {
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Confirm Application Delete';
+    dialogSettings.actionConfirming = `Are you sure you want to delete ${application.name}?`;
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.applicationSvc.deleteApplication(application._id).subscribe(() => {
+          this.getApplications();
+        });
+      } else {
+        dialogRef.close();
+      }
+    });
   }
 
   addApplication() {
-    console.log('Upload Website not yet implemmeneted');
-    this.create_dialog = this.dialog.open(ApplicationCreateDialog);
-    this.create_dialog.afterClosed().subscribe((result) => {
+    const dialogRef = this.dialog.open(ApplicationEditDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if (result instanceof ApplicationModel) {
-          console.log(result);
-          this.applicationSvc.createApplication(result).subscribe(
-            (success) => {
-              console.log(success);
-              this.getApplications();
-            },
-            (failure) => {
-              console.log('Failed to create application');
-              console.log(failure);
-            }
-          );
-        }
-      } else {
-        console.log('dialog closed');
+        this.getApplications();
       }
     });
   }

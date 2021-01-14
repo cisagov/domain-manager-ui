@@ -1,4 +1,32 @@
 <div>
+  <button
+    class="all_tab_option_button"
+    mat-raised-button
+    color="primary"
+    [matMenuTriggerFor]="menu"
+  >
+    Options
+  </button>
+  <mat-menu #menu="matMenu">
+    <button
+      *ngIf="!wdTabSvc.isSiteLaunched()"
+      (click)="wdTabSvc.launchSite()"
+      mat-menu-item
+    >
+      <mat-icon>keyboard_arrow_up</mat-icon>Launch Site
+    </button>
+    <button
+      *ngIf="wdTabSvc.isSiteLaunched()"
+      (click)="wdTabSvc.takeDownSite()"
+      mat-menu-item
+    >
+      <mat-icon>keyboard_arrow_down</mat-icon>Take Down Site
+    </button>
+    <button mat-menu-item><mat-icon>download</mat-icon>Download ZIP</button>
+    <button mat-menu-item (click)="deleteWebsite()">
+      <mat-icon>delete</mat-icon> Delete
+    </button>
+  </mat-menu>
   <mat-tab-group
     (selectedTabChange)="onTabChanged($event)"
     [(selectedIndex)]="selectedTabIndex"
@@ -6,9 +34,32 @@
     <mat-tab label="Website Summary">
       <wd-summary></wd-summary>
     </mat-tab>
-    <mat-tab label="Demo">
+
+    <mat-tab *ngIf="!wdTabSvc.templateExists" label="Template">
+      <wc-template-selection></wc-template-selection>
+    </mat-tab>
+
+    <!-- <mat-tab *ngIf="wdTabSvc.templateSelectinoMethod === 'template_selection'"
+      label="Template's Attributes"
+    >
+      <wc-attributes></wc-attributes>
+    </mat-tab> -->
+
+    <mat-tab *ngIf="wdTabSvc.templateExists" label="Demo">
       <wd-demo></wd-demo>
     </mat-tab>
+
+    <mat-tab label="Hosted Zones">
+      <wd-hosted-zones></wd-hosted-zones>
+    </mat-tab>
+
+    <mat-tab *ngIf="wdTabSvc.isSiteLaunched()" label="Proxy Category">
+      <wd-proxy-categorizaiton></wd-proxy-categorizaiton>
+    </mat-tab>
+    <mat-tab label="Redirects">
+      <app-website-details-redirects></app-website-details-redirects>
+    </mat-tab>
+
     <mat-tab label="History">
       <wd-historical></wd-historical>
     </mat-tab>

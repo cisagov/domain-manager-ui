@@ -120,7 +120,7 @@ export class DomainManagementService {
   createDomain(new_domain: DomainModel) {
     let url = `${this.settingsService.settings.apiUrl}/api/domain/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, new_domain);
     } else {
       return new Observable((exampleObs) => {

@@ -44,11 +44,11 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
 
   getApplicationName() {
     if (
-      this.wdTabSvc.website_data.application_using_uuid &&
+      this.wdTabSvc.website_data.application_id &&
       this.applicationSvc.application_list.length
     ) {
       return this.applicationSvc.getApplicationNameByUUID(
-        this.wdTabSvc.website_data.application_using_uuid
+        this.wdTabSvc.website_data.application_id
       );
     } else {
       return 'Loading Application List';
@@ -57,40 +57,40 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   test() {}
 
   downloadWebsite() {
-    this.wdTabSvc
-      .downloadWebsite(this.wdTabSvc.website_data.website_uuid)
-      .subscribe(
-        (success) => {
-          console.log(success);
-        },
-        (failure) => {
-          console.log('download Website Failed');
-          console.log(failure);
-        }
-      );
+    this.wdTabSvc.downloadWebsite(this.wdTabSvc.website_data._id).subscribe(
+      (success) => {
+        console.log(success);
+      },
+      (failure) => {
+        console.log('download Website Failed');
+        console.log(failure);
+      }
+    );
   }
 
-  deleteWebsite(website_uuid) {
+  deleteWebsite() {
+    console.log('trying to delte');
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm template delete';
-    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.website_name}`;
+    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: confirmDialogSettings,
     });
     this.deleteDialog.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
-        this.wdTabSvc
-          .deleteWebsite(this.wdTabSvc.website_data.website_uuid)
-          .subscribe(
-            (success) => {
-              this.router.navigate([`/website`]);
-            },
-            (failed) => {}
-          );
+        this.wdTabSvc.deleteWebsite(this.wdTabSvc.website_data._id).subscribe(
+          (success) => {
+            this.router.navigate([`/website`]);
+          },
+          (failed) => {}
+        );
       } else {
-        console.log('delete cancled');
+        console.log('delete canceled');
       }
     });
+  }
+  get tabForm() {
+    return this.wdTabSvc.summary_form;
   }
 }

@@ -40,6 +40,7 @@ export class FileUploadDialogComponent {
   validComboDrag: any;
   lastInvalids: any;
   fileDropDisabled: any;
+  multiple: boolean;
   maxSize: any;
   baseDropValid: any;
   httpEvent:HttpEvent<{}>

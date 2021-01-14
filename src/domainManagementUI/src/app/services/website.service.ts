@@ -38,6 +38,9 @@ export class WebsiteService extends AbstractUploadService{
     //   }
     // );
 
+    if (!environment.localData) {
+      return this.http.get(url, headers);
+    }
     //Test Data TODO: REMOVE IN PROD
     let websites = [
       'WebsiteOne',
@@ -55,13 +58,21 @@ export class WebsiteService extends AbstractUploadService{
     let counter = 0;
     websites.forEach((element) => {
       this.website_list.push({
-        website_name: element,
-        website_uuid: 'UUID_' + element,
-        website_url: this.getTestURL(counter),
+        name: element,
+        _id: 'UUID_' + element,
+        s3_url: this.getTestURL(counter),
         created_date: new Date('2019-06-26'),
+        launch_date: new Date('2019-07-21'),
+        category: 'Test',
         template_base_name: 'Template_Name_Base_' + element,
         template_base_uuid: templates_used[counter % templates_used.length],
-        application_using_uuid: 'application-' + ((counter % 3) + 1) + '-UUID',
+        application_id: 'application-' + ((counter % 3) + 1) + '-UUID',
+        application_using: new ApplicationModel(),
+        is_active: true,
+        history: new Array<WebsiteHistoryModel>(),
+        route53: null,
+        hosted_zones: new Array<HostedZoneModel>(),
+        redirects: new Array<RedirectModel>(),
         // template: new TemplateModel(),
         website_parameters: [
           {
@@ -88,20 +99,21 @@ export class WebsiteService extends AbstractUploadService{
     });
   }
 
-  getWebsiteDetails(website_uuid) {
+  getWebsiteDetails(_id) {
     //Example url, needs to be changed when API is in place
-    let url = `${environment.apiUrl}website/${website_uuid}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}`;
 
-    // return this.http.get(url,headers)
-
+    if (!environment.localData) {
+      return this.http.get(url, headers);
+    }
     //Example observable return for testing purposes
     let retVal = new WebsiteModel();
 
-    console.log(environment.testingNoAPI);
-    if (environment.testingNoAPI) {
-      retVal.website_name = 'Example Website';
-      retVal.website_uuid = website_uuid;
-      retVal.website_url =
+    console.log(environment.localData);
+    if (environment.localData) {
+      retVal.name = 'Example Website';
+      retVal._id = _id;
+      retVal.s3_url =
         'https://domain-manager-test.s3.amazonaws.com/pesticide/inltesting.xyz/home.html';
       retVal.created_date = new Date('12/12/20');
       retVal.template_base_name = 'Template Base Name Test';
@@ -116,15 +128,13 @@ export class WebsiteService extends AbstractUploadService{
           value: 'Author Value Test',
         },
       ];
-      retVal.application_using_uuid = 'application-3-UUID';
+      retVal.application_id = 'application-3-UUID';
     }
 
-    let website = this.website_list.filter(
-      (f) => f.website_uuid === website_uuid
-    );
+    let website = this.website_list.filter((f) => f._id === _id);
     if (website.length) {
       retVal = website[0];
-      retVal.website_url =
+      retVal.s3_url =
         'https://domain-manager-test.s3.amazonaws.com/pesticide/inltesting.xyz/home.html';
     }
 
@@ -133,15 +143,15 @@ export class WebsiteService extends AbstractUploadService{
     });
   }
 
-  getWebsiteHistory(website_uuid) {
+  getWebsiteHistory(_id) {
     //Example url, needs to be changed when API is in place
-    let url = `${environment.apiUrl}website/${website_uuid}/history`;
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}/history`;
 
     // return this.http.get(url,headers)
 
     //Example data return, remove when API in place
 
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       let retVal = [
         {
           application: 'Applicaiton Test value',
@@ -177,8 +187,7 @@ export class WebsiteService extends AbstractUploadService{
 
   getWebsiteNameByUUID(uuid) {
     if (this.website_list.length) {
-      return this.website_list.find((w) => w.website_uuid === uuid)
-        ?.website_name;
+      return this.website_list.find((w) => w._id === uuid)?.name;
     } else {
       console.log('error finding website name by uuid');
       console.log(uuid);
@@ -186,15 +195,9 @@ export class WebsiteService extends AbstractUploadService{
     }
   }
 
-  deleteWebsite(website_uuid) {
-    console.log(website_uuid);
-    let url = `${environment.apiUrl}website/${website_uuid}/`;
-    // return this.http.delete(url,headers)
-    return new Observable((exampleObs) => {
-      setTimeout(() => {
-        exampleObs.next(this.website_list);
-      }, 1000);
-    });
+  deleteWebsite(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/`;
+    return this.http.delete(url, headers);
   }
 
   uploadWebsite(inputFile) {
@@ -204,15 +207,15 @@ export class WebsiteService extends AbstractUploadService{
       this.settingsService = new SettingsService();
     }
 
-    let url = `${environment.apiUrl}website/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
     let formData: FormData = new FormData();
     formData.append('file', inputFile.data);
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, formData, headers);
     }
 
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('Webstite uploaded');
@@ -229,14 +232,14 @@ export class WebsiteService extends AbstractUploadService{
       'content-type',
       'application/zip'
     );
-    let url = `${environment.apiUrl}website/`;
-    if (!environment.testingNoAPI) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    if (!environment.localData) {
       return this.http.get(url, {
         headers: downloadHeaders,
         responseType: 'blob',
       });
     } else {
-      if (environment.testingNoAPI) {
+      if (environment.localData) {
         return new Observable((exampleObs) => {
           setTimeout(() => {
             exampleObs.next('website downloaded');
@@ -247,14 +250,88 @@ export class WebsiteService extends AbstractUploadService{
   }
 
   createWebsite(newWebsite: WebsiteModel) {
-    let url = `${environment.apiUrl}website/${newWebsite.template_base_uuid}/generate/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${newWebsite.template_base_uuid}/generate/`;
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, newWebsite);
     } else {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('website Created');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
+  setWebsitesAsAvailable(websiteIDArray) {
+    console.log(websiteIDArray);
+    //NOT IMPLEMENTED YET
+    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+
+    if (!environment.localData) {
+      // return this.http.post(url, newWebsite);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('website Created');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
+  getHostedZones(website_id) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/records/`;
+
+    if (!environment.localData) {
+      return this.http.get(url);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('website Created');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
+  createDomain(domainUrl: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/websites/`;
+    return this.http.post(url, { name: domainUrl });
+  }
+
+  launchWebsite(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/launch/`;
+    return this.http.get(url);
+  }
+
+  takeDownWebsite(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/launch/`;
+    return this.http.delete(url);
+  }
+
+  generateFromTemplate(website_id, template_name, attributes: {}) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/generate/?category=${template_name}`;
+    console.log(url);
+
+    if (!environment.localData) {
+      return this.http.post(url, attributes);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('Template content removed');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
+  }
+
+  removeTemplate(website_id) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/content/`;
+
+    if (!environment.localData) {
+      return this.http.delete(url);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('Template content removed');
         }, Math.floor(Math.random() * 1500));
       });
     }
@@ -267,5 +344,20 @@ export class WebsiteService extends AbstractUploadService{
     } else {
       return 'http://localhost:4200/';
     }
+  }
+
+  deleteRedirect(websiteId: string, subdomain: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/?subdomain=${subdomain}`;
+    return this.http.delete(url);
+  }
+
+  createRedirect(websiteId: string, redirect: RedirectModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/`;
+    return this.http.post(url, redirect);
+  }
+
+  updateRedirect(websiteId: string, redirect: RedirectModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/`;
+    return this.http.put(url, redirect);
   }
 }

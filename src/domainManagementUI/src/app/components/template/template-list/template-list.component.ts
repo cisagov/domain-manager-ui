@@ -30,7 +30,7 @@ import { Observable } from 'rxjs';
 })
 export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['template_name', 'created_date', 'uploaded_by'];
+  displayedColumns = ['name', 'created_date', 'uploaded_by'];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
   loading = true;
@@ -40,7 +40,7 @@ export class TemplateListComponent implements OnInit {
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public templateSvc: TemplateService    
+    public templateSvc: TemplateService
   ) {
     this.layoutSvc.setTitle('Templates');
   }
@@ -76,9 +76,9 @@ export class TemplateListComponent implements OnInit {
     );
   }
 
-  viewTemplate(template_uuid) {
-    console.log(template_uuid);
-    this.router.navigate([`/template/details/${template_uuid}`]);
+  viewTemplate(_id) {
+    console.log(_id);
+    this.router.navigate([`/template/details/${_id}`]);
   }
 
 

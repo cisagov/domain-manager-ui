@@ -1,29 +1,51 @@
-import { TemplateModel } from './template.model';
+import { ApplicationModel } from './application.model';
 
-export interface IWebsiteBaseModel {
-  website_name: string;
-  uuid: string;
-}
-
-export class WebsiteBaseModel {
-  website_name: string;
-  website_uuid: string;
-  website_url: string;
+export class WebsiteModel {
+  name: string;
+  _id: string;
+  s3_url: string;
   created_date: Date;
+  launch_date: Date;
   template_base_name: string;
   template_base_uuid: string;
+  category: string;
   // template: TemplateModel;
   website_parameters: WebSiteParameter[];
-  application_using_uuid: string;
+  application_id: string;
+  is_active: boolean;
+  application_using: ApplicationModel;
+  history: WebsiteHistoryModel[];
+  // hosted_zones: string[];
+  route53: string;
+  hosted_zones: HostedZoneModel[];
+  redirects: RedirectModel[];
+}
+
+export class HostedZoneModel {
+  Name: string;
+  ResourceRecords: Array<any>;
+  AliasTarget: AliasTargetModel;
+  TTL: number;
+  Type: string;
 
   constructor() {
-    this.website_name = null;
-    this.website_uuid = null;
-    this.created_date = null;
-    this.template_base_name = null;
-    this.template_base_uuid = null;
-    // this.template = new TemplateModel();
-    this.website_parameters = [];
+    this.Name = null;
+    this.ResourceRecords = null;
+    this.TTL = null;
+    this.AliasTarget = null;
+    this.Type = null;
+  }
+}
+
+export class AliasTargetModel {
+  DNSName: string;
+  EvaluateTargetHealth: boolean;
+  HostedZoneId: string;
+
+  constructor() {
+    this.DNSName = null;
+    this.EvaluateTargetHealth = null;
+    this.HostedZoneId = null;
   }
 }
 
@@ -32,11 +54,17 @@ export class WebSiteParameter {
   value: string;
 }
 
-export class WebsiteModel extends WebsiteBaseModel {}
+export class WebsiteHistoryModel {
+  application: ApplicationModel;
+  launch_date: Date;
 
-export class WebsiteHistory {
-  application: string;
-  domain: string;
-  start_date: Date;
-  end_date: Date;
+  constructor() {
+    this.application = new ApplicationModel();
+    this.launch_date = null;
+  }
+}
+
+export class RedirectModel {
+  subdomain: string;
+  redirect_url: string;
 }

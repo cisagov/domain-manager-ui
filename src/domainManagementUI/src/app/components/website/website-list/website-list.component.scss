@@ -1,0 +1,34 @@
+.mat-column-isAvailable {
+  flex: 0 0 10%;
+  min-width: 52px;
+  // background-color: red;
+}
+.mat-column-is_launched {
+  flex: 0 0 10%;
+  min-width: 52px;
+  // background-color: red;
+}
+
+.mat-column-checked {
+  flex: 0 0 5%;
+  min-width: 65px;
+  // background-color: green;
+}
+
+.mat-column-created_date {
+  flex: 0 0 10%;
+  min-width: 65px;
+  // background-color: blue;
+}
+
+.mat-column-template_base_name {
+  // background-color: red;
+}
+
+.mat-column-name {
+  // background-color: blue;
+}
+
+.mat-column {
+  border: 1px solid green;
+}

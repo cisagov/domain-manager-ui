@@ -1,27 +1,32 @@
 // Angular Imports
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
-import { WebsiteCreationTabService } from 'src/app/services/tab-services/website-creation-tabs.service';
+import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
 //Models
-import { WebsiteModel } from 'src/app/models/website.model';
+import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
 import { TemplateModel } from 'src/app/models/template.model';
+import { WebsiteModel } from 'src/app/models/website.model';
+
+// Dialogs
+import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
 
 @Component({
   selector: 'wc-template-selection',
-  templateUrl: './website-creation-template-selection.component.html',
-  styleUrls: ['./website-creation-template-selection.component.scss'],
+  templateUrl: './website-details-template-selection.component.html',
+  styleUrls: ['./website-details-template-selection.component.scss'],
 })
-export class WebsiteCreationTemplateSelectionComponent
+export class WebsiteDetailsTemplateSelectionComponent
   implements OnInit, OnDestroy {
   displayedColumns = [
-    'template_name',
-    'created_by',
+    'name',
+    // 'created_by',
     'created_date',
     'selected_template',
   ];
@@ -35,9 +40,10 @@ export class WebsiteCreationTemplateSelectionComponent
   component_subscriptions = [];
 
   constructor(
+    public dialog: MatDialog,
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
-    public wcTabSvc: WebsiteCreationTabService
+    public wdTabSvc: WebsiteDetailsTabService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +57,7 @@ export class WebsiteCreationTemplateSelectionComponent
   }
 
   getTemplates() {
-    this.wcTabSvc.getAllWebsites().subscribe(
+    this.wdTabSvc.getAllTemplates().subscribe(
       (success) => {
         let data = this._formatTemplateList(success);
         this.templateList = new MatTableDataSource<TemplateModel>(
@@ -59,18 +65,18 @@ export class WebsiteCreationTemplateSelectionComponent
         );
         this.templateList.sort = this.sort;
 
-        this.wcTabSvc.getTemplateUpdateBehvaiorSubject().subscribe(
-          (template_uuid) => {
-            if (template_uuid) {
+        this.wdTabSvc.getTemplateUpdateBehvaiorSubject().subscribe(
+          (_id) => {
+            if (_id) {
               let tempTemplateModel = new TemplateModel();
-              tempTemplateModel.template_uuid = template_uuid;
+              tempTemplateModel._id = _id;
               this.selectTemplate(tempTemplateModel);
 
               let selectedTemplate = this.templateList['_data'][
                 '_value'
-              ].filter((t) => t.template_uuid == template_uuid);
+              ].filter((t) => t._id == _id);
               if (Array.isArray(selectedTemplate)) {
-                this.displayTemplate(selectedTemplate[0].template_url);
+                this.displayTemplate(selectedTemplate[0].s3_url);
               }
               console.log(selectedTemplate);
             }
@@ -86,20 +92,21 @@ export class WebsiteCreationTemplateSelectionComponent
     this.templateList['_data']['_value'].forEach((t) => (t.selected = false));
     this.submitted = false;
 
-    this.tabForm.controls.template_uuid.setValue(null);
+    this.tabForm.controls._id.setValue(null);
   }
 
   selectTemplate(template: TemplateModel) {
-    let template_uuid = template.template_uuid;
-    this.displayTemplate(template.template_url);
+    let _id = template._id;
+    this.displayTemplate(template.s3_url);
     let data = this.templateList['_data']['_value'];
     data.forEach((t) => (t.selected = false));
     data
-      .filter((t) => t.template_uuid == template_uuid)
+      .filter((t) => t._id == _id)
       .forEach((selectedTemplate) => {
         selectedTemplate['selected'] = true;
       });
-    this.tabForm.controls.template_uuid.setValue(template_uuid);
+    this.tabForm.controls._id.setValue(_id);
+    this.tabForm.controls.name.setValue(template.name);
 
     console.log(this.templateList['_data']['_value']);
   }
@@ -122,9 +129,34 @@ export class WebsiteCreationTemplateSelectionComponent
   setURL(website: WebsiteModel) {
     console.log(website);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      website.website_url
+      website.s3_url
     );
     console.log(this.safeURL);
+  }
+  uploadWebsite() {
+    let fileUploadSettings = new FileUploadSettings();
+    fileUploadSettings.uploadType = 'website';
+    fileUploadSettings.uploadFileType = 'application/zip';
+    fileUploadSettings.multipleFileUpload = false;
+    fileUploadSettings.uploadFunction = this.wdTabSvc.websiteSvc.uploadWebsite;
+
+    let dialogRef = this.dialog.open(FileUploadDialogComponent, {
+      data: fileUploadSettings,
+    });
+
+    dialogRef.close();
+  }
+
+  createWebsiteHTML() {
+    console.log('create website with params');
+    console.log(this.tabForm.controls);
+    console.log(this.attributeForm.controls);
+
+    //let templateData = formsToProperModel()
+    //this.SVC.generateWebsite(templateData).subscribe(
+    //   (success) => {console.log("success")}
+    //   (failure) => {console.log("failure")}
+    // )
   }
 
   openInNewTab() {
@@ -133,7 +165,7 @@ export class WebsiteCreationTemplateSelectionComponent
 
   nextTab() {
     this.submitted = true;
-    this.wcTabSvc.submitTab(this.tabForm);
+    this.wdTabSvc.submitTab(this.tabForm);
   }
 
   public filterList = (value: string) => {
@@ -142,7 +174,10 @@ export class WebsiteCreationTemplateSelectionComponent
 
   //Helper Functions
   get tabForm() {
-    return this.wcTabSvc.template_selection_form;
+    return this.wdTabSvc.template_selection_form;
+  }
+  get attributeForm() {
+    return this.wdTabSvc.attributes_form;
   }
   get f() {
     return this.tabForm.controls;

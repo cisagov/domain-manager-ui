@@ -47,11 +47,12 @@ export class TemplateService extends AbstractUploadService {
     let templateListTemporay = [];
     templates.forEach((element) => {
       templateListTemporay.push({
-        template_name: element,
-        template_uuid: element,
+        name: element,
+        _id: element,
         uploaded_by: 'Template Creator',
-        created_date: new Date('10-10-2020'),
-        template_url: 'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html',
+        created: new Date('10-10-2020'),
+        s3_url:
+          'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html',
         template_attributes: Array<any>(),
       });
     });
@@ -76,15 +77,11 @@ export class TemplateService extends AbstractUploadService {
       if (this.template_list.length === 0) {
         this.getAllTemplates();
       }
-      let retVal = this.template_list.find(
-        (t) => t.template_uuid === website_template_uuid
-      );
+      let retVal = this.template_list.find((t) => t._id === website__id);
       if (retVal) {
         exampleObs.next(retVal);
       } else {
-        exampleObs.error(
-          'Failed to find template with uuid: ' + website_template_uuid
-        );
+        exampleObs.error('Failed to find template with uuid: ' + website__id);
       }
     });
   }
@@ -92,7 +89,7 @@ export class TemplateService extends AbstractUploadService {
   // Seperated out to allow for differing sources of attributes to be used
   // Current plan on attribute sourcing has changed rapidly and should be
   // modular to allow for the inevitable future changes
-  getTemplateAttributes(): Observable<Array<TemplateAttribute>> {
+  getTemplateAttributes() {
     //Current plan is to have an api endpoint with all template attributes
     //Unsure if all temlpates will share the same attributes or if they
     //will be tmeplate specific
@@ -158,7 +155,7 @@ export class TemplateService extends AbstractUploadService {
   downloadTemplate(uuid) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
-      'application/zip'
+      'application/*zip*'
     );
     let url = `${environment.apiUrl}templates/`;
     if (!environment.testingNoAPI) {
@@ -167,7 +164,7 @@ export class TemplateService extends AbstractUploadService {
         responseType: 'blob',
       });
     } else {
-      if (environment.testingNoAPI) {
+      if (environment.localData) {
         return new Observable((exampleObs) => {
           setTimeout(() => {
             exampleObs.next('template downloaded');
@@ -191,11 +188,11 @@ export class TemplateService extends AbstractUploadService {
       headers: headers,
     };
 
-    if (!environment.testingNoAPI) {
+    if (!environment.localData) {
       return this.http.post(url, httpOptions);
     }
 
-    if (environment.testingNoAPI) {
+    if (environment.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
           exampleObs.next('temlpate deleted');
