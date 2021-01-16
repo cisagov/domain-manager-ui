@@ -52,20 +52,29 @@ someone has to deal with this
           or
         </div>
 
-        <!-- Open File Browser -->
+        <!-- Open File Browser GRR NOTE THE NGIF the two divs must stay the same-->
         <div style="display: flex; padding: 0 18em">
-          <div
-            ngfSelect
-            [accept]="uploadFileType"
-            [maxSize]="maxSize"
-            [(files)]="files"
-            style="width: 100%; display: inline-block"
-            [(lastInvalids)]="lastInvalids"
-            (filesChange)="fileAdded()"
-          >
+          <div  *ngIf="multipleFileUpload"
+           multiple="true" 
+           ngfSelect 
+           [accept]="uploadFileType" 
+           [maxSize]="maxSize" 
+           [(files)]="files"  
+           [(lastInvalids)]="lastInvalids" 
+           (filesChange)="fileAdded()"
+           style="width: 100%; display: inline-block">
             <button style="width: 100%" mat-raised-button color="primary">
               Select Files
             </button>
+          </div>
+          <div *ngIf="!multipleFileUpload"          
+              ngfSelect [accept]="uploadFileType" [maxSize]="maxSize" [(files)]="files"  
+              [(lastInvalids)]="lastInvalids"
+                (filesChange)="fileAdded()"
+           style="width: 100%; display: inline-block">
+            <button style="width: 100%" mat-raised-button color="primary">
+              Select File
+           </button>
           </div>
         </div>
       </div>
@@ -112,7 +121,7 @@ someone has to deal with this
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
-            <td *ngIf="uploadProcessed">
+            <td>
               <div *ngIf="!item.uploadStatus">New</div>
               <div *ngIf="item.uploadStatus == 'Inprogress'">
                 <mat-icon>arrow_circle_up</mat-icon>
@@ -123,6 +132,7 @@ someone has to deal with this
               <div *ngIf="item.uploadStatus == 'Failed'">
                 <mat-icon>priority_high</mat-icon>
               </div>
+              <div *ngIf="item.uploadStatus == 'Already Exists'">Overwrite?</div>
             </td>
           </tr>
         </tbody>

@@ -1,5 +1,5 @@
 // Angular Imports
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -22,7 +22,7 @@ import { TemplateService } from 'src/app/services/template.service';
   templateUrl: 'file-upload-dialog.component.html',
   styleUrls: ['./file-upload-dialog.component.scss'],
 })
-export class FileUploadDialogComponent {
+export class FileUploadDialogComponent implements OnInit{
   uploadType = 'File';
   uploadFileType = '*';
 
@@ -40,12 +40,13 @@ export class FileUploadDialogComponent {
   validComboDrag: any;
   lastInvalids: any;
   fileDropDisabled: any;
-  multiple: boolean;
+  multipleFileUpload: boolean;
   maxSize: any;
   baseDropValid: any;
   httpEvent:HttpEvent<{}>
   uploadPercent: number;
   fileCounter = 0;
+  overwrite = false; 
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: FileUploadSettings,
@@ -56,51 +57,57 @@ export class FileUploadDialogComponent {
     dialogRef.disableClose = true;
     console.log(data);
     this.uploadFileType = this.getNativeMimeType(data.uploadFileType);
+    this.multipleFileUpload = data.multipleFileUpload;
+  }
+  ngOnInit(): void {
+    this.data.uploadService.preloadValidationData();
   }
   
   uploadFiles() {    
     //TODO: This is currently iterating over all files for 
     //all files need to change it to only do 1 file at a time
     this.uploadProcessed = true;
-    // this.files.forEach((file) => {
-    //   if (file['uploadStatus'] != 'Complete') {
-    //     this.filesCurrentlyUploading += 1;
-    //     file['uploadStatus'] = 'Inprogress';
-    //     if(this.sendableFormData.has("zip"))
-    //       this.sendableFormData.set("zip", file, file.name);
-    //     else
-    //       this.sendableFormData.append("zip",file,file.name);        
-        
-    this.data.uploadService.uploadFile(this.sendableFormData,true).subscribe(
+    if(this.overwrite)
+      this.overwrite = confirm("Template already exists. Would you like to Overwrite?")    
+      this.sendableFormData.append("Website_Id",this.data.ID);
+      this.sendableFormData.append("Website_Domain",this.data.WebsiteDomain);
+      this.data.uploadService.uploadFile(this.sendableFormData,this.overwrite).subscribe(
       resp => {
         if (resp.type === HttpEventType.Response) {                
-            console.log('Upload complete');
+            this.files.forEach((file) => {              
+                file['uploadStatus'] = 'Complete';
+            });
         }
         if (resp.type === HttpEventType.UploadProgress) {
             const percentDone = Math.round(100 * resp.loaded / resp.total);
             console.log('Progress ' + percentDone + '%');
-        } 
-      });
-        //   (success) => {
-        //     //file['uploadStatus'] = 'Complete';
-        //     console.log("success");
-        //   },
-        //   (failure) => {
-        //     //file['uploadStatus'] = 'Failed';
-        //     console.log(failure);
-        //   }
-        // ); 
-        
-        
-    //   }      
-    // });
+            this.files.forEach((file) => {              
+                file['uploadStatus'] = 'Inprogress';
+            });
+        }
+      });    
   }
 
   fileAdded(){    
-    do{
-      this.postName.push("zip"+this.fileCounter++);
-    }while(this.fileCounter <this.files.length);
+    console.log("files added called");    
+    
+    let invalidfiles = this.data.uploadService.validateBeforeUpload(this.files)
+    if(invalidfiles.length>0)
+    {
+      this.overwrite = true;
+      for(let file of invalidfiles){              
+          this.setFileStatus(file['name'], file['status']);
+      }      
+    }
     this.lastFileAt = this.getDate();
+  }
+
+  setFileStatus(filename:string, status: string){
+    this.files.forEach((file) => {              
+      if(file.name==filename){
+        file['uploadStatus'] = status;
+      }
+    });
   }
 
   getDate() {

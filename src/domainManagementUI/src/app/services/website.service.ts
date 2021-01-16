@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,8 +7,9 @@ import { environment } from 'src/environments/environment';
 import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
-import { WebsiteModel } from 'src/app/models/website.model';
+import { HostedZoneModel, RedirectModel, WebsiteHistoryModel, WebsiteModel } from 'src/app/models/website.model';
 import { AbstractUploadService } from './abstract-upload.service';
+import { ApplicationModel } from '../models/application.model';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -16,6 +17,7 @@ const headers = {
 
 @Injectable()
 export class WebsiteService extends AbstractUploadService{
+
   
   website_list = new Array<WebsiteModel>();
 
@@ -28,7 +30,8 @@ export class WebsiteService extends AbstractUploadService{
 
   getAllWebsites() {
     //Example url, needs to be changed when API is in place
-    let url = `${environment.apiUrl}websiteTemplates/`;
+    
+    let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
     // return this.http.get(url,headers).subscribe(
     //   (success) => {
     //     this.website_list = success as Array<WebsiteModel>;
@@ -196,35 +199,40 @@ export class WebsiteService extends AbstractUploadService{
   }
 
   deleteWebsite(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/`;
     return this.http.delete(url, headers);
   }
 
-  uploadWebsite(inputFile) {
-    //settings service check required because this function is passed
-    //directly to the file upload modal and requires the settings
-    if (!this.settingsService) {
-      this.settingsService = new SettingsService();
-    }
-
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
-    let formData: FormData = new FormData();
-    formData.append('file', inputFile.data);
+  uploadWebsite(formData,websiteId,category) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/?category=${category}`;    
 
     if (!environment.localData) {
-      return this.http.post(url, formData, headers);
+      const config = new HttpRequest('POST',url,formData,{
+        reportProgress: true
+      });
+      return this.http.request( config );    
     }
 
     if (environment.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
-          exampleObs.next('Webstite uploaded');
+          exampleObs.next('Website uploaded');
         }, Math.floor(Math.random() * 2000));
       });
     }
   }
-  uploadFile(file: any) {
-   this.uploadWebsite(file);
+
+  preloadValidationData() {
+   //Don't think there is anything we need to do here
+  }
+  validateBeforeUpload(validateData: any): any[] {
+    //Don't think there is anything we need to do here 
+    let duplicateFilesList = [];    
+    return duplicateFilesList;
+  }  
+  uploadFile(file: any, overwrite:boolean) {
+   //we are always overwriting for now
+    return this.uploadWebsite(file,file.get("Website_Id"), file.get("Website_Domain"));
   }
 
   downloadWebsite(uuid) {

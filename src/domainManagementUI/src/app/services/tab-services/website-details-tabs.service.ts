@@ -157,9 +157,7 @@ export class WebsiteDetailsTabService {
 
     this.templateSvc.getTemplateAttributes().subscribe(
       (success) => {
-        let formatedAttributeList = this.templateSvc.toTemplateAttributeModels(
-          success
-        );
+        let formatedAttributeList = success;
         this.attribueList = formatedAttributeList as TemplateAttribute[];
         if (Array.isArray(this.attribueList)) {
           this.attribueList.forEach((attribute) => {

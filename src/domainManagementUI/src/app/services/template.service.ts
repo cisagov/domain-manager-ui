@@ -11,6 +11,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { env } from 'process';
 import { AbstractUploadService } from './abstract-upload.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -20,6 +21,7 @@ const headers = {
   providedIn: 'root',
 })
 export class TemplateService extends AbstractUploadService {  
+  
   template_list = new Array<TemplateModel>();
 
   constructor(
@@ -31,15 +33,10 @@ export class TemplateService extends AbstractUploadService {
 
   getAllTemplates() {
     //Example url, needs to be changed when API is in place
-    let url = `${environment.apiUrl}templates/`;
-    // return this.http.get(url,headers).subscribe(
-    //   (success) => {
-    //     this.template_list = success as Array<TemplateModel>;
-    //   },
-    //   (error) => {
-    //     console.log(`Error from service ${error}`);
-    //   }
-    // );
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    if (!environment.localData) {
+      return this.http.get(url,headers);
+    }
 
     //Test Data TODO: REMOVE IN PROD
     let templates = ['Template One', 'Temp_two', 'selected', 'Test3'];
@@ -65,9 +62,9 @@ export class TemplateService extends AbstractUploadService {
     });
   }
 
-  getTemplateDetails(website_template_uuid) {
+  getTemplateDetails(website__id) {
     //Example url, needs to be changed when API is in place
-    let url = `${environment.apiUrl}templates/${website_template_uuid}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/${website__id}`;
 
     // return this.http.get(url,headers)
 
@@ -94,7 +91,7 @@ export class TemplateService extends AbstractUploadService {
     //Unsure if all temlpates will share the same attributes or if they
     //will be tmeplate specific
 
-    // let url = `${environment.apiUrl}templatesAttributes`;
+    // let url = `${this.settingsService.settings.apiUrl}/api/templatesAttributes`;
     // return this.http.get(url,headers)
 
     let key_val_pairs = [
@@ -138,7 +135,7 @@ export class TemplateService extends AbstractUploadService {
 
   uploadTemplate(formData:FormData, overwrite:boolean) {
     //Double check settings, as this function is passed directly to upload modal    
-    let url = `${environment.apiUrl}templates?overwrite=`+overwrite;    
+    let url = `${this.settingsService.settings.apiUrl}/api/templates?overwrite=`+overwrite;    
     if (environment?.testingNoAPI) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
@@ -148,7 +145,9 @@ export class TemplateService extends AbstractUploadService {
     }
 
     if (!environment?.testingNoAPI) {      
-      const config = new HttpRequest('POST',url,formData);
+      const config = new HttpRequest('POST',url,formData,{
+        reportProgress: true
+      });
       return this.http.request( config );      
     }
   }
@@ -157,7 +156,7 @@ export class TemplateService extends AbstractUploadService {
       'content-type',
       'application/*zip*'
     );
-    let url = `${environment.apiUrl}templates/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
     if (!environment.testingNoAPI) {
       return this.http.get(url, {
         headers: downloadHeaders,
@@ -180,7 +179,7 @@ export class TemplateService extends AbstractUploadService {
       this.settingsService = new SettingsService();
     }
 
-    let url = `${environment.apiUrl}templates/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
     let httpOptions: any = {
       body: {
         uuid: templateUUID,
@@ -201,8 +200,44 @@ export class TemplateService extends AbstractUploadService {
     }
   }
 
-  //I'm not so sure about this we may want to find a different way
+  tmpvar: any;
+  
+  preloadValidationData() {
+    this.getAllTemplates().subscribe(
+      (success) => {
+        let tmpvar = new MatTableDataSource<TemplateModel>(
+          success as TemplateModel[]
+        );
+        this.template_list = tmpvar.data;
+      },
+      (error) => {
+        console.log('Error getting website list');
+        console.log(error);        
+      }
+    );
+  }
+
   public uploadFile(file:any, overwrite:boolean): any {
     return this.uploadTemplate(file,overwrite);    
   }
+  validateBeforeUpload(files){        
+     //go through the files check to see if any are in the 
+    //name list already.   If they are then return an error and 
+    //prompt to overwrite
+    /*
+    get the list of templates in the preloadValidationData()
+     */  
+    let duplicateFilesList = [];
+    for(let file of files){
+      console.log(file);      
+      for(let template of this.template_list){ 
+        console.log(template);
+        if(template.name == file.name.substring(0, file.name.length-4)){
+            duplicateFilesList.push({name:file['name'],status:"Already Exists"});          
+        }
+      }
+    }
+    return duplicateFilesList;
+  }
+
 }
