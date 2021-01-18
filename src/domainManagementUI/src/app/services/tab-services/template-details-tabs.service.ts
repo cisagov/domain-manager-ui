@@ -27,7 +27,6 @@ export class TemplateDetailsTabService {
   public template_data_behavior_subject: BehaviorSubject<TemplateModel> = new BehaviorSubject<TemplateModel>(
     new TemplateModel()
   );
-  public template_data_attributes: Array<TemplateAttribute> = [];
   public websites_used_list: Array<WebsiteModel> = [];
 
   constructor(
@@ -65,21 +64,9 @@ export class TemplateDetailsTabService {
   }
 
   initalizeData() {
-    this.getTemplateAttributes();
     this.getWebsitesUsed();
   }
 
-  getTemplateAttributes() {
-    this.templateSvc.getTemplateAttributes().subscribe(
-      (success) => {
-        console.log(success);
-        this.template_data_attributes = success as any;
-      },
-      (error) => {
-        console.log(`Error from service ${error}`);
-      }
-    );
-  }
   downloadTemplate(uuid) {
     return this.templateSvc.downloadTemplate(uuid);
   }

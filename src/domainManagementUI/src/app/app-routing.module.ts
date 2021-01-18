@@ -13,7 +13,6 @@ import { TemplateDetailsComponent } from 'src/app/components/template/template-d
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
-import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
 
 //Guards
 import { AuthGuard } from 'src/app/guards/auth.guard';
@@ -78,18 +77,6 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: WebsiteListComponent }],
-  },
-  {
-    path: 'website/creation',
-    component: LayoutMainComponent,
-    canActivate: [AuthGuard],
-    children: [{ path: '', component: WebsiteCreationComponent }],
-  },
-  {
-    path: 'website/creation/:_id',
-    component: LayoutMainComponent,
-    canActivate: [AuthGuard],
-    children: [{ path: '', component: WebsiteCreationComponent }],
   },
   {
     path: 'website/details/:_id',

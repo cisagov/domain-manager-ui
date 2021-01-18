@@ -129,7 +129,7 @@
       *ngIf="wdTabSvc.template_selection_form.valid"
       [formGroup]="attributeForm"
     >
-      <h5>Assing the Templates Attributes</h5>
+      <h5>Assign the Templates Attributes</h5>
       <!-- ATTRIBUTES -->
       <div class="text-muted">
         Assign the attributes that will be used to populate the fields within
@@ -137,7 +137,7 @@
       </div>
       <div
         class="flex flex-row"
-        *ngFor="let attribute of wdTabSvc.attribueList; let i; index"
+        *ngFor="let attribute of wdTabSvc.attributeList; let i; index"
       >
         <mat-form-field style="width: 20em" appearance="outline">
           <mat-label>{{ attribute.key | titlecase }}</mat-label>

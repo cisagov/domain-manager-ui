@@ -34,7 +34,7 @@ export class WebsiteDetailsTabService {
   summary_form: FormGroup;
   template_selection_form: FormGroup;
 
-  public attribueList: Array<TemplateAttribute> = new Array<TemplateAttribute>();
+  public attributeList: Array<TemplateAttribute> = new Array<TemplateAttribute>();
   public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -144,23 +144,19 @@ export class WebsiteDetailsTabService {
   _buildAttributesForm() {
     this.attributes_form = new FormGroup({});
 
-    this.templateSvc.getTemplateAttributes().subscribe(
-      (success) => {
-        const formatedAttributeList = success;
-        this.attribueList = formatedAttributeList as TemplateAttribute[];
-        if (Array.isArray(this.attribueList)) {
-          this.attribueList.forEach((attribute) => {
-            this.attributes_form.addControl(
-              attribute.key,
-              new FormControl('', Validators.required)
-            );
-          });
-        }
-      },
-      (failure) => {
-        console.log(failure);
-      }
-    );
+    this.templateSvc
+      .getTemplateAttributes()
+      .subscribe((attributes: string[]) => {
+        attributes.forEach((att: string) => {
+          const attribute = new TemplateAttribute();
+          attribute.key = att;
+          this.attributeList.push(attribute);
+          this.attributes_form.addControl(
+            attribute.key,
+            new FormControl('', Validators.required)
+          );
+        });
+      });
   }
   _buildSummaryForm() {
     this.summary_form = new FormGroup({
@@ -276,14 +272,8 @@ export class WebsiteDetailsTabService {
   generateFromTemplate() {
     let website_id = this.website_data._id;
     let template_name = this.template_selection_form.controls.name.value;
-
-    console.log(website_id);
-    console.log(template_name);
-    console.log(this.attribueList);
-    console.log(this.attributes_form.controls);
     let attributeDictionary = {};
-    let key = null;
-    this.attribueList.forEach((attribute) => {
+    this.attributeList.forEach((attribute) => {
       attributeDictionary[attribute.key] = this.attributes_form.controls[
         attribute.key
       ].value;
@@ -292,10 +282,7 @@ export class WebsiteDetailsTabService {
 
     this.websiteSvc
       .generateFromTemplate(website_id, template_name, attributeDictionary)
-      .subscribe(
-        (success) => {},
-        (failure) => {}
-      );
+      .subscribe();
   }
 
   setTemplateStatus(input = null) {

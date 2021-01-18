@@ -37,7 +37,6 @@ import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/te
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
 import { TemplateDetailsHistoricalComponent } from 'src/app/components/template/template-details/tabs/historical/template-details-historical.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
-import { WebsiteCreationComponent } from 'src/app/components/website/website-creation/website-creation.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
 import { WebsiteDetailsAttrbutesComponent } from 'src/app/components/website/website-details/tabs/attributes/website-details-attributes.component';
 import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-details/tabs/demo/website-details-demo.component';
@@ -61,7 +60,6 @@ import { ThemeService } from './services/theme.service';
 import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
 import { UserAuthService } from './services/user-auth.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
-import { WebsiteCreationTabService } from 'src/app/services/tab-services/website-creation-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
 //Helpers
@@ -134,7 +132,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     TemplateDetailsTabService,
     ThemeService,
     UserAuthService,
-    WebsiteCreationTabService,
     WebsiteDetailsTabService,
     WebsiteService,
     {
