@@ -86,7 +86,6 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
         //reload page to update the tab structure and display the newly created html
         let website_id = this.wdTabSvc.website_data._id;
         this.wdTabSvc.getWebsiteDetails(website_id);
-        this.wdTabSvc.getWebsiteHistory(website_id);
       },
       (failure) => {
         this.progressDialogRef.close();
@@ -122,7 +121,6 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
         //reload page to update the tab structure and display the newly created html
         let website_id = this.wdTabSvc.website_data._id;
         this.wdTabSvc.getWebsiteDetails(website_id);
-        this.wdTabSvc.getWebsiteHistory(website_id);
       },
       (failure) => {
         this.progressDialogRef.close();

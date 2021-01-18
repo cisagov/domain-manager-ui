@@ -99,14 +99,6 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   createWebsiteFromTemplate(uuid) {
-    console.log(
-      `going to website creation page, using ${uuid} as uuid for template selection`
-    );
-
     this.router.navigate([`/website/creation/${uuid}`]);
-  }
-
-  test() {
-    console.log(this.tdTabSvc.template_data_attributes[0]);
   }
 }
