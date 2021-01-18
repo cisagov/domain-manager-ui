@@ -15,6 +15,7 @@ import {
 } from 'src/app/models/website.model';
 import { AbstractUploadService } from './abstract-upload.service';
 import { ApplicationModel } from '../models/application.model';
+import { domain } from 'process';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -130,8 +131,20 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   createDomain(domainUrl: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/websites/`;
-    return this.http.post(url, { name: domainUrl });
+    console.log(domainUrl);
+    let body = { name: domainUrl };
+
+    let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
+
+    if (!environment.localData) {
+      return this.http.post(url, body);
+    } else {
+      return new Observable((exampleObs) => {
+        setTimeout(() => {
+          exampleObs.next('website Created');
+        }, Math.floor(Math.random() * 1500));
+      });
+    }
   }
 
   launchWebsite(websiteId: string) {

@@ -7,15 +7,18 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
 //Models
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
+import { ProgressBarDialogSettings } from 'src/app/models/progressBarDialogSettings.model';
 import { TemplateModel } from 'src/app/models/template.model';
 import { WebsiteModel } from 'src/app/models/website.model';
 
 // Dialogs
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
+import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
 
 @Component({
   selector: 'wc-template-selection',
@@ -30,6 +33,7 @@ export class WebsiteDetailsTemplateSelectionComponent
     'created_date',
     'selected_template',
   ];
+  progressDialogRef: MatDialogRef<ProgressBarDialog> = null;
   templateList: MatTableDataSource<TemplateModel>;
   search_input = '';
   @ViewChild(MatSort) sort: MatSort;
@@ -41,6 +45,7 @@ export class WebsiteDetailsTemplateSelectionComponent
   component_subscriptions = [];
 
   constructor(
+    public alertsSvc: AlertsService,
     public dialog: MatDialog,
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
@@ -111,7 +116,9 @@ export class WebsiteDetailsTemplateSelectionComponent
 
   displayTemplate(url) {
     this.url = url;
-    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
+      url + 'home.html'
+    );
   }
 
   _formatTemplateList(data) {
@@ -140,6 +147,44 @@ export class WebsiteDetailsTemplateSelectionComponent
     this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });
+  }
+
+  generateFromTemplate() {
+    let progressDialogSettings = new ProgressBarDialogSettings();
+    progressDialogSettings.actionInProgress = 'Generating HTML for website';
+    progressDialogSettings.actionDetails =
+      'Generating html for the website. This process can take several minutes. ' +
+      'If you close this dialog this process will continue in the background. ' +
+      'This window will close once the process is complete.';
+
+    this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
+      data: progressDialogSettings,
+    });
+
+    this.wdTabSvc.website_data.is_generating_template = true;
+
+    this.wdTabSvc.generateFromTemplate().subscribe(
+      (success) => {
+        this.progressDialogRef.close();
+        this.alertsSvc.alert(
+          'HTML successfully created and applied to website '
+        );
+        //reload page to update the tab structure and display the newly created html
+        let website_id = this.wdTabSvc.website_data._id;
+        this.wdTabSvc.getWebsiteDetails(website_id);
+        this.wdTabSvc.getWebsiteHistory(website_id);
+      },
+      (failure) => {
+        this.progressDialogRef.close();
+        this.alertsSvc.alert(
+          'An error occured while generating website html. Please try again',
+          undefined,
+          10000
+        );
+        this.wdTabSvc.website_data.is_generating_template = false;
+        console.log(failure);
+      }
+    );
   }
 
   openInNewTab() {

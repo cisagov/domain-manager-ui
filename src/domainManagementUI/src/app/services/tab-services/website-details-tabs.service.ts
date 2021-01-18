@@ -205,50 +205,63 @@ export class WebsiteDetailsTabService {
   }
 
   canBeTakenDown() {
-    if (this.isSiteLaunched()) {
+    console.log(this.isSiteLaunched());
+    console.log(this.website_data);
+    if (this.isSiteLaunched() && !this.website_data.is_delaunching) {
       return true;
     }
+    return false;
   }
 
   canBeLaunched() {
-    if (this.isSiteLaunched()) {
-      return false;
-    }
-    //If website is associated with the site, it can be launched
-    if (this.hasTemplateAttached()) {
+    console.log(this.website_data.is_launching);
+    if (
+      !this.isSiteLaunched() &&
+      !this.website_data.is_launching &&
+      this.hasTemplateAttached()
+    ) {
       return true;
     }
+    return false;
   }
 
   takeDownSite() {
+    console.log('test');
+    console.log(this.canBeTakenDown());
     if (this.canBeTakenDown()) {
-      this.websiteSvc.takeDownWebsite(this.website_data._id).subscribe(
-        (success) => {
-          console.log(success);
-        },
-        (failure) => {
-          console.log(failure);
-        }
-      );
+      console.log('test');
+      this.website_data.is_delaunching = true;
+      return this.websiteSvc.takeDownWebsite(this.website_data._id);
     } else {
-      console.log('cant be launched');
+      if (!this.isSiteLaunched()) {
+        this.alertsSvc.alert(
+          'Can not take down a site that has not been launched'
+        );
+      }
+      if (!this.website_data.is_delaunching) {
+        this.alertsSvc.alert(
+          'Website is currently in the process of being taken down'
+        );
+      }
     }
   }
 
   launchSite() {
+    console.log('launching');
     if (this.canBeLaunched()) {
-      this.websiteSvc.launchWebsite(this.website_data._id).subscribe(
-        (success) => {
-          console.log(success);
-        },
-        (failure) => {
-          console.log(failure);
-        }
-      );
+      this.website_data.is_launching = true;
+      return this.websiteSvc.launchWebsite(this.website_data._id);
     } else {
+      console.log('cant launch');
       if (!this.hasTemplateAttached()) {
         this.alertsSvc.alert(
           'Please attach a template prior to launching the site'
+        );
+      }
+      if (this.website_data.is_launching) {
+        console.log('in progress');
+        this.alertsSvc.alert(
+          'Website is currently in the process of launching'
         );
       }
     }
@@ -278,11 +291,11 @@ export class WebsiteDetailsTabService {
         attribute.key
       ].value;
     });
-    console.log(attributeDictionary);
-
-    this.websiteSvc
-      .generateFromTemplate(website_id, template_name, attributeDictionary)
-      .subscribe();
+    return this.websiteSvc.generateFromTemplate(
+      website_id,
+      template_name,
+      attributeDictionary
+    );
   }
 
   setTemplateStatus(input = null) {
