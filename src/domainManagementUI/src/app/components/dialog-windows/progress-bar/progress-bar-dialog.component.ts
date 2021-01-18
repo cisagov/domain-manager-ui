@@ -15,7 +15,6 @@ import { ProgressBarDialogSettings } from 'src/app/models/progressBarDialogSetti
   styleUrls: ['./progress-bar-dialog.component.scss'],
 })
 export class ProgressBarDialog {
-
   inProgress = false;
   actionInProgress: string;
   actionDetails: string;
@@ -33,5 +32,4 @@ export class ProgressBarDialog {
   closeDialog() {
     this.dialogRef.close('closed');
   }
-
 }

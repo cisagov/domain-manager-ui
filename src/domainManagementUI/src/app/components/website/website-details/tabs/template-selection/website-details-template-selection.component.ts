@@ -12,7 +12,7 @@ import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-
 
 //Models
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
-import { ProgressBarDialogSettings } from 'src/app/models/progressBarDialogSettings.model'
+import { ProgressBarDialogSettings } from 'src/app/models/progressBarDialogSettings.model';
 import { TemplateModel } from 'src/app/models/template.model';
 import { WebsiteModel } from 'src/app/models/website.model';
 
@@ -116,7 +116,9 @@ export class WebsiteDetailsTemplateSelectionComponent
 
   displayTemplate(url) {
     this.url = url;
-    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(url + 'home.html');
+    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
+      url + 'home.html'
+    );
   }
 
   _formatTemplateList(data) {
@@ -145,16 +147,15 @@ export class WebsiteDetailsTemplateSelectionComponent
     this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });
-
   }
 
   generateFromTemplate() {
     let progressDialogSettings = new ProgressBarDialogSettings();
-    progressDialogSettings.actionInProgress = "Generating HTML for website"
-    progressDialogSettings.actionDetails = 
-    "Generating html for the website. This process can take several minutes. " 
-    + "If you close this dialog this process will continue in the background. "
-    + "This window will close once the process is complete." 
+    progressDialogSettings.actionInProgress = 'Generating HTML for website';
+    progressDialogSettings.actionDetails =
+      'Generating html for the website. This process can take several minutes. ' +
+      'If you close this dialog this process will continue in the background. ' +
+      'This window will close once the process is complete.';
 
     this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
       data: progressDialogSettings,
@@ -164,26 +165,25 @@ export class WebsiteDetailsTemplateSelectionComponent
 
     this.wdTabSvc.generateFromTemplate().subscribe(
       (success) => {
-        this.progressDialogRef.close()
+        this.progressDialogRef.close();
         this.alertsSvc.alert(
           'HTML successfully created and applied to website '
         );
         //reload page to update the tab structure and display the newly created html
-        let website_id = this.wdTabSvc.website_data._id
+        let website_id = this.wdTabSvc.website_data._id;
         this.wdTabSvc.getWebsiteDetails(website_id);
-        // this.wdTabSvc.getWebsiteHistory(website_id);
       },
       (failure) => {
-        this.progressDialogRef.close()
+        this.progressDialogRef.close();
         this.alertsSvc.alert(
           'An error occured while generating website html. Please try again',
           undefined,
           10000
         );
         this.wdTabSvc.website_data.is_generating_template = false;
-        console.log(failure)
-      },
-    )
+        console.log(failure);
+      }
+    );
   }
 
   openInNewTab() {

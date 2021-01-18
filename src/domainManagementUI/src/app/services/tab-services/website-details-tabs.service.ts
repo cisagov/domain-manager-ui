@@ -1,29 +1,19 @@
 import { BehaviorSubject } from 'rxjs';
-import {
-  EmailValidator,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Injectable, OnInit } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 
-//Local Servie Imports
+// Local Servie Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { WebsiteService } from 'src/app/services/website.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
-//Models
+// Models
 import { ApplicationModel } from 'src/app/models/application.model';
-import { environment } from 'src/environments/environment';
 import { TemplateAttribute } from 'src/app/models/template.model';
-import {
-  WebsiteModel,
-  WebsiteHistoryModel,
-  HostedZoneModel,
-} from 'src/app/models/website.model';
+import { WebsiteModel, HostedZoneModel } from 'src/app/models/website.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +24,7 @@ export class WebsiteDetailsTabService {
   summary_form: FormGroup;
   template_selection_form: FormGroup;
 
-  public attribueList: Array<TemplateAttribute> = new Array<TemplateAttribute>();
+  public attributeList: Array<TemplateAttribute> = new Array<TemplateAttribute>();
   public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -47,7 +37,6 @@ export class WebsiteDetailsTabService {
   public website_data_behavior_subject: BehaviorSubject<WebsiteModel> = new BehaviorSubject<WebsiteModel>(
     new WebsiteModel()
   );
-  public website_history: WebsiteHistoryModel[] = new Array<WebsiteHistoryModel>();
   public userIsAdmin: boolean = false;
 
   constructor(
@@ -144,23 +133,19 @@ export class WebsiteDetailsTabService {
   _buildAttributesForm() {
     this.attributes_form = new FormGroup({});
 
-    this.templateSvc.getTemplateAttributes().subscribe(
-      (success) => {
-        const formatedAttributeList = success;
-        this.attribueList = formatedAttributeList as TemplateAttribute[];
-        if (Array.isArray(this.attribueList)) {
-          this.attribueList.forEach((attribute) => {
-            this.attributes_form.addControl(
-              attribute.key,
-              new FormControl('', Validators.required)
-            );
-          });
-        }
-      },
-      (failure) => {
-        console.log(failure);
-      }
-    );
+    this.templateSvc
+      .getTemplateAttributes()
+      .subscribe((attributes: string[]) => {
+        attributes.forEach((att: string) => {
+          const attribute = new TemplateAttribute();
+          attribute.key = att;
+          this.attributeList.push(attribute);
+          this.attributes_form.addControl(
+            attribute.key,
+            new FormControl('', Validators.required)
+          );
+        });
+      });
   }
   _buildSummaryForm() {
     this.summary_form = new FormGroup({
@@ -203,50 +188,46 @@ export class WebsiteDetailsTabService {
   }
 
   isSiteLaunched() {
-    if (
-      this.website_data.is_active
-      ) {
+    if (this.website_data.is_active) {
       return true;
     }
   }
 
   canBeTakenDown() {
-    console.log(this.isSiteLaunched())
-    console.log(this.website_data)
-    if (
-      this.isSiteLaunched()
-      && !this.website_data.is_delaunching) {
+    console.log(this.isSiteLaunched());
+    console.log(this.website_data);
+    if (this.isSiteLaunched() && !this.website_data.is_delaunching) {
       return true;
     }
-    return false
+    return false;
   }
 
   canBeLaunched() {
-    console.log(this.website_data.is_launching)
+    console.log(this.website_data.is_launching);
     if (
-      !this.isSiteLaunched()
-      && !this.website_data.is_launching
-      && this.hasTemplateAttached()
-      ) {
+      !this.isSiteLaunched() &&
+      !this.website_data.is_launching &&
+      this.hasTemplateAttached()
+    ) {
       return true;
     }
-    return false
+    return false;
   }
 
   takeDownSite() {
-    console.log("test")
-    console.log(this.canBeTakenDown())
+    console.log('test');
+    console.log(this.canBeTakenDown());
     if (this.canBeTakenDown()) {
-      console.log("test")      
+      console.log('test');
       this.website_data.is_delaunching = true;
-      return this.websiteSvc.takeDownWebsite(this.website_data._id)
+      return this.websiteSvc.takeDownWebsite(this.website_data._id);
     } else {
-      if(!this.isSiteLaunched()){
+      if (!this.isSiteLaunched()) {
         this.alertsSvc.alert(
           'Can not take down a site that has not been launched'
         );
       }
-      if(!this.website_data.is_delaunching){
+      if (!this.website_data.is_delaunching) {
         this.alertsSvc.alert(
           'Website is currently in the process of being taken down'
         );
@@ -255,19 +236,19 @@ export class WebsiteDetailsTabService {
   }
 
   launchSite() {
-    console.log("launching")
+    console.log('launching');
     if (this.canBeLaunched()) {
       this.website_data.is_launching = true;
-      return this.websiteSvc.launchWebsite(this.website_data._id)
+      return this.websiteSvc.launchWebsite(this.website_data._id);
     } else {
-      console.log("cant launch")
+      console.log('cant launch');
       if (!this.hasTemplateAttached()) {
         this.alertsSvc.alert(
           'Please attach a template prior to launching the site'
         );
       }
-      if(this.website_data.is_launching){
-        console.log("in progress")
+      if (this.website_data.is_launching) {
+        console.log('in progress');
         this.alertsSvc.alert(
           'Website is currently in the process of launching'
         );
@@ -290,18 +271,20 @@ export class WebsiteDetailsTabService {
     }
   }
 
-  generateFromTemplate(){
+  generateFromTemplate() {
     let website_id = this.website_data._id;
-    let template_name = this.template_selection_form.controls.name.value
-    let attributeDictionary = {}
-    let key = null
-    this.attribueList.forEach(
-      (attribute) => {
-        attributeDictionary[attribute.key] = this.attributes_form.controls[attribute.key].value;
-      }
-    )
-    return this.websiteSvc.generateFromTemplate(website_id, template_name, attributeDictionary)
-   
+    let template_name = this.template_selection_form.controls.name.value;
+    let attributeDictionary = {};
+    this.attributeList.forEach((attribute) => {
+      attributeDictionary[attribute.key] = this.attributes_form.controls[
+        attribute.key
+      ].value;
+    });
+    return this.websiteSvc.generateFromTemplate(
+      website_id,
+      template_name,
+      attributeDictionary
+    );
   }
 
   setTemplateStatus(input = null) {

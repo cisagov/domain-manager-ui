@@ -19,7 +19,7 @@
         <th>Start Date</th>
         <th>Stop Date</th>
       </tr>
-      <tr *ngFor="let history of wdTabSvc.website_history">
+      <tr *ngFor="let history of wdTabSvc.website_data.history">
         <td>{{ history.domain }}</td>
         <td>{{ history.application }}</td>
         <td>{{ history.start_date | date: "MM/dd/yy" }}</td>

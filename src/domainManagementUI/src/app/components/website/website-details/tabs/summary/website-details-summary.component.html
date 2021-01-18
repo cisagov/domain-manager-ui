@@ -82,21 +82,15 @@
 
     <div class="flex-row" *ngIf="wdTabSvc.website_data?.is_generating_template">
       <div class="flex sl_flex_title">Template Generating</div>
-      <div class="flex sl_flex_content">
-        True
-      </div>
+      <div class="flex sl_flex_content">True</div>
     </div>
     <div class="flex-row" *ngIf="wdTabSvc.website_data?.is_launching">
       <div class="flex sl_flex_title">Launching In Progress</div>
-      <div class="flex sl_flex_content">
-        True
-      </div>
+      <div class="flex sl_flex_content">True</div>
     </div>
     <div class="flex-row" *ngIf="wdTabSvc.website_data?.is_delaunching">
       <div class="flex sl_flex_title">Taking Down In Progress</div>
-      <div class="flex sl_flex_content">
-        True
-      </div>
+      <div class="flex sl_flex_content">True</div>
     </div>
 
     <!-- <div class="flex summary_list" *ngIf="wdTabSvc.website_data._id" [formGroup]="tabForm">
