@@ -1,8 +1,8 @@
 <div class="flex flex-container tab">
-  <div class="template_mode">
+  <div *ngIf="!wdTabSvc.website_data.is_generating_template" class="template_mode">
     <h5>Select a Template For This Website</h5>
     <div class="text-muted">Select your method to select a template</div>
-    <div>
+    <div >
       <mat-radio-group
         aria-labelledby="template-selection-radio-group"
         class="example-radio-group"
@@ -22,6 +22,14 @@
         </mat-radio-button>
       </mat-radio-group>
     </div>
+  </div>
+  <div *ngIf="wdTabSvc.website_data.is_generating_template">
+    <h5>Template Generation In Progress</h5>
+    <div class="text-muted">The html for this website is currently being 
+      generated. This process can take serveral minutes. Refresh the page to 
+      check if the process has been completed.
+    </div>    
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
 
   <div
@@ -183,7 +191,7 @@
         mat-raised-button
         color="primary"
         class="flex"
-        (click)="wdTabSvc.generateFromTemplate()"
+        (click)="generateFromTemplate()"
         [disabled]="!attributeForm.valid"
       >
         Create Website HTML

@@ -18,7 +18,11 @@ export class WebsiteModel {
   // hosted_zones: string[];
   route53: string;
   hosted_zones: HostedZoneModel[];
-  redirects: RedirectModel[];
+  redirects: RedirectModel[];  
+  is_available : boolean;
+  is_launching : boolean;
+  is_delaunching : boolean;
+  is_generating_template : boolean;
 }
 
 export class HostedZoneModel {

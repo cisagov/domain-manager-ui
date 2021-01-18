@@ -51,41 +51,41 @@ export class WebsiteService {
     let templates_used = ['Template One', 'Temp_two', 'selected', 'Test3'];
     this.website_list = [];
     let counter = 0;
-    websites.forEach((element) => {
-      this.website_list.push({
-        name: element,
-        _id: 'UUID_' + element,
-        s3_url: this.getTestURL(counter),
-        created_date: new Date('2019-06-26'),
-        launch_date: new Date('2019-07-21'),
-        category: 'Test',
-        template_base_name: 'Template_Name_Base_' + element,
-        template_base_uuid: templates_used[counter % templates_used.length],
-        application_id: 'application-' + ((counter % 3) + 1) + '-UUID',
-        application_using: new ApplicationModel(),
-        is_active: true,
-        history: new Array<WebsiteHistoryModel>(),
-        route53: null,
-        hosted_zones: new Array<HostedZoneModel>(),
-        redirects: new Array<RedirectModel>(),
-        // template: new TemplateModel(),
-        website_parameters: [
-          {
-            param_name: 'Param One',
-            value: 'Param_Value_One',
-          },
-          {
-            param_name: 'Param Two',
-            value: 'Param_Value_TWO',
-          },
-          {
-            param_name: 'Param Three',
-            value: 'Param_Value_THREE',
-          },
-        ],
-      });
-      counter += 1;
-    });
+    // websites.forEach((element) => {
+    //   this.website_list.push({
+    //     name: element,
+    //     _id: 'UUID_' + element,
+    //     s3_url: this.getTestURL(counter),
+    //     created_date: new Date('2019-06-26'),
+    //     launch_date: new Date('2019-07-21'),
+    //     category: 'Test',
+    //     template_base_name: 'Template_Name_Base_' + element,
+    //     template_base_uuid: templates_used[counter % templates_used.length],
+    //     application_id: 'application-' + ((counter % 3) + 1) + '-UUID',
+    //     application_using: new ApplicationModel(),
+    //     is_active: true,
+    //     history: new Array<WebsiteHistoryModel>(),
+    //     route53: null,
+    //     hosted_zones: new Array<HostedZoneModel>(),
+    //     redirects: new Array<RedirectModel>(),
+    //     // template: new TemplateModel(),
+    //     website_parameters: [
+    //       {
+    //         param_name: 'Param One',
+    //         value: 'Param_Value_One',
+    //       },
+    //       {
+    //         param_name: 'Param Two',
+    //         value: 'Param_Value_TWO',
+    //       },
+    //       {
+    //         param_name: 'Param Three',
+    //         value: 'Param_Value_THREE',
+    //       },
+    //     ],
+    //   });
+    //   counter += 1;
+    // });
 
     return new Observable((exampleObs) => {
       setTimeout(() => {
