@@ -19,7 +19,7 @@ export class AlertsService {
   alert(
     alertMessage: string,
     closeMessage: string = 'Close',
-    duration: number = 2000,
+    duration: number = 5000,
     horizPosition: string = 'center',
     vertPosition: string = 'top'
   ) {

@@ -69,8 +69,8 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
   deleteWebsite() {
     console.log("trying to delte")
     let confirmDialogSettings = new ConfirmDialogSettings();
-    confirmDialogSettings.itemConfirming = 'confirm template delete';
-    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}`;
+    confirmDialogSettings.itemConfirming = 'confirm website delete';
+    confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}, this action is permanent`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: confirmDialogSettings,

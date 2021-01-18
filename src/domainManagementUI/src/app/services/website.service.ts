@@ -14,6 +14,7 @@ import {
   RedirectModel,
 } from 'src/app/models/website.model';
 import { ApplicationModel } from '../models/application.model';
+import { domain } from 'process';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -286,11 +287,12 @@ export class WebsiteService {
 
   createDomain(domainUrl: string) {
     console.log(domainUrl);
+    let body = { 'name': domainUrl}
 
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
 
     if (!environment.localData) {
-      // return this.http.post(url, newWebsite);
+      return this.http.post(url,body);
     } else {
       return new Observable((exampleObs) => {
         setTimeout(() => {
