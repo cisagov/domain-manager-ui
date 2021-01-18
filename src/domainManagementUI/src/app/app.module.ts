@@ -32,6 +32,7 @@ import { DomainManagementDetailsComponent } from 'src/app/components/domain-mana
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
+import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/template/template-details/tabs/connected-websites/template-details-connected-websites.component';
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
@@ -79,6 +80,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   declarations: [
     AboutComponent,
     AppComponent,
+    ApplicationEditDialogComponent,
     ApplicationListComponent,
     LayoutMainComponent,
     DomainCreateDialogComponent,
@@ -91,6 +93,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DomainManagementWebsiteSelectionTab,
     ConfirmDialogComponent,
     FileUploadDialogComponent,
+    ManageRedirectDialogComponent,
+    ProgressBarDialog,
     TemplateDetailsComponent,
     TemplateDetailsConnectedWebsitesComponent,
     TemplateDetailsDemoComponent,
@@ -106,9 +110,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteDetailsSummaryComponent,
     WebsiteDetailsTemplateSelectionComponent,
     WebsiteListComponent,
-    ApplicationEditDialogComponent,
     WebsiteDetailsRedirectsComponent,
-    ManageRedirectDialogComponent,
   ],
   imports: [
     AppRoutingModule,

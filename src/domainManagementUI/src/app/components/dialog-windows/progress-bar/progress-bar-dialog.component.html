@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ actionInProgress | titlecase }}</h2>
+<button
+  mat-button
+  style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
+  [mat-dialog-close]="true"
+></button>
+<div class="dialog" style="width: 34em" mat-dialog-content>
+  {{ actionDetails }}
+</div>
+<div style="margin: 2em 0">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<mat-dialog-actions align="end">
+  <button (click)="closeDialog()" mat-raised-button color="warn">Close</button>
+</mat-dialog-actions>

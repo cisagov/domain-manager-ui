@@ -10,14 +10,14 @@
   <mat-menu #menu="matMenu">
     <button
       *ngIf="!wdTabSvc.isSiteLaunched()"
-      (click)="wdTabSvc.launchSite()"
+      (click)="launchSite()"
       mat-menu-item
     >
       <mat-icon>keyboard_arrow_up</mat-icon>Launch Site
     </button>
     <button
       *ngIf="wdTabSvc.isSiteLaunched()"
-      (click)="wdTabSvc.takeDownSite()"
+      (click)="takeDownSite()"
       mat-menu-item
     >
       <mat-icon>keyboard_arrow_down</mat-icon>Take Down Site
