@@ -1,6 +1,6 @@
 // Angular Imports
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -33,6 +33,7 @@ export class WebsiteDetailsTemplateSelectionComponent
   templateList: MatTableDataSource<TemplateModel>;
   search_input = '';
   @ViewChild(MatSort) sort: MatSort;
+  @Input() websiteId: string;
   safeURL: SafeResourceUrl = null;
   submitted: boolean = false;
   url: string;
@@ -78,7 +79,6 @@ export class WebsiteDetailsTemplateSelectionComponent
               if (Array.isArray(selectedTemplate)) {
                 this.displayTemplate(selectedTemplate[0].s3_url);
               }
-              console.log(selectedTemplate);
             }
           },
           (failed) => {}
@@ -107,12 +107,9 @@ export class WebsiteDetailsTemplateSelectionComponent
       });
     this.tabForm.controls._id.setValue(_id);
     this.tabForm.controls.name.setValue(template.name);
-
-    console.log(this.templateList['_data']['_value']);
   }
 
   displayTemplate(url) {
-    console.log(url);
     this.url = url;
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
   }
@@ -127,36 +124,22 @@ export class WebsiteDetailsTemplateSelectionComponent
   }
 
   setURL(website: WebsiteModel) {
-    console.log(website);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
       website.s3_url
     );
-    console.log(this.safeURL);
   }
+
   uploadWebsite() {
-    let fileUploadSettings = new FileUploadSettings();
+    const fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'website';
     fileUploadSettings.uploadFileType = 'application/zip';
     fileUploadSettings.multipleFileUpload = false;
-    fileUploadSettings.uploadFunction = this.wdTabSvc.websiteSvc.uploadWebsite;
-
-    let dialogRef = this.dialog.open(FileUploadDialogComponent, {
+    fileUploadSettings.uploadService = this.wdTabSvc.websiteSvc;
+    fileUploadSettings.ID = this.websiteId;
+    fileUploadSettings.WebsiteDomain = this.wdTabSvc.website_data.name;
+    this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });
-
-    dialogRef.close();
-  }
-
-  createWebsiteHTML() {
-    console.log('create website with params');
-    console.log(this.tabForm.controls);
-    console.log(this.attributeForm.controls);
-
-    //let templateData = formsToProperModel()
-    //this.SVC.generateWebsite(templateData).subscribe(
-    //   (success) => {console.log("success")}
-    //   (failure) => {console.log("failure")}
-    // )
   }
 
   openInNewTab() {
@@ -172,7 +155,7 @@ export class WebsiteDetailsTemplateSelectionComponent
     this.templateList.filter = value.trim().toLocaleLowerCase();
   };
 
-  //Helper Functions
+  // Helper Functions
   get tabForm() {
     return this.wdTabSvc.template_selection_form;
   }

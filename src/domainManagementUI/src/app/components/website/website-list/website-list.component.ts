@@ -103,8 +103,8 @@ export class WebsiteListComponent implements OnInit {
   uploadWebsite() {
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'website';
-    fileUploadSettings.uploadFileType = 'application/zip';
-    fileUploadSettings.uploadFunction = this.websiteSvc.uploadWebsite;
+    fileUploadSettings.uploadFileType = 'application/x-zip-compressed';
+    fileUploadSettings.uploadService = this.websiteSvc;
 
     this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,

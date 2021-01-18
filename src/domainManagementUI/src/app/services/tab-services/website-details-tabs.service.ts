@@ -89,17 +89,6 @@ export class WebsiteDetailsTabService {
       }
     );
   }
-  getWebsiteHistory(_id) {
-    this.website_history = new Array<WebsiteHistoryModel>();
-    this.websiteSvc.getWebsiteHistory(_id)?.subscribe(
-      (success) => {
-        this.website_history = success as WebsiteHistoryModel[];
-      },
-      (failure) => {
-        console.log('FAILED TO LOAD WEBSITE HISTORY');
-      }
-    );
-  }
 
   initalizeData() {
     //reInitalize default values of variables when a new website is loaded
@@ -157,9 +146,7 @@ export class WebsiteDetailsTabService {
 
     this.templateSvc.getTemplateAttributes().subscribe(
       (success) => {
-        let formatedAttributeList = this.templateSvc.toTemplateAttributeModels(
-          success
-        );
+        const formatedAttributeList = success;
         this.attribueList = formatedAttributeList as TemplateAttribute[];
         if (Array.isArray(this.attribueList)) {
           this.attribueList.forEach((attribute) => {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,11 +8,12 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
 import {
-  WebsiteModel,
-  WebsiteHistoryModel,
   HostedZoneModel,
   RedirectModel,
+  WebsiteHistoryModel,
+  WebsiteModel,
 } from 'src/app/models/website.model';
+import { AbstractUploadService } from './abstract-upload.service';
 import { ApplicationModel } from '../models/application.model';
 
 const headers = {
@@ -20,163 +21,24 @@ const headers = {
 };
 
 @Injectable()
-export class WebsiteService {
+export class WebsiteService extends AbstractUploadService {
   website_list = new Array<WebsiteModel>();
 
   constructor(
     private http: HttpClient,
     private settingsService: SettingsService
-  ) {}
+  ) {
+    super();
+  }
 
   getAllWebsites() {
-    //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
-
-    if (!environment.localData) {
-      return this.http.get(url, headers);
-    }
-    //Test Data TODO: REMOVE IN PROD
-    let websites = [
-      'WebsiteOne',
-      'myWebSite two with a longer name for testing styling',
-      'selected',
-      'test_three',
-      'test_four',
-      'test_five',
-      'test_six',
-      'test_seven',
-    ];
-    //TEST DATA PULLD FROM template.service.ts
-    let templates_used = ['Template One', 'Temp_two', 'selected', 'Test3'];
-    this.website_list = [];
-    let counter = 0;
-    websites.forEach((element) => {
-      this.website_list.push({
-        name: element,
-        _id: 'UUID_' + element,
-        s3_url: this.getTestURL(counter),
-        created_date: new Date('2019-06-26'),
-        launch_date: new Date('2019-07-21'),
-        category: 'Test',
-        template_base_name: 'Template_Name_Base_' + element,
-        template_base_uuid: templates_used[counter % templates_used.length],
-        application_id: 'application-' + ((counter % 3) + 1) + '-UUID',
-        application_using: new ApplicationModel(),
-        is_active: true,
-        history: new Array<WebsiteHistoryModel>(),
-        route53: null,
-        hosted_zones: new Array<HostedZoneModel>(),
-        redirects: new Array<RedirectModel>(),
-        // template: new TemplateModel(),
-        website_parameters: [
-          {
-            param_name: 'Param One',
-            value: 'Param_Value_One',
-          },
-          {
-            param_name: 'Param Two',
-            value: 'Param_Value_TWO',
-          },
-          {
-            param_name: 'Param Three',
-            value: 'Param_Value_THREE',
-          },
-        ],
-      });
-      counter += 1;
-    });
-
-    return new Observable((exampleObs) => {
-      setTimeout(() => {
-        exampleObs.next(this.website_list);
-      }, 200);
-    });
+    const url = `${this.settingsService.settings.apiUrl}/api/websites/`;
+    return this.http.get(url, headers);
   }
 
-  getWebsiteDetails(_id) {
-    //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}`;
-
-    if (!environment.localData) {
-      return this.http.get(url, headers);
-    }
-    //Example observable return for testing purposes
-    let retVal = new WebsiteModel();
-
-    console.log(environment.localData);
-    if (environment.localData) {
-      retVal.name = 'Example Website';
-      retVal._id = _id;
-      retVal.s3_url =
-        'https://domain-manager-test.s3.amazonaws.com/pesticide/inltesting.xyz/home.html';
-      retVal.created_date = new Date('12/12/20');
-      retVal.template_base_name = 'Template Base Name Test';
-      retVal.template_base_uuid = 'template Base UUID TEST';
-      retVal.website_parameters = [
-        {
-          param_name: 'Title',
-          value: 'Title Value Test',
-        },
-        {
-          param_name: 'Author',
-          value: 'Author Value Test',
-        },
-      ];
-      retVal.application_id = 'application-3-UUID';
-    }
-
-    let website = this.website_list.filter((f) => f._id === _id);
-    if (website.length) {
-      retVal = website[0];
-      retVal.s3_url =
-        'https://domain-manager-test.s3.amazonaws.com/pesticide/inltesting.xyz/home.html';
-    }
-
-    return new Observable((exampleObs) => {
-      exampleObs.next(retVal);
-    });
-  }
-
-  getWebsiteHistory(_id) {
-    //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${_id}/history`;
-
-    // return this.http.get(url,headers)
-
-    //Example data return, remove when API in place
-
-    if (environment.localData) {
-      let retVal = [
-        {
-          application: 'Applicaiton Test value',
-          domain: 'Domain Test Value',
-          start_date: '12-12-2012',
-          end_date: '12-24-2012',
-        },
-        {
-          application: 'Applicaiton Test value 2',
-          domain: 'Domain Test Value 2',
-          start_date: '12-12-2012 ',
-          end_date: '12-24-2012 ',
-        },
-        {
-          application: 'Applicaiton Test value 3',
-          domain: 'Domain Test Value 3',
-          start_date: '12-12-2012 ',
-          end_date: '12-24-2012 ',
-        },
-        {
-          application: 'Applicaiton Test value 4',
-          domain: 'Domain Test Value 4',
-          start_date: '12-12-2012',
-          end_date: '12-24-2012',
-        },
-      ];
-
-      return new Observable((exampleObs) => {
-        exampleObs.next(retVal);
-      });
-    }
+  getWebsiteDetails(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}`;
+    return this.http.get(url, headers);
   }
 
   getWebsiteNameByUUID(uuid) {
@@ -190,68 +52,60 @@ export class WebsiteService {
   }
 
   deleteWebsite(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/`;
     return this.http.delete(url, headers);
   }
 
-  uploadWebsite(inputFile) {
-    //settings service check required because this function is passed
-    //directly to the file upload modal and requires the settings
-    if (!this.settingsService) {
-      this.settingsService = new SettingsService();
-    }
-
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
-    let formData: FormData = new FormData();
-    formData.append('file', inputFile.data);
+  uploadWebsite(formData, websiteId, category) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/?category=${category}`;
 
     if (!environment.localData) {
-      return this.http.post(url, formData, headers);
+      const config = new HttpRequest('POST', url, formData, {
+        reportProgress: true,
+      });
+      return this.http.request(config);
     }
 
     if (environment.localData) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
-          exampleObs.next('Webstite uploaded');
+          exampleObs.next('Website uploaded');
         }, Math.floor(Math.random() * 2000));
       });
     }
   }
 
-  downloadWebsite(uuid) {
+  preloadValidationData() {
+    // Don't think there is anything we need to do here
+  }
+  validateBeforeUpload(validateData: any): any[] {
+    // Don't think there is anything we need to do here
+    return [];
+  }
+  uploadFile(file: any, overwrite: boolean) {
+    // we are always overwriting for now
+    return this.uploadWebsite(
+      file,
+      file.get('Website_Id'),
+      file.get('Website_Domain')
+    );
+  }
+
+  downloadWebsite(websiteId: string) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
       'application/zip'
     );
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
-    if (!environment.localData) {
-      return this.http.get(url, {
-        headers: downloadHeaders,
-        responseType: 'blob',
-      });
-    } else {
-      if (environment.localData) {
-        return new Observable((exampleObs) => {
-          setTimeout(() => {
-            exampleObs.next('website downloaded');
-          }, Math.floor(Math.random() * 1000));
-        });
-      }
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    return this.http.get(url, {
+      headers: downloadHeaders,
+      responseType: 'blob',
+    });
   }
 
   createWebsite(newWebsite: WebsiteModel) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${newWebsite.template_base_uuid}/generate/`;
-
-    if (!environment.localData) {
-      return this.http.post(url, newWebsite);
-    } else {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('website Created');
-        }, Math.floor(Math.random() * 1500));
-      });
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${newWebsite.template_base_uuid}/generate/`;
+    return this.http.post(url, newWebsite);
   }
 
   setWebsitesAsAvailable(websiteIDArray) {
@@ -270,18 +124,9 @@ export class WebsiteService {
     }
   }
 
-  getHostedZones(website_id) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/records/`;
-
-    if (!environment.localData) {
-      return this.http.get(url);
-    } else {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('website Created');
-        }, Math.floor(Math.random() * 1500));
-      });
-    }
+  getHostedZones(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/records/`;
+    return this.http.get(url);
   }
 
   createDomain(domainUrl: string) {
