@@ -14,8 +14,4 @@ dist
 
 src/domainManagementUI/src/assets/settings.json
 /debug.log
-<<<<<<< HEAD
-=======
-/src/domainManagementUI/debug.log
->>>>>>> develop
 /src/domainManagementUI/debug.log

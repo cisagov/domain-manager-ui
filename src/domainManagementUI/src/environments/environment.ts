@@ -8,9 +8,6 @@ export const environment = {
   testingNoAPI: false,
   localData: false, // If true, uses data generated in angular, will not query any api
   production: false,
-  appUrl: 'http://localhost:4200/',
-  apiUrl: 'http://localhost:5000/api/'
-  
 };
 
 /*
