@@ -1,15 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Observable } from 'rxjs';
-
-//Models
 import {
   TemplateModel,
   TemplateAttribute,
 } from 'src/app/models/template.model';
 import { environment } from 'src/environments/environment';
-import { env } from 'process';
+import { AbstractUploadService } from './abstract-upload.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -18,20 +17,20 @@ const headers = {
 @Injectable({
   providedIn: 'root',
 })
-export class TemplateService {
+export class TemplateService extends AbstractUploadService {
   template_list = new Array<TemplateModel>();
 
   constructor(
     private http: HttpClient,
     private settingsService: SettingsService
-  ) {}
+  ) {
+    super();
+  }
 
   getAllTemplates() {
     //Example url, needs to be changed when API is in place
-
-    console.log('test 1');
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
     if (!environment.localData) {
-      let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
       return this.http.get(url, headers);
     }
 
@@ -59,9 +58,9 @@ export class TemplateService {
     });
   }
 
-  getTemplateDetails(website__id) {
+  getTemplateDetails(websiteId) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/${website__id}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/${websiteId}`;
 
     // return this.http.get(url,headers)
 
@@ -71,11 +70,11 @@ export class TemplateService {
       if (this.template_list.length === 0) {
         this.getAllTemplates();
       }
-      let retVal = this.template_list.find((t) => t._id === website__id);
+      let retVal = this.template_list.find((t) => t._id === websiteId);
       if (retVal) {
         exampleObs.next(retVal);
       } else {
-        exampleObs.error('Failed to find template with uuid: ' + website__id);
+        exampleObs.error('Failed to find template with uuid: ' + websiteId);
       }
     });
   }
@@ -88,10 +87,8 @@ export class TemplateService {
     //Unsure if all temlpates will share the same attributes or if they
     //will be tmeplate specific
 
-    if (!environment.localData) {
-      let url = `${this.settingsService.settings.apiUrl}/api/templates/keys/`;
-      return this.http.get(url, headers);
-    }
+    // let url = `${this.settingsService.settings.apiUrl}/api/templatesAttributes`;
+    // return this.http.get(url,headers)
 
     let key_val_pairs = [
       { key: 'Name', value: 'Dentist-r-us' },
@@ -132,63 +129,25 @@ export class TemplateService {
     });
   }
 
-  toTemplateAttributeModels(input) {
-    console.log(input);
-    let retVal = new Array<TemplateAttribute>();
-    input.forEach((kv) => {
-      retVal.push({
-        key: kv,
-        value: null,
-        place_holder: '{{%%' + kv + '%%}}',
-      });
-    });
-    return retVal;
-  }
-
-  uploadTemplate(inputFile) {
+  uploadTemplate(formData: FormData, overwrite: boolean) {
     //Double check settings, as this function is passed directly to upload modal
-    if (!this.settingsService) {
-      this.settingsService = new SettingsService();
-    }
-
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    let formData: FormData = new FormData();
-    formData.append('file', inputFile.data);
-
-    console.log(environment);
-
-    if (environment?.localData) {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('Template Uploaded');
-        }, Math.floor(Math.random() * 2000));
-      });
-    }
-
-    if (!environment?.localData) {
-      return this.http.post(url, formData, headers);
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/templates?overwrite=${overwrite}`;
+    const config = new HttpRequest('POST', url, formData, {
+      reportProgress: true,
+    });
+    return this.http.request(config);
   }
+
   downloadTemplate(uuid) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
       'application/*zip*'
     );
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    if (!environment.localData) {
-      return this.http.get(url, {
-        headers: downloadHeaders,
-        responseType: 'blob',
-      });
-    } else {
-      if (environment.localData) {
-        return new Observable((exampleObs) => {
-          setTimeout(() => {
-            exampleObs.next('template downloaded');
-          }, Math.floor(Math.random() * 1000));
-        });
-      }
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    return this.http.get(url, {
+      headers: downloadHeaders,
+      responseType: 'blob',
+    });
   }
 
   deleteTemplate(templateUUID) {
@@ -216,5 +175,48 @@ export class TemplateService {
         }, Math.floor(Math.random() * 200));
       });
     }
+  }
+
+  tmpvar: any;
+
+  preloadValidationData() {
+    this.getAllTemplates().subscribe(
+      (success) => {
+        let tmpvar = new MatTableDataSource<TemplateModel>(
+          success as TemplateModel[]
+        );
+        this.template_list = tmpvar.data;
+      },
+      (error) => {
+        console.log('Error getting website list');
+        console.log(error);
+      }
+    );
+  }
+
+  public uploadFile(file: any, overwrite: boolean): any {
+    return this.uploadTemplate(file, overwrite);
+  }
+  validateBeforeUpload(files) {
+    //go through the files check to see if any are in the
+    //name list already.   If they are then return an error and
+    //prompt to overwrite
+    /*
+    get the list of templates in the preloadValidationData()
+     */
+    let duplicateFilesList = [];
+    for (let file of files) {
+      console.log(file);
+      for (let template of this.template_list) {
+        console.log(template);
+        if (template.name == file.name.substring(0, file.name.length - 4)) {
+          duplicateFilesList.push({
+            name: file['name'],
+            status: 'Already Exists',
+          });
+        }
+      }
+    }
+    return duplicateFilesList;
   }
 }

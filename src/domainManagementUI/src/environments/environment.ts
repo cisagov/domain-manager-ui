@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  authorize: true,
-  defaultToAdmin: false,
+  authorize: false,
+  defaultToAdmin: true,
   localData: false, // If true, uses data generated in angular, will not query any api
   production: false,
 };

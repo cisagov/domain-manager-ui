@@ -62,7 +62,6 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
 
   loadWebsite(_id) {
     this.wdTabSvc.getWebsiteDetails(_id);
-    this.wdTabSvc.getWebsiteHistory(_id);
   }
 
   launchSite(){    
