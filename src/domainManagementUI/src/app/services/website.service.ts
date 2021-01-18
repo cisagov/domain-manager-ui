@@ -132,12 +132,12 @@ export class WebsiteService extends AbstractUploadService {
 
   createDomain(domainUrl: string) {
     console.log(domainUrl);
-    let body = { 'name': domainUrl}
+    let body = { name: domainUrl };
 
     let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
 
     if (!environment.localData) {
-      return this.http.post(url,body);
+      return this.http.post(url, body);
     } else {
       return new Observable((exampleObs) => {
         setTimeout(() => {

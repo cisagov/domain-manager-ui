@@ -12,7 +12,7 @@ import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
-import { ProgressBarDialogSettings } from 'src/app/models/progressBarDialogSettings.model'
+import { ProgressBarDialogSettings } from 'src/app/models/progressBarDialogSettings.model';
 
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
@@ -64,53 +64,51 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     this.wdTabSvc.getWebsiteDetails(_id);
   }
 
-  launchSite(){    
-    console.log("test")
-    if(this.wdTabSvc.canBeLaunched()){
+  launchSite() {
+    console.log('test');
+    if (this.wdTabSvc.canBeLaunched()) {
       let progressDialogSettings = new ProgressBarDialogSettings();
-      progressDialogSettings.actionInProgress = "Launching Website"
-      progressDialogSettings.actionDetails = 
-      "Launching the website. This process can take several minutes. " 
-      + "If you close this dialog this process will continue in the background. "
-      + "This window will close once the process is complete." 
+      progressDialogSettings.actionInProgress = 'Launching Website';
+      progressDialogSettings.actionDetails =
+        'Launching the website. This process can take several minutes. ' +
+        'If you close this dialog this process will continue in the background. ' +
+        'This window will close once the process is complete.';
 
       this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
         data: progressDialogSettings,
-      });     
+      });
     }
 
     this.wdTabSvc.launchSite().subscribe(
       (success) => {
-        this.progressDialogRef.close()
-        this.alertsSvc.alert(
-          'Website Successfully Launched'
-        );
+        this.progressDialogRef.close();
+        this.alertsSvc.alert('Website Successfully Launched');
         //reload page to update the tab structure and display the newly created html
-        let website_id = this.wdTabSvc.website_data._id
+        let website_id = this.wdTabSvc.website_data._id;
         this.wdTabSvc.getWebsiteDetails(website_id);
         this.wdTabSvc.getWebsiteHistory(website_id);
       },
       (failure) => {
-        this.progressDialogRef.close()
+        this.progressDialogRef.close();
         this.alertsSvc.alert(
           'An error occured while launching the website. Please try again',
           undefined,
           10000
         );
         this.wdTabSvc.website_data.is_launching = false;
-        console.log(failure)
+        console.log(failure);
       }
     );
   }
-  takeDownSite(){
-    console.log("test")
-    if(this.wdTabSvc.canBeTakenDown()){
+  takeDownSite() {
+    console.log('test');
+    if (this.wdTabSvc.canBeTakenDown()) {
       let progressDialogSettings = new ProgressBarDialogSettings();
-      progressDialogSettings.actionInProgress = "Taking Down Website"
-      progressDialogSettings.actionDetails = 
-      "Taking down the website. This process can take several minutes. " 
-      + "If you close this dialog this process will continue in the background. "
-      + "This window will close once the process is complete." 
+      progressDialogSettings.actionInProgress = 'Taking Down Website';
+      progressDialogSettings.actionDetails =
+        'Taking down the website. This process can take several minutes. ' +
+        'If you close this dialog this process will continue in the background. ' +
+        'This window will close once the process is complete.';
 
       this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
         data: progressDialogSettings,
@@ -119,24 +117,22 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
 
     this.wdTabSvc.takeDownSite().subscribe(
       (success) => {
-        this.progressDialogRef.close()
-        this.alertsSvc.alert(
-          'Website Successfully Taken Down'
-        );
+        this.progressDialogRef.close();
+        this.alertsSvc.alert('Website Successfully Taken Down');
         //reload page to update the tab structure and display the newly created html
-        let website_id = this.wdTabSvc.website_data._id
+        let website_id = this.wdTabSvc.website_data._id;
         this.wdTabSvc.getWebsiteDetails(website_id);
         this.wdTabSvc.getWebsiteHistory(website_id);
       },
       (failure) => {
-        this.progressDialogRef.close()
+        this.progressDialogRef.close();
         this.alertsSvc.alert(
           'An error occured while taking down the website. Please try again',
           undefined,
           10000
         );
         this.wdTabSvc.website_data.is_delaunching = false;
-        console.log(failure)
+        console.log(failure);
       }
     );
   }
