@@ -14,8 +14,8 @@ someone has to deal with this
     Select one or more {{ uploadType }}s to upload. Select the files through
     your local file browser by clicked the 'select file below' or drag and drop
     your files on to the drag and drop zone below.
-  </div>  
-  <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData" >
+  </div>
+  <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData">
   </ngfFormData>
   <!-- Drag and Drop Area -->
   <div style="display: flex; flex-direction: column">
@@ -54,33 +54,40 @@ someone has to deal with this
 
         <!-- Open File Browser GRR NOTE THE NGIF the two divs must stay the same-->
         <div style="display: flex; padding: 0 18em">
-          <div  *ngIf="multipleFileUpload"
-           multiple="true" 
-           ngfSelect 
-           [accept]="uploadFileType" 
-           [maxSize]="maxSize" 
-           [(files)]="files"  
-           [(lastInvalids)]="lastInvalids" 
-           (filesChange)="fileAdded()"
-           style="width: 100%; display: inline-block">
+          <div
+            *ngIf="multipleFileUpload"
+            multiple="true"
+            ngfSelect
+            [accept]="uploadFileType"
+            [maxSize]="maxSize"
+            [(files)]="files"
+            [(lastInvalids)]="lastInvalids"
+            (filesChange)="fileAdded()"
+            style="width: 100%; display: inline-block"
+          >
             <button style="width: 100%" mat-raised-button color="primary">
               Select Files
             </button>
           </div>
-          <div *ngIf="!multipleFileUpload"          
-              ngfSelect [accept]="uploadFileType" [maxSize]="maxSize" [(files)]="files"  
-              [(lastInvalids)]="lastInvalids"
-                (filesChange)="fileAdded()"
-           style="width: 100%; display: inline-block">
+          <div
+            *ngIf="!multipleFileUpload"
+            ngfSelect
+            [accept]="uploadFileType"
+            [maxSize]="maxSize"
+            [(files)]="files"
+            [(lastInvalids)]="lastInvalids"
+            (filesChange)="fileAdded()"
+            style="width: 100%; display: inline-block"
+          >
             <button style="width: 100%" mat-raised-button color="primary">
               Select File
-           </button>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <!-- File List -->
   <div style="margin-bottom: 40px; margin-top: 2em">
     <h3>{{ files.length }} Queued Files</h3>
@@ -132,7 +139,9 @@ someone has to deal with this
               <div *ngIf="item.uploadStatus == 'Failed'">
                 <mat-icon>priority_high</mat-icon>
               </div>
-              <div *ngIf="item.uploadStatus == 'Already Exists'">Overwrite?</div>
+              <div *ngIf="item.uploadStatus == 'Already Exists'">
+                Overwrite?
+              </div>
             </td>
           </tr>
         </tbody>
@@ -146,5 +155,5 @@ someone has to deal with this
   </button>
   <button mat-button color="primary" cdkFocusInitial [mat-dialog-close]="true">
     Cancel
-  </button>  
+  </button>
 </mat-dialog-actions>

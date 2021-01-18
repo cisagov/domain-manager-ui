@@ -1,4 +1,4 @@
-import { AbstractUploadService } from "../services/abstract-upload.service";
+import { AbstractUploadService } from '../services/abstract-upload.service';
 
 export class FileUploadSettings {
   uploadType: string; //Display String

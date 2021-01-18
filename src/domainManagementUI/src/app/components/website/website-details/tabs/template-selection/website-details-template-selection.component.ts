@@ -141,7 +141,7 @@ export class WebsiteDetailsTemplateSelectionComponent
     fileUploadSettings.multipleFileUpload = false;
     fileUploadSettings.uploadService = this.wdTabSvc.websiteSvc;
     fileUploadSettings.ID = this.Website_Id;
-    fileUploadSettings.WebsiteDomain= this.wdTabSvc.website_data.name;
+    fileUploadSettings.WebsiteDomain = this.wdTabSvc.website_data.name;
     let dialogRef = this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });

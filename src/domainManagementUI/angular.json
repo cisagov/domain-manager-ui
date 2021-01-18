@@ -3,7 +3,7 @@
   "defaultProject": "domainManagementUI",
   "newProjectRoot": "projects",
   "projects": {
-    "domainManagementUI": {      
+    "domainManagementUI": {
       "sourceRoot": "src",
       "architect": {
         "build": {

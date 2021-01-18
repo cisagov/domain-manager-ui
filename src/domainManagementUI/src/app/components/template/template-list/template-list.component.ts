@@ -81,16 +81,12 @@ export class TemplateListComponent implements OnInit {
     this.router.navigate([`/template/details/${_id}`]);
   }
 
-
-
   uploadTemplate() {
-
     console.log('opening upload template dialog');
 
-    
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'template';
-    fileUploadSettings.uploadFileType = 'application/x-zip-compressed';    
+    fileUploadSettings.uploadFileType = 'application/x-zip-compressed';
     fileUploadSettings.uploadService = this.templateSvc;
     fileUploadSettings.multipleFileUpload = true;
     this.dialog.open(FileUploadDialogComponent, {
@@ -102,6 +98,3 @@ export class TemplateListComponent implements OnInit {
     this.templateList.filter = value.trim().toLocaleLowerCase();
   };
 }
-
-
-

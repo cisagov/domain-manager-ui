@@ -20,8 +20,7 @@ const headers = {
 @Injectable({
   providedIn: 'root',
 })
-export class TemplateService extends AbstractUploadService {  
-  
+export class TemplateService extends AbstractUploadService {
   template_list = new Array<TemplateModel>();
 
   constructor(
@@ -35,7 +34,7 @@ export class TemplateService extends AbstractUploadService {
     //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
     if (!environment.localData) {
-      return this.http.get(url,headers);
+      return this.http.get(url, headers);
     }
 
     //Test Data TODO: REMOVE IN PROD
@@ -133,9 +132,11 @@ export class TemplateService extends AbstractUploadService {
     });
   }
 
-  uploadTemplate(formData:FormData, overwrite:boolean) {
-    //Double check settings, as this function is passed directly to upload modal    
-    let url = `${this.settingsService.settings.apiUrl}/api/templates?overwrite=`+overwrite;    
+  uploadTemplate(formData: FormData, overwrite: boolean) {
+    //Double check settings, as this function is passed directly to upload modal
+    let url =
+      `${this.settingsService.settings.apiUrl}/api/templates?overwrite=` +
+      overwrite;
     if (environment?.testingNoAPI) {
       return new Observable((exampleObs) => {
         setTimeout(() => {
@@ -144,11 +145,11 @@ export class TemplateService extends AbstractUploadService {
       });
     }
 
-    if (!environment?.testingNoAPI) {      
-      const config = new HttpRequest('POST',url,formData,{
-        reportProgress: true
+    if (!environment?.testingNoAPI) {
+      const config = new HttpRequest('POST', url, formData, {
+        reportProgress: true,
       });
-      return this.http.request( config );      
+      return this.http.request(config);
     }
   }
   downloadTemplate(uuid) {
@@ -201,7 +202,7 @@ export class TemplateService extends AbstractUploadService {
   }
 
   tmpvar: any;
-  
+
   preloadValidationData() {
     this.getAllTemplates().subscribe(
       (success) => {
@@ -212,32 +213,34 @@ export class TemplateService extends AbstractUploadService {
       },
       (error) => {
         console.log('Error getting website list');
-        console.log(error);        
+        console.log(error);
       }
     );
   }
 
-  public uploadFile(file:any, overwrite:boolean): any {
-    return this.uploadTemplate(file,overwrite);    
+  public uploadFile(file: any, overwrite: boolean): any {
+    return this.uploadTemplate(file, overwrite);
   }
-  validateBeforeUpload(files){        
-     //go through the files check to see if any are in the 
-    //name list already.   If they are then return an error and 
+  validateBeforeUpload(files) {
+    //go through the files check to see if any are in the
+    //name list already.   If they are then return an error and
     //prompt to overwrite
     /*
     get the list of templates in the preloadValidationData()
-     */  
+     */
     let duplicateFilesList = [];
-    for(let file of files){
-      console.log(file);      
-      for(let template of this.template_list){ 
+    for (let file of files) {
+      console.log(file);
+      for (let template of this.template_list) {
         console.log(template);
-        if(template.name == file.name.substring(0, file.name.length-4)){
-            duplicateFilesList.push({name:file['name'],status:"Already Exists"});          
+        if (template.name == file.name.substring(0, file.name.length - 4)) {
+          duplicateFilesList.push({
+            name: file['name'],
+            status: 'Already Exists',
+          });
         }
       }
     }
     return duplicateFilesList;
   }
-
 }
