@@ -2,14 +2,11 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Observable } from 'rxjs';
-
-//Models
 import {
   TemplateModel,
   TemplateAttribute,
 } from 'src/app/models/template.model';
 import { environment } from 'src/environments/environment';
-import { env } from 'process';
 import { AbstractUploadService } from './abstract-upload.service';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -61,9 +58,9 @@ export class TemplateService extends AbstractUploadService {
     });
   }
 
-  getTemplateDetails(website__id) {
+  getTemplateDetails(websiteId) {
     //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/${website__id}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/templates/${websiteId}`;
 
     // return this.http.get(url,headers)
 
@@ -73,11 +70,11 @@ export class TemplateService extends AbstractUploadService {
       if (this.template_list.length === 0) {
         this.getAllTemplates();
       }
-      let retVal = this.template_list.find((t) => t._id === website__id);
+      let retVal = this.template_list.find((t) => t._id === websiteId);
       if (retVal) {
         exampleObs.next(retVal);
       } else {
-        exampleObs.error('Failed to find template with uuid: ' + website__id);
+        exampleObs.error('Failed to find template with uuid: ' + websiteId);
       }
     });
   }
@@ -134,44 +131,23 @@ export class TemplateService extends AbstractUploadService {
 
   uploadTemplate(formData: FormData, overwrite: boolean) {
     //Double check settings, as this function is passed directly to upload modal
-    let url =
-      `${this.settingsService.settings.apiUrl}/api/templates?overwrite=` +
-      overwrite;
-    if (environment?.testingNoAPI) {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('Template Uploaded');
-        }, Math.floor(Math.random() * 2000));
-      });
-    }
-
-    if (!environment?.testingNoAPI) {
-      const config = new HttpRequest('POST', url, formData, {
-        reportProgress: true,
-      });
-      return this.http.request(config);
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/templates?overwrite=${overwrite}`;
+    const config = new HttpRequest('POST', url, formData, {
+      reportProgress: true,
+    });
+    return this.http.request(config);
   }
+
   downloadTemplate(uuid) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
       'application/*zip*'
     );
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    if (!environment.testingNoAPI) {
-      return this.http.get(url, {
-        headers: downloadHeaders,
-        responseType: 'blob',
-      });
-    } else {
-      if (environment.localData) {
-        return new Observable((exampleObs) => {
-          setTimeout(() => {
-            exampleObs.next('template downloaded');
-          }, Math.floor(Math.random() * 1000));
-        });
-      }
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    return this.http.get(url, {
+      headers: downloadHeaders,
+      responseType: 'blob',
+    });
   }
 
   deleteTemplate(templateUUID) {

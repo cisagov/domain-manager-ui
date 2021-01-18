@@ -5,25 +5,12 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { ngfModule, ngf } from 'angular-file';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpRequest,
-  HttpResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { BrowserModule } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 // Models
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
-import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
-  selector: 'file-upload-dialog',
+  selector: 'app-file-upload-dialog',
   templateUrl: 'file-upload-dialog.component.html',
   styleUrls: ['./file-upload-dialog.component.scss'],
 })
@@ -34,13 +21,13 @@ export class FileUploadDialogComponent implements OnInit {
   uploadProcessed = false;
   filesCurrentlyUploading = 0;
 
-  //ngf specific variables
+  // ngf specific variables
   files: File[] = [];
-  postName: String[] = [];
+  postName: string[] = [];
   progress: number;
-  hasBaseDropZoneOver: boolean = false;
+  hasBaseDropZoneOver = false;
   lastFileAt: Date;
-  sendableFormData: FormData; //populated via ngfFormData directive
+  sendableFormData: FormData; // populated via ngfFormData directive
   dragFiles: any;
   validComboDrag: any;
   lastInvalids: any;
@@ -56,11 +43,9 @@ export class FileUploadDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: FileUploadSettings,
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<FileUploadDialogComponent>,
-    public HttpClient: HttpClient
+    private dialogRef: MatDialogRef<FileUploadDialogComponent>
   ) {
     dialogRef.disableClose = true;
-    console.log(data);
     this.uploadFileType = this.getNativeMimeType(data.uploadFileType);
     this.multipleFileUpload = data.multipleFileUpload;
   }
@@ -97,33 +82,28 @@ export class FileUploadDialogComponent implements OnInit {
   }
 
   fileAdded() {
-    console.log('files added called');
-
-    let invalidfiles = this.data.uploadService.validateBeforeUpload(this.files);
+    const invalidfiles = this.data.uploadService.validateBeforeUpload(
+      this.files
+    );
     if (invalidfiles.length > 0) {
       this.overwrite = true;
-      for (let file of invalidfiles) {
-        this.setFileStatus(file['name'], file['status']);
+      for (const file of invalidfiles) {
+        this.setFileStatus(file.name, file.status);
       }
     }
-    this.lastFileAt = this.getDate();
+    this.lastFileAt = new Date();
   }
 
   setFileStatus(filename: string, status: string) {
     this.files.forEach((file) => {
-      if (file.name == filename) {
+      if (file.name === filename) {
         file['uploadStatus'] = status;
       }
     });
   }
 
-  getDate() {
-    console.log('get date for file called');
-    return new Date();
-  }
-
   getNativeMimeType(mimeType: string) {
-    let re = new RegExp('application/.*zip.*');
+    const re = new RegExp('application/.*zip.*');
     if (re.test(mimeType)) {
       switch (this.getOS()) {
         case 'Android':

@@ -70,18 +70,6 @@
         }}</mat-cell>
       </ng-container>
 
-      <!-- Created By -->
-      <!-- <ng-container matColumnDef="created_by">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Created By</mat-header-cell
-        >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="displayTemplate(row.s3_url)"
-          >{{ row.uploaded_by }}</mat-cell
-        >
-      </ng-container> -->
-
       <!-- Created Date -->
       <ng-container matColumnDef="created_date">
         <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -163,22 +151,8 @@
         </mat-form-field>
       </div>
     </div>
-    <!-- <div class="flex-row flex-end mt-4">
-      <button mat-raised-button color="primary" class="flex" (click)="create()">
-        Create
-      </button>
-    </div> -->
 
     <div class="flex-row flex-end mt-4">
-      <!-- <button
-        mat-raised-button
-        color="primary"
-        class="flex"
-        (click)="nextTab()"
-        [disabled]="!this.wdTabSvc.template_selection_form.valid"
-      >
-        Next
-      </button> -->
       <button
         mat-raised-button
         color="primary"
