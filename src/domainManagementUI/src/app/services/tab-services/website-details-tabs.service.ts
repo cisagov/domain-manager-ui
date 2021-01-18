@@ -1,29 +1,19 @@
 import { BehaviorSubject } from 'rxjs';
-import {
-  EmailValidator,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Injectable, OnInit } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 
-//Local Servie Imports
+// Local Servie Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { WebsiteService } from 'src/app/services/website.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
-//Models
+// Models
 import { ApplicationModel } from 'src/app/models/application.model';
-import { environment } from 'src/environments/environment';
 import { TemplateAttribute } from 'src/app/models/template.model';
-import {
-  WebsiteModel,
-  WebsiteHistoryModel,
-  HostedZoneModel,
-} from 'src/app/models/website.model';
+import { WebsiteModel, HostedZoneModel } from 'src/app/models/website.model';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +37,6 @@ export class WebsiteDetailsTabService {
   public website_data_behavior_subject: BehaviorSubject<WebsiteModel> = new BehaviorSubject<WebsiteModel>(
     new WebsiteModel()
   );
-  public website_history: WebsiteHistoryModel[] = new Array<WebsiteHistoryModel>();
   public userIsAdmin: boolean = false;
 
   constructor(

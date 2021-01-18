@@ -98,7 +98,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     TemplateDetailsDemoComponent,
     TemplateDetailsHistoricalComponent,
     TemplateListComponent,
-    WebsiteCreationComponent,
     WebsiteDetailsComponent,
     WebsiteDetailsAttrbutesComponent,
     WebsiteDetailsDemoComponent,
