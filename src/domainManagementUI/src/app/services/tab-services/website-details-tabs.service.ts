@@ -197,15 +197,15 @@ export class WebsiteDetailsTabService {
   downloadWebsite(uuid) {
     return this.websiteSvc.downloadWebsite(uuid);
   }
-  deleteWebsite(uuid) {
-    return this.websiteSvc.deleteWebsite(uuid);
+  deleteWebsite(websiteId: string) {
+    return this.websiteSvc.deleteWebsite(websiteId);
   }
 
-  hasTemplateAttached(){
-    if(this.website_data.s3_url){
-      return true
+  hasTemplateAttached() {
+    if (this.website_data.s3_url) {
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
@@ -221,87 +221,95 @@ export class WebsiteDetailsTabService {
     }
   }
 
-  canBeTakenDown(){
-    if(this.isSiteLaunched()){
-      return true
-    }
-  }
-
-  canBeLaunched(){
-    if(this.isSiteLaunched()){
-      return false;
-    }
-    //If website is associated with the site, it can be launched
-    if(this.hasTemplateAttached()){
+  canBeTakenDown() {
+    if (this.isSiteLaunched()) {
       return true;
     }
   }
 
-  takeDownSite(){
-    if(this.canBeTakenDown()){
+  canBeLaunched() {
+    if (this.isSiteLaunched()) {
+      return false;
+    }
+    //If website is associated with the site, it can be launched
+    if (this.hasTemplateAttached()) {
+      return true;
+    }
+  }
+
+  takeDownSite() {
+    if (this.canBeTakenDown()) {
       this.websiteSvc.takeDownWebsite(this.website_data._id).subscribe(
-        (success) => {console.log(success)},
-        (failure) => {console.log(failure)},
-      )
+        (success) => {
+          console.log(success);
+        },
+        (failure) => {
+          console.log(failure);
+        }
+      );
     } else {
-      console.log("cant be launched")    
+      console.log('cant be launched');
     }
   }
 
-  launchSite(){
-    if(this.canBeLaunched()){
+  launchSite() {
+    if (this.canBeLaunched()) {
       this.websiteSvc.launchWebsite(this.website_data._id).subscribe(
-        (success) => {console.log(success)},
-        (failure) => {console.log(failure)},
-      )
+        (success) => {
+          console.log(success);
+        },
+        (failure) => {
+          console.log(failure);
+        }
+      );
     } else {
-      if(!this.hasTemplateAttached()){
-        this.alertsSvc.alert("Please attach a template prior to launching the site")
+      if (!this.hasTemplateAttached()) {
+        this.alertsSvc.alert(
+          'Please attach a template prior to launching the site'
+        );
       }
     }
   }
 
-  removeTemplate(){
-    if(this.hasTemplateAttached()){
+  removeTemplate() {
+    if (this.hasTemplateAttached()) {
       this.websiteSvc.removeTemplate(this.website_data._id).subscribe(
-        (success) => {console.log(success)},
-        (failure) => {console.log(failure)},
-      )
+        (success) => {
+          console.log(success);
+        },
+        (failure) => {
+          console.log(failure);
+        }
+      );
     } else {
-      console.log(this.website_data.s3_url)
-    }    
+      console.log(this.website_data.s3_url);
+    }
   }
 
-  generateFromTemplate(){
-
+  generateFromTemplate() {
     let website_id = this.website_data._id;
-    let template_name = this.template_selection_form.controls.name.value
-    
+    let template_name = this.template_selection_form.controls.name.value;
 
+    console.log(website_id);
+    console.log(template_name);
+    console.log(this.attribueList);
+    console.log(this.attributes_form.controls);
+    let attributeDictionary = {};
+    let key = null;
+    this.attribueList.forEach((attribute) => {
+      attributeDictionary[attribute.key] = this.attributes_form.controls[
+        attribute.key
+      ].value;
+    });
+    console.log(attributeDictionary);
 
-
-    console.log(website_id)
-    console.log(template_name)
-    console.log(this.attribueList)
-    console.log(this.attributes_form.controls)
-    let attributeDictionary = {}
-    let key = null
-    this.attribueList.forEach(
-      (attribute) => {
-        attributeDictionary[attribute.key] = this.attributes_form.controls[attribute.key].value;
-      }
-    )
-    console.log(attributeDictionary)
-
-
-    this.websiteSvc.generateFromTemplate(website_id, template_name, attributeDictionary).subscribe(
-      (success) => {},
-      (failure) => {},
-    )
-
-    
+    this.websiteSvc
+      .generateFromTemplate(website_id, template_name, attributeDictionary)
+      .subscribe(
+        (success) => {},
+        (failure) => {}
+      );
   }
-
 
   setTemplateStatus(input = null) {
     if (this.website_data.s3_url && input == null) {

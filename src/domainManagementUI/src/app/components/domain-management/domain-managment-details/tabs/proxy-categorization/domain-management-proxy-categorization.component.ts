@@ -43,9 +43,7 @@ export class DomainManagementProxyCategorizaitonTab implements OnInit {
     if (target_category != 'cat_three') {
       filterArray.push(this.f.category_three.value);
     }
-    let retVal = this.categories.filter(
-      (t) => !filterArray.includes(t._id)
-    );
+    let retVal = this.categories.filter((t) => !filterArray.includes(t._id));
     return retVal;
   }
 

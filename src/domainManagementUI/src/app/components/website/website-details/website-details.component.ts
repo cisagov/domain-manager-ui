@@ -9,7 +9,6 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { WebsiteService } from 'src/app/services/website.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
-
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 
@@ -22,7 +21,6 @@ import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confir
   styleUrls: ['./website-details.component.scss'],
 })
 export class WebsiteDetailsComponent implements OnInit, OnDestroy {
-  
   component_subscriptions = [];
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
   selectedTabIndex: number = 0;
@@ -67,7 +65,7 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
   }
 
   deleteWebsite() {
-    console.log("trying to delte")
+    console.log('trying to delte');
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm website delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}, this action is permanent`;
@@ -88,5 +86,4 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 }

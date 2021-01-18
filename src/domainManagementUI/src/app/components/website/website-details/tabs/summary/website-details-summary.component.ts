@@ -69,7 +69,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   }
 
   deleteWebsite() {
-    console.log("trying to delte")
+    console.log('trying to delte');
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm template delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}`;
@@ -86,7 +86,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
           (failed) => {}
         );
       } else {
-        console.log('delete cancled');
+        console.log('delete canceled');
       }
     });
   }

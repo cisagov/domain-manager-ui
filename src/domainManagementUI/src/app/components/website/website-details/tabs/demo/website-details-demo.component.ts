@@ -24,7 +24,6 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
   safeURL: SafeResourceUrl = null;
   template_data: WebsiteModel = new WebsiteModel();
 
-
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
 
   constructor(
@@ -66,7 +65,6 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
     confirmDialogSettings.itemConfirming = 'Select New Website Content Data?';
     confirmDialogSettings.actionConfirming = `Are you sure you want to select new website conten? This will remove the current content permanently`;
 
-
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: confirmDialogSettings,
     });
@@ -78,7 +76,6 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
         console.log('delete cancled');
       }
     });
-
   }
   test() {}
 }
