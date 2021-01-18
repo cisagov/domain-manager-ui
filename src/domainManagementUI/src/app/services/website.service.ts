@@ -97,7 +97,7 @@ export class WebsiteService extends AbstractUploadService {
       'content-type',
       'application/zip'
     );
-    const url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/`;
     return this.http.get(url, {
       headers: downloadHeaders,
       responseType: 'blob',
