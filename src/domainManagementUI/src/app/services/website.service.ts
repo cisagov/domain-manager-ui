@@ -58,6 +58,7 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   uploadWebsite(formData, websiteId, category) {
+    console.log(formData)
     let url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/?category=${category}`;
 
     if (!environment.localData) {

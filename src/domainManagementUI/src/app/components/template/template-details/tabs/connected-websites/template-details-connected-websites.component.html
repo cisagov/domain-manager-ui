@@ -13,8 +13,11 @@
       </tr>
       <tr *ngFor="let website of this.tdTabSvc.websites_used_list">
         <td>{{ website.name }}</td>
-        <td>
+        <!-- <td>
           {{ applicationSvc.getApplicationNameByUUID(website.application_id) }}
+        </td> -->
+        <td>
+          Application
         </td>
         <td>
           <button

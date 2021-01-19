@@ -57,7 +57,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   test() {}
 
   downloadWebsite() {
-    this.wdTabSvc.downloadWebsite(this.wdTabSvc.website_data._id).subscribe(
+    this.wdTabSvc.downloadWebsite().subscribe(
       (success) => {
         console.log(success);
       },

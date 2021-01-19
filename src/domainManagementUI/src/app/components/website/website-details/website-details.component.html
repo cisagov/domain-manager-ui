@@ -22,7 +22,7 @@
     >
       <mat-icon>keyboard_arrow_down</mat-icon>Take Down Site
     </button>
-    <button mat-menu-item *ngIf="wdTabSvc.hasTemplateAttached()" (click)="wdTabSvc.downloadWebsite()">
+    <button mat-menu-item *ngIf="wdTabSvc.hasTemplateAttached()" (click)="downloadWebsite()">
       <mat-icon>download</mat-icon>Download ZIP
     </button>
     <button mat-menu-item (click)="deleteWebsite()">

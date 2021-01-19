@@ -37,6 +37,7 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
         console.log(params);
         this._id = params['_id'];
         if (this._id !== null) {
+          console.log(this._id)
           this.tdTabSvc.getTemplateDetails(this._id);
         }
       })

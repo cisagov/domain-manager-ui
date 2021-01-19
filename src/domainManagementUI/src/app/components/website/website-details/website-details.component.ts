@@ -65,7 +65,6 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
   }
 
   launchSite() {
-    console.log('test');
     if (this.wdTabSvc.canBeLaunched()) {
       let progressDialogSettings = new ProgressBarDialogSettings();
       progressDialogSettings.actionInProgress = 'Launching Website';
@@ -100,7 +99,6 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     );
   }
   takeDownSite() {
-    console.log('test');
     if (this.wdTabSvc.canBeTakenDown()) {
       let progressDialogSettings = new ProgressBarDialogSettings();
       progressDialogSettings.actionInProgress = 'Taking Down Website';
@@ -160,5 +158,41 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
         console.log('delete cancled');
       }
     });
+  }
+
+  downloadWebsite(){
+    let progressDialogSettings = new ProgressBarDialogSettings();
+    progressDialogSettings.actionInProgress = 'Downloading Website';
+    progressDialogSettings.actionDetails =
+      'Preparing website for download. This process can take several minutes. ' +
+      'If you close this dialog this process will continue in the background. ' +
+      'This window will close once the process is complete.';
+
+    this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
+      data: progressDialogSettings,
+    });
+
+    this.wdTabSvc.downloadWebsite().subscribe(
+      (success) => {
+        console.log(success)
+        this.downloadObject(this.wdTabSvc.website_data.name + ".zip",success)
+        this.progressDialogRef.close()
+      },
+      (failure) => {
+        console.log("fail")
+        this.progressDialogRef.close()
+        this.alertsSvc.alert("Error downloading website zip")
+      }
+    )
+  }
+
+
+  downloadObject(filename, blob) {
+    const a = document.createElement('a');
+    const objectUrl = URL.createObjectURL(blob);
+    a.href = objectUrl;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
 }
