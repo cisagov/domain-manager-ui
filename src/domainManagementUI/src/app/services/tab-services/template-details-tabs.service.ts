@@ -47,15 +47,15 @@ export class TemplateDetailsTabService {
 
   getTemplateDetails(_id) {
     console.log(_id);
-    this.templateSvc.getTemplateDetails(_id).subscribe(
-      (success) => {
-        console.log(success);
-        //TODO: Remove timeoutsection that is being used for testing pre -API
-        setTimeout(() => {
-          this.template_data = success as TemplateModel;
-          this.template_data_behavior_subject.next(this.template_data);
-          this.initalizeData();
-        }, 100);
+
+    //TODO change over to single template details call when api is available
+    this.templateSvc.getAllTemplates().subscribe(
+      (success: Array<TemplateModel>) => {
+        console.log(success.filter((t) => t._id == _id)[0]);
+        let single_template = success.filter((t) => t._id == _id)[0];
+        this.template_data = single_template as TemplateModel;
+        this.template_data_behavior_subject.next(this.template_data);
+        this.initalizeData();
       },
       (error) => {
         console.log(`Error from service ${error}`);
@@ -80,7 +80,7 @@ export class TemplateDetailsTabService {
       (success) => {
         let data = success as Array<WebsiteModel>;
         this.websites_used_list = data.filter(
-          (ws) => ws.template_base_uuid === this.template_data._id
+          (ws) => ws.category === this.template_data.name
         );
         console.log(this.websites_used_list);
       },

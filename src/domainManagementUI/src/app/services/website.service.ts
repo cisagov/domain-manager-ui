@@ -53,11 +53,12 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   deleteWebsite(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/`;
     return this.http.delete(url, headers);
   }
 
   uploadWebsite(formData, websiteId, category) {
+    console.log(formData);
     let url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/?category=${category}`;
 
     if (!environment.localData) {
@@ -97,7 +98,7 @@ export class WebsiteService extends AbstractUploadService {
       'content-type',
       'application/zip'
     );
-    const url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/`;
     return this.http.get(url, {
       headers: downloadHeaders,
       responseType: 'blob',

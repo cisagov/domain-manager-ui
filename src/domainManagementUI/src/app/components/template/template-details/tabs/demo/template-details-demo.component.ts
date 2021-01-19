@@ -5,16 +5,17 @@ import { Router } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
-import { TemplateService } from 'src/app/services/template.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
+import { ProgressBarDialogSettings } from 'src/app/models/progressBarDialogSettings.model';
 import { TemplateModel } from 'src/app/models/template.model';
 
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
-import { fileURLToPath } from 'url';
+import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
 
 @Component({
   selector: 'td-demo',
@@ -27,8 +28,10 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   template_data: TemplateModel = new TemplateModel();
 
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
+  progressDialogRef: MatDialogRef<ProgressBarDialog> = null;
 
   constructor(
+    public alertsSvc: AlertsService,
     public dialog: MatDialog,
     public domSanitizer: DomSanitizer,
     private router: Router,
@@ -55,7 +58,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   setURL(template: TemplateModel) {
     console.log(template);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      template.s3_url
+      template.s3_url + 'home.html'
     );
     console.log(this.safeURL);
   }
@@ -65,15 +68,38 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   download() {
+    let progressDialogSettings = new ProgressBarDialogSettings();
+    progressDialogSettings.actionInProgress = 'Downloading Template';
+    progressDialogSettings.actionDetails =
+      'Preparing the template for download. This process can take up to a minute. ' +
+      'If you close this dialog this process will continue in the background. ' +
+      'This window will close once the process is complete.';
+
+    this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
+      data: progressDialogSettings,
+    });
+
     this.tdTabSvc.downloadTemplate(this.tdTabSvc.template_data._id).subscribe(
       (success) => {
+        this.progressDialogRef.close();
+        this.downloadObject(this.tdTabSvc.template_data.name + '.zip', success);
         console.log(success);
       },
       (failure) => {
+        this.progressDialogRef.close();
         console.log('Failed to download');
         console.log(failure);
+        this.alertsSvc.alert('Error downloading website zip');
       }
     );
+  }
+  downloadObject(filename, blob) {
+    const a = document.createElement('a');
+    const objectUrl = URL.createObjectURL(blob);
+    a.href = objectUrl;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
 
   delete(_id) {

@@ -55,25 +55,10 @@ export class TemplateService extends AbstractUploadService {
     });
   }
 
-  getTemplateDetails(websiteId) {
-    //Example url, needs to be changed when API is in place
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/${websiteId}`;
-
-    // return this.http.get(url,headers)
-
-    //Example observable return for testing purposes
-    //TODO: REMOVE
-    return new Observable((exampleObs) => {
-      if (this.template_list.length === 0) {
-        this.getAllTemplates();
-      }
-      let retVal = this.template_list.find((t) => t._id === websiteId);
-      if (retVal) {
-        exampleObs.next(retVal);
-      } else {
-        exampleObs.error('Failed to find template with uuid: ' + websiteId);
-      }
-    });
+  getTemplateDetails(templateId) {
+    console.log('TESST');
+    let url = `${this.settingsService.settings.apiUrl}/api/template/${templateId}`;
+    return this.http.get(url, headers);
   }
 
   getTemplateAttributes() {
@@ -81,21 +66,12 @@ export class TemplateService extends AbstractUploadService {
     return this.http.get(url);
   }
 
-  uploadTemplate(formData: FormData, overwrite: boolean) {
-    //Double check settings, as this function is passed directly to upload modal
-    const url = `${this.settingsService.settings.apiUrl}/api/templates?overwrite=${overwrite}`;
-    const config = new HttpRequest('POST', url, formData, {
-      reportProgress: true,
-    });
-    return this.http.request(config);
-  }
-
   downloadTemplate(uuid) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
       'application/*zip*'
     );
-    const url = `${this.settingsService.settings.apiUrl}/api/templates/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/template/${uuid}`;
     return this.http.get(url, {
       headers: downloadHeaders,
       responseType: 'blob',
@@ -144,6 +120,15 @@ export class TemplateService extends AbstractUploadService {
         console.log(error);
       }
     );
+  }
+
+  uploadTemplate(formData: FormData, overwrite: boolean) {
+    //Double check settings, as this function is passed directly to upload modal
+    const url = `${this.settingsService.settings.apiUrl}/api/templates?overwrite=${overwrite}`;
+    const config = new HttpRequest('POST', url, formData, {
+      reportProgress: true,
+    });
+    return this.http.request(config);
   }
 
   public uploadFile(file: any, overwrite: boolean): any {
