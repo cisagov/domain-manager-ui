@@ -53,7 +53,7 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   deleteWebsite(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/`;
     return this.http.delete(url, headers);
   }
 

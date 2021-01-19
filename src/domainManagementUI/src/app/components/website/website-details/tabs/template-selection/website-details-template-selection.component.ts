@@ -1,6 +1,6 @@
 // Angular Imports
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -37,7 +37,6 @@ export class WebsiteDetailsTemplateSelectionComponent
   templateList: MatTableDataSource<TemplateModel>;
   search_input = '';
   @ViewChild(MatSort) sort: MatSort;
-  @Input() websiteId: string;
   safeURL: SafeResourceUrl = null;
   submitted: boolean = false;
   url: string;
@@ -142,11 +141,16 @@ export class WebsiteDetailsTemplateSelectionComponent
     fileUploadSettings.uploadFileType = 'application/zip';
     fileUploadSettings.multipleFileUpload = false;
     fileUploadSettings.uploadService = this.wdTabSvc.websiteSvc;
-    fileUploadSettings.ID = this.websiteId;
+    fileUploadSettings.ID = this.wdTabSvc.website_data._id;
     fileUploadSettings.WebsiteDomain = this.wdTabSvc.website_data.name;
-    this.dialog.open(FileUploadDialogComponent, {
+    let dialogRef = this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });
+    dialogRef.afterClosed().subscribe(
+      (close) => {
+        this.wdTabSvc.getWebsiteDetails(this.wdTabSvc.website_data._id);
+      }
+    )
   }
 
   generateFromTemplate() {
