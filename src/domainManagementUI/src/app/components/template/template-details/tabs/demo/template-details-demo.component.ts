@@ -82,14 +82,14 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     this.tdTabSvc.downloadTemplate(this.tdTabSvc.template_data._id).subscribe(
       (success) => {
         this.progressDialogRef.close();
-        this.downloadObject(this.tdTabSvc.template_data.name + ".zip",success)
+        this.downloadObject(this.tdTabSvc.template_data.name + '.zip', success);
         console.log(success);
       },
       (failure) => {
         this.progressDialogRef.close();
         console.log('Failed to download');
         console.log(failure);
-        this.alertsSvc.alert("Error downloading website zip")
+        this.alertsSvc.alert('Error downloading website zip');
       }
     );
   }

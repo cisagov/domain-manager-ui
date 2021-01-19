@@ -167,7 +167,7 @@ export class WebsiteDetailsTabService {
   }
 
   downloadWebsite() {
-    console.log("TEST")
+    console.log('TEST');
     return this.websiteSvc.downloadWebsite(this.website_data._id);
   }
   deleteWebsite(websiteId: string) {
