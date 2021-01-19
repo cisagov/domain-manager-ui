@@ -4,6 +4,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { BehaviorSubject } from 'rxjs';
 
 //Local Servie Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
@@ -30,6 +31,7 @@ export class TemplateDetailsTabService {
   public websites_used_list: Array<WebsiteModel> = [];
 
   constructor(
+    public alertsSvc: AlertsService,
     private http: HttpClient,
     private settingsService: SettingsService,
     private templateSvc: TemplateService,
@@ -85,7 +87,7 @@ export class TemplateDetailsTabService {
         console.log(this.websites_used_list);
       },
       (failure) => {
-        console.log('Failed to get websites used');
+        this.alertsSvc.alert('Failure To Get Websites');
         console.log(failure);
       }
     );

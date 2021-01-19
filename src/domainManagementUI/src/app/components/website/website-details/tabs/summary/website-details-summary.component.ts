@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 // Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
@@ -21,12 +22,14 @@ import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confir
   styleUrls: ['./website-details-summary.component.scss'],
 })
 export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
+  
+  application_list = [];
   component_subscriptions = [];
   // website_data : WebsiteModel = new WebsiteModel();
-
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
 
   constructor(
+    public alertsSvc: AlertsService,
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
     private router: Router,
@@ -34,7 +37,17 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     public websiteSvc: WebsiteService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.applicationSvc.getAllApplications().subscribe(
+      (success) => {
+        this.application_list = success as []
+      },
+      (failure) => {
+        this.alertsSvc.alert('Failed to get application list');
+        console.log(failure)
+      },
+    );
+  }
 
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {
@@ -54,7 +67,20 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
       return 'Loading Application List';
     }
   }
-  test() {}
+  
+
+  changeApplication(application_id){
+    this.wdTabSvc.website_data.application_id = application_id;
+    console.log(this.wdTabSvc.website_data)
+    this.wdTabSvc.updateWebsite().subscribe(
+      (success) => {
+        this.alertsSvc.alert('Website Application Updated');
+      },
+        (failure) => {
+        this.alertsSvc.alert('Website Application Update failed');
+      }
+    )
+  }
 
   downloadWebsite() {
     this.wdTabSvc.downloadWebsite().subscribe(
@@ -62,7 +88,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
         console.log(success);
       },
       (failure) => {
-        console.log('download Website Failed');
+        this.alertsSvc.alert('Website Download Failed');
         console.log(failure);
       }
     );
@@ -83,7 +109,9 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
           (success) => {
             this.router.navigate([`/website`]);
           },
-          (failed) => {}
+          (failed) => {
+            this.alertsSvc.alert('Failed to Delete Website')
+          }
         );
       } else {
         console.log('delete canceled');

@@ -153,7 +153,9 @@ export class DomainManagementWebsiteSelectionTab implements OnInit {
       console.log(this.domainTabSvc.domainData);
       console.log(this.websiteList['_data']['_value']);
       this.websiteList['_data']['_value']
-        .filter((t) => t._id == this.domainTabSvc.domainData._id)
+        .filter(
+          (t) => t._id == this.domainTabSvc.domainData._id
+        )
         .forEach((selectedWebsite) => {
           selectedWebsite['selected'] = true;
           this.displayWebsite(selectedWebsite.website_url);

@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 //Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { WebsiteService } from 'src/app/services/website.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
@@ -48,6 +49,7 @@ export class WebsiteListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    public alertsSvc: AlertsService,
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
@@ -169,7 +171,8 @@ export class WebsiteListComponent implements OnInit {
         this.updateAllCheckboxComplete();
       },
       (failure) => {
-        console.log('Failed to update domain status');
+        this.alertsSvc.alert('Failed to set websites as available');
+        console.log(failure);
       }
     );
   }
