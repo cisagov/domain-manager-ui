@@ -54,7 +54,7 @@ export class TemplateDetailsTabService {
     this.templateSvc.getAllTemplates().subscribe(
       (success: Array<TemplateModel>) => {
         console.log(success.filter((t) => t._id == _id)[0]);
-        let single_template = success.filter((t) => t._id == _id)[0]
+        let single_template = success.filter((t) => t._id == _id)[0];
         this.template_data = single_template as TemplateModel;
         this.template_data_behavior_subject.next(this.template_data);
         this.initalizeData();

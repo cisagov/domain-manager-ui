@@ -151,11 +151,9 @@ export class WebsiteDetailsTemplateSelectionComponent
     let dialogRef = this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });
-    dialogRef.afterClosed().subscribe(
-      (close) => {
-        this.wdTabSvc.getWebsiteDetails(this.wdTabSvc.website_data._id);
-      }
-    )
+    dialogRef.afterClosed().subscribe((close) => {
+      this.wdTabSvc.getWebsiteDetails(this.wdTabSvc.website_data._id);
+    });
   }
 
   generateFromTemplate() {

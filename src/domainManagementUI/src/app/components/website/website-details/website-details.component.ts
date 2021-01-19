@@ -163,7 +163,7 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  downloadWebsite(){
+  downloadWebsite() {
     let progressDialogSettings = new ProgressBarDialogSettings();
     progressDialogSettings.actionInProgress = 'Downloading Website';
     progressDialogSettings.actionDetails =
@@ -177,18 +177,17 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
 
     this.wdTabSvc.downloadWebsite().subscribe(
       (success) => {
-        console.log(success)
-        this.downloadObject(this.wdTabSvc.website_data.name + ".zip",success)
-        this.progressDialogRef.close()
+        console.log(success);
+        this.downloadObject(this.wdTabSvc.website_data.name + '.zip', success);
+        this.progressDialogRef.close();
       },
       (failure) => {
         this.progressDialogRef.close()
         console.log(failure)
         this.alertsSvc.alert("Error downloading website zip")
       }
-    )
+    );
   }
-
 
   downloadObject(filename, blob) {
     const a = document.createElement('a');

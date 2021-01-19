@@ -7,7 +7,9 @@
     </div>
 
     <div class="flex-column values">
-      <div class="flex-row">{{ tdTabSvc.template_data.created | date:'MM/dd/yy' }}</div>
+      <div class="flex-row">
+        {{ tdTabSvc.template_data.created | date: "MM/dd/yy" }}
+      </div>
     </div>
   </div>
 </div>
