@@ -64,7 +64,10 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   openInNewTab() {
-    window.open(this.tdTabSvc.template_data.s3_url  + 'preview/home.html', '_blank');
+    window.open(
+      this.tdTabSvc.template_data.s3_url + 'preview/home.html',
+      '_blank'
+    );
   }
 
   download() {
@@ -101,8 +104,8 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     URL.revokeObjectURL(objectUrl);
   }
 
-  delete(_id) {
-    let confirmDialogSettings = new ConfirmDialogSettings();
+  delete() {
+    const confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm website delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.tdTabSvc.template_data.name}`;
 
@@ -119,8 +122,6 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
             this.alertsSvc.alert('Failed to delete template');
           }
         );
-      } else {
-        console.log('delete cancled');
       }
     });
   }

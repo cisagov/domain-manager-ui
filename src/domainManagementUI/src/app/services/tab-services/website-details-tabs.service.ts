@@ -311,7 +311,7 @@ export class WebsiteDetailsTabService {
     return this.categorySvc.submitCategory(
       this.website_data._id,
       this.proxy_categoriztion_tab_form.controls.category_one.value
-    )
+    );
   }
 
   isValid(form: FormGroup) {

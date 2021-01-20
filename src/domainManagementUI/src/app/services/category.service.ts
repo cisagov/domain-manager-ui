@@ -74,8 +74,8 @@ export class CategoryService {
     return 'ERROR';
   }
 
-  submitCategory(website_id, category_name){
+  submitCategory(website_id, category_name) {
     let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/categorize?category=${category_name}`;
-    return this.http.get(url, headers)
+    return this.http.get(url, headers);
   }
 }
