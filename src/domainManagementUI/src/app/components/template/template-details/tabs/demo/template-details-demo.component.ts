@@ -58,7 +58,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   setURL(template: TemplateModel) {
     console.log(template);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      template.s3_url + 'preview/home.html'
+      `http://${template.s3_url}preview/home.html`
     );
     console.log(this.safeURL);
   }
@@ -104,8 +104,8 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     URL.revokeObjectURL(objectUrl);
   }
 
-  delete(_id) {
-    let confirmDialogSettings = new ConfirmDialogSettings();
+  delete() {
+    const confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm website delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.tdTabSvc.template_data.name}`;
 
@@ -122,8 +122,6 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
             this.alertsSvc.alert('Failed to delete template');
           }
         );
-      } else {
-        console.log('delete cancled');
       }
     });
   }

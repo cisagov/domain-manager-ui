@@ -78,34 +78,10 @@ export class TemplateService extends AbstractUploadService {
     });
   }
 
-  deleteTemplate(templateUUID) {
-    //Double check settings, as this function is passed directly to delete modal
-    if (!this.settingsService) {
-      this.settingsService = new SettingsService();
-    }
-
-    let url = `${this.settingsService.settings.apiUrl}/api/templates/`;
-    let httpOptions: any = {
-      body: {
-        uuid: templateUUID,
-      },
-      headers: headers,
-    };
-
-    if (!environment.localData) {
-      return this.http.post(url, httpOptions);
-    }
-
-    if (environment.localData) {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('temlpate deleted');
-        }, Math.floor(Math.random() * 200));
-      });
-    }
+  deleteTemplate(templateId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/template/${templateId}/`;
+    return this.http.delete(url);
   }
-
-  tmpvar: any;
 
   preloadValidationData() {
     this.getAllTemplates().subscribe(

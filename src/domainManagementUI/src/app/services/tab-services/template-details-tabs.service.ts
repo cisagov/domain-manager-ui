@@ -73,8 +73,8 @@ export class TemplateDetailsTabService {
     return this.templateSvc.downloadTemplate(uuid);
   }
 
-  deleteTemplate(templateUUID) {
-    return this.templateSvc.deleteTemplate(templateUUID);
+  deleteTemplate(templateId: string) {
+    return this.templateSvc.deleteTemplate(templateId);
   }
 
   getWebsitesUsed() {
