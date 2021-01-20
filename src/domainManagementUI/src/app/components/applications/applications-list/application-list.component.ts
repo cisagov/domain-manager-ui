@@ -97,7 +97,7 @@ export class ApplicationListComponent
   deleteApplication(application: ApplicationModel) {
     const dialogSettings = new ConfirmDialogSettings();
     dialogSettings.itemConfirming = 'Confirm Application Delete';
-    dialogSettings.actionConfirming = `Are you sure you want to delete ${application.name}?`;
+    dialogSettings.actionConfirming = `Are you sure you want to delete ${application.name}`;
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: dialogSettings,

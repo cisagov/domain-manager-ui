@@ -46,7 +46,7 @@ export class WebsiteDetailsRedirectsComponent implements OnInit {
   deleteRedirect(redirect: RedirectModel): void {
     const dialogSettings = new ConfirmDialogSettings();
     dialogSettings.itemConfirming = 'Confirm Redirect Delete';
-    dialogSettings.actionConfirming = `Are you sure you want to delete the redirect ${redirect.subdomain} to ${redirect.redirect_url}?`;
+    dialogSettings.actionConfirming = `Are you sure you want to delete the redirect ${redirect.subdomain} to ${redirect.redirect_url}`;
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: dialogSettings,
