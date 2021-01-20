@@ -86,13 +86,13 @@ export class WebsiteDetailsTemplateSelectionComponent
             }
           },
           (failure) => {
-            console.log(failure)
+            console.log(failure);
           }
         );
       },
       (failure) => {
         this.alertsSvc.alert('Failed to get template list');
-        console.log(failure)
+        console.log(failure);
       }
     );
   }

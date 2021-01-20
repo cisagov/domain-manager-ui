@@ -17,7 +17,7 @@ export class DomainCreateDialogComponent implements OnInit {
   });
 
   constructor(
-    public alertsSvc: AlertsService,   
+    public alertsSvc: AlertsService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<DomainCreateDialogComponent>,
     private websiteSvc: WebsiteService

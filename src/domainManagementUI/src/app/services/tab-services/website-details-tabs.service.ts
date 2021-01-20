@@ -96,7 +96,7 @@ export class WebsiteDetailsTabService {
           },
           (failure) => {
             this.alertsSvc.alert('Failed to get application');
-            console.log(failure)
+            console.log(failure);
           }
         );
     }
@@ -121,8 +121,8 @@ export class WebsiteDetailsTabService {
     return this.templateSvc.getAllTemplates();
   }
 
-  updateWebsite(){
-    return this.websiteSvc.updateWebsite(this.website_data)
+  updateWebsite() {
+    return this.websiteSvc.updateWebsite(this.website_data);
   }
 
   _rebuildForms() {

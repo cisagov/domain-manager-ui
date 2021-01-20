@@ -154,7 +154,7 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
           },
           (failed) => {
             this.alertsSvc.alert('Failed to delete website');
-            console.log(failed)
+            console.log(failed);
           }
         );
       } else {
@@ -182,9 +182,9 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
         this.progressDialogRef.close();
       },
       (failure) => {
-        this.progressDialogRef.close()
-        console.log(failure)
-        this.alertsSvc.alert("Error downloading website zip")
+        this.progressDialogRef.close();
+        console.log(failure);
+        this.alertsSvc.alert('Error downloading website zip');
       }
     );
   }

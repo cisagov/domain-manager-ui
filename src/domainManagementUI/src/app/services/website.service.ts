@@ -42,7 +42,7 @@ export class WebsiteService extends AbstractUploadService {
     return this.http.get(url, headers);
   }
 
-  updateWebsite(website: WebsiteModel){
+  updateWebsite(website: WebsiteModel) {
     const url = `${this.settingsService.settings.apiUrl}/api/website/${website._id}`;
     return this.http.put(url, website);
   }

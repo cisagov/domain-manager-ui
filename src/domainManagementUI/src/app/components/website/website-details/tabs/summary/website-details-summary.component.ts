@@ -22,7 +22,6 @@ import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confir
   styleUrls: ['./website-details-summary.component.scss'],
 })
 export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
-  
   application_list = [];
   component_subscriptions = [];
   // website_data : WebsiteModel = new WebsiteModel();
@@ -40,12 +39,12 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.applicationSvc.getAllApplications().subscribe(
       (success) => {
-        this.application_list = success as []
+        this.application_list = success as [];
       },
       (failure) => {
         this.alertsSvc.alert('Failed to get application list');
-        console.log(failure)
-      },
+        console.log(failure);
+      }
     );
   }
 
@@ -67,19 +66,18 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
       return 'Loading Application List';
     }
   }
-  
 
-  changeApplication(application_id){
+  changeApplication(application_id) {
     this.wdTabSvc.website_data.application_id = application_id;
-    console.log(this.wdTabSvc.website_data)
+    console.log(this.wdTabSvc.website_data);
     this.wdTabSvc.updateWebsite().subscribe(
       (success) => {
         this.alertsSvc.alert('Website Application Updated');
       },
-        (failure) => {
+      (failure) => {
         this.alertsSvc.alert('Website Application Update failed');
       }
-    )
+    );
   }
 
   downloadWebsite() {
@@ -110,7 +108,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
             this.router.navigate([`/website`]);
           },
           (failed) => {
-            this.alertsSvc.alert('Failed to Delete Website')
+            this.alertsSvc.alert('Failed to Delete Website');
           }
         );
       } else {
