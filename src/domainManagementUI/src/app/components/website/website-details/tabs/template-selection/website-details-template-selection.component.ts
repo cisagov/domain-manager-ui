@@ -85,10 +85,15 @@ export class WebsiteDetailsTemplateSelectionComponent
               }
             }
           },
-          (failed) => {}
+          (failure) => {
+            console.log(failure);
+          }
         );
       },
-      (failure) => {}
+      (failure) => {
+        this.alertsSvc.alert('Failed to get template list');
+        console.log(failure);
+      }
     );
   }
 

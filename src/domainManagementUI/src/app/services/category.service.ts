@@ -4,6 +4,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { Observable } from 'rxjs';
 
 //Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { environment } from 'src/environments/environment';
 
 const headers = {
@@ -42,6 +43,7 @@ export class CategoryService {
   ];
 
   constructor(
+    public alertsSvc: AlertsService,
     private http: HttpClient,
     private settingsService: SettingsService
   ) {
@@ -59,7 +61,8 @@ export class CategoryService {
           console.log(this.category_list);
         },
         (failure) => {
-          console.log('failed to get the category list');
+          this.alertsSvc.alert('Failed to get category list');
+          console.log(failure);
         }
       );
     }

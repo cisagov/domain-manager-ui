@@ -49,12 +49,12 @@
         <div class="flex sl_flex_title">Applications Using</div>
         <div class="flex sl_flex_content">
           <mat-form-field style="width: 20em" appearance="outline">
-            <mat-select formControlName="application_id">
+            <mat-select
+              (selectionChange)="changeApplication($event.value)"
+              formControlName="application_id"
+            >
               <mat-option [value]="null">--Select--</mat-option>
-              <mat-option
-                *ngFor="let a of applicationSvc.application_list"
-                [value]="a._id"
-              >
+              <mat-option *ngFor="let a of application_list" [value]="a._id">
                 {{ a.name }}
               </mat-option>
             </mat-select>

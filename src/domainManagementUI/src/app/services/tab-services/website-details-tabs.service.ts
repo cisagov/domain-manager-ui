@@ -94,7 +94,10 @@ export class WebsiteDetailsTabService {
           (success) => {
             this.website_data.application_using = success as ApplicationModel;
           },
-          (failure) => {}
+          (failure) => {
+            this.alertsSvc.alert('Failed to get application');
+            console.log(failure);
+          }
         );
     }
     //set template status
@@ -107,13 +110,19 @@ export class WebsiteDetailsTabService {
           this.website_data.hosted_zones = success as HostedZoneModel[];
         },
         (failure) => {
-          console.log('failed to get hosted zones');
+          this.alertsSvc.alert('Failed to get hosted zones');
+          console.log(failure);
         }
       );
     }
   }
+
   getAllTemplates() {
     return this.templateSvc.getAllTemplates();
+  }
+
+  updateWebsite() {
+    return this.websiteSvc.updateWebsite(this.website_data);
   }
 
   _rebuildForms() {
@@ -264,6 +273,7 @@ export class WebsiteDetailsTabService {
           console.log(success);
         },
         (failure) => {
+          this.alertsSvc.alert('Failed to remove template');
           console.log(failure);
         }
       );

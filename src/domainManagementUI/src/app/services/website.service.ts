@@ -42,6 +42,11 @@ export class WebsiteService extends AbstractUploadService {
     return this.http.get(url, headers);
   }
 
+  updateWebsite(website: WebsiteModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${website._id}`;
+    return this.http.put(url, website);
+  }
+
   getWebsiteNameByUUID(uuid) {
     if (this.website_list.length) {
       return this.website_list.find((w) => w._id === uuid)?.name;

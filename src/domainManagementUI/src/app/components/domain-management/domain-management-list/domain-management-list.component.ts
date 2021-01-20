@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 //Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { DomainManagementService } from 'src/app/services/domain-management.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
@@ -46,6 +47,7 @@ export class DomainManagementListComponent
   userIsAdmin: boolean = false;
 
   constructor(
+    public alertsSvc: AlertsService,
     public domainSvc: DomainManagementService,
     public layoutSvc: LayoutService,
     private router: Router,
@@ -160,7 +162,7 @@ export class DomainManagementListComponent
         this.updateAllCheckboxComplete();
       },
       (failure) => {
-        console.log('Failed to update domain status');
+        this.alertsSvc.alert('Failed to update domain status');
       }
     );
   }

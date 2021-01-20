@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { DomainManagementService } from 'src/app/services/domain-management.service';
 
@@ -20,6 +21,7 @@ export class DomainManagementCreateComponent implements OnInit {
   domain_form_group: FormGroup;
 
   constructor(
+    public alertsSvc: AlertsService,
     public applicationSvc: ApplicationService,
     private domainSvc: DomainManagementService,
     private router: Router
@@ -39,7 +41,7 @@ export class DomainManagementCreateComponent implements OnInit {
           this.router.navigate([`/domain-management`]);
         },
         (failure) => {
-          console.log('failed to create domain');
+          this.alertsSvc.alert('Failed To Create Domain');
           console.log(failure);
         }
       );

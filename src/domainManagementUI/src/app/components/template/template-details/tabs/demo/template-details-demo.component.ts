@@ -87,7 +87,6 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
       },
       (failure) => {
         this.progressDialogRef.close();
-        console.log('Failed to download');
         console.log(failure);
         this.alertsSvc.alert('Error downloading website zip');
       }
@@ -116,7 +115,9 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
           (success) => {
             this.router.navigate([`/template`]);
           },
-          (failed) => {}
+          (failed) => {
+            this.alertsSvc.alert('Failed to delete template');
+          }
         );
       } else {
         console.log('delete cancled');
