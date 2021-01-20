@@ -58,7 +58,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   setURL(template: TemplateModel) {
     console.log(template);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      template.s3_url + 'preview/home.html'
+      `http://${template.s3_url}preview/home.html`
     );
     console.log(this.safeURL);
   }
