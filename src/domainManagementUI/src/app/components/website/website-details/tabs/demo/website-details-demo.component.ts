@@ -54,6 +54,7 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
       website.s3_url + 'home.html'
     );
+    console.log(this.safeURL);
   }
 
   openInNewTab() {
@@ -62,7 +63,7 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
   newTemplate() {
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'Select New Website Content Data?';
-    confirmDialogSettings.actionConfirming = `Are you sure you want to select new website content? This will remove the current content permanently`;
+    confirmDialogSettings.actionConfirming = `Are you sure you want to select new website conten? This will remove the current content permanently`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: confirmDialogSettings,

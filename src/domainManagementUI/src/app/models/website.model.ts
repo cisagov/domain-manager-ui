@@ -9,20 +9,20 @@ export class WebsiteModel {
   template_base_name: string;
   template_base_uuid: string;
   category: string;
-  // template: TemplateModel;
   website_parameters: WebSiteParameter[];
   application_id: string;
   is_active: boolean;
   application_using: ApplicationModel;
   history: WebsiteHistoryModel[];
-  // hosted_zones: string[];
   route53: string;
   hosted_zones: HostedZoneModel[];
   redirects: RedirectModel[];
+  //Status Flags
   is_available: boolean;
   is_launching: boolean;
   is_delaunching: boolean;
   is_generating_template: boolean;
+  is_category_submitted: boolean;
 }
 
 export class HostedZoneModel {

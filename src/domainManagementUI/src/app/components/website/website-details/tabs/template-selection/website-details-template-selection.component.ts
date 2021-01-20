@@ -161,7 +161,7 @@ export class WebsiteDetailsTemplateSelectionComponent
     progressDialogSettings.actionInProgress = 'Generating HTML for website';
     progressDialogSettings.actionDetails =
       'Generating html for the website. This process can take several minutes. ' +
-      'If you close this dialog this process will continue in the background. ' +
+      'If you close this dialog this process will continue in the background but you will have to remain on this page. ' +
       'This window will close once the process is complete.';
 
     this.progressDialogRef = this.dialog.open(ProgressBarDialog, {

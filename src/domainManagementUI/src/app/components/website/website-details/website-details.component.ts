@@ -70,7 +70,7 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
       progressDialogSettings.actionInProgress = 'Launching Website';
       progressDialogSettings.actionDetails =
         'Launching the website. This process can take several minutes. ' +
-        'If you close this dialog this process will continue in the background. ' +
+        'If you close this dialog this process will continue in the background but you will have to remain on this page. ' +
         'This window will close once the process is complete.';
 
       this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
@@ -104,7 +104,7 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
       progressDialogSettings.actionInProgress = 'Taking Down Website';
       progressDialogSettings.actionDetails =
         'Taking down the website. This process can take several minutes. ' +
-        'If you close this dialog this process will continue in the background. ' +
+        'If you close this dialog this process will continue in the background but you will have to remain on this page. ' +
         'This window will close once the process is complete.';
 
       this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
@@ -168,7 +168,7 @@ export class WebsiteDetailsComponent implements OnInit, OnDestroy {
     progressDialogSettings.actionInProgress = 'Downloading Website';
     progressDialogSettings.actionDetails =
       'Preparing website for download. This process can take several minutes. ' +
-      'If you close this dialog this process will continue in the background. ' +
+      'If you close this dialog this process will continue in the background but you will have to remain on this page. ' +
       'This window will close once the process is complete.';
 
     this.progressDialogRef = this.dialog.open(ProgressBarDialog, {

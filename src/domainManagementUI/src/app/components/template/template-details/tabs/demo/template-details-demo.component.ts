@@ -58,13 +58,16 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   setURL(template: TemplateModel) {
     console.log(template);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      template.s3_url + 'home.html'
+      template.s3_url + 'preview/home.html'
     );
     console.log(this.safeURL);
   }
 
   openInNewTab() {
-    window.open(this.tdTabSvc.template_data.s3_url, '_blank');
+    window.open(
+      this.tdTabSvc.template_data.s3_url + 'preview/home.html',
+      '_blank'
+    );
   }
 
   download() {
@@ -72,7 +75,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     progressDialogSettings.actionInProgress = 'Downloading Template';
     progressDialogSettings.actionDetails =
       'Preparing the template for download. This process can take up to a minute. ' +
-      'If you close this dialog this process will continue in the background. ' +
+      'If you close this dialog this process will continue in the background but you will have to remain on this page. ' +
       'This window will close once the process is complete.';
 
     this.progressDialogRef = this.dialog.open(ProgressBarDialog, {

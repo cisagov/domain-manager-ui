@@ -51,7 +51,6 @@ export class CategoryService {
   }
 
   getAllCategories() {
-    //Example url, needs to be changed when API is in place
     let url = `${this.settingsService.settings.apiUrl}/api/categories/`;
 
     if (!environment.localData) {
@@ -73,5 +72,10 @@ export class CategoryService {
       return this.category_list.find((c) => c._id === uuid)?.name;
     }
     return 'ERROR';
+  }
+
+  submitCategory(website_id, category_name) {
+    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/categorize?category=${category_name}`;
+    return this.http.get(url, headers);
   }
 }
