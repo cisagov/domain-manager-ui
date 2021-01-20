@@ -6,6 +6,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 // Local Servie Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
+import { CategoryService } from 'src/app/services/category.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { WebsiteService } from 'src/app/services/website.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
@@ -42,6 +43,7 @@ export class WebsiteDetailsTabService {
   constructor(
     public alertsSvc: AlertsService,
     private applicationSvc: ApplicationService,
+    public categorySvc: CategoryService,
     private settingsService: SettingsService,
     private templateSvc: TemplateService,
     private userAuthSvc: UserAuthService,
@@ -304,6 +306,12 @@ export class WebsiteDetailsTabService {
     } else if (input) {
       this.templateExists = input;
     }
+  }
+  submitCategory() {
+    return this.categorySvc.submitCategory(
+      this.website_data._id,
+      this.proxy_categoriztion_tab_form.controls.category_one.value
+    )
   }
 
   isValid(form: FormGroup) {

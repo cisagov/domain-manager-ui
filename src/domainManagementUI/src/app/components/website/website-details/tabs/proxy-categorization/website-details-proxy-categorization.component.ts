@@ -2,9 +2,11 @@
 import { Component, OnInit } from '@angular/core';
 
 // Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
 @Component({
   selector: 'wd-proxy-categorizaiton',
@@ -12,15 +14,17 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
   constructor(
+    public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
     public domainTabSvc: DomainManagementTabService,
-    public layoutSvc: LayoutService
+    public layoutSvc: LayoutService,
+    public wdTabSvc: WebsiteDetailsTabService,
   ) {}
 
   ngOnInit(): void {}
 
   get tabForm() {
-    return this.domainTabSvc.proxy_categoriztion_tab_form;
+    return this.wdTabSvc.proxy_categoriztion_tab_form;
   }
 
   get f() {
@@ -53,6 +57,26 @@ export class WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
 
   nextTab() {
     this.domainTabSvc.submitTab(this.tabForm);
+  }
+
+  //Only pushing one category at this time, original plan was for three,
+  //existing code for three will remain but not be used untill needed.
+  submitCategory(){
+    if(this.wdTabSvc.proxy_categoriztion_tab_form.valid){
+      this.wdTabSvc.submitCategory().subscribe(
+        (success) => {
+          this.wdTabSvc.website_data.is_category_submitted = true;
+          this.alertsSvc.alert(
+            "Category successfully submitted for review.",
+            undefined,
+            10000)
+        },
+        (failure) => {
+          console.log(failure)
+          this.alertsSvc.alert("Error submitting category for website")
+        }
+      )
+    }
   }
 
   test() {
