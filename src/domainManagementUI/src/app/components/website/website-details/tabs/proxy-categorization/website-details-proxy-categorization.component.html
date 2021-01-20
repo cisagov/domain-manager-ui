@@ -1,6 +1,9 @@
 <div class="flex flex-container tab">
   <h5>Proxy Categorization</h5>
-  <div *ngIf="!this.wdTabSvc.website_data.is_category_submitted" [formGroup]="tabForm">
+  <div
+    *ngIf="!this.wdTabSvc.website_data.is_category_submitted"
+    [formGroup]="tabForm"
+  >
     <div class="text-muted mb-3">
       At least one proxy category must be selected.
     </div>
@@ -79,23 +82,25 @@
   </div> -->
   </div>
   <div *ngIf="this.wdTabSvc.website_data.is_category_submitted">
-    <div class="text-muted mb-3">
-      Website categorization in process.
-    </div>
+    <div class="text-muted mb-3">Website categorization in process.</div>
     <div>
-      The website has had a category submitted and is in the process of applying the category to the multiple proxies.
-      Please allow for 2-3 days for this process to complete. Check back on this page for any status updates.
+      The website has had a category submitted and is in the process of applying
+      the category to the multiple proxies. Please allow for 2-3 days for this
+      process to complete. Check back on this page for any status updates.
     </div>
   </div>
-    <div *ngIf="!this.wdTabSvc.website_data.is_category_submitted" class="flex-row flex-end mt-4">
-      <button
-        [disabled]="!this.wdTabSvc.proxy_categoriztion_tab_form.valid"
-        mat-raised-button
-        color="primary"
-        class="flex"
-        (click)="submitCategory()"
-      >
-        Submit
-      </button>
-    </div>
+  <div
+    *ngIf="!this.wdTabSvc.website_data.is_category_submitted"
+    class="flex-row flex-end mt-4"
+  >
+    <button
+      [disabled]="!this.wdTabSvc.proxy_categoriztion_tab_form.valid"
+      mat-raised-button
+      color="primary"
+      class="flex"
+      (click)="submitCategory()"
+    >
+      Submit
+    </button>
+  </div>
 </div>

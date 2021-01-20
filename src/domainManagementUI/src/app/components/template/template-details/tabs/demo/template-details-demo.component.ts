@@ -64,7 +64,10 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   openInNewTab() {
-    window.open(this.tdTabSvc.template_data.s3_url  + 'preview/home.html', '_blank');
+    window.open(
+      this.tdTabSvc.template_data.s3_url + 'preview/home.html',
+      '_blank'
+    );
   }
 
   download() {

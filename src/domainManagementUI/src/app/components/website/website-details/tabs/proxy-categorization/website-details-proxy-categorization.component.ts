@@ -18,7 +18,7 @@ export class WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
     public categorySvc: CategoryService,
     public domainTabSvc: DomainManagementTabService,
     public layoutSvc: LayoutService,
-    public wdTabSvc: WebsiteDetailsTabService,
+    public wdTabSvc: WebsiteDetailsTabService
   ) {}
 
   ngOnInit(): void {}
@@ -61,21 +61,22 @@ export class WebsiteDetailsProxyCategorizaitonComponent implements OnInit {
 
   //Only pushing one category at this time, original plan was for three,
   //existing code for three will remain but not be used untill needed.
-  submitCategory(){
-    if(this.wdTabSvc.proxy_categoriztion_tab_form.valid){
+  submitCategory() {
+    if (this.wdTabSvc.proxy_categoriztion_tab_form.valid) {
       this.wdTabSvc.submitCategory().subscribe(
         (success) => {
           this.wdTabSvc.website_data.is_category_submitted = true;
           this.alertsSvc.alert(
-            "Category successfully submitted for review.",
+            'Category successfully submitted for review.',
             undefined,
-            10000)
+            10000
+          );
         },
         (failure) => {
-          console.log(failure)
-          this.alertsSvc.alert("Error submitting category for website")
+          console.log(failure);
+          this.alertsSvc.alert('Error submitting category for website');
         }
-      )
+      );
     }
   }
 
