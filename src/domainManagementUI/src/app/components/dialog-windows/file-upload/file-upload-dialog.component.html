@@ -5,14 +5,14 @@ someone has to deal with this
 <button
   mat-button
   style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
-  [mat-dialog-close]="true"
+  (click)="closeDialog()"
 >
   <mat-icon>close</mat-icon>
 </button>
 <mat-dialog-content class="upload-dialog-content">
   <div class="text-muted" style="margin-bottom: 1em">
-    Select one or more {{ uploadType }}s to upload. Select the files through
-    your local file browser by clicked the 'select file below' or drag and drop
+    Select {{isMultipleDisplayText}} {{ uploadType | lowercase }}s to upload. Select the files through
+    your local file browser by clicking the 'select file below' or drag and drop
     your files on to the drag and drop zone below.
   </div>
   <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData">
@@ -131,7 +131,7 @@ someone has to deal with this
             <td>
               <div *ngIf="!item.uploadStatus">New</div>
               <div *ngIf="item.uploadStatus == 'Inprogress'">
-                <mat-icon>arrow_circle_up</mat-icon>
+                <mat-spinner diameter="40"></mat-spinner>
               </div>
               <div *ngIf="item.uploadStatus == 'Complete'">
                 <mat-icon>done</mat-icon>
@@ -153,7 +153,7 @@ someone has to deal with this
   <button (click)="uploadFiles()" mat-raised-button color="primary">
     Upload
   </button>
-  <button mat-button color="primary" cdkFocusInitial [mat-dialog-close]="true">
+  <button mat-button color="primary" cdkFocusInitial (click)="closeDialog()">
     Cancel
   </button>
 </mat-dialog-actions>
