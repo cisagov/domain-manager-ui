@@ -18,8 +18,7 @@ import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
   styleUrls: ['./file-upload-dialog.component.scss'],
 })
 export class FileUploadDialogComponent implements OnInit {
-
-  isMultipleDisplayText = "one"
+  isMultipleDisplayText = 'one';
   uploadType = 'File';
   uploadFileType = '*';
 
@@ -56,7 +55,7 @@ export class FileUploadDialogComponent implements OnInit {
   }
   ngOnInit(): void {
     this.data.uploadService.preloadValidationData();
-    this.isMultipleDisplayText += !this.multipleFileUpload ? "" : " or more"
+    this.isMultipleDisplayText += !this.multipleFileUpload ? '' : ' or more';
   }
 
   uploadFiles() {
@@ -78,8 +77,8 @@ export class FileUploadDialogComponent implements OnInit {
             this.files.forEach((file) => {
               file['uploadStatus'] = 'Complete';
               this.filesCurrentlyUploading -= 1;
-              if(this.filesCurrentlyUploading === 0){
-                this.dialogRef.close("fileUploaded")
+              if (this.filesCurrentlyUploading === 0) {
+                this.dialogRef.close('fileUploaded');
               }
             });
           }
@@ -91,9 +90,8 @@ export class FileUploadDialogComponent implements OnInit {
             });
           }
         },
-        (failure) => {
-          
-        });
+        (failure) => {}
+      );
   }
 
   fileAdded() {
@@ -155,25 +153,23 @@ export class FileUploadDialogComponent implements OnInit {
   }
 
   closeDialog() {
-    if(this.filesCurrentlyUploading){
+    if (this.filesCurrentlyUploading) {
       const dialogSettings = new ConfirmDialogSettings();
       dialogSettings.itemConfirming = 'Cancel File Upload?';
-      dialogSettings.actionConfirming = 
-      `There is still ${this.filesCurrentlyUploading} file currently uploading. ` + 
-      `The upload process will continue in the background ` + 
-      `but the page may not automatically update with the new items`;
+      dialogSettings.actionConfirming =
+        `There is still ${this.filesCurrentlyUploading} file currently uploading. ` +
+        `The upload process will continue in the background ` +
+        `but the page may not automatically update with the new items`;
 
       let dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        data: dialogSettings
-      })
-      dialogRef.afterClosed().subscribe(
-        (result) => {
-          if(result == 'confirmed'){
-            console.log("closing")
-            this.dialogRef.close();
-          }
+        data: dialogSettings,
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result == 'confirmed') {
+          console.log('closing');
+          this.dialogRef.close();
         }
-      )
+      });
     } else {
       this.dialogRef.close();
     }

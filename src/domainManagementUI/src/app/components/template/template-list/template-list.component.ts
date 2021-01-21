@@ -91,9 +91,9 @@ export class TemplateListComponent implements OnInit {
     fileUploadSettings.multipleFileUpload = true;
     let dialogRef = this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
-    });    
+    });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
+      console.log(result);
       if (result === 'fileUploaded') {
         this.getTemplates();
       } else {

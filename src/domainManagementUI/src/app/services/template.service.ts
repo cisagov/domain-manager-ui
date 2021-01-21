@@ -71,7 +71,7 @@ export class TemplateService extends AbstractUploadService {
       'content-type',
       'application/*zip*'
     );
-    let salt = (new Date()).getTime();
+    let salt = new Date().getTime();
     const url = `${this.settingsService.settings.apiUrl}/api/template/${uuid}/content/?${salt}`;
     return this.http.get(url, {
       headers: downloadHeaders,

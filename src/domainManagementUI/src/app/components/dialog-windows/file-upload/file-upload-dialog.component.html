@@ -11,9 +11,9 @@ someone has to deal with this
 </button>
 <mat-dialog-content class="upload-dialog-content">
   <div class="text-muted" style="margin-bottom: 1em">
-    Select {{isMultipleDisplayText}} {{ uploadType | lowercase }}s to upload. Select the files through
-    your local file browser by clicking the 'select file below' or drag and drop
-    your files on to the drag and drop zone below.
+    Select {{ isMultipleDisplayText }} {{ uploadType | lowercase }}s to upload.
+    Select the files through your local file browser by clicking the 'select
+    file below' or drag and drop your files on to the drag and drop zone below.
   </div>
   <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData">
   </ngfFormData>
