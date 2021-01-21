@@ -1,12 +1,15 @@
 // Angular Imports
 import { Component, Inject, OnInit } from '@angular/core';
+import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+
 // Models
+import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
 
 @Component({
@@ -15,6 +18,7 @@ import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
   styleUrls: ['./file-upload-dialog.component.scss'],
 })
 export class FileUploadDialogComponent implements OnInit {
+  isMultipleDisplayText = 'one';
   uploadType = 'File';
   uploadFileType = '*';
 
@@ -51,6 +55,7 @@ export class FileUploadDialogComponent implements OnInit {
   }
   ngOnInit(): void {
     this.data.uploadService.preloadValidationData();
+    this.isMultipleDisplayText += !this.multipleFileUpload ? '' : ' or more';
   }
 
   uploadFiles() {
@@ -61,24 +66,32 @@ export class FileUploadDialogComponent implements OnInit {
       this.overwrite = confirm(
         'Template already exists. Would you like to Overwrite?'
       );
+    this.filesCurrentlyUploading = this.files.length;
     this.sendableFormData.append('Website_Id', this.data.ID);
     this.sendableFormData.append('Website_Domain', this.data.WebsiteDomain);
     this.data.uploadService
       .uploadFile(this.sendableFormData, this.overwrite)
-      .subscribe((resp) => {
-        if (resp.type === HttpEventType.Response) {
-          this.files.forEach((file) => {
-            file['uploadStatus'] = 'Complete';
-          });
-        }
-        if (resp.type === HttpEventType.UploadProgress) {
-          const percentDone = Math.round((100 * resp.loaded) / resp.total);
-          console.log('Progress ' + percentDone + '%');
-          this.files.forEach((file) => {
-            file['uploadStatus'] = 'Inprogress';
-          });
-        }
-      });
+      .subscribe(
+        (resp) => {
+          if (resp.type === HttpEventType.Response) {
+            this.files.forEach((file) => {
+              file['uploadStatus'] = 'Complete';
+              this.filesCurrentlyUploading -= 1;
+              if (this.filesCurrentlyUploading === 0) {
+                this.dialogRef.close('fileUploaded');
+              }
+            });
+          }
+          if (resp.type === HttpEventType.UploadProgress) {
+            const percentDone = Math.round((100 * resp.loaded) / resp.total);
+            console.log('Progress ' + percentDone + '%');
+            this.files.forEach((file) => {
+              file['uploadStatus'] = 'Inprogress';
+            });
+          }
+        },
+        (failure) => {}
+      );
   }
 
   fileAdded() {
@@ -137,5 +150,28 @@ export class FileUploadDialogComponent implements OnInit {
       os = 'Linux';
     }
     return os;
+  }
+
+  closeDialog() {
+    if (this.filesCurrentlyUploading) {
+      const dialogSettings = new ConfirmDialogSettings();
+      dialogSettings.itemConfirming = 'Cancel File Upload?';
+      dialogSettings.actionConfirming =
+        `There is still ${this.filesCurrentlyUploading} file currently uploading. ` +
+        `The upload process will continue in the background ` +
+        `but the page may not automatically update with the new items`;
+
+      let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: dialogSettings,
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result == 'confirmed') {
+          console.log('closing');
+          this.dialogRef.close();
+        }
+      });
+    } else {
+      this.dialogRef.close();
+    }
   }
 }

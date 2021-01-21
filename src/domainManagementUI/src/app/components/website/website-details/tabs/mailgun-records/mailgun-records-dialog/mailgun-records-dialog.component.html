@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Manage Mailgun Record</h2>
+<form
+  [formGroup]="mailgunRecordForm"
+  class="dialog text-muted"
+  mat-dialog-content
+>
+  <div class="text-muted mb-4">
+    Fill in all fields and hit submit to create/edit a mailgun record.
+  </div>
+
+  <div class="flex-column">
+    <div class="flex flex-column">
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Mailgun Record Name</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          required
+          formControlName="name"
+          [(ngModel)]="mailgunRecord.name"
+          placeholder="Mailgun record name."
+        />
+        <mat-error *ngIf="mailgunRecordForm.get('name').invalid"
+          >This is a required field.</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-column">
+      <mat-form-field style="width: 30em" appearance="outline">
+        <mat-label>Route</mat-label>
+        <input
+          matInput
+          trim="blur"
+          type="text"
+          required
+          formControlName="route"
+          [(ngModel)]="mailgunRecord.route"
+          placeholder="The route for the mailgun record"
+        />
+        <mat-error *ngIf="mailgunRecordForm.get('route').invalid"
+          >This is a required field.</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<mat-dialog-actions align="end">
+  <button
+    *ngIf="isNewMailgunRecord"
+    [disabled]="!mailgunRecordForm.valid"
+    (click)="createMailgunRecord()"
+    mat-raised-button
+    color="primary"
+  >
+    Create & Close
+  </button>
+  <button
+    *ngIf="!isNewMailgunRecord"
+    [disabled]="!mailgunRecordForm.valid"
+    (click)="updateMailgunRecord()"
+    mat-raised-button
+    color="primary"
+  >
+    Edit & Close
+  </button>
+  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">
+    Cancel
+  </button>
+</mat-dialog-actions>

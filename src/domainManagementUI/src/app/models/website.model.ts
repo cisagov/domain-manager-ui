@@ -17,6 +17,7 @@ export class WebsiteModel {
   route53: string;
   hosted_zones: HostedZoneModel[];
   redirects: RedirectModel[];
+  mailgunRecords: MailgunRecordModel[];
   //Status Flags
   is_available: boolean;
   is_launching: boolean;
@@ -71,4 +72,9 @@ export class WebsiteHistoryModel {
 export class RedirectModel {
   subdomain: string;
   redirect_url: string;
+}
+
+export class MailgunRecordModel {
+  name: string;
+  route: string;
 }

@@ -89,8 +89,16 @@ export class TemplateListComponent implements OnInit {
     fileUploadSettings.uploadFileType = 'application/x-zip-compressed';
     fileUploadSettings.uploadService = this.templateSvc;
     fileUploadSettings.multipleFileUpload = true;
-    this.dialog.open(FileUploadDialogComponent, {
+    let dialogRef = this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result === 'fileUploaded') {
+        this.getTemplates();
+      } else {
+        dialogRef.close();
+      }
     });
   }
 
