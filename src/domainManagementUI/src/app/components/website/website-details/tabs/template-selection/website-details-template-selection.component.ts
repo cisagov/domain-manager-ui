@@ -121,7 +121,7 @@ export class WebsiteDetailsTemplateSelectionComponent
   displayTemplate(url) {
     this.url = url;
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      url + 'home.html'
+      `https://${url}preview/home.html`
     );
   }
 
