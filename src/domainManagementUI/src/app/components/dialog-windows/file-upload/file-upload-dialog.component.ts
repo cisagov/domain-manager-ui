@@ -77,10 +77,7 @@ export class FileUploadDialogComponent implements OnInit {
           if (resp.type === HttpEventType.Response) {
             this.files.forEach((file) => {
               file['uploadStatus'] = 'Complete';
-              console.log("FINISH")
-              console.log(resp)
               this.filesCurrentlyUploading -= 1;
-              console.log(this.filesCurrentlyUploading)
               if(this.filesCurrentlyUploading === 0){
                 this.dialogRef.close("fileUploaded")
               }
