@@ -69,6 +69,10 @@ import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor
 import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
 import { WebsiteDetailsRedirectsComponent } from './components/website/website-details/tabs/redirects/website-details-redirects.component';
 import { ManageRedirectDialogComponent } from './components/website/website-details/tabs/redirects/manage-redirect-dialog/manage-redirect-dialog.component';
+import { UserManagementListComponent } from './components/user-managment/user-management-list/user-management-list.component';
+import { UserManagementDetailsComponent } from './components/user-managment/user-management-details/user-management-details.component';
+import { UserManagementDetailsSummaryComponent } from './components/user-managment/user-management-details/tabs/summary/user-management-details-summary.component';
+import { UserManagementDetailsGroupsComponent } from './components/user-managment/user-management-details/tabs/groups/user-management-details-groups.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -108,6 +112,10 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteDetailsTemplateSelectionComponent,
     WebsiteListComponent,
     WebsiteDetailsRedirectsComponent,
+    UserManagementListComponent,
+    UserManagementDetailsComponent,
+    UserManagementDetailsSummaryComponent,
+    UserManagementDetailsGroupsComponent,
   ],
   imports: [
     AppRoutingModule,

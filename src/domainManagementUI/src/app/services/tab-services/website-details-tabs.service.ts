@@ -71,6 +71,7 @@ export class WebsiteDetailsTabService {
     this.website_data = new WebsiteModel();
     this.websiteSvc.getWebsiteDetails(_id).subscribe(
       (success) => {
+        console.log(success)
         this.website_data = success as WebsiteModel;
         this.website_data_behavior_subject.next(this.website_data);
         this.initalizeData();

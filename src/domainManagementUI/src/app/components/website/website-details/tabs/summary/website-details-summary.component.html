@@ -36,12 +36,17 @@
           {{ wdTabSvc.website_data.name }}
         </div>
       </div>
-
+      <div class="flex-row">
+        <div class="flex sl_flex_title">Website Is Launched</div>
+        <div class="flex sl_flex_content">
+          {{ wdTabSvc.website_data.is_active }}
+        </div>
+      </div>
       <div class="flex-row" *ngIf="wdTabSvc.website_data?.category">
         <div class="flex sl_flex_title">Template Base Name</div>
         <div class="flex sl_flex_content">
           {{ wdTabSvc.website_data.category }}
-        </div>
+        </div> 
       </div>
 
       <!-- Application If ADMIN -->
