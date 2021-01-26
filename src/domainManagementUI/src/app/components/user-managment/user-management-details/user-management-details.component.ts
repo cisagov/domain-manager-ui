@@ -18,10 +18,9 @@ import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confir
 @Component({
   selector: 'app-user-management-details',
   templateUrl: './user-management-details.component.html',
-  styleUrls: ['./user-management-details.component.scss']
+  styleUrls: ['./user-management-details.component.scss'],
 })
 export class UserManagementDetailsComponent implements OnInit {
-
   component_subscriptions = [];
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
   username = null;
@@ -34,7 +33,7 @@ export class UserManagementDetailsComponent implements OnInit {
     public layoutSvc: LayoutService,
     private router: Router,
     public umTabSvc: UserManagementTabService
-    ) { }
+  ) {}
 
   ngOnInit(): void {
     this.component_subscriptions.push(
@@ -54,7 +53,6 @@ export class UserManagementDetailsComponent implements OnInit {
   }
 
   getUser(username) {
-    this.umTabSvc.getUserDetails(username)
+    this.umTabSvc.getUserDetails(username);
   }
-
 }

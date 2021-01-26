@@ -9,36 +9,33 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserManagementService } from '../user-management.service';
 
 // Models
-import { UserModel, AWSUserModel } from 'src/app/models/user.model'
+import { UserModel, AWSUserModel } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserManagementTabService {
-
-    
-    public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-        false
-        );
-    public user_data: UserModel = new UserModel();
-    public user_form: FormGroup;
+  public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  public user_data: UserModel = new UserModel();
+  public user_form: FormGroup;
 
   constructor(
     public alertsSvc: AlertsService,
-    public userManageSvc: UserManagementService,
-  ) { }
+    public userManageSvc: UserManagementService
+  ) {}
 
-  getUserDetails(Username: string){
-      return this.userManageSvc.getUser(Username).subscribe(
-          (success) => {
-              console.log(success)
-              this.user_data = success as UserModel
-          },
-          (failure) => {
-              console.log(failure)
-              this.alertsSvc.alert("Failed to get user data for ")
-          },
-      )
+  getUserDetails(Username: string) {
+    return this.userManageSvc.getUser(Username).subscribe(
+      (success) => {
+        console.log(success);
+        this.user_data = success as UserModel;
+      },
+      (failure) => {
+        console.log(failure);
+        this.alertsSvc.alert('Failed to get user data for ');
+      }
+    );
   }
-
 }
