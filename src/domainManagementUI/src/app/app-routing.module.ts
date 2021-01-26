@@ -11,6 +11,7 @@ import { HomeComponent } from 'src/app/components/home/home.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
+import { UserManagementListComponent } from 'src/app/components/user-managment/user-management-list/user-management-list.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
 import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 
@@ -71,6 +72,12 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: TemplateDetailsComponent }],
+  },
+  {
+    path: 'users',
+    component: LayoutMainComponent,
+    canActivate: [AuthGuard],
+    children: [{ path: '', component: UserManagementListComponent }],
   },
   {
     path: 'website',

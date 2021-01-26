@@ -1,20 +1,18 @@
-export class UserModel {
-    name: string;
-    _id: string;
-    created: Date;
-    is_activated: boolean;
-    groups: Array<UserGroupModel>;
-  
-    constructor() {
-      this.name = null;
-      this._id = null;
-      this.is_activated = false;
-      this.created = null;
-      this.groups = [];
-    }
-  }
+export class UserAction {
+    Action: string;
+    Time: Date;
+}
 
-  export class UserGroupModel {
-      name: string;
-      aws_id: string;
-  }
+export class AWSUserModel {
+    Attributes: [];
+    Enabled: boolean;
+    UserCreateDate: Date;
+    UserLastModifiedDate: Date;
+    UserStatus: string;
+    Username: string;
+}
+
+export class UserModel extends AWSUserModel{
+    groups: [];
+    History: Array<UserAction>;
+}
