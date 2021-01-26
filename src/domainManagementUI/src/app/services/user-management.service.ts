@@ -31,23 +31,23 @@ export class UserManagementService {
         return this.http.get(url, headers);
     }
 
-    getUser(user_id){
-        const url = `${this.settingsService.settings.apiUrl}/api/users/${user_id}`;
+    getUser(username){
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${username}`;
         return this.http.get(url, headers);
     }
 
     addUser(user: UserModel){
-        const url = `${this.settingsService.settings.apiUrl}/api/users/${user._id}`;
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${user._id}`;
         return this.http.post(url, user);
     }
     
     updateUser(user: UserModel){
-        const url = `${this.settingsService.settings.apiUrl}/api/users/${user._id}`;
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${user._id}`;
         return this.http.put(url, user);
     }
 
     deleteUser(user_id){
-        const url = `${this.settingsService.settings.apiUrl}/api/users/${user_id}`;
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${user_id}`;
         return this.http.delete(url, headers);
     }
   

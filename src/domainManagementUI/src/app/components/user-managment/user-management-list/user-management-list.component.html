@@ -22,6 +22,16 @@
         </button>
     </div>
 </div>
+<div
+    *ngIf="loading"
+    style="text-align: center; padding-top: 2rem; padding-bottom: 2rem"
+>
+    <mat-spinner
+    class="spinner"
+    style="margin-left: auto; margin-right: auto"
+    diameter="50"
+    ></mat-spinner>
+</div>
 <mat-table [hidden]="loading" [dataSource]="userList" matSort>
     <!-- Username -->
     <ng-container matColumnDef="Username">

@@ -36,6 +36,7 @@ export class UserManagementListComponent implements OnInit {
     'UserLastModifiedDate',
     'Enabled',
   ];
+  loading = false;
   search_input = '';
   userList : MatTableDataSource<UserModel> = new MatTableDataSource<UserModel>();
 
@@ -43,6 +44,7 @@ export class UserManagementListComponent implements OnInit {
 
   constructor(
     private alerts: AlertsService,
+    private router: Router,
     private userManageSVC: UserManagementService,
     ) { }
 
@@ -55,6 +57,7 @@ export class UserManagementListComponent implements OnInit {
   }
 
   getUsers(){
+    this.loading = true
     this.userManageSVC.getAllUsers().subscribe(
       (success) => {
         console.log(success)
@@ -62,9 +65,11 @@ export class UserManagementListComponent implements OnInit {
           success as UserModel[]
         );
         this.userList.sort = this.sort;
+        this.loading = false
       },
       (failure) => {
         this.alerts.alert("Failed to load user list")
+        this.loading = false
       },
     )
   }
@@ -73,8 +78,8 @@ export class UserManagementListComponent implements OnInit {
     this.alerts.alert("adduser not implemented yet")
   }
 
-  viewUser(Username){
-    this.alerts.alert(`Open ${Username} detail page (Not yet implmemented)`)
+  viewUser(username){
+    this.router.navigate([`/user/details/${username}`]);
   }
 
   //Used by mat table for filtering with the search bar

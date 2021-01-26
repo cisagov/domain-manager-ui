@@ -96,7 +96,7 @@ export class UserAuthService {
         ];
       if (groups != undefined && groups instanceof Array) {
         groups.forEach((group) => {
-          if (group == 'DomainManagerAdmin') {
+          if (group == environment.adminGroupName) {
             this.isAdminSubject.next(true);
           }
         });
