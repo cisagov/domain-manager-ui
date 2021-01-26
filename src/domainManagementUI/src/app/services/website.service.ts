@@ -9,6 +9,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 //Models
 import {
   HostedZoneModel,
+  MailgunRecordModel,
   RedirectModel,
   WebsiteHistoryModel,
   WebsiteModel,
@@ -103,7 +104,8 @@ export class WebsiteService extends AbstractUploadService {
       'content-type',
       'application/zip'
     );
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/content/`;
+    let salt = new Date().getTime();
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/content/?${salt}`;
     return this.http.get(url, {
       headers: downloadHeaders,
       responseType: 'blob',
@@ -214,5 +216,20 @@ export class WebsiteService extends AbstractUploadService {
   updateRedirect(websiteId: string, redirect: RedirectModel) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/redirect/`;
     return this.http.put(url, redirect);
+  }
+
+  createMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/mailgunRecord/`;
+    return this.http.post(url, mailgunRecord);
+  }
+
+  updateMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/mailgunRecord/`;
+    return this.http.put(url, mailgunRecord);
+  }
+
+  deleteMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/mailgunRecord/?recordName=${mailgunRecord.name}`;
+    return this.http.delete(url);
   }
 }

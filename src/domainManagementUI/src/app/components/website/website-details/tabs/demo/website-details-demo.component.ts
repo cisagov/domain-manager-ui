@@ -58,12 +58,12 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   openInNewTab() {
-    window.open(this.wdTabSvc.website_data.s3_url, '_blank');
+    window.open(this.wdTabSvc.website_data.s3_url + 'home.html', '_blank');
   }
   newTemplate() {
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'Select New Website Content Data?';
-    confirmDialogSettings.actionConfirming = `Are you sure you want to select new website conten? This will remove the current content permanently`;
+    confirmDialogSettings.actionConfirming = `Are you sure you want to select new website content? This will remove the current content permanently`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: confirmDialogSettings,
