@@ -94,6 +94,7 @@ export class WebsiteListComponent implements OnInit {
         console.log('Error getting website list');
         console.log(error);
         this.loading = false;
+        this.alertsSvc.alert('Failed to get website list');
       }
     );
   }

@@ -40,6 +40,10 @@ import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/te
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
 import { TemplateDetailsHistoricalComponent } from 'src/app/components/template/template-details/tabs/historical/template-details-historical.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
+import { UserManagementListComponent } from './components/user-managment/user-management-list/user-management-list.component';
+import { UserManagementDetailsComponent } from './components/user-managment/user-management-details/user-management-details.component';
+import { UserManagementDetailsGroupsComponent } from './components/user-managment/user-management-details/tabs/groups/user-management-details-groups.component';
+import { UserManagementDetailsSummaryComponent } from './components/user-managment/user-management-details/tabs/summary/user-management-details-summary.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
 import { WebsiteDetailsAttrbutesComponent } from 'src/app/components/website/website-details/tabs/attributes/website-details-attributes.component';
 import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-details/tabs/demo/website-details-demo.component';
@@ -62,6 +66,8 @@ import { TemplateService } from 'src/app/services/template.service';
 import { ThemeService } from './services/theme.service';
 import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
 import { UserAuthService } from './services/user-auth.service';
+import { UserManagementService } from 'src/app/services/user-management.service';
+import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
@@ -112,6 +118,10 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteDetailsTemplateSelectionComponent,
     WebsiteListComponent,
     WebsiteDetailsRedirectsComponent,
+    UserManagementListComponent,
+    UserManagementDetailsComponent,
+    UserManagementDetailsSummaryComponent,
+    UserManagementDetailsGroupsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -137,6 +147,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     TemplateDetailsTabService,
     ThemeService,
     UserAuthService,
+    UserManagementTabService,
+    UserManagementService,
     WebsiteDetailsTabService,
     WebsiteService,
     {

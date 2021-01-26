@@ -25,7 +25,7 @@ export class LayoutMainComponent implements OnInit {
   constructor(
     private themeSvc: ThemeService,
     public layoutSvc: LayoutService,
-    private userAuthSvc: UserAuthService,
+    public userAuthSvc: UserAuthService,
     public overlayContainer: OverlayContainer,
     public location: Location
   ) {

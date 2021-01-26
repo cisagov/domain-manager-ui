@@ -4,6 +4,7 @@
 
 export const environment = {
   authorize: false,
+  adminGroupName: 'admin',
   defaultToAdmin: true,
   localData: false, // If true, uses data generated in angular, will not query any api
   production: false,

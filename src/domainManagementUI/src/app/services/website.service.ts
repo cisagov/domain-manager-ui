@@ -34,17 +34,17 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   getAllWebsites() {
-    const url = `${this.settingsService.settings.apiUrl}/api/websites/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domains/`;
     return this.http.get(url, headers);
   }
 
   getWebsiteDetails(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}`;
     return this.http.get(url, headers);
   }
 
   updateWebsite(website: WebsiteModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${website._id}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${website._id}`;
     return this.http.put(url, website);
   }
 
@@ -59,13 +59,13 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   deleteWebsite(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/`;
     return this.http.delete(url, headers);
   }
 
   uploadWebsite(formData, websiteId, category) {
     console.log(formData);
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/?category=${category}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/content/?category=${category}`;
 
     if (!environment.localData) {
       const config = new HttpRequest('POST', url, formData, {
@@ -105,7 +105,7 @@ export class WebsiteService extends AbstractUploadService {
       'application/zip'
     );
     let salt = new Date().getTime();
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/content/?${salt}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/content/?${salt}`;
     return this.http.get(url, {
       headers: downloadHeaders,
       responseType: 'blob',
@@ -113,14 +113,14 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   createWebsite(newWebsite: WebsiteModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${newWebsite.template_base_uuid}/generate/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${newWebsite.template_base_uuid}/generate/`;
     return this.http.post(url, newWebsite);
   }
 
   setWebsitesAsAvailable(websiteIDArray) {
     console.log(websiteIDArray);
     //NOT IMPLEMENTED YET
-    let url = `${this.settingsService.settings.apiUrl}/api/website/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/`;
 
     if (!environment.localData) {
       // return this.http.post(url, newWebsite);
@@ -134,7 +134,7 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   getHostedZones(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/records/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/records/`;
     return this.http.get(url);
   }
 
@@ -142,7 +142,7 @@ export class WebsiteService extends AbstractUploadService {
     console.log(domainUrl);
     let body = { name: domainUrl };
 
-    let url = `${this.settingsService.settings.apiUrl}/api/websites/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
 
     if (!environment.localData) {
       return this.http.post(url, body);
@@ -156,17 +156,17 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   launchWebsite(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/launch/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/launch/`;
     return this.http.get(url);
   }
 
   takeDownWebsite(websiteId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/launch/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/launch/`;
     return this.http.delete(url);
   }
 
   generateFromTemplate(website_id, template_name, attributes: {}) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/generate/?category=${template_name}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/${website_id}/generate/?category=${template_name}`;
     console.log(url);
 
     if (!environment.localData) {
@@ -181,7 +181,7 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   removeTemplate(website_id) {
-    let url = `${this.settingsService.settings.apiUrl}/api/website/${website_id}/content/`;
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/${website_id}/content/`;
 
     if (!environment.localData) {
       return this.http.delete(url);
@@ -204,17 +204,17 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   deleteRedirect(websiteId: string, subdomain: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/?subdomain=${subdomain}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/redirect/?subdomain=${subdomain}`;
     return this.http.delete(url);
   }
 
   createRedirect(websiteId: string, redirect: RedirectModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/redirect/`;
     return this.http.post(url, redirect);
   }
 
   updateRedirect(websiteId: string, redirect: RedirectModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/redirect/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/redirect/`;
     return this.http.put(url, redirect);
   }
 
