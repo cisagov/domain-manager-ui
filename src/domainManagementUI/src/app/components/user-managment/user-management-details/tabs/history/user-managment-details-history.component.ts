@@ -6,22 +6,17 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
 
 @Component({
-  selector: 'app-user-management-details-summary',
-  templateUrl: './user-management-details-summary.component.html',
-  styleUrls: ['./user-management-details-summary.component.scss']
+  selector: 'app-user-managment-details-history',
+  templateUrl: './user-managment-details-history.component.html',
+  styleUrls: ['./user-managment-details-history.component.scss']
 })
-export class UserManagementDetailsSummaryComponent implements OnInit {
+export class UserManagementDetailsHistoryComponent implements OnInit {
 
   constructor(
     public alertsSvc: AlertsService,
     public umTabSvc: UserManagementTabService) { }
 
   ngOnInit(): void {
-    console.log("test")
-  }
-
-  confirmUser(){
-    this.umTabSvc.confirmUser();
   }
 
 }

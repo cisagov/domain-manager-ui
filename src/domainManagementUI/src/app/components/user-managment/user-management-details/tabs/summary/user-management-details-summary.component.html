@@ -1,1 +1,41 @@
-<p>user-management-details-summary works!</p>
+
+<div *ngIf="umTabSvc.loading" class="flex flex-container tab">
+    <div
+        style="text-align: center; padding-top: 2rem; padding-bottom: 2rem"
+        >
+        <mat-spinner
+        class="spinner"
+        style="margin-left: auto; margin-right: auto"
+        diameter="50"
+        ></mat-spinner>
+    </div>
+</div>
+<div *ngIf="!umTabSvc.loading" class="flex flex-container tab">
+
+    <h5>User : {{ umTabSvc.user_data.Username }}</h5>
+    <div class="text-muted">
+      A summary of the user's account.
+    </div>
+
+
+    <div *ngIf="umTabSvc.user_data.UserStatus == 'UNCONFIRMED'">
+        <div class="flex-container flex-row" style="margin-top:1.5em;">
+            <div class="flex" style="width: 52px;">
+                <mat-icon class="contrast-icon" style="font-size: 46px;">warning</mat-icon>
+            </div>        
+            <div class="flex" style="padding-top:1em">
+                <div class="text-muted">
+                    User needs to be confirmed before the account can be used
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <button
+                style="margin-top:1em"
+                mat-raised-button
+                color="primary"
+                (click)="confirmUser()"
+            > Confirm User</button>
+        </div>
+    </div>
+</div>
