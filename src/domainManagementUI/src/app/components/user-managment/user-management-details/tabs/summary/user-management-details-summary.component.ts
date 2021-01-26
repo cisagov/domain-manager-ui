@@ -23,5 +23,8 @@ export class UserManagementDetailsSummaryComponent implements OnInit {
   confirmUser(){
     this.umTabSvc.confirmUser();
   }
+  test(item){
+    console.log(item)
+  }
 
 }
