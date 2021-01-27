@@ -50,6 +50,20 @@ export class UserManagementService {
         const url = `${this.settingsService.settings.apiUrl}/api/user/${user_id}`;
         return this.http.delete(url, headers);
     }
-  
+    
+    confirmUser(username){
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/confirm`;
+        return this.http.get(url, headers);
+    }
+    
+    setUserAsAdmin(username){
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/admin`;
+        return this.http.get(url, headers);
+    }
+    
+    removeUserAsAdmin(username){
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/admin`;
+        return this.http.delete(url, headers);
+    }
 
 }

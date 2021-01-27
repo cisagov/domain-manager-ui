@@ -14,6 +14,6 @@ export class AWSUserModel {
 
 export class UserModel extends AWSUserModel{
     _id: string;
-    groups: [];
+    Groups: [];
     History: Array<UserAction>;
 }

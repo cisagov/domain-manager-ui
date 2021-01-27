@@ -1,1 +1,45 @@
-<p>user-management-details works!</p>
+<div>
+    <button
+      class="all_tab_option_button"
+      mat-raised-button
+      color="primary"
+      [matMenuTriggerFor]="menu"
+    >
+      Options
+    </button>
+    <mat-menu #menu="matMenu">
+
+      <button
+        (click)="deleteUser()"
+        mat-menu-item
+      >
+        <mat-icon>delete_forever</mat-icon>Delete User
+      </button>
+
+      <button
+        (click)="disableUser()"
+        mat-menu-item
+      >
+        <mat-icon>location_disabled</mat-icon>Disable User
+      </button>
+     
+    </mat-menu>
+    <mat-tab-group
+      (selectedTabChange)="onTabChanged($event)"
+      [(selectedIndex)]="selectedTabIndex"
+    >
+      <mat-tab label="User Summary">
+        <app-user-management-details-summary></app-user-management-details-summary>
+      </mat-tab>
+  
+      <mat-tab label="Groups">
+        <app-user-management-details-groups> </app-user-management-details-groups>
+      </mat-tab>
+
+      <mat-tab label="History">
+        <app-user-managment-details-history></app-user-managment-details-history>
+      </mat-tab>
+  
+    </mat-tab-group>
+  </div>
+  

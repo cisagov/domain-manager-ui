@@ -72,7 +72,7 @@ export class WebsiteService extends AbstractUploadService {
         reportProgress: true,
       });
       return this.http.request(config);
-    }
+    } 
 
     if (environment.localData) {
       return new Observable((exampleObs) => {
