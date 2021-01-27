@@ -18,10 +18,10 @@
     </div>
 
     <!-- If UNCONFIRMED, show ability to confirm user -->
-    <div *ngIf="umTabSvc.user_data.UserStatus == 'UNCONFIRMED'">
-        <div class="flex-container flex-row" style="margin-top:1.5em;">
+    <div *ngIf="umTabSvc.user_data.UserStatus == 'UNCONFIRMED'" class="alert-box"  style="margin-bottom:1.5em;">
+        <div class="flex-container flex-row" style="margin-top:.5em;">
             <div class="flex" style="width: 52px;">
-                <mat-icon class="contrast-icon" style="font-size: 46px;">warning</mat-icon>
+                <mat-icon class="contrast-icon" >warning</mat-icon>
             </div>        
             <div class="flex" style="padding-top:1em">
                 <div class="text-muted">
