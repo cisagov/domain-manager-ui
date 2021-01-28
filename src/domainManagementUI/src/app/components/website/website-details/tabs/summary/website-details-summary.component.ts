@@ -38,21 +38,18 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
     private userAuthSvc: UserAuthService,
     public wdTabSvc: WebsiteDetailsTabService,
     public websiteSvc: WebsiteService
-    
-    ) {}
-    ngOnInit(): void {
-      this.wdTabSvc.getWebsiteDataBehaviorSubject().subscribe(
-        (data) => {
-          if(data._id){
-            this.websiteDataExists = true;
-            this.getApplicationData();
-          }
-        }
-      )
-      this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
-        this.userIsAdmin = value;
-          this.getApplicationData()
-      });
+  ) {}
+  ngOnInit(): void {
+    this.wdTabSvc.getWebsiteDataBehaviorSubject().subscribe((data) => {
+      if (data._id) {
+        this.websiteDataExists = true;
+        this.getApplicationData();
+      }
+    });
+    this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
+      this.userIsAdmin = value;
+      this.getApplicationData();
+    });
   }
 
   ngOnDestroy(): void {
@@ -60,15 +57,16 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
-  getApplicationData(){
-    if(this.userIsAdmin && this.websiteDataExists){
+  getApplicationData() {
+    if (this.userIsAdmin && this.websiteDataExists) {
       this.applicationSvc.getAllApplications().subscribe(
         (success) => {
           this.application_list = success as [];
         },
         (failure) => {
           this.alertsSvc.alert(failure);
-        })
+        }
+      );
     }
   }
 
@@ -101,7 +99,7 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   downloadWebsite() {
     this.wdTabSvc.downloadWebsite().subscribe(
       (success) => {
-        this.alertsSvc.alert("Website downloaded")
+        this.alertsSvc.alert('Website downloaded');
       },
       (failure) => {
         this.alertsSvc.alert(failure);

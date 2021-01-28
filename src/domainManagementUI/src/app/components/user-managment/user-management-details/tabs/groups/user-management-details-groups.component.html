@@ -1,59 +1,55 @@
 <div class="flex flex-container tab">
-
   <h5>User : {{ umTabSvc.user_data.Username }}</h5>
-  <div class="text-muted" style="margin-bottom: .5em;">
+  <div class="text-muted" style="margin-bottom: 0.5em">
     Groups the user is assigned to.
   </div>
 
-    <div class="add-new-button-container flex">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="setUsersGroups()"
-          class="mb-2"
+  <div class="add-new-button-container flex">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="setUsersGroups()"
+      class="mb-2"
+    >
+      Save Users Groups
+    </button>
+  </div>
+
+  <mat-table [hidden]="umTabSvc.loading" [dataSource]="groupList" matSort>
+    <!-- ActionCheckbox -->
+    <ng-container matColumnDef="checked">
+      <mat-header-cell *matHeaderCellDef
+        ><mat-checkbox
+          [checked]="allChecked"
+          [indeterminate]="someChecked()"
+          color="warn"
+          (change)="setAllCheckboxes($event.checked)"
         >
-          Save Users Groups
-        </button>
-      </div>
-  
-      <mat-table [hidden]="umTabSvc.loading" [dataSource]="groupList" matSort>
-        <!-- ActionCheckbox -->
-        <ng-container matColumnDef="checked">
-          <mat-header-cell *matHeaderCellDef
-            ><mat-checkbox
-              [checked]="allChecked"
-              [indeterminate]="someChecked()"
-              color="warn"
-              (change)="setAllCheckboxes($event.checked)"
-            >
-            </mat-checkbox>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <mat-checkbox
-              [(ngModel)]="row.isChecked"
-              color="primary"
-              (ngModelChange)="updateAllCheckboxComplete($event)"
-            >
-            </mat-checkbox>
-          </mat-cell>
-        </ng-container>
-  
-        <!-- Website Name -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Application</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row">{{
-            row.name
-          }}</mat-cell>
-        </ng-container>
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox
+          [(ngModel)]="row.isChecked"
+          color="primary"
+          (ngModelChange)="updateAllCheckboxComplete($event)"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
 
-        <!-- Header Info -->
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row
-            class="table-row cursor-pointer"
-            *matRowDef="let row; columns: displayedColumns"
-        ></mat-row>
-    </mat-table>
+    <!-- Website Name -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Application</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+    </ng-container>
 
+    <!-- Header Info -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row cursor-pointer"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+  </mat-table>
 </div>

@@ -78,7 +78,7 @@ export class ApplicationListComponent
         this.applicationList.sort = this.sort;
       },
       (error) => {
-        this.alertsSvc.alert(error)
+        this.alertsSvc.alert(error);
         this.loading = false;
       }
     );
@@ -110,7 +110,7 @@ export class ApplicationListComponent
             this.getApplications();
           },
           (failure) => {
-            this.alertsSvc.alert(failure)
+            this.alertsSvc.alert(failure);
           }
         );
       } else {

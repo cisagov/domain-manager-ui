@@ -7,88 +7,82 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
 
-
 //Models
-import { ApplicationGroupModel } from 'src/app/models/application.model'
+import { ApplicationGroupModel } from 'src/app/models/application.model';
 
 @Component({
   selector: 'app-user-management-details-groups',
   templateUrl: './user-management-details-groups.component.html',
   styleUrls: ['./user-management-details-groups.component.scss'],
 })
-
 export class UserManagementDetailsGroupsComponent implements OnInit {
-
   allChecked = false;
   groupList: MatTableDataSource<ApplicationGroupModel> = new MatTableDataSource<ApplicationGroupModel>();
-  displayedColumns = [
-    'name',
-    'checked'
-  ];
-  user_data_behvior_subject = null
+  displayedColumns = ['name', 'checked'];
+  user_data_behvior_subject = null;
   search_input = '';
 
   constructor(
     public alertsSvc: AlertsService,
-    public umTabSvc: UserManagementTabService,
-  ) { }
+    public umTabSvc: UserManagementTabService
+  ) {}
 
   ngOnInit(): void {
-    this.umTabSvc.getUserUpdateBehvaiorSubject().subscribe(
-      (item) => {
-        if(item.Username){
-          this.getApplicationGroups()
-        }
+    this.umTabSvc.getUserUpdateBehvaiorSubject().subscribe((item) => {
+      if (item.Username) {
+        this.getApplicationGroups();
       }
-    )
+    });
   }
 
-  getApplicationGroups(){
+  getApplicationGroups() {
     this.umTabSvc.getApplicationGroups().subscribe(
-      (success) => {  
+      (success) => {
         this.groupList = new MatTableDataSource<ApplicationGroupModel>(
           this.setUsersActiveGroups(success) as ApplicationGroupModel[]
-          ); 
+        );
       },
       (failure) => {
-        this.alertsSvc.alert("Failed to get application groups")
+        this.alertsSvc.alert('Failed to get application groups');
       }
-    )
+    );
   }
 
-  setUsersActiveGroups(applicationList){
-    if(applicationList){
-      applicationList.forEach(group => {
-        if(this.umTabSvc.user_data.Groups.filter((t) => t["GroupName"] == group.name).length > 0){
-          group["isChecked"] = true;
+  setUsersActiveGroups(applicationList) {
+    if (applicationList) {
+      applicationList.forEach((group) => {
+        if (
+          this.umTabSvc.user_data.Groups.filter(
+            (t) => t['GroupName'] == group.name
+          ).length > 0
+        ) {
+          group['isChecked'] = true;
         } else {
-          group["isChecked"] = false; 
+          group['isChecked'] = false;
         }
       });
     }
-    return applicationList
-  
+    return applicationList;
   }
 
-
-  setUsersGroups(){
-    let data = []
-    this.groupList['_data']['_value'].filter((group) => group["isChecked"] == true)
-    .forEach(checkedGroup => {
-      data.push({
-        "GroupName": checkedGroup["name"],
-        "Application_Id": checkedGroup["_id"]
-      })
-    });
+  setUsersGroups() {
+    let data = [];
+    this.groupList['_data']['_value']
+      .filter((group) => group['isChecked'] == true)
+      .forEach((checkedGroup) => {
+        data.push({
+          GroupName: checkedGroup['name'],
+          Application_Id: checkedGroup['_id'],
+        });
+      });
     this.umTabSvc.setUserGroups(data).subscribe(
       (success) => {
-        this.alertsSvc.alert("Groups updated successfully")
+        this.alertsSvc.alert('Groups updated successfully');
       },
       (failure) => {
-        this.alertsSvc.alert(failure)
-        
+        this.alertsSvc.alert(failure);
       }
-    )
+    );
   }
 
   updateAllCheckboxComplete(event) {
@@ -110,5 +104,4 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
     }
     return data.filter((t) => t.isChecked).length > 0 && !this.allChecked;
   }
-
 }

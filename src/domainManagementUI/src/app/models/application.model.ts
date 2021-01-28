@@ -15,8 +15,8 @@ export class ApplicationModel {
 export class ApplicationGroupModel extends ApplicationModel {
   isChecked: boolean;
 
-  constructor(){
-    super()
+  constructor() {
+    super();
     this.isChecked = false;
   }
 }

@@ -1,21 +1,17 @@
 <div class="flex flex-container tab">
-
   <h5>User : {{ umTabSvc.user_data.Username }}</h5>
-  <div class="text-muted" style="margin-bottom: .5em;">
+  <div class="text-muted" style="margin-bottom: 0.5em">
     A full history of the users actions
   </div>
-  <div class="flex-row" style="
-  height: 60vh;
-  overflow: scroll;
-  ">
+  <div class="flex-row" style="height: 60vh; overflow: scroll">
     <table class="display_table">
       <tr>
         <th>User Action</th>
         <th>Date & Time</th>
       </tr>
       <tr *ngFor="let history of this.umTabSvc.user_data.History">
-        <td> {{ history.Action }} </td>
-        <td> {{ history.Time | date: 'medium' }} </td>
+        <td>{{ history.Action }}</td>
+        <td>{{ history.Time | date: "medium" }}</td>
       </tr>
     </table>
   </div>

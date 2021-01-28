@@ -48,7 +48,6 @@ export class TemplateDetailsTabService {
   }
 
   getTemplateDetails(_id) {
-
     this.templateSvc.getTemplateDetails(_id).subscribe(
       (success) => {
         this.template_data = success as TemplateModel;
@@ -56,8 +55,9 @@ export class TemplateDetailsTabService {
         this.initalizeData();
       },
       (error) => {
-        this.alertsSvc.alert(error)
-      })
+        this.alertsSvc.alert(error);
+      }
+    );
   }
 
   initalizeData() {
@@ -81,7 +81,7 @@ export class TemplateDetailsTabService {
         );
       },
       (failure) => {
-        this.alertsSvc.alert(failure)
+        this.alertsSvc.alert(failure);
       }
     );
   }

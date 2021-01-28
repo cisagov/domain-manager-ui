@@ -1,92 +1,95 @@
-
 <div *ngIf="umTabSvc.loading" class="flex flex-container tab">
-    <div
-        style="text-align: center; padding-top: 2rem; padding-bottom: 2rem"
-        >
-        <mat-spinner
-        class="spinner"
-        style="margin-left: auto; margin-right: auto"
-        diameter="50"
-        ></mat-spinner>
-    </div>
+  <div style="text-align: center; padding-top: 2rem; padding-bottom: 2rem">
+    <mat-spinner
+      class="spinner"
+      style="margin-left: auto; margin-right: auto"
+      diameter="50"
+    ></mat-spinner>
+  </div>
 </div>
 <div *ngIf="!umTabSvc.loading" class="flex flex-container tab">
+  <h5>User : {{ umTabSvc.user_data.Username }}</h5>
+  <div class="text-muted" style="margin-bottom: 0.5em">
+    A summary of the user's account.
+  </div>
 
-    <h5>User : {{ umTabSvc.user_data.Username }}</h5>
-    <div class="text-muted" style="margin-bottom: .5em;">
-      A summary of the user's account.
+  <!-- If UNCONFIRMED, show ability to confirm user -->
+  <div
+    *ngIf="umTabSvc.user_data.UserStatus == 'UNCONFIRMED'"
+    class="alert-box"
+    style="margin-bottom: 1.5em"
+  >
+    <div class="flex-container flex-row" style="margin-top: 0.5em">
+      <div class="flex" style="width: 52px">
+        <mat-icon class="contrast-icon">warning</mat-icon>
+      </div>
+      <div class="flex" style="padding-top: 1em">
+        <div class="text-muted">
+          User needs to be confirmed before the account can be used
+        </div>
+      </div>
+    </div>
+    <div class="flex">
+      <button
+        style="margin-top: 1em"
+        mat-raised-button
+        color="primary"
+        (click)="confirmUser()"
+      >
+        Confirm User
+      </button>
+    </div>
+  </div>
+
+  <div class="flex-column flex-full summary_list_rows">
+    <div class="flex-row">
+      <div class="flex sl_flex_title">Enabled</div>
+      <div *ngIf="umTabSvc.user_data.Enabled" class="flex sl_flex_content">
+        True
+      </div>
+      <div *ngIf="!umTabSvc.user_data.Enabled" class="flex sl_flex_content">
+        False
+      </div>
     </div>
 
-    <!-- If UNCONFIRMED, show ability to confirm user -->
-    <div *ngIf="umTabSvc.user_data.UserStatus == 'UNCONFIRMED'" class="alert-box"  style="margin-bottom:1.5em;">
-        <div class="flex-container flex-row" style="margin-top:.5em;">
-            <div class="flex" style="width: 52px;">
-                <mat-icon class="contrast-icon" >warning</mat-icon>
-            </div>        
-            <div class="flex" style="padding-top:1em">
-                <div class="text-muted">
-                    User needs to be confirmed before the account can be used
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <button
-                style="margin-top:1em"
-                mat-raised-button
-                color="primary"
-                (click)="confirmUser()"
-            > Confirm User</button>
-        </div>
+    <div class="flex-row">
+      <div class="flex sl_flex_title">User Status</div>
+      <div class="flex sl_flex_content">
+        {{ umTabSvc.user_data.UserStatus }}
+      </div>
     </div>
 
-    <div class="flex-column flex-full summary_list_rows" >
-        
-        <div class="flex-row">
-          <div class="flex sl_flex_title">Enabled</div>
-          <div *ngIf="umTabSvc.user_data.Enabled" class="flex sl_flex_content">
-            True
-          </div>
-          <div *ngIf="!umTabSvc.user_data.Enabled" class="flex sl_flex_content">
-            False
-          </div>
-        </div>
-        
-        <div class="flex-row">
-          <div class="flex sl_flex_title">User Status</div>
-          <div class="flex sl_flex_content">
-            {{ umTabSvc.user_data.UserStatus }}
-          </div>
-        </div>
-        
-        <div class="flex-row">
-          <div class="flex sl_flex_title">Created Date</div>
-          <div class="flex sl_flex_content">
-            {{ umTabSvc.user_data.UserCreateDate | date: "MM/dd/yy"}}
-          </div>
-        </div>
-        
-        <div class="flex-row">
-          <div class="flex sl_flex_title">Last Modified Date</div>
-          <div class="flex sl_flex_content">
-            {{ umTabSvc.user_data.UserLastModifiedDate | date: "MM/dd/yy"}}
-          </div>
-        </div>
-        
-        <div class="flex-row">
-          <div class="flex sl_flex_title">Admin Status</div>
-          <div class="flex sl_flex_content">
-            <section class="example-section">
-                <mat-slide-toggle
-                    [(ngModel)]="umTabSvc.isAdmin"
-                    [disabled]="umTabSvc.isCurrentUser()"
-                    (change)="umTabSvc.changeAdminStatus($event)"
-                    color="primary"
-                    matTooltip="Can not remove your own admin status"
-                    [matTooltipDisabled]="!umTabSvc.isCurrentUser()">
-                  <div *ngIf="umTabSvc.isAdmin">Is Admin</div>
-                  <div *ngIf="!umTabSvc.isAdmin">Is not an Admin</div>
-                </mat-slide-toggle>
-              </section>
-          </div>
-        </div>
+    <div class="flex-row">
+      <div class="flex sl_flex_title">Created Date</div>
+      <div class="flex sl_flex_content">
+        {{ umTabSvc.user_data.UserCreateDate | date: "MM/dd/yy" }}
+      </div>
+    </div>
+
+    <div class="flex-row">
+      <div class="flex sl_flex_title">Last Modified Date</div>
+      <div class="flex sl_flex_content">
+        {{ umTabSvc.user_data.UserLastModifiedDate | date: "MM/dd/yy" }}
+      </div>
+    </div>
+
+    <div class="flex-row">
+      <div class="flex sl_flex_title">Admin Status</div>
+      <div class="flex sl_flex_content">
+        <section class="example-section">
+          <mat-slide-toggle
+            [(ngModel)]="umTabSvc.isAdmin"
+            [disabled]="umTabSvc.isCurrentUser()"
+            (change)="umTabSvc.changeAdminStatus($event)"
+            color="primary"
+            matTooltip="Can not remove your own admin status"
+            [matTooltipDisabled]="!umTabSvc.isCurrentUser()"
+          >
+            <div *ngIf="umTabSvc.isAdmin">Is Admin</div>
+            <div *ngIf="!umTabSvc.isAdmin">Is not an Admin</div>
+          </mat-slide-toggle>
+        </section>
+      </div>
+    </div>
+  </div>
 </div>

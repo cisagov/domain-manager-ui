@@ -26,11 +26,11 @@ export class AlertsService {
     this.horizontalPosition = horizPosition as MatSnackBarHorizontalPosition;
     this.verticalPosition = vertPosition as MatSnackBarVerticalPosition;
 
-    let displayMessage = ""
-    if(typeof alertMessage === 'string'){
-      displayMessage = alertMessage
-    } else if(alertMessage['name'] === "HttpErrorResponse"){
-      displayMessage = alertMessage['error']['error']
+    let displayMessage = '';
+    if (typeof alertMessage === 'string') {
+      displayMessage = alertMessage;
+    } else if (alertMessage['name'] === 'HttpErrorResponse') {
+      displayMessage = alertMessage['error']['error'];
     }
 
     this._snackBar.open(displayMessage, closeMessage, {

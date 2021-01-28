@@ -4,7 +4,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 // Local Service Imports
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 
-
 @Component({
   selector: 'wc-attributes',
   templateUrl: './website-details-attributes.component.html',
@@ -14,12 +13,9 @@ export class WebsiteDetailsAttrbutesComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
   submitted = false;
 
-  constructor(
-    public wdTabSvc: WebsiteDetailsTabService
-  ) {}
+  constructor(public wdTabSvc: WebsiteDetailsTabService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {
