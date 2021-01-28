@@ -67,8 +67,8 @@ import { TemplateService } from 'src/app/services/template.service';
 import { ThemeService } from './services/theme.service';
 import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
 import { UserAuthService } from './services/user-auth.service';
-import { UserManagementService } from 'src/app/services/user-management.service'
-import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service'
+import { UserManagementService } from 'src/app/services/user-management.service';
+import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
 

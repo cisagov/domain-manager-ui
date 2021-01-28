@@ -8,7 +8,7 @@ import { UserManagementTabService } from 'src/app/services/tab-services/user-man
 @Component({
   selector: 'app-user-management-details-summary',
   templateUrl: './user-management-details-summary.component.html',
-  styleUrls: ['./user-management-details-summary.component.scss']
+  styleUrls: ['./user-management-details-summary.component.scss'],
 })
 export class UserManagementDetailsSummaryComponent implements OnInit {
 
@@ -17,7 +17,7 @@ export class UserManagementDetailsSummaryComponent implements OnInit {
     public umTabSvc: UserManagementTabService) { }
 
   ngOnInit(): void {
-    console.log("test")
+    console.log('test');
   }
 
   confirmUser(){

@@ -15,7 +15,6 @@ const headers = {
 
 @Injectable()
 export class UserManagementService {
-
   constructor(
     private http: HttpClient,
     private settingsService: SettingsService

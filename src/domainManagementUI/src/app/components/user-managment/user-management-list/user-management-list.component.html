@@ -1,97 +1,95 @@
 <div class="table-list-header flex">
-    <div class="search-bar flex">
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Search</mat-label>
-        <input
-          [(ngModel)]="search_input"
-          (keyup)="filterList($event.target.value)"
-          matInput
-          placeholder="Search"
-        />
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-    </div>
-    <div class="add-new-button-container flex">
-        <button
-        style="height: 50px"
-        (click)="addUser()"
-        mat-raised-button
-        color="primary"
-        > 
-            Add New User
-        </button>
-    </div>
+  <div class="search-bar flex">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Search</mat-label>
+      <input
+        [(ngModel)]="search_input"
+        (keyup)="filterList($event.target.value)"
+        matInput
+        placeholder="Search"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="add-new-button-container flex">
+    <button
+      style="height: 50px"
+      (click)="addUser()"
+      mat-raised-button
+      color="primary"
+    >
+      Add New User
+    </button>
+  </div>
 </div>
 <div
-    *ngIf="loading"
-    style="text-align: center; padding-top: 2rem; padding-bottom: 2rem"
+  *ngIf="loading"
+  style="text-align: center; padding-top: 2rem; padding-bottom: 2rem"
 >
-    <mat-spinner
+  <mat-spinner
     class="spinner"
     style="margin-left: auto; margin-right: auto"
     diameter="50"
-    ></mat-spinner>
+  ></mat-spinner>
 </div>
 <mat-table [hidden]="loading" [dataSource]="userList" matSort>
-    <!-- Username -->
-    <ng-container matColumnDef="Username">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Username</mat-header-cell
-        >
-        <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
-        row.Username
-        }}</mat-cell>
-    </ng-container>
+  <!-- Username -->
+  <ng-container matColumnDef="Username">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Username</mat-header-cell
+    >
+    <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
+      row.Username
+    }}</mat-cell>
+  </ng-container>
 
-    <!-- Template Base -->
-    <ng-container matColumnDef="UserStatus">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-        >User Status</mat-header-cell
-        >
-        <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
-        row.UserStatus
-        }}</mat-cell>
-    </ng-container>
+  <!-- Template Base -->
+  <ng-container matColumnDef="UserStatus">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >User Status</mat-header-cell
+    >
+    <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
+      row.UserStatus
+    }}</mat-cell>
+  </ng-container>
 
-    <!-- User Created Date -->
-    <ng-container matColumnDef="UserCreateDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Created Date
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
-        row.UserCreateDate | date: "MM/dd/yy"
-        }}</mat-cell>
-    </ng-container>
+  <!-- User Created Date -->
+  <ng-container matColumnDef="UserCreateDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Created Date
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
+      row.UserCreateDate | date: "MM/dd/yy"
+    }}</mat-cell>
+  </ng-container>
 
-    <!-- Last Modified Date -->
-    <ng-container matColumnDef="UserLastModifiedDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Last Modified Date
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
-        row.UserLastModifiedDate | date: "MM/dd/yy"
-        }}</mat-cell>
-    </ng-container>
+  <!-- Last Modified Date -->
+  <ng-container matColumnDef="UserLastModifiedDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Last Modified Date
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
+      row.UserLastModifiedDate | date: "MM/dd/yy"
+    }}</mat-cell>
+  </ng-container>
 
-    <!-- User Enabled -->
-    <ng-container matColumnDef="Enabled">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Enabled</mat-header-cell
-        >
-        <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">
-        <mat-icon
-            *ngIf="row.Enabled"
-            aria-hidden="false"
-            aria-label="check_circle icon"
-            >check_circle</mat-icon
-        >
-        </mat-cell>
-    </ng-container>
+  <!-- User Enabled -->
+  <ng-container matColumnDef="Enabled">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Enabled</mat-header-cell>
+    <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">
+      <mat-icon
+        *ngIf="row.Enabled"
+        aria-hidden="false"
+        aria-label="check_circle icon"
+        >check_circle</mat-icon
+      >
+    </mat-cell>
+  </ng-container>
 
-    <!-- Header Info -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row
-        class="table-row cursor-pointer"
-        *matRowDef="let row; columns: displayedColumns"
-    ></mat-row>
+  <!-- Header Info -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    class="table-row cursor-pointer"
+    *matRowDef="let row; columns: displayedColumns"
+  ></mat-row>
 </mat-table>

@@ -25,10 +25,9 @@ import { UserModel } from 'src/app/models/user.model';
 @Component({
   selector: 'app-user-management-list',
   templateUrl: './user-management-list.component.html',
-  styleUrls: ['./user-management-list.component.scss']
+  styleUrls: ['./user-management-list.component.scss'],
 })
 export class UserManagementListComponent implements OnInit {
-
   displayedColumns = [
     'Username',
     'UserStatus',
@@ -38,15 +37,15 @@ export class UserManagementListComponent implements OnInit {
   ];
   loading = false;
   search_input = '';
-  userList : MatTableDataSource<UserModel> = new MatTableDataSource<UserModel>();
+  userList: MatTableDataSource<UserModel> = new MatTableDataSource<UserModel>();
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private alerts: AlertsService,
     private router: Router,
-    private userManageSVC: UserManagementService,
-    ) { }
+    private userManageSVC: UserManagementService
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -56,29 +55,29 @@ export class UserManagementListComponent implements OnInit {
     this.userList.sort = this.sort;
   }
 
-  getUsers(){
-    this.loading = true
+  getUsers() {
+    this.loading = true;
     this.userManageSVC.getAllUsers().subscribe(
       (success) => {
-        console.log(success)
+        console.log(success);
         this.userList = new MatTableDataSource<UserModel>(
           success as UserModel[]
         );
         this.userList.sort = this.sort;
-        this.loading = false
+        this.loading = false;
       },
       (failure) => {
-        this.alerts.alert("Failed to load user list")
-        this.loading = false
-      },
-    )
+        this.alerts.alert('Failed to load user list');
+        this.loading = false;
+      }
+    );
   }
 
-  addUser(){
-    this.alerts.alert("adduser not implemented yet")
+  addUser() {
+    this.alerts.alert('adduser not implemented yet');
   }
 
-  viewUser(username){
+  viewUser(username) {
     this.router.navigate([`/user/details/${username}`]);
   }
 
