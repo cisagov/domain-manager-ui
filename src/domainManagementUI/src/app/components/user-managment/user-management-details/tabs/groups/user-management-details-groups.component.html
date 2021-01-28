@@ -1,5 +1,9 @@
 <div class="flex flex-container tab">
 
+  <h5>User : {{ umTabSvc.user_data.Username }}</h5>
+  <div class="text-muted" style="margin-bottom: .5em;">
+    Groups the user is assigned to.
+  </div>
 
     <div class="add-new-button-container flex">
         <button
@@ -8,7 +12,7 @@
           (click)="setUsersGroups()"
           class="mb-2"
         >
-          Update Users Groups
+          Save Users Groups
         </button>
       </div>
   
@@ -28,7 +32,7 @@
             <mat-checkbox
               [(ngModel)]="row.isChecked"
               color="primary"
-              (ngModelChange)="updateAllCheckboxComplete()"
+              (ngModelChange)="updateAllCheckboxComplete($event)"
             >
             </mat-checkbox>
           </mat-cell>

@@ -57,22 +57,40 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
   }
 
   setUsersActiveGroups(applicationList){
-    applicationList.forEach(group => {
-      if(this.umTabSvc.user_data.Groups.filter((t) => t["GroupName"] == group.name).length > 0){
-        group["isChecked"] = true;
-      } else {
-        group["isChecked"] = false; 
-      }
-    });
+    if(applicationList){
+      applicationList.forEach(group => {
+        if(this.umTabSvc.user_data.Groups.filter((t) => t["GroupName"] == group.name).length > 0){
+          group["isChecked"] = true;
+        } else {
+          group["isChecked"] = false; 
+        }
+      });
+    }
     return applicationList
-  }
-
   
-  setUsersGroups(){
-    this.alertsSvc.alert("API not connected")
   }
 
-  updateAllCheckboxComplete() {
+
+  setUsersGroups(){
+    let data = []
+    this.groupList['_data']['_value'].filter((group) => group["isChecked"] == true)
+    .forEach(checkedGroup => {
+      data.push({
+        "GroupName": checkedGroup["name"],
+        "Application_Id": checkedGroup["_id"]
+      })
+    });
+    this.umTabSvc.setUserGroups(data).subscribe(
+      (success) => {
+        this.alertsSvc.alert("Groups updated successfully")
+      },
+      (failure) => {
+        this.alertsSvc.alert(failure)
+      }
+    )
+  }
+
+  updateAllCheckboxComplete(event) {
     let data = this.groupList['_data']['_value'];
     this.allChecked = data != null && data.every((t) => t.isChecked);
   }
