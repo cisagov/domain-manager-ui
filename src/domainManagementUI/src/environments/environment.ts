@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  authorize: true,
+  authorize: false,
   adminGroupName: 'admin',
   defaultToAdmin: true,
   localData: false, // If true, uses data generated in angular, will not query any api

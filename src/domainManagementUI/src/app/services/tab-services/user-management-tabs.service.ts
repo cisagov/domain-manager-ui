@@ -11,7 +11,7 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserManagementService } from '../user-management.service';
 
 // Models
-import { UserModel, AWSUserModel } from 'src/app/models/user.model'
+import { UserModel, AWSUserModel } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root',
