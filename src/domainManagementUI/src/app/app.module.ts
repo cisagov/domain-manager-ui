@@ -32,8 +32,6 @@ import { DomainManagementDetailsComponent } from 'src/app/components/domain-mana
 import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
-import { MailgunRecordsComponent } from 'src/app/components/website/website-details/tabs/mailgun-records/mailgun-records.component';
-import { MailgunRecordsDialogComponent } from 'src/app/components/website/website-details/tabs/mailgun-records/mailgun-records-dialog/mailgun-records-dialog.component';
 import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/template/template-details/tabs/connected-websites/template-details-connected-websites.component';
@@ -75,8 +73,8 @@ import { WebsiteService } from 'src/app/services/website.service';
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
 import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor';
 import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
-import { WebsiteDetailsRedirectsComponent } from './components/website/website-details/tabs/redirects/website-details-redirects.component';
-import { ManageRedirectDialogComponent } from './components/website/website-details/tabs/redirects/manage-redirect-dialog/manage-redirect-dialog.component';
+import { DnsRecordsComponent } from './components/website/website-details/tabs/dns-records/dns-records.component';
+import { DnsRecordsDialogComponent } from './components/website/website-details/tabs/dns-records/dns-records-dialog/dns-records-dialog.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -99,9 +97,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DomainManagementWebsiteSelectionTab,
     ConfirmDialogComponent,
     FileUploadDialogComponent,
-    MailgunRecordsComponent,
-    MailgunRecordsDialogComponent,
-    ManageRedirectDialogComponent,
     ProgressBarDialog,
     TemplateDetailsComponent,
     TemplateDetailsConnectedWebsitesComponent,
@@ -117,11 +112,12 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     WebsiteDetailsSummaryComponent,
     WebsiteDetailsTemplateSelectionComponent,
     WebsiteListComponent,
-    WebsiteDetailsRedirectsComponent,
     UserManagementListComponent,
     UserManagementDetailsComponent,
     UserManagementDetailsSummaryComponent,
     UserManagementDetailsGroupsComponent,
+    DnsRecordsComponent,
+    DnsRecordsDialogComponent,
   ],
   imports: [
     AppRoutingModule,
