@@ -17,7 +17,7 @@ export class WebsiteModel {
   route53: string;
   hosted_zones: HostedZoneModel[];
   redirects: RedirectModel[];
-  mailgunRecords: MailgunRecordModel[];
+  records: RecordModel[];
   //Status Flags
   is_available: boolean;
   is_launching: boolean;
@@ -32,26 +32,12 @@ export class HostedZoneModel {
   AliasTarget: AliasTargetModel;
   TTL: number;
   Type: string;
-
-  constructor() {
-    this.Name = null;
-    this.ResourceRecords = null;
-    this.TTL = null;
-    this.AliasTarget = null;
-    this.Type = null;
-  }
 }
 
 export class AliasTargetModel {
   DNSName: string;
   EvaluateTargetHealth: boolean;
   HostedZoneId: string;
-
-  constructor() {
-    this.DNSName = null;
-    this.EvaluateTargetHealth = null;
-    this.HostedZoneId = null;
-  }
 }
 
 export class WebSiteParameter {
@@ -62,11 +48,6 @@ export class WebSiteParameter {
 export class WebsiteHistoryModel {
   application: ApplicationModel;
   launch_date: Date;
-
-  constructor() {
-    this.application = new ApplicationModel();
-    this.launch_date = null;
-  }
 }
 
 export class RedirectModel {
@@ -74,7 +55,9 @@ export class RedirectModel {
   redirect_url: string;
 }
 
-export class MailgunRecordModel {
+export class RecordModel {
+  record_id: string;
+  record_type: string;
   name: string;
-  route: string;
+  config: any = {};
 }
