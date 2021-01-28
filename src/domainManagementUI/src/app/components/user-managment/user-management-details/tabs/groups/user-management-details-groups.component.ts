@@ -86,6 +86,7 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
       },
       (failure) => {
         this.alertsSvc.alert(failure)
+        
       }
     )
   }
