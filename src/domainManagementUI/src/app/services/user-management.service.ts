@@ -8,6 +8,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
 import { UserModel } from 'src/app/models/user.model';
+import { group } from '@angular/animations';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -64,6 +65,12 @@ export class UserManagementService {
     removeUserAsAdmin(username){
         const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/admin`;
         return this.http.delete(url, headers);
+    }
+    
+    setUserGroups(username, groupData){
+        console.log(groupData)
+        const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/groups`;
+        return this.http.put(url, groupData);    
     }
 
 }

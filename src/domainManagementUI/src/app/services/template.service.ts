@@ -56,7 +56,6 @@ export class TemplateService extends AbstractUploadService {
   }
 
   getTemplateDetails(templateId) {
-    console.log('TESST');
     let url = `${this.settingsService.settings.apiUrl}/api/template/${templateId}`;
     return this.http.get(url, headers);
   }

@@ -10,6 +10,7 @@ export class WebsiteModel {
   template_base_uuid: string;
   category: string;
   website_parameters: WebSiteParameter[];
+  application_name: string;
   application_id: string;
   is_active: boolean;
   application_using: ApplicationModel;

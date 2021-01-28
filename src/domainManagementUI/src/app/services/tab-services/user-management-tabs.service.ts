@@ -52,7 +52,6 @@ export class UserManagementTabService {
               this.loading = false;
             },
             (failure) => {
-              console.log(failure)
               this.alertsSvc.alert("Failed to get user data for ")
               this.loading = false;
           },
@@ -61,9 +60,7 @@ export class UserManagementTabService {
 
   setAdminStatus(){
     this.isAdmin = false;
-    console.log(this.user_data.Groups.filter((g) => g["GroupName"] == environment.adminGroupName));
     if(this.user_data.Groups.filter((g) => g["GroupName"] == environment.adminGroupName).length != 0){
-      console.log(this.user_data.Groups.filter((g) => g["GroupName"] == environment.adminGroupName).length)
       this.isAdmin = true;
     }
   }
@@ -114,6 +111,10 @@ export class UserManagementTabService {
 
   getApplicationGroups(){
     return this.applicationsSvc.getAllApplications()
+  }
+
+  setUserGroups(groupData){
+    return this.userManageSvc.setUserGroups(this.user_data.Username, groupData);
   }
 
 }

@@ -48,21 +48,16 @@ export class TemplateDetailsTabService {
   }
 
   getTemplateDetails(_id) {
-    console.log(_id);
 
-    //TODO change over to single template details call when api is available
-    this.templateSvc.getAllTemplates().subscribe(
-      (success: Array<TemplateModel>) => {
-        console.log(success.filter((t) => t._id == _id)[0]);
-        let single_template = success.filter((t) => t._id == _id)[0];
-        this.template_data = single_template as TemplateModel;
+    this.templateSvc.getTemplateDetails(_id).subscribe(
+      (success) => {
+        this.template_data = success as TemplateModel;
         this.template_data_behavior_subject.next(this.template_data);
         this.initalizeData();
       },
       (error) => {
-        console.log(`Error from service ${error}`);
-      }
-    );
+        this.alertsSvc.alert(error)
+      })
   }
 
   initalizeData() {
@@ -84,11 +79,9 @@ export class TemplateDetailsTabService {
         this.websites_used_list = data.filter(
           (ws) => ws.category === this.template_data.name
         );
-        console.log(this.websites_used_list);
       },
       (failure) => {
-        this.alertsSvc.alert('Failure To Get Websites');
-        console.log(failure);
+        this.alertsSvc.alert(failure)
       }
     );
   }

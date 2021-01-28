@@ -76,8 +76,8 @@ export class WebsiteDetailsTabService {
         this.website_data_behavior_subject.next(this.website_data);
         this.initalizeData();
       },
-      (error) => {
-        console.log(`Error from service ${error}`);
+      (failure) => {
+        this.alertsSvc.alert(failure["error"])
       }
     );
   }
@@ -91,17 +91,18 @@ export class WebsiteDetailsTabService {
     if (this.website_data.application_id) {
       //If application data received
       //get application list
-      this.applicationSvc
-        .getApplication(this.website_data.application_id)
-        .subscribe(
-          (success) => {
-            this.website_data.application_using = success as ApplicationModel;
-          },
-          (failure) => {
-            this.alertsSvc.alert('Failed to get application');
-            console.log(failure);
-          }
-        );
+      if(this.userIsAdmin){
+        this.applicationSvc
+          .getApplication(this.website_data.application_id)
+          .subscribe(
+            (success) => {
+              this.website_data.application_using = success as ApplicationModel;
+            },
+            (failure) => {
+              this.alertsSvc.alert(failure);
+            }
+          );
+      }
     }
     //set template status
     this.setTemplateStatus();
@@ -179,7 +180,6 @@ export class WebsiteDetailsTabService {
   }
 
   downloadWebsite() {
-    console.log('TEST');
     return this.websiteSvc.downloadWebsite(this.website_data._id);
   }
   deleteWebsite(websiteId: string) {
@@ -207,8 +207,6 @@ export class WebsiteDetailsTabService {
   }
 
   canBeTakenDown() {
-    console.log(this.isSiteLaunched());
-    console.log(this.website_data);
     if (this.isSiteLaunched() && !this.website_data.is_delaunching) {
       return true;
     }
@@ -216,7 +214,6 @@ export class WebsiteDetailsTabService {
   }
 
   canBeLaunched() {
-    console.log(this.website_data.is_launching);
     if (
       !this.isSiteLaunched() &&
       !this.website_data.is_launching &&
@@ -228,10 +225,7 @@ export class WebsiteDetailsTabService {
   }
 
   takeDownSite() {
-    console.log('test');
-    console.log(this.canBeTakenDown());
     if (this.canBeTakenDown()) {
-      console.log('test');
       this.website_data.is_delaunching = true;
       return this.websiteSvc.takeDownWebsite(this.website_data._id);
     } else {
@@ -249,19 +243,16 @@ export class WebsiteDetailsTabService {
   }
 
   launchSite() {
-    console.log('launching');
     if (this.canBeLaunched()) {
       this.website_data.is_launching = true;
       return this.websiteSvc.launchWebsite(this.website_data._id);
     } else {
-      console.log('cant launch');
       if (!this.hasTemplateAttached()) {
         this.alertsSvc.alert(
           'Please attach a template prior to launching the site'
         );
       }
       if (this.website_data.is_launching) {
-        console.log('in progress');
         this.alertsSvc.alert(
           'Website is currently in the process of launching'
         );
@@ -273,11 +264,9 @@ export class WebsiteDetailsTabService {
     if (this.hasTemplateAttached()) {
       this.websiteSvc.removeTemplate(this.website_data._id).subscribe(
         (success) => {
-          console.log(success);
         },
         (failure) => {
           this.alertsSvc.alert('Failed to remove template');
-          console.log(failure);
         }
       );
     } else {

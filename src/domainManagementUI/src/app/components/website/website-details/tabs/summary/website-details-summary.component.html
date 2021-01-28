@@ -71,13 +71,13 @@
       <div class="flex-row" *ngIf="!wdTabSvc.userIsAdmin">
         <div class="flex sl_flex_title">Applications Assigned To</div>
         <div
-          *ngIf="wdTabSvc.website_data.application_using?.name"
+          *ngIf="wdTabSvc.website_data.application_name"
           class="flex sl_flex_content"
         >
-          {{ wdTabSvc.website_data.application_using?.name }}
+          {{ wdTabSvc.website_data.application_name }}
         </div>
         <div
-          *ngIf="!wdTabSvc.website_data.application_using?.name"
+          *ngIf="!wdTabSvc.website_data.application_name"
           class="flex sl_flex_content"
         >
           No application assigned

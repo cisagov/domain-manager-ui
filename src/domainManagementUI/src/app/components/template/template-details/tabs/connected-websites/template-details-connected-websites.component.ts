@@ -3,7 +3,6 @@ import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // Local Service Imports
-import { ApplicationService } from 'src/app/services/applications.service';
 import { TemplateDetailsTabService } from 'src/app/services/tab-services/template-details-tabs.service';
 
 //Models
@@ -20,7 +19,6 @@ export class TemplateDetailsConnectedWebsitesComponent
   template_data: TemplateModel = new TemplateModel();
 
   constructor(
-    public applicationSvc: ApplicationService,
     public tdTabSvc: TemplateDetailsTabService
   ) {}
 
