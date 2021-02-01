@@ -56,16 +56,15 @@ export class UserManagementDetailsComponent implements OnInit {
     this.umTabSvc.getUserDetails(username);
   }
 
-  deleteUser(){
-    this.alertsSvc.alert("Delete user functionallity not yet implmemented")
+  deleteUser() {
+    this.alertsSvc.alert('Delete user functionallity not yet implmemented');
   }
 
-  disableUser(){
-    this.alertsSvc.alert("Disable user functionallity not yet implmemented")
+  disableUser() {
+    this.alertsSvc.alert('Disable user functionallity not yet implmemented');
   }
 
   onTabChanged(event) {
     console.log(event);
   }
-
 }

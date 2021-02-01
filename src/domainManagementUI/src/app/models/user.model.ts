@@ -12,8 +12,8 @@ export class AWSUserModel {
   Username: string;
 }
 
-export class UserModel extends AWSUserModel{
-    _id: string;
-    Groups: [];
-    History: Array<UserAction>;
+export class UserModel extends AWSUserModel {
+  _id: string;
+  Groups: [];
+  History: Array<UserAction>;
 }

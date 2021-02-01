@@ -8,15 +8,11 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
 import {
-  HostedZoneModel,
-  MailgunRecordModel,
+  RecordModel,
   RedirectModel,
-  WebsiteHistoryModel,
   WebsiteModel,
 } from 'src/app/models/website.model';
 import { AbstractUploadService } from './abstract-upload.service';
-import { ApplicationModel } from '../models/application.model';
-import { domain } from 'process';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -72,7 +68,7 @@ export class WebsiteService extends AbstractUploadService {
         reportProgress: true,
       });
       return this.http.request(config);
-    } 
+    }
 
     if (environment.localData) {
       return new Observable((exampleObs) => {
@@ -218,18 +214,13 @@ export class WebsiteService extends AbstractUploadService {
     return this.http.put(url, redirect);
   }
 
-  createMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/mailgunRecord/`;
-    return this.http.post(url, mailgunRecord);
+  createRecord(websiteId: string, record: RecordModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/records/`;
+    return this.http.post(url, record);
   }
 
-  updateMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/mailgunRecord/`;
-    return this.http.put(url, mailgunRecord);
-  }
-
-  deleteMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/mailgunRecord/?recordName=${mailgunRecord.name}`;
+  deleteRecord(websiteId: string, recordId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/records/?record_id=${recordId}`;
     return this.http.delete(url);
   }
 

@@ -77,7 +77,7 @@ export class WebsiteDetailsTabService {
         this.initalizeData();
       },
       (failure) => {
-        this.alertsSvc.alert(failure["error"])
+        this.alertsSvc.alert(failure['error']);
       }
     );
   }
@@ -91,7 +91,7 @@ export class WebsiteDetailsTabService {
     if (this.website_data.application_id) {
       //If application data received
       //get application list
-      if(this.userIsAdmin){
+      if (this.userIsAdmin) {
         this.applicationSvc
           .getApplication(this.website_data.application_id)
           .subscribe(
@@ -267,8 +267,7 @@ export class WebsiteDetailsTabService {
   removeTemplate() {
     if (this.hasTemplateAttached()) {
       this.websiteSvc.removeTemplate(this.website_data._id).subscribe(
-        (success) => {
-        },
+        (success) => {},
         (failure) => {
           this.alertsSvc.alert('Failed to remove template');
         }

@@ -11,20 +11,19 @@ import { UserManagementTabService } from 'src/app/services/tab-services/user-man
   styleUrls: ['./user-management-details-summary.component.scss'],
 })
 export class UserManagementDetailsSummaryComponent implements OnInit {
-
   constructor(
     public alertsSvc: AlertsService,
-    public umTabSvc: UserManagementTabService) { }
+    public umTabSvc: UserManagementTabService
+  ) {}
 
   ngOnInit(): void {
     console.log('test');
   }
 
-  confirmUser(){
+  confirmUser() {
     this.umTabSvc.confirmUser();
   }
-  test(item){
-    console.log(item)
+  test(item) {
+    console.log(item);
   }
-
 }

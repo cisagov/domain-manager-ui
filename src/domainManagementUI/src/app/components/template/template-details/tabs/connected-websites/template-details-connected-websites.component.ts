@@ -18,9 +18,7 @@ export class TemplateDetailsConnectedWebsitesComponent
   component_subscriptions = [];
   template_data: TemplateModel = new TemplateModel();
 
-  constructor(
-    public tdTabSvc: TemplateDetailsTabService
-  ) {}
+  constructor(public tdTabSvc: TemplateDetailsTabService) {}
 
   ngOnInit(): void {}
 
