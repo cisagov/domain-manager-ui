@@ -1,10 +1,10 @@
 <div class="flex flex-container tab">
   <!-- <h5>Template : {{tdTabSvc.template_data.name}}</h5> -->
-  <div class="flex flex-center" *ngIf="!wdTabSvc.website_data._id">
+  <div class="flex flex-center" *ngIf="wdTabSvc.isLoading()">
     <mat-spinner></mat-spinner>
   </div>
 
-  <div *ngIf="wdTabSvc.website_data._id">
+  <div *ngIf="!wdTabSvc.isLoading()">
     <h5>Website: {{ wdTabSvc.website_data.name }}</h5>
     <!--
     <button
@@ -40,6 +40,12 @@
         <div class="flex sl_flex_title">Website Is Launched</div>
         <div class="flex sl_flex_content">
           {{ wdTabSvc.website_data.is_active }}
+        </div>
+      </div>
+      <div *ngIf="wdTabSvc.website_data.cloudfront_status" class="flex-row">
+        <div class="flex sl_flex_title">Website Deployment Status</div>
+        <div class="flex sl_flex_content">
+          {{ wdTabSvc.website_data.cloudfront_status.Status }}
         </div>
       </div>
       <div class="flex-row" *ngIf="wdTabSvc.website_data?.category">

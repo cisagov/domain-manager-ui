@@ -29,6 +29,7 @@ export class WebsiteDetailsTabService {
   public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
+  public loadingItems = [];
   public templateExists: boolean = false;
   public templateSelectinoMethod: string = null;
   public templateSelectionBehaviorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(
@@ -68,16 +69,17 @@ export class WebsiteDetailsTabService {
   }
 
   getWebsiteDetails(_id) {
+    this.setLoadingStatus("website_loading", true)
     this.website_data = new WebsiteModel();
     this.websiteSvc.getWebsiteDetails(_id).subscribe(
       (success) => {
-        console.log(success);
         this.website_data = success as WebsiteModel;
         this.website_data_behavior_subject.next(this.website_data);
-        this.initalizeData();
+        this.setLoadingStatus("website_loading", false)
       },
       (failure) => {
         this.alertsSvc.alert(failure['error']);
+        this.setLoadingStatus("website_loading", false)
       }
     );
   }
@@ -92,20 +94,22 @@ export class WebsiteDetailsTabService {
       //If application data received
       //get application list
       if (this.userIsAdmin) {
+        this.setLoadingStatus("application_loading", true)
         this.applicationSvc
           .getApplication(this.website_data.application_id)
           .subscribe(
             (success) => {
               this.website_data.application_using = success as ApplicationModel;
+              this.setLoadingStatus("application_loading", false)
             },
             (failure) => {
               this.alertsSvc.alert(failure);
+              this.setLoadingStatus("application_loading", false)
             }
           );
       }
       if(this.website_data.is_active){
-        // console.log("Getting cloudfront status")
-        // this.getCloudfrontStatus();
+        this.getCloudfrontStatus();
       }
     }
     //set template status
@@ -325,15 +329,44 @@ export class WebsiteDetailsTabService {
   }
 
   getCloudfrontStatus() {
+    this.setLoadingStatus("cloudfront_status_loading", true)
     this.websiteSvc.getCloudfrontStatus(this.website_data._id).subscribe(
       (success) => {
-        console.log(success)
         this.website_data.cloudfront_status = success
+        this.setLoadingStatus("cloudfront_status_loading", false)
       },
       (failure) => {
         this.alertsSvc.alert(failure)
+        this.setLoadingStatus("cloudfront_status_loading", false)
       },
     )
-    console.log(this.website_data.cloudfront_status)
+  }
+
+  setLoadingStatus(loading_item, value){    
+    if(value === true){
+      let pushObj = {}
+      pushObj[loading_item] = value
+      this.loadingItems.push(pushObj)
+    } else if (value === false) {
+      this.loadingItems
+        .filter((i) => loading_item in i)
+        .forEach((t) => t[loading_item] = false)
+    }
+  }
+  
+  isLoading(){
+    let isLoading = false
+    if(this.loadingItems.length == 0){
+      console.log("TRUE - 0")
+      isLoading = true;
+    }
+    this.loadingItems.forEach(item => {
+      Object.keys(item).forEach(key => {
+        if(item[key] == true){
+          isLoading = true
+        } 
+      })
+    });
+    return isLoading;
   }
 }

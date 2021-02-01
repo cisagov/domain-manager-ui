@@ -57,7 +57,6 @@ export class CategoryService {
       this.http.get(url, headers).subscribe(
         (success) => {
           this.category_list = success as [];
-          console.log(this.category_list);
         },
         (failure) => {
           this.alertsSvc.alert('Failed to get category list');

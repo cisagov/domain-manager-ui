@@ -50,11 +50,9 @@ export class WebsiteDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   setURL(website: WebsiteModel) {
-    console.log(website);
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
       website.s3_url + 'home.html'
     );
-    console.log(this.safeURL);
   }
 
   openInNewTab() {
