@@ -219,17 +219,22 @@ export class WebsiteService extends AbstractUploadService {
   }
 
   createMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/mailgunRecord/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/mailgunRecord/`;
     return this.http.post(url, mailgunRecord);
   }
 
   updateMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/mailgunRecord/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/mailgunRecord/`;
     return this.http.put(url, mailgunRecord);
   }
 
   deleteMailgunRecord(websiteId: string, mailgunRecord: MailgunRecordModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/website/${websiteId}/mailgunRecord/?recordName=${mailgunRecord.name}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/mailgunRecord/?recordName=${mailgunRecord.name}`;
     return this.http.delete(url);
+  }
+
+  getCloudfrontStatus(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/deployed/`;
+    return this.http.get(url);
   }
 }

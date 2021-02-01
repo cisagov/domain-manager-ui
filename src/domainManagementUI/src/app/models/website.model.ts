@@ -25,6 +25,7 @@ export class WebsiteModel {
   is_delaunching: boolean;
   is_generating_template: boolean;
   is_category_submitted: boolean;
+  cloudfront_status: any;
 }
 
 export class HostedZoneModel {

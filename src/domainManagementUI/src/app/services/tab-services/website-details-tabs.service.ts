@@ -103,6 +103,10 @@ export class WebsiteDetailsTabService {
             }
           );
       }
+      if(this.website_data.is_active){
+        // console.log("Getting cloudfront status")
+        // this.getCloudfrontStatus();
+      }
     }
     //set template status
     this.setTemplateStatus();
@@ -319,5 +323,18 @@ export class WebsiteDetailsTabService {
     } else {
       console.log('form invalid');
     }
+  }
+
+  getCloudfrontStatus() {
+    this.websiteSvc.getCloudfrontStatus(this.website_data._id).subscribe(
+      (success) => {
+        console.log(success)
+        this.website_data.cloudfront_status = success
+      },
+      (failure) => {
+        this.alertsSvc.alert(failure)
+      },
+    )
+    console.log(this.website_data.cloudfront_status)
   }
 }
