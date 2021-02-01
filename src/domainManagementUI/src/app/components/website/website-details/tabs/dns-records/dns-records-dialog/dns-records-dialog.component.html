@@ -1,0 +1,140 @@
+<h2 mat-dialog-title>Manage Record</h2>
+
+<form [formGroup]="recordForm" class="dialog text-muted" mat-dialog-content>
+  <div class="flex flex-column">
+    <mat-form-field appearance="outline">
+      <mat-select
+        required
+        formControlName="recordType"
+        [(ngModel)]="record.record_type"
+      >
+        <mat-option [value]="null">--Select--</mat-option>
+        <mat-option *ngFor="let t of recordTypes" [value]="t">
+          {{ t }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="flex flex-column">
+    <mat-form-field style="width: 30em" appearance="outline">
+      <mat-label>Record Name</mat-label>
+      <input
+        matInput
+        trim="blur"
+        type="text"
+        required
+        formControlName="name"
+        [(ngModel)]="record.name"
+        placeholder="something.{{ wdTabSvc.website_data.name }}"
+      />
+      <mat-error *ngIf="recordForm.get('name').invalid">
+        This is a required field, and must end with the domain -
+        {{ wdTabSvc.website_data.name }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="record.record_type === 'A'">
+    <mat-form-field style="width: 30em" appearance="outline">
+      <mat-label>IPv4 Address</mat-label>
+      <input
+        matInput
+        trim="blur"
+        type="text"
+        required
+        formControlName="aValue"
+        [(ngModel)]="record.config.value"
+        placeholder="IPv4 Address"
+      />
+    </mat-form-field>
+    <mat-error *ngIf="recordForm.get('aValue').invalid">
+      This is a required field and must be a valid ip address.
+    </mat-error>
+  </div>
+
+  <div *ngIf="record.record_type === 'CNAME'">
+    <mat-form-field style="width: 30em" appearance="outline">
+      <mat-label>Domain</mat-label>
+      <input
+        matInput
+        trim="blur"
+        type="text"
+        required
+        formControlName="cnameValue"
+        [(ngModel)]="record.config.value"
+        placeholder="Domain"
+      />
+    </mat-form-field>
+    <mat-error *ngIf="recordForm.get('cnameValue').invalid">
+      This is a required field and must be a valid domain.
+    </mat-error>
+  </div>
+
+  <div *ngIf="record.record_type === 'REDIRECT'">
+    <mat-form-field style="width: 30em" appearance="outline">
+      <mat-label>Domain</mat-label>
+      <input
+        matInput
+        trim="blur"
+        type="text"
+        required
+        formControlName="redirectValue"
+        [(ngModel)]="record.config.value"
+        placeholder="Domain"
+      />
+    </mat-form-field>
+    <mat-error *ngIf="recordForm.get('redirectValue').invalid">
+      This is a required field and must be a valid domain.
+    </mat-error>
+  </div>
+
+  <div *ngIf="record.record_type === 'MAILGUN'">
+    <mat-form-field style="width: 30em" appearance="outline">
+      <mat-label>Mailgun Domain Key</mat-label>
+      <input
+        matInput
+        trim="blur"
+        type="text"
+        required
+        formControlName="mailgunValue"
+        [(ngModel)]="record.config.value"
+        placeholder="k=rsa; p=...."
+      />
+    </mat-form-field>
+    <mat-error *ngIf="recordForm.get('mailgunValue').invalid">
+      This is a required field and must be the domain key provided by mailgun.
+    </mat-error>
+  </div>
+</form>
+
+<mat-dialog-actions align="end">
+  <button
+    *ngIf="isNewRecord"
+    [disabled]="!formValid"
+    (click)="createRecord()"
+    mat-raised-button
+    color="primary"
+  >
+    Create & Close
+  </button>
+  <!-- <button
+      (click)="test()"
+      mat-raised-button
+      color="primary"
+    >
+      Test
+    </button> -->
+  <button
+    *ngIf="!isNewRecord"
+    [disabled]="!formValid"
+    (click)="updateRecord()"
+    mat-raised-button
+    color="primary"
+  >
+    Edit & Close
+  </button>
+  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">
+    Cancel
+  </button>
+</mat-dialog-actions>
