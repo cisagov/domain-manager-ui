@@ -41,6 +41,7 @@ import { TemplateListComponent } from 'src/app/components/template/template-list
 import { UserManagementListComponent } from './components/user-managment/user-management-list/user-management-list.component';
 import { UserManagementDetailsComponent } from './components/user-managment/user-management-details/user-management-details.component';
 import { UserManagementDetailsGroupsComponent } from './components/user-managment/user-management-details/tabs/groups/user-management-details-groups.component';
+import { UserManagementDetailsHistoryComponent } from './components/user-managment/user-management-details/tabs/history/user-managment-details-history.component';
 import { UserManagementDetailsSummaryComponent } from './components/user-managment/user-management-details/tabs/summary/user-management-details-summary.component';
 import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
 import { WebsiteDetailsAttrbutesComponent } from 'src/app/components/website/website-details/tabs/attributes/website-details-attributes.component';
@@ -116,6 +117,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     UserManagementDetailsComponent,
     UserManagementDetailsSummaryComponent,
     UserManagementDetailsGroupsComponent,
+    UserManagementDetailsHistoryComponent,
     DnsRecordsComponent,
     DnsRecordsDialogComponent,
   ],

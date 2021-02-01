@@ -3,7 +3,7 @@ export class DomainBaseModel {
   id: string;
   uuid: string;
   name: string;
-  application: string;
+  application_name: string;
   application_uuid: string;
   isAvailable: boolean;
   lastUser: string;
@@ -28,7 +28,7 @@ export class DomainBaseModel {
     this.uuid = null;
     this.callerReference = null;
     this.id = null;
-    (this.application = null),
+    (this.application_name = null),
       (this.application_uuid = null),
       (this.isAvailable = null),
       (this.lastUser = null),

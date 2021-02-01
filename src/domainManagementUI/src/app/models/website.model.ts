@@ -10,6 +10,7 @@ export class WebsiteModel {
   template_base_uuid: string;
   category: string;
   website_parameters: WebSiteParameter[];
+  application_name: string;
   application_id: string;
   is_active: boolean;
   application_using: ApplicationModel;
@@ -24,6 +25,7 @@ export class WebsiteModel {
   is_delaunching: boolean;
   is_generating_template: boolean;
   is_category_submitted: boolean;
+  cloudfront_status: any;
 }
 
 export class HostedZoneModel {

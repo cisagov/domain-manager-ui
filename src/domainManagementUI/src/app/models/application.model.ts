@@ -11,3 +11,12 @@ export class ApplicationModel {
   // Helper attributes
   domains_used_count: Number;
 }
+
+export class ApplicationGroupModel extends ApplicationModel {
+  isChecked: boolean;
+
+  constructor() {
+    super();
+    this.isChecked = false;
+  }
+}

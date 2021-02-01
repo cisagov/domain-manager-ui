@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
 import { WebsiteService } from 'src/app/services/website.service';
 
@@ -26,26 +27,29 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   component_subscriptions = [];
   // website_data : WebsiteModel = new WebsiteModel();
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
+  public userIsAdmin: boolean = null;
+  private websiteDataExists = false;
 
   constructor(
     public alertsSvc: AlertsService,
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
     private router: Router,
+    private userAuthSvc: UserAuthService,
     public wdTabSvc: WebsiteDetailsTabService,
     public websiteSvc: WebsiteService
   ) {}
-
   ngOnInit(): void {
-    this.applicationSvc.getAllApplications().subscribe(
-      (success) => {
-        this.application_list = success as [];
-      },
-      (failure) => {
-        this.alertsSvc.alert('Failed to get application list');
-        console.log(failure);
+    this.wdTabSvc.getWebsiteDataBehaviorSubject().subscribe((data) => {
+      if (data._id) {
+        this.websiteDataExists = true;
+        this.getApplicationData();
       }
-    );
+    });
+    this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
+      this.userIsAdmin = value;
+      this.getApplicationData();
+    });
   }
 
   ngOnDestroy(): void {
@@ -53,19 +57,31 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
-
-  getApplicationName() {
-    if (
-      this.wdTabSvc.website_data.application_id &&
-      this.applicationSvc.application_list.length
-    ) {
-      return this.applicationSvc.getApplicationNameByUUID(
-        this.wdTabSvc.website_data.application_id
+  getApplicationData() {
+    if (this.userIsAdmin && this.websiteDataExists) {
+      this.applicationSvc.getAllApplications().subscribe(
+        (success) => {
+          this.application_list = success as [];
+        },
+        (failure) => {
+          this.alertsSvc.alert(failure);
+        }
       );
-    } else {
-      return 'Loading Application List';
     }
   }
+
+  // getApplicationName() {
+  //   if (
+  //     this.wdTabSvc.website_data.application_id &&
+  //     this.applicationSvc.application_list.length
+  //   ) {
+  //     return this.applicationSvc.getApplicationNameByUUID(
+  //       this.wdTabSvc.website_data.application_id
+  //     );
+  //   } else {
+  //     return 'Loading Application List';
+  //   }
+  // }
 
   changeApplication(application_id) {
     this.wdTabSvc.website_data.application_id = application_id;
@@ -83,17 +99,15 @@ export class WebsiteDetailsSummaryComponent implements OnInit, OnDestroy {
   downloadWebsite() {
     this.wdTabSvc.downloadWebsite().subscribe(
       (success) => {
-        console.log(success);
+        this.alertsSvc.alert('Website downloaded');
       },
       (failure) => {
-        this.alertsSvc.alert('Website Download Failed');
-        console.log(failure);
+        this.alertsSvc.alert(failure);
       }
     );
   }
 
   deleteWebsite() {
-    console.log('trying to delte');
     let confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm template delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.wdTabSvc.website_data.name}`;

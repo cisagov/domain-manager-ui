@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 // Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
@@ -38,6 +39,7 @@ export class ApplicationListComponent
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    public alertsSvc: AlertsService,
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
     public layoutSvc: LayoutService
@@ -76,8 +78,7 @@ export class ApplicationListComponent
         this.applicationList.sort = this.sort;
       },
       (error) => {
-        console.log('Error getting application list');
-        console.log(error);
+        this.alertsSvc.alert(error);
         this.loading = false;
       }
     );
@@ -104,9 +105,14 @@ export class ApplicationListComponent
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
-        this.applicationSvc.deleteApplication(application._id).subscribe(() => {
-          this.getApplications();
-        });
+        this.applicationSvc.deleteApplication(application._id).subscribe(
+          (success) => {
+            this.getApplications();
+          },
+          (failure) => {
+            this.alertsSvc.alert(failure);
+          }
+        );
       } else {
         dialogRef.close();
       }

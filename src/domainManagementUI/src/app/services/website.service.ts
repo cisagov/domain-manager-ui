@@ -223,4 +223,9 @@ export class WebsiteService extends AbstractUploadService {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/records/?record_id=${recordId}`;
     return this.http.delete(url);
   }
+
+  getCloudfrontStatus(websiteId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${websiteId}/deployed/`;
+    return this.http.get(url);
+  }
 }
