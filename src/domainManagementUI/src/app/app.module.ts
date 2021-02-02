@@ -18,7 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { ngfModule, ngf } from 'angular-file';
 
 //Custom Components
-import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
@@ -74,7 +73,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
 
 @NgModule({
   declarations: [
-    AboutComponent,
     AppComponent,
     ApplicationEditDialogComponent,
     ApplicationListComponent,
