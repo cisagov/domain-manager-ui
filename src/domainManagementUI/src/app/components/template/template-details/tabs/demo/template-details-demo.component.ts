@@ -91,7 +91,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
       (failure) => {
         this.progressDialogRef.close();
         console.log(failure);
-        this.alertsSvc.alert('Error downloading website zip');
+        this.alertsSvc.alert('Error downloading domain zip');
       }
     );
   }
@@ -106,7 +106,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
 
   delete() {
     const confirmDialogSettings = new ConfirmDialogSettings();
-    confirmDialogSettings.itemConfirming = 'confirm website delete';
+    confirmDialogSettings.itemConfirming = 'confirm domain delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.tdTabSvc.template_data.name}`;
 
     this.deleteDialog = this.dialog.open(ConfirmDialogComponent, {
@@ -126,7 +126,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     });
   }
 
-  createWebsiteFromTemplate(uuid) {
-    this.router.navigate([`/website/creation/${uuid}`]);
+  createDomainFromTemplate(uuid) {
+    this.router.navigate([`/domain/creation/${uuid}`]);
   }
 }

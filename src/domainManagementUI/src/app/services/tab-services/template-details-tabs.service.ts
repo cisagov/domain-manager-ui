@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 //Local Servie Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { TemplateService } from 'src/app/services/template.service';
-import { WebsiteService } from 'src/app/services/website.service';
+import { DomainService } from 'src/app/services/domain.service';
 
 //Models
 import { environment } from 'src/environments/environment';
@@ -14,7 +14,7 @@ import {
   TemplateModel,
   TemplateAttribute,
 } from 'src/app/models/template.model';
-import { WebsiteModel } from 'src/app/models/website.model';
+import { DomainModel } from 'src/app/models/domain.model';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -28,14 +28,14 @@ export class TemplateDetailsTabService {
   public template_data_behavior_subject: BehaviorSubject<TemplateModel> = new BehaviorSubject<TemplateModel>(
     new TemplateModel()
   );
-  public websites_used_list: Array<WebsiteModel> = [];
+  public domains_used_list: Array<DomainModel> = [];
 
   constructor(
     public alertsSvc: AlertsService,
     private http: HttpClient,
     private settingsService: SettingsService,
     private templateSvc: TemplateService,
-    private websiteSvc: WebsiteService
+    private domainSvc: DomainService
   ) {
     this.template_data_behavior_subject.subscribe((data) => {
       this.template_data = data;
@@ -61,7 +61,7 @@ export class TemplateDetailsTabService {
   }
 
   initalizeData() {
-    this.getWebsitesUsed();
+    this.getDomainsUsed();
   }
 
   downloadTemplate(uuid) {
@@ -72,11 +72,11 @@ export class TemplateDetailsTabService {
     return this.templateSvc.deleteTemplate(templateId);
   }
 
-  getWebsitesUsed() {
-    this.websiteSvc.getAllWebsites().subscribe(
+  getDomainsUsed() {
+    this.domainSvc.getAllDomains().subscribe(
       (success) => {
-        let data = success as Array<WebsiteModel>;
-        this.websites_used_list = data.filter(
+        let data = success as Array<DomainModel>;
+        this.domains_used_list = data.filter(
           (ws) => ws.category === this.template_data.name
         );
       },
@@ -86,7 +86,7 @@ export class TemplateDetailsTabService {
     );
   }
 
-  downloadWebsite(uuid) {
-    this.websiteSvc.downloadWebsite(uuid);
+  downloadDomain(uuid) {
+    this.domainSvc.downloadDomain(uuid);
   }
 }

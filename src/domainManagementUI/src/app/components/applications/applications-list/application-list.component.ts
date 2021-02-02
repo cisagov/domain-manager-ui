@@ -68,8 +68,8 @@ export class ApplicationListComponent
           // Get Domains used count
           this.applicationSvc
             .getDomainsByApplication(app._id)
-            .subscribe((websites: any[]) => {
-              app.domains_used_count = Number(websites.length);
+            .subscribe((domains: any[]) => {
+              app.domains_used_count = Number(domains.length);
               data.push(app);
               this.applicationList.data = data;
             });

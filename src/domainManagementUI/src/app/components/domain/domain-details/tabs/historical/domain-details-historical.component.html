@@ -1,0 +1,30 @@
+<div class="flex flex-container tab">
+  <!-- <h5>Domain : {{tdTabSvc.template_data.name}}</h5> -->
+  <h5>Domain : {{ ddTabSvc.domain_data.name }}</h5>
+  <div *ngIf="ddTabSvc.hasHistory()" class="text-muted">
+    A detailed list of the history of this domain
+  </div>
+  <div *ngIf="!ddTabSvc.hasHistory()" class="text-muted">
+    This domain has no history. History will be logged here once this domain
+    has been launched for the first time.
+  </div>
+
+  <!-- Use History Table -->
+  <!-- <mat-label class="mt-3">Domain Usage History</mat-label> -->
+  <div *ngIf="ddTabSvc.hasHistory()" class="flex-row">
+    <table class="display_table">
+      <tr>
+        <th>Domain</th>
+        <th>Application</th>
+        <th>Start Date</th>
+        <th>Stop Date</th>
+      </tr>
+      <tr *ngFor="let history of ddTabSvc.domain_data.history">
+        <td>{{ history.domain }}</td>
+        <td>{{ history.application }}</td>
+        <td>{{ history.start_date | date: "MM/dd/yy" }}</td>
+        <td>{{ history.end_date | date: "MM/dd/yy" }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

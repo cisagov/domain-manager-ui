@@ -1,68 +1,65 @@
-export class DomainBaseModel {
-  callerReference: string;
-  id: string;
-  uuid: string;
+import { ApplicationModel } from './application.model';
+
+export class DomainModel {
   name: string;
-  application_name: string;
-  application_uuid: string;
-  isAvailable: boolean;
-  lastUser: string;
-  reputation: number;
-  resourceRecordSetCount: number;
-  registrarName: string;
-  categoryOne: string;
-  categoryTwo: string;
-  categoryThree: boolean;
-  createMailgun: boolean;
-  createSES: boolean;
-  registeredOnPublicWeb: string;
-  expirationDate: Date;
-  wentLiveDate: Date;
-  useHistory: DomainHistory[];
-  website_uuid: string;
-  update_email: string;
   _id: string;
-
-  constructor() {
-    this._id = null;
-    this.uuid = null;
-    this.callerReference = null;
-    this.id = null;
-    (this.application_name = null),
-      (this.application_uuid = null),
-      (this.isAvailable = null),
-      (this.lastUser = null),
-      (this.reputation = null),
-      (this.name = null);
-    this.resourceRecordSetCount = 0;
-    this.registrarName = null;
-    this.categoryOne = null;
-    this.categoryTwo = null;
-    this.categoryThree = null;
-    this.createMailgun = false;
-    this.createSES = false;
-    this.registeredOnPublicWeb = null;
-    this.expirationDate = null;
-    this.wentLiveDate = null;
-    this.useHistory = [];
-    this.website_uuid = null;
-    this.update_email = null;
-  }
+  s3_url: string;
+  created_date: Date;
+  launch_date: Date;
+  template_base_name: string;
+  template_base_uuid: string;
+  category: string;
+  domain_parameters: WebSiteParameter[];
+  application_name: string;
+  application_id: string;
+  is_active: boolean;
+  application_using: ApplicationModel;
+  history: DomainHistoryModel[];
+  route53: string;
+  hosted_zones: HostedZoneModel[];
+  redirects: RedirectModel[];
+  records: RecordModel[];
+  //Status Flags
+  is_available: boolean;
+  is_launching: boolean;
+  is_delaunching: boolean;
+  is_generating_template: boolean;
+  is_category_submitted: boolean;
+  cloudfront_status: any;
 }
 
-class DomainHistory {
-  applicationThatUsed: string;
-  startDate: Date;
-  stopDate: Date;
+export class HostedZoneModel {
+  Name: string;
+  ResourceRecords: Array<any>;
+  AliasTarget: AliasTargetModel;
+  TTL: number;
+  Type: string;
 }
 
-export class DomainModel extends DomainBaseModel {}
+export class AliasTargetModel {
+  DNSName: string;
+  EvaluateTargetHealth: boolean;
+  HostedZoneId: string;
+}
 
-export class DomainListItemModel extends DomainModel {
-  isSelected: boolean;
+export class WebSiteParameter {
+  param_name: string;
+  value: string;
+}
 
-  constructor() {
-    super();
-    this.isSelected = false;
-  }
+export class DomainHistoryModel {
+  application: ApplicationModel;
+  launch_date: Date;
+}
+
+export class RedirectModel {
+  subdomain: string;
+  redirect_url: string;
+}
+
+export class RecordModel {
+  record_id: string;
+  record_type: string;
+  name: string;
+  config: any = {};
 }

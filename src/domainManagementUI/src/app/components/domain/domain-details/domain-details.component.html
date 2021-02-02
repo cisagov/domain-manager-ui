@@ -1,0 +1,74 @@
+<div>
+  <button
+    class="all_tab_option_button"
+    mat-raised-button
+    color="primary"
+    [matMenuTriggerFor]="menu"
+  >
+    Options
+  </button>
+  <mat-menu #menu="matMenu">
+    <button
+      *ngIf="!ddTabSvc.isSiteLaunched()"
+      (click)="launchSite()"
+      mat-menu-item
+    >
+      <mat-icon>keyboard_arrow_up</mat-icon>Launch Site
+    </button>
+    <button
+      *ngIf="ddTabSvc.isSiteLaunched()"
+      (click)="takeDownSite()"
+      mat-menu-item
+    >
+      <mat-icon>keyboard_arrow_down</mat-icon>Take Down Site
+    </button>
+    <button
+      mat-menu-item
+      *ngIf="ddTabSvc.hasTemplateAttached()"
+      (click)="downloadDomain()"
+    >
+      <mat-icon>download</mat-icon>Download ZIP
+    </button>
+    <button mat-menu-item (click)="deleteDomain()">
+      <mat-icon>delete</mat-icon> Delete
+    </button>
+  </mat-menu>
+  <mat-tab-group
+    (selectedTabChange)="onTabChanged($event)"
+    [(selectedIndex)]="selectedTabIndex"
+  >
+    <mat-tab label="Domain Summary">
+      <dd-summary></dd-summary>
+    </mat-tab>
+
+    <mat-tab *ngIf="!ddTabSvc.templateExists" label="Template">
+      <dd-template-selection> </dd-template-selection>
+    </mat-tab>
+
+    <!-- <mat-tab *ngIf="ddTabSvc.templateSelectinoMethod === 'template_selection'"
+      label="Template's Attributes"
+    >
+      <dd-attributes></dd-attributes>
+    </mat-tab> -->
+
+    <mat-tab *ngIf="ddTabSvc.templateExists" label="Demo">
+      <dd-demo></dd-demo>
+    </mat-tab>
+
+    <mat-tab label="Hosted Zone">
+      <dd-hosted-zones></dd-hosted-zones>
+    </mat-tab>
+
+    <mat-tab label="DNS Records">
+      <dd-dns-records></dd-dns-records>
+    </mat-tab>
+
+    <mat-tab *ngIf="ddTabSvc.isSiteLaunched()" label="Proxy Category">
+      <dd-proxy-categorizaiton></dd-proxy-categorizaiton>
+    </mat-tab>
+
+    <mat-tab label="History">
+      <dd-historical></dd-historical>
+    </mat-tab>
+  </mat-tab-group>
+</div>

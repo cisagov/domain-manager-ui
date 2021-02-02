@@ -67,8 +67,8 @@ export class FileUploadDialogComponent implements OnInit {
         'Template already exists. Would you like to Overwrite?'
       );
     this.filesCurrentlyUploading = this.files.length;
-    this.sendableFormData.append('Website_Id', this.data.ID);
-    this.sendableFormData.append('Website_Domain', this.data.WebsiteDomain);
+    this.sendableFormData.append('Domain_Id', this.data.ID);
+    this.sendableFormData.append('Domain_Domain', this.data.DomainDomain);
     this.data.uploadService
       .uploadFile(this.sendableFormData, this.overwrite)
       .subscribe(

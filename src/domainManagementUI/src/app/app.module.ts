@@ -21,20 +21,25 @@ import { ngfModule, ngf } from 'angular-file';
 import { AboutComponent } from 'src/app/components/about/about.component';
 import { AppComponent } from './app.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
+import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
-import { DomainCreateDialogComponent } from 'src/app/components/website/domain-create-dialog/domain-create-dialog.component';
-import { DomainManagementCreateComponent } from 'src/app/components/domain-management/domain-managment-create/domain-management-create.component';
-import { DomainManagementGeneralAttributesTab } from 'src/app/components/domain-management/domain-managment-details/tabs/general-attributes/domain-management-general-attributes.component';
-import { DomainManagementProxyCategorizaitonTab } from 'src/app/components/domain-management/domain-managment-details/tabs/proxy-categorization/domain-management-proxy-categorization.component';
-import { DomainManagementReviewTab } from 'src/app/components/domain-management/domain-managment-details/tabs/review/domain-management-review.component';
-import { DomainManagementWebsiteSelectionTab } from 'src/app/components/domain-management/domain-managment-details/tabs/website-selection/domain-management-website-selection.component';
-import { DomainManagementDetailsComponent } from 'src/app/components/domain-management/domain-managment-details/domain-management-details.component';
-import { DomainManagementListComponent } from 'src/app/components/domain-management/domain-management-list/domain-management-list.component';
+import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
+import { DomainDetailsAttrbutesComponent } from 'src/app/components/domain/domain-details/tabs/attributes/domain-details-attributes.component';
+import { DomainDetailsDemoComponent } from 'src/app/components/domain/domain-details/tabs/demo/domain-details-demo.component';
+import { DomainDetailsHistoricalComponent } from 'src/app/components/domain/domain-details/tabs/historical/domain-details-historical.component';
+import { DomainDetailsHostedZonesComponent } from 'src/app/components/domain/domain-details/tabs/hosted-zones/domain-details-hosted-zones.component';
+import { DomainDetailsProxyCategorizaitonComponent } from 'src/app/components/domain/domain-details/tabs/proxy-categorization/domain-details-proxy-categorization.component';
+import { DomainDetailsSummaryComponent } from 'src/app/components/domain/domain-details/tabs/summary/domain-details-summary.component';
+import { DomainDetailsTemplateSelectionComponent } from 'src/app/components/domain/domain-details/tabs/template-selection/domain-details-template-selection.component';
+import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
+import { DominDetailsDnsRecordsComponent } from './components/domain/domain-details/tabs/dns-records/domain-details-dns-records.component';
+import { DnsRecordsDialogComponent } from './components/domain/domain-details/tabs/dns-records/dns-records-dialog/dns-records-dialog.component';
+import { DomainCreateDialogComponent } from 'src/app/components/domain/domain-create-dialog/domain-create-dialog.component';
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
-import { TemplateDetailsConnectedWebsitesComponent } from 'src/app/components/template/template-details/tabs/connected-websites/template-details-connected-websites.component';
+import { TemplateDetailsConnectedDomainsComponent } from 'src/app/components/template/template-details/tabs/connected-domains/template-details-connected-domains.component';
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
 import { TemplateDetailsHistoricalComponent } from 'src/app/components/template/template-details/tabs/historical/template-details-historical.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
@@ -43,22 +48,11 @@ import { UserManagementDetailsComponent } from './components/user-managment/user
 import { UserManagementDetailsGroupsComponent } from './components/user-managment/user-management-details/tabs/groups/user-management-details-groups.component';
 import { UserManagementDetailsHistoryComponent } from './components/user-managment/user-management-details/tabs/history/user-managment-details-history.component';
 import { UserManagementDetailsSummaryComponent } from './components/user-managment/user-management-details/tabs/summary/user-management-details-summary.component';
-import { WebsiteDetailsComponent } from 'src/app/components/website/website-details/website-details.component';
-import { WebsiteDetailsAttrbutesComponent } from 'src/app/components/website/website-details/tabs/attributes/website-details-attributes.component';
-import { WebsiteDetailsDemoComponent } from 'src/app/components/website/website-details/tabs/demo/website-details-demo.component';
-import { WebsiteDetailsHistoricalComponent } from 'src/app/components/website/website-details/tabs/historical/website-details-historical.component';
-import { WebsiteDetailsHostedZonesComponent } from 'src/app/components/website/website-details/tabs/hosted-zones/website-details-hosted-zones.component';
-import { WebsiteDetailsProxyCategorizaitonComponent } from 'src/app/components/website/website-details/tabs/proxy-categorization/website-details-proxy-categorization.component';
-import { WebsiteDetailsSummaryComponent } from 'src/app/components/website/website-details/tabs/summary/website-details-summary.component';
-import { WebsiteDetailsTemplateSelectionComponent } from 'src/app/components/website/website-details/tabs/template-selection/website-details-template-selection.component';
-import { WebsiteListComponent } from 'src/app/components/website/website-list/website-list.component';
 
 //Services
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { DomainManagementService } from 'src/app/services/domain-management.service';
-import { DomainManagementTabService } from 'src/app/services/tab-services/domain-management-tabs.service';
 import { LayoutService } from './services/layout.service';
 import { SettingsHttpService } from 'src/app/services/settings-http.service';
 import { TemplateService } from 'src/app/services/template.service';
@@ -67,15 +61,12 @@ import { TemplateDetailsTabService } from 'src/app/services/tab-services/templat
 import { UserAuthService } from './services/user-auth.service';
 import { UserManagementService } from 'src/app/services/user-management.service';
 import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
-import { WebsiteDetailsTabService } from 'src/app/services/tab-services/website-details-tabs.service';
-import { WebsiteService } from 'src/app/services/website.service';
+import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
+import { DomainService } from 'src/app/services/domain.service';
 
 //Helpers
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
 import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor';
-import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
-import { DnsRecordsComponent } from './components/website/website-details/tabs/dns-records/dns-records.component';
-import { DnsRecordsDialogComponent } from './components/website/website-details/tabs/dns-records/dns-records-dialog/dns-records-dialog.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -89,36 +80,29 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationListComponent,
     LayoutMainComponent,
     DomainCreateDialogComponent,
-    DomainManagementCreateComponent,
-    DomainManagementDetailsComponent,
-    DomainManagementListComponent,
-    DomainManagementGeneralAttributesTab,
-    DomainManagementProxyCategorizaitonTab,
-    DomainManagementReviewTab,
-    DomainManagementWebsiteSelectionTab,
     ConfirmDialogComponent,
     FileUploadDialogComponent,
     ProgressBarDialog,
     TemplateDetailsComponent,
-    TemplateDetailsConnectedWebsitesComponent,
+    TemplateDetailsConnectedDomainsComponent,
     TemplateDetailsDemoComponent,
     TemplateDetailsHistoricalComponent,
     TemplateListComponent,
-    WebsiteDetailsComponent,
-    WebsiteDetailsAttrbutesComponent,
-    WebsiteDetailsDemoComponent,
-    WebsiteDetailsHistoricalComponent,
-    WebsiteDetailsHostedZonesComponent,
-    WebsiteDetailsProxyCategorizaitonComponent,
-    WebsiteDetailsSummaryComponent,
-    WebsiteDetailsTemplateSelectionComponent,
-    WebsiteListComponent,
+    DomainDetailsComponent,
+    DomainDetailsAttrbutesComponent,
+    DomainDetailsDemoComponent,
+    DomainDetailsHistoricalComponent,
+    DomainDetailsHostedZonesComponent,
+    DomainDetailsProxyCategorizaitonComponent,
+    DomainDetailsSummaryComponent,
+    DomainDetailsTemplateSelectionComponent,
+    DomainListComponent,
     UserManagementListComponent,
     UserManagementDetailsComponent,
     UserManagementDetailsSummaryComponent,
     UserManagementDetailsGroupsComponent,
     UserManagementDetailsHistoryComponent,
-    DnsRecordsComponent,
+    DominDetailsDnsRecordsComponent,
     DnsRecordsDialogComponent,
   ],
   imports: [
@@ -137,8 +121,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     AlertsService,
     ApplicationService,
     CategoryService,
-    DomainManagementService,
-    DomainManagementTabService,
     HttpClient,
     LayoutService,
     TemplateService,
@@ -147,8 +129,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     UserAuthService,
     UserManagementTabService,
     UserManagementService,
-    WebsiteDetailsTabService,
-    WebsiteService,
+    DomainDetailsTabService,
+    DomainService,
     {
       provide: APP_INITIALIZER,
       useFactory: app_Init,
