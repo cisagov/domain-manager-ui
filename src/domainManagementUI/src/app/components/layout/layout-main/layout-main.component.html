@@ -63,7 +63,9 @@
         <!-- <a mat-list-item routerLink="/domain-management">Domain Management</a> -->
         <a mat-list-item routerLink="/domain">Domains</a>
         <a mat-list-item routerLink="/template">Templates</a>
-        <a *ngIf="userAuthSvc.isAdmin" mat-list-item routerLink="/application">Applications</a>
+        <a *ngIf="userAuthSvc.isAdmin" mat-list-item routerLink="/application"
+          >Applications</a
+        >
         <a *ngIf="userAuthSvc.isAdmin" mat-list-item routerLink="/users"
           >Users</a
         >
