@@ -69,7 +69,7 @@ export class TemplateListComponent implements OnInit {
         this.loading = false;
       },
       (error) => {
-        console.log('Error getting website list');
+        console.log('Error getting domain list');
         console.log(error);
         this.loading = false;
       }

@@ -139,7 +139,6 @@ export class UserAuthService {
         Auth.currentAuthenticatedUser()
           .then((success) => {
             this._setUserName(success);
-            console.log(success);
             resolve({
               idToken: success.signInUserSession.accessToken.jwtToken,
               accessToken: success.signInUserSession.idToken.jwtToken,

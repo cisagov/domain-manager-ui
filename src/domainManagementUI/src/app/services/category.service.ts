@@ -21,7 +21,7 @@ export class CategoryService {
       _id: 'UUID-1',
     },
     {
-      name: 'Websites',
+      name: 'Domains',
       _id: 'UUID-2',
     },
     {
@@ -57,7 +57,6 @@ export class CategoryService {
       this.http.get(url, headers).subscribe(
         (success) => {
           this.category_list = success as [];
-          console.log(this.category_list);
         },
         (failure) => {
           this.alertsSvc.alert('Failed to get category list');
@@ -74,8 +73,8 @@ export class CategoryService {
     return 'ERROR';
   }
 
-  submitCategory(website_id, category_name) {
-    let url = `${this.settingsService.settings.apiUrl}/api/domain/${website_id}/categorize?category=${category_name}`;
+  submitCategory(domain_id, category_name) {
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/${domain_id}/categorize?category=${category_name}`;
     return this.http.get(url, headers);
   }
 }

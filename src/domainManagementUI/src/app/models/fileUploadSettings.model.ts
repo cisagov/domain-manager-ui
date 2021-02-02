@@ -7,5 +7,5 @@ export class FileUploadSettings {
   multipleFileUpload: boolean = true;
   uploadService: AbstractUploadService;
   ID: string;
-  WebsiteDomain: string;
+  DomainDomain: string;
 }

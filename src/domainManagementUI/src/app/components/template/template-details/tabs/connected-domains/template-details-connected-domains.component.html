@@ -1,0 +1,32 @@
+<div class="flex flex-container tab">
+  <h5>Template : {{ tdTabSvc.template_data.name }}</h5>
+  <div class="text-muted">
+    A list of all domains that are currently using this template
+  </div>
+  <div class="flex-row">
+    <table class="display_table">
+      <tr>
+        <th>Domain Name</th>
+        <th>Application Using</th>
+        <th>Download</th>
+      </tr>
+      <tr *ngFor="let domain of this.tdTabSvc.domains_used_list">
+        <td>{{ domain.name }}</td>
+        <!-- <td>
+          {{ applicationSvc.getApplicationNameByUUID(domain.application_id) }}
+        </td> -->
+        <td>Application</td>
+        <td>
+          <button
+            mat-raised-button
+            color="primary"
+            class="flex"
+            (click)="tdTabSvc.downloadDomain(domain._id)"
+          >
+            Download
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

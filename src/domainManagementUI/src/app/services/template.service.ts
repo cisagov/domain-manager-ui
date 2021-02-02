@@ -92,7 +92,7 @@ export class TemplateService extends AbstractUploadService {
         this.template_list = tmpvar.data;
       },
       (error) => {
-        console.log('Error getting website list');
+        console.log('Error getting domain list');
         console.log(error);
       }
     );

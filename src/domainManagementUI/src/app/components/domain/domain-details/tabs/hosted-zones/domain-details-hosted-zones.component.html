@@ -1,0 +1,44 @@
+<div class="flex flex-container tab">
+  <h5>Hosted Zone</h5>
+  <div class="text-muted">This domains associated hosted zones</div>
+
+  <div
+    style="margin-top: 2em"
+    *ngIf="ddTabSvc.domain_data?.hosted_zones"
+    class="flex-column flex-full summary_list_rows"
+  >
+    <!-- <div class="flex-row" *ngIf="ddTabSvc.domain_data?.hosted_zones">
+      <div class="flex sl_flex_content">
+        {{ddTabSvc.domain_data.hosted_zones.id}}
+      </div>
+    </div> -->
+    <div
+      class="flex-column summary_list_item"
+      *ngFor="let zone of ddTabSvc.domain_data?.hosted_zones"
+    >
+      <div class="flex sl_flex_content font-weight-bold">
+        {{ zone.Name }}
+      </div>
+      <div *ngIf="zone.TTL" class="flex sl_flex_content ml-2">
+        TTL: {{ zone.TTL }}
+      </div>
+      <div class="flex sl_flex_content ml-2">Type: {{ zone.Type }}</div>
+      <div *ngIf="!zone.AliasTarget" class="flex-column sl_flex_content ml-2">
+        Resource Records:
+        <div class="flex ml-4" *ngFor="let resource of zone.ResourceRecords">
+          {{ resource.Value }}
+        </div>
+      </div>
+      <div *ngIf="zone.AliasTarget" class="flex-column sl_flex_content ml-2">
+        Alias Target:
+        <div class="flex ml-4">DNSName: {{ zone.AliasTarget.DNSName }}</div>
+        <div class="flex ml-4">
+          Evaluate Target Health: {{ zone.AliasTarget.EvaluateTargetHealth }}
+        </div>
+        <div class="flex ml-4">
+          Hosted Zone ID: {{ zone.AliasTarget.HostedZoneId }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
