@@ -99,6 +99,7 @@ someone has to deal with this
             <th>Type</th>
             <th>Size</th>
             <th>Actions</th>
+            <th *ngIf="!uploadProcessed">Overwrite</th>
             <th *ngIf="uploadProcessed">Status</th>
           </tr>
         </thead>
@@ -129,18 +130,29 @@ someone has to deal with this
               </button>
             </td>
             <td>
-              <div *ngIf="!item.uploadStatus">New</div>
+              <div *ngIf="!uploadProcessed && !item.uploadStatus">New</div>
+              <div *ngIf="!uploadProcessed && item.uploadStatus == 'Already Exists'">
+                Overwrite?
+              </div>
               <div *ngIf="item.uploadStatus == 'Inprogress'">
                 <mat-spinner diameter="40"></mat-spinner>
               </div>
               <div *ngIf="item.uploadStatus == 'Complete'">
-                <mat-icon>done</mat-icon>
+                <mat-icon
+                  style="font-size: 2.5em; color: green; cursor:initial; font-weight: bolder;"
+                >done</mat-icon>
               </div>
               <div *ngIf="item.uploadStatus == 'Failed'">
-                <mat-icon>priority_high</mat-icon>
+                <mat-icon
+                  style="font-size: 2.5em; color: red; cursor:initial;"
+                  [matTooltip]="item.errorMessage"
+                >priority_high</mat-icon>
               </div>
-              <div *ngIf="item.uploadStatus == 'Already Exists'">
-                Overwrite?
+              <div *ngIf="item.uploadStatus == 'Canceled'">
+                <mat-icon
+                  style="font-size: 2.5em; color: rgba(0,0,0,1); cursor:initial;"
+                  [matTooltip]="item.errorMessage"
+                >cancel</mat-icon>
               </div>
             </td>
           </tr>
