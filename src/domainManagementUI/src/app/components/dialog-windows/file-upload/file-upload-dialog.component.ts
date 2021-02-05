@@ -12,6 +12,9 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
 
+// Local Servie Imports
+import { AlertsService } from 'src/app/services/alerts.service';
+
 @Component({
   selector: 'app-file-upload-dialog',
   templateUrl: 'file-upload-dialog.component.html',
@@ -46,6 +49,7 @@ export class FileUploadDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: FileUploadSettings,
+    public alertsSvc: AlertsService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<FileUploadDialogComponent>
   ) {
@@ -62,36 +66,102 @@ export class FileUploadDialogComponent implements OnInit {
     //TODO: This is currently iterating over all files for
     //all files need to change it to only do 1 file at a time
     this.uploadProcessed = true;
-    if (this.overwrite)
-      this.overwrite = confirm(
-        'Template already exists. Would you like to Overwrite?'
-      );
+    // if (this.overwrite)
+    //   this.overwrite = confirm(
+    //     'Template already exists. Would you like to Overwrite?'
+    //   );
     this.filesCurrentlyUploading = this.files.length;
-    this.sendableFormData.append('Domain_Id', this.data.ID);
-    this.sendableFormData.append('Domain_Domain', this.data.DomainDomain);
-    this.data.uploadService
-      .uploadFile(this.sendableFormData, this.overwrite)
-      .subscribe(
-        (resp) => {
-          if (resp.type === HttpEventType.Response) {
-            this.files.forEach((file) => {
+    console.log(this.sendableFormData);
+    // @ts-ignore
+    for (var pair of this.sendableFormData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    console.log(this.sendableFormData.getAll('zip'));
+    this.files.forEach((file) => {
+      file['overwrite'] = true;
+      if (file['uploadStatus'] == 'Already Exists') {
+        file['overwrite'] = confirm(
+          file.name + ' already exists. Would you like to Overwrite?'
+        );
+      }
+      console.log(file['overwrite']);
+      if (file['overwrite'] === false) {
+        console.log('CANCELED');
+        file['uploadStatus'] = 'Canceled';
+        file['errorMessage'] =
+          file.name + ' was not uploaded to prevent overwrite';
+        return;
+      }
+      file['uploadStatus'] = 'Inprogress';
+      console.log(file);
+      console.log(file.name);
+      this.data.uploadService;
+      let fileFormData = new FormData();
+      console.log(
+        this.sendableFormData
+          .getAll('zip')
+          .filter((f) => f['name'] == file.name)
+      );
+      fileFormData.append(
+        'zip',
+        this.sendableFormData
+          .getAll('zip')
+          .filter((f) => f['name'] == file.name)[0]
+      );
+      console.log(fileFormData.get('zip'));
+      fileFormData.append('Domain_Id', this.data.ID);
+      fileFormData.append('Domain_Domain', this.data.DomainDomain);
+      this.data.uploadService
+        .uploadFile(fileFormData, file['overwrite'])
+        .subscribe(
+          (resp) => {
+            if (resp.type === HttpEventType.Response) {
               file['uploadStatus'] = 'Complete';
               this.filesCurrentlyUploading -= 1;
               if (this.filesCurrentlyUploading === 0) {
                 this.dialogRef.close('fileUploaded');
               }
-            });
+            }
+            if (resp.type === HttpEventType.UploadProgress) {
+              const percentDone = Math.round((100 * resp.loaded) / resp.total);
+              console.log(
+                'File: ' + file.name + ' Progress ' + percentDone + '%'
+              );
+            }
+          },
+          (failure) => {
+            this.alertsSvc.alert(failure);
+            file['errorMessage'] = failure.error.error;
+            file['uploadStatus'] = 'Failed';
           }
-          if (resp.type === HttpEventType.UploadProgress) {
-            const percentDone = Math.round((100 * resp.loaded) / resp.total);
-            console.log('Progress ' + percentDone + '%');
-            this.files.forEach((file) => {
-              file['uploadStatus'] = 'Inprogress';
-            });
-          }
-        },
-        (failure) => {}
-      );
+        );
+    });
+
+    // this.data.uploadService
+    //   .uploadFile(this.sendableFormData, this.overwrite)
+    //   .subscribe(
+    //     (resp) => {
+    //       if (resp.type === HttpEventType.Response) {
+    //         this.files.forEach((file) => {
+    //           file['uploadStatus'] = 'Complete';
+    //           this.filesCurrentlyUploading -= 1;
+    //           if (this.filesCurrentlyUploading === 0) {
+    //             this.dialogRef.close('fileUploaded');
+    //           }
+    //         });
+    //       }
+    //       if (resp.type === HttpEventType.UploadProgress) {
+    //         const percentDone = Math.round((100 * resp.loaded) / resp.total);
+    //         console.log('Progress ' + percentDone + '%');
+    //         this.files.forEach((file) => {
+    //           file['uploadStatus'] = 'Inprogress';
+    //         });
+    //       }
+    //     },
+    //     (failure) => {
+    //       this.alertsSvc.alert(failure);
+    //     }
+    //   );
   }
 
   fileAdded() {

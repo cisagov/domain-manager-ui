@@ -33,7 +33,9 @@ export class UserManagementDetailsComponent implements OnInit {
     public layoutSvc: LayoutService,
     private router: Router,
     public umTabSvc: UserManagementTabService
-  ) {}
+  ) {
+    this.layoutSvc.setTitle('User Details');
+  }
 
   ngOnInit(): void {
     this.component_subscriptions.push(

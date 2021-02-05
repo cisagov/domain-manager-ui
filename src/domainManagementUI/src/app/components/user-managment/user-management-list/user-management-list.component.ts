@@ -43,9 +43,12 @@ export class UserManagementListComponent implements OnInit {
 
   constructor(
     private alerts: AlertsService,
+    public layoutSvc: LayoutService,
     private router: Router,
     private userManageSVC: UserManagementService
-  ) {}
+  ) {
+    this.layoutSvc.setTitle('Users');
+  }
 
   ngOnInit(): void {
     this.getUsers();

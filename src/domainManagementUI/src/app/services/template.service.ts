@@ -100,7 +100,7 @@ export class TemplateService extends AbstractUploadService {
 
   uploadTemplate(formData: FormData, overwrite: boolean) {
     //Double check settings, as this function is passed directly to upload modal
-    const url = `${this.settingsService.settings.apiUrl}/api/templates?overwrite=${overwrite}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/templates/?overwrite=${overwrite}`;
     const config = new HttpRequest('POST', url, formData, {
       reportProgress: true,
     });
