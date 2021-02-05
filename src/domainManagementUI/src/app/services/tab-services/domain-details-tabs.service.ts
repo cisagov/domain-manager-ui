@@ -69,17 +69,17 @@ export class DomainDetailsTabService {
   }
 
   getDomainDetails(_id) {
-    this.setLoadingStatus("domain_loading", true)
+    this.setLoadingStatus('domain_loading', true);
     this.domain_data = new DomainModel();
     this.domainSvc.getDomainDetails(_id).subscribe(
       (success) => {
         this.domain_data = success as DomainModel;
         this.domain_data_behavior_subject.next(this.domain_data);
-        this.setLoadingStatus("domain_loading", false)
+        this.setLoadingStatus('domain_loading', false);
       },
       (failure) => {
         this.alertsSvc.alert(failure['error']);
-        this.setLoadingStatus("domain_loading", false)
+        this.setLoadingStatus('domain_loading', false);
       }
     );
   }
@@ -94,21 +94,21 @@ export class DomainDetailsTabService {
       //If application data received
       //get application list
       if (this.userIsAdmin) {
-        this.setLoadingStatus("application_loading", true)
+        this.setLoadingStatus('application_loading', true);
         this.applicationSvc
           .getApplication(this.domain_data.application_id)
           .subscribe(
             (success) => {
               this.domain_data.application_using = success as ApplicationModel;
-              this.setLoadingStatus("application_loading", false)
+              this.setLoadingStatus('application_loading', false);
             },
             (failure) => {
               this.alertsSvc.alert(failure);
-              this.setLoadingStatus("application_loading", false)
+              this.setLoadingStatus('application_loading', false);
             }
           );
       }
-      if(this.domain_data.is_active){
+      if (this.domain_data.is_active) {
         this.getCloudfrontStatus();
       }
     }
@@ -261,9 +261,7 @@ export class DomainDetailsTabService {
         );
       }
       if (this.domain_data.is_launching) {
-        this.alertsSvc.alert(
-          'Domain is currently in the process of launching'
-        );
+        this.alertsSvc.alert('Domain is currently in the process of launching');
       }
     }
   }
@@ -329,43 +327,43 @@ export class DomainDetailsTabService {
   }
 
   getCloudfrontStatus() {
-    this.setLoadingStatus("cloudfront_status_loading", true)
+    this.setLoadingStatus('cloudfront_status_loading', true);
     this.domainSvc.getCloudfrontStatus(this.domain_data._id).subscribe(
       (success) => {
-        this.domain_data.cloudfront_status = success
-        this.setLoadingStatus("cloudfront_status_loading", false)
+        this.domain_data.cloudfront_status = success;
+        this.setLoadingStatus('cloudfront_status_loading', false);
       },
       (failure) => {
-        this.alertsSvc.alert(failure)
-        this.setLoadingStatus("cloudfront_status_loading", false)
-      },
-    )
+        this.alertsSvc.alert(failure);
+        this.setLoadingStatus('cloudfront_status_loading', false);
+      }
+    );
   }
 
-  setLoadingStatus(loading_item, value){    
-    if(value === true){
-      let pushObj = {}
-      pushObj[loading_item] = value
-      this.loadingItems.push(pushObj)
+  setLoadingStatus(loading_item, value) {
+    if (value === true) {
+      let pushObj = {};
+      pushObj[loading_item] = value;
+      this.loadingItems.push(pushObj);
     } else if (value === false) {
       this.loadingItems
         .filter((i) => loading_item in i)
-        .forEach((t) => t[loading_item] = false)
+        .forEach((t) => (t[loading_item] = false));
     }
   }
-  
-  isLoading(){
-    let isLoading = false
-    if(this.loadingItems.length == 0){
-      console.log("TRUE - 0")
+
+  isLoading() {
+    let isLoading = false;
+    if (this.loadingItems.length == 0) {
+      console.log('TRUE - 0');
       isLoading = true;
     }
-    this.loadingItems.forEach(item => {
-      Object.keys(item).forEach(key => {
-        if(item[key] == true){
-          isLoading = true
-        } 
-      })
+    this.loadingItems.forEach((item) => {
+      Object.keys(item).forEach((key) => {
+        if (item[key] == true) {
+          isLoading = true;
+        }
+      });
     });
     return isLoading;
   }

@@ -71,58 +71,70 @@ export class FileUploadDialogComponent implements OnInit {
     //     'Template already exists. Would you like to Overwrite?'
     //   );
     this.filesCurrentlyUploading = this.files.length;
-    console.log(this.sendableFormData)
+    console.log(this.sendableFormData);
     // @ts-ignore
-    for(var pair of this.sendableFormData.entries()) {
-      console.log(pair[0]+ ', '+ pair[1]);
-   }
-   console.log(this.sendableFormData.getAll("zip"))
+    for (var pair of this.sendableFormData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    console.log(this.sendableFormData.getAll('zip'));
     this.files.forEach((file) => {
-      file['overwrite'] = true 
-      if(file['uploadStatus'] == "Already Exists"){
+      file['overwrite'] = true;
+      if (file['uploadStatus'] == 'Already Exists') {
         file['overwrite'] = confirm(
-           file.name +  ' already exists. Would you like to Overwrite?'
+          file.name + ' already exists. Would you like to Overwrite?'
         );
       }
-      console.log(file['overwrite'])
-      if(file['overwrite'] === false ){
-        console.log("CANCELED")
+      console.log(file['overwrite']);
+      if (file['overwrite'] === false) {
+        console.log('CANCELED');
         file['uploadStatus'] = 'Canceled';
-        file['errorMessage'] = file.name + ' was not uploaded to prevent overwrite';
+        file['errorMessage'] =
+          file.name + ' was not uploaded to prevent overwrite';
         return;
       }
       file['uploadStatus'] = 'Inprogress';
-      console.log(file)
-      console.log(file.name)
-      this.data.uploadService
-      let fileFormData = new FormData()
-      console.log(this.sendableFormData.getAll("zip").filter((f) => f["name"] == file.name))
-      fileFormData.append("zip", this.sendableFormData.getAll("zip").filter((f) => f["name"] == file.name)[0])
-      console.log(fileFormData.get('zip'))
+      console.log(file);
+      console.log(file.name);
+      this.data.uploadService;
+      let fileFormData = new FormData();
+      console.log(
+        this.sendableFormData
+          .getAll('zip')
+          .filter((f) => f['name'] == file.name)
+      );
+      fileFormData.append(
+        'zip',
+        this.sendableFormData
+          .getAll('zip')
+          .filter((f) => f['name'] == file.name)[0]
+      );
+      console.log(fileFormData.get('zip'));
       fileFormData.append('Domain_Id', this.data.ID);
       fileFormData.append('Domain_Domain', this.data.DomainDomain);
       this.data.uploadService
-      .uploadFile(fileFormData, file['overwrite'])
-      .subscribe(
-        (resp) => {
-          if (resp.type === HttpEventType.Response) {
+        .uploadFile(fileFormData, file['overwrite'])
+        .subscribe(
+          (resp) => {
+            if (resp.type === HttpEventType.Response) {
               file['uploadStatus'] = 'Complete';
               this.filesCurrentlyUploading -= 1;
               if (this.filesCurrentlyUploading === 0) {
                 this.dialogRef.close('fileUploaded');
               }
+            }
+            if (resp.type === HttpEventType.UploadProgress) {
+              const percentDone = Math.round((100 * resp.loaded) / resp.total);
+              console.log(
+                'File: ' + file.name + ' Progress ' + percentDone + '%'
+              );
+            }
+          },
+          (failure) => {
+            this.alertsSvc.alert(failure);
+            file['errorMessage'] = failure.error.error;
+            file['uploadStatus'] = 'Failed';
           }
-          if (resp.type === HttpEventType.UploadProgress) {
-            const percentDone = Math.round((100 * resp.loaded) / resp.total);
-            console.log("File: " + file.name + ' Progress ' + percentDone + '%');
-          }
-        },
-        (failure) => {
-          this.alertsSvc.alert(failure);
-          file["errorMessage"] = failure.error.error
-          file['uploadStatus'] = 'Failed';
-        }
-      );
+        );
     });
 
     // this.data.uploadService

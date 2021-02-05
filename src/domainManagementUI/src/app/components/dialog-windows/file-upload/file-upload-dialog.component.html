@@ -131,7 +131,11 @@ someone has to deal with this
             </td>
             <td>
               <div *ngIf="!uploadProcessed && !item.uploadStatus">New</div>
-              <div *ngIf="!uploadProcessed && item.uploadStatus == 'Already Exists'">
+              <div
+                *ngIf="
+                  !uploadProcessed && item.uploadStatus == 'Already Exists'
+                "
+              >
                 Overwrite?
               </div>
               <div *ngIf="item.uploadStatus == 'Inprogress'">
@@ -139,20 +143,32 @@ someone has to deal with this
               </div>
               <div *ngIf="item.uploadStatus == 'Complete'">
                 <mat-icon
-                  style="font-size: 2.5em; color: green; cursor:initial; font-weight: bolder;"
-                >done</mat-icon>
+                  style="
+                    font-size: 2.5em;
+                    color: green;
+                    cursor: initial;
+                    font-weight: bolder;
+                  "
+                  >done</mat-icon
+                >
               </div>
               <div *ngIf="item.uploadStatus == 'Failed'">
                 <mat-icon
-                  style="font-size: 2.5em; color: red; cursor:initial;"
+                  style="font-size: 2.5em; color: red; cursor: initial"
                   [matTooltip]="item.errorMessage"
-                >priority_high</mat-icon>
+                  >priority_high</mat-icon
+                >
               </div>
               <div *ngIf="item.uploadStatus == 'Canceled'">
                 <mat-icon
-                  style="font-size: 2.5em; color: rgba(0,0,0,1); cursor:initial;"
+                  style="
+                    font-size: 2.5em;
+                    color: rgba(0, 0, 0, 1);
+                    cursor: initial;
+                  "
                   [matTooltip]="item.errorMessage"
-                >cancel</mat-icon>
+                  >cancel</mat-icon
+                >
               </div>
             </td>
           </tr>
