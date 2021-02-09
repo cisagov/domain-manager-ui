@@ -71,4 +71,9 @@ export class UserManagementService {
     const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/groups`;
     return this.http.put(url, groupData);
   }
+  
+  getAPIKeys(username){
+    const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/api`;
+    return this.http.get(url, headers);  
+  }
 }
