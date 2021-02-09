@@ -13,8 +13,6 @@
     A summary of the user's account.
   </div>
 
-  
-
   <!-- If UNCONFIRMED, show ability to confirm user -->
   <div
     *ngIf="umTabSvc.user_data.UserStatus == 'UNCONFIRMED'"
@@ -94,7 +92,6 @@
       </div>
     </div>
 
-    
     <div *ngIf="!umTabSvc.user_data.APIKey" class="flex-row">
       <div class="flex sl_flex_title">API Key generated</div>
       <div *ngIf="umTabSvc.user_data.HasAPIKey" class="flex sl_flex_content">
@@ -106,24 +103,26 @@
     </div>
 
     <div *ngIf="umTabSvc.user_data.APIKey" class="flex-row">
-      <div class="flex sl_flex_title">API Key 
+      <div class="flex sl_flex_title">
+        API Key
         <mat-icon
-        style="
-          font-size: 1.5em;
-          color: black;
-          cursor: initial;
-          background: yellow;
-          border-radius: 6em;
-          text-align: center;"
-        matTooltip="API key will only be displayed on first generation. If it is lost a new one will need to be generated"
-        >priority_high</mat-icon
-      ></div>
-      <div  class="flex sl_flex_content">
-        {{umTabSvc.user_data.APIKey}}
+          style="
+            font-size: 1.5em;
+            color: black;
+            cursor: initial;
+            background: yellow;
+            border-radius: 6em;
+            text-align: center;
+          "
+          matTooltip="API key will only be displayed on first generation. If it is lost a new one will need to be generated"
+          >priority_high</mat-icon
+        >
+      </div>
+      <div class="flex sl_flex_content">
+        {{ umTabSvc.user_data.APIKey }}
       </div>
     </div>
 
-    <div>
-    </div>
+    <div></div>
   </div>
 </div>

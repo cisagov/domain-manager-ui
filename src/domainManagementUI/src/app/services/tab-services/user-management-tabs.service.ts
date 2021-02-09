@@ -37,12 +37,10 @@ export class UserManagementTabService {
     this.init();
   }
 
-  init(){
+  init() {
     this.loading = true;
     this.isAdmin = false;
-    this.tabCompleteBehvaiorSubject = new BehaviorSubject<boolean>(
-      false
-    );
+    this.tabCompleteBehvaiorSubject = new BehaviorSubject<boolean>(false);
     this.user_data = new UserModel();
     this.user_data_behavior_subject = new BehaviorSubject<UserModel>(
       new UserModel()
@@ -135,11 +133,11 @@ export class UserManagementTabService {
   getUserAPIKey() {
     this.userManageSvc.getAPIKeys(this.user_data.Username).subscribe(
       (success) => {
-        this.user_data.APIKey = success["api_key"] as string
+        this.user_data.APIKey = success['api_key'] as string;
       },
       (failure) => {
-        this.alertsSvc.alert(failure)
-      },
-    )
+        this.alertsSvc.alert(failure);
+      }
+    );
   }
 }
