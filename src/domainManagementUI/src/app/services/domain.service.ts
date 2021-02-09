@@ -200,6 +200,7 @@ export class DomainService extends AbstractUploadService {
   }
 
   createRecord(domainId: string, record: RecordModel) {
+    console.log(record)
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/`;
     return this.http.post(url, record);
   }
