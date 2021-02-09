@@ -68,20 +68,19 @@ export class UserManagementDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
-        this.umTabSvc.deleteUser()
+        this.umTabSvc.deleteUser();
       } else {
         dialogRef.close();
       }
     });
   }
-  
+
   disableUser() {
-    this.umTabSvc.disableUser()
+    this.umTabSvc.disableUser();
   }
   enableUser() {
-    this.umTabSvc.enableUser()
+    this.umTabSvc.enableUser();
   }
-  
 
   onTabChanged(event) {
     console.log(event);

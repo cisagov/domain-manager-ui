@@ -124,38 +124,38 @@ export class UserManagementTabService {
     );
   }
 
-  deleteUser(){
+  deleteUser() {
     this.userManageSvc.deleteUser(this.user_data.Username).subscribe(
       (success) => {
         this.router.navigate([`/users`]);
       },
       (failure) => {
-        this.alertsSvc.alert(failure)
+        this.alertsSvc.alert(failure);
       }
-    )
+    );
   }
 
-  disableUser(){
-    console.log("disabling")
-    this.disableEnableUser()
-  }
-  
-  enableUser(){
-    console.log("enabling")
-    this.disableEnableUser()
+  disableUser() {
+    console.log('disabling');
+    this.disableEnableUser();
   }
 
-  disableEnableUser(){
+  enableUser() {
+    console.log('enabling');
+    this.disableEnableUser();
+  }
+
+  disableEnableUser() {
     this.userManageSvc.disableEnableUser(this.user_data.Username).subscribe(
       (success) => {
-        console.log(success)
-        this.user_data.Enabled = success['status'] as boolean
-        console.log(this.user_data)
+        console.log(success);
+        this.user_data.Enabled = success['status'] as boolean;
+        console.log(this.user_data);
       },
       (failure) => {
-        console.log(failure)
+        console.log(failure);
       }
-    )
+    );
   }
 
   getApplicationGroups() {
