@@ -84,7 +84,12 @@
         placeholder="Domain"
       />
     </mat-form-field>
-    <mat-error *ngIf="recordForm.get('redirectValue').invalid && recordForm.get('redirectValue').dirty">
+    <mat-error
+      *ngIf="
+        recordForm.get('redirectValue').invalid &&
+        recordForm.get('redirectValue').dirty
+      "
+    >
       This is a required field and must be a valid domain.
     </mat-error>
   </div>

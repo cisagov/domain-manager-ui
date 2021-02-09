@@ -43,14 +43,12 @@ export class DnsRecordsDialogComponent implements OnInit {
       this.isRequired('REDIRECT'),
       this.validateDomain(),
     ]),
-    protocol: new FormControl('http',[
-      this.isRequired('REDIRECT'),
-    ]),
+    protocol: new FormControl('http', [this.isRequired('REDIRECT')]),
     mailgunValue: new FormControl('', [this.isRequired('MAILGUN')]),
   });
 
   recordTypes = ['A', 'CNAME', 'REDIRECT', 'MAILGUN'];
-  protocols = ['http','https']
+  protocols = ['http', 'https'];
 
   constructor(
     public dialog: MatDialog,
@@ -139,8 +137,10 @@ export class DnsRecordsDialogComponent implements OnInit {
       return this.recordForm.get('cnameValue').valid;
     }
     if (this.record.record_type === 'REDIRECT') {
-      return this.recordForm.get('redirectValue').valid 
-      && this.recordForm.get('protocol').valid;
+      return (
+        this.recordForm.get('redirectValue').valid &&
+        this.recordForm.get('protocol').valid
+      );
     }
     if (this.record.record_type === 'MAILGUN') {
       return this.recordForm.get('mailgunValue').valid;
@@ -149,11 +149,12 @@ export class DnsRecordsDialogComponent implements OnInit {
 
   validateRecordName(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      console.log(control.value)
-      const endsWithDomain = control.value
-        ?.toLowerCase()
-        .endsWith((this.ddTabSvc.domain_data.name).toLowerCase())
-        && control.value.length > this.ddTabSvc.domain_data.name.length;
+      console.log(control.value);
+      const endsWithDomain =
+        control.value
+          ?.toLowerCase()
+          .endsWith(this.ddTabSvc.domain_data.name.toLowerCase()) &&
+        control.value.length > this.ddTabSvc.domain_data.name.length;
       return endsWithDomain ? null : { endsWithDomain: control.value };
     };
   }
