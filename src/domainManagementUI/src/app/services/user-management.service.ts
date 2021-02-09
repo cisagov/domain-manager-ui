@@ -50,6 +50,10 @@ export class UserManagementService {
     const url = `${this.settingsService.settings.apiUrl}/api/user/${user_id}`;
     return this.http.delete(url, headers);
   }
+  disableEnableUser(user_id) {
+    const url = `${this.settingsService.settings.apiUrl}/api/user/${user_id}`;
+    return this.http.put(url, headers);
+  }
 
   confirmUser(username) {
     const url = `${this.settingsService.settings.apiUrl}/api/user/${username}/confirm`;

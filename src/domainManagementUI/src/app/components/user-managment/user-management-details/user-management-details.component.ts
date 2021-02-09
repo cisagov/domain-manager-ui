@@ -59,12 +59,29 @@ export class UserManagementDetailsComponent implements OnInit {
   }
 
   deleteUser() {
-    this.alertsSvc.alert('Delete user functionallity not yet implmemented');
-  }
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Confirm User Delete';
+    dialogSettings.actionConfirming = `Are you sure you want to delete the user : ${this.username}`;
 
-  disableUser() {
-    this.alertsSvc.alert('Disable user functionallity not yet implmemented');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.umTabSvc.deleteUser()
+      } else {
+        dialogRef.close();
+      }
+    });
   }
+  
+  disableUser() {
+    this.umTabSvc.disableUser()
+  }
+  enableUser() {
+    this.umTabSvc.enableUser()
+  }
+  
 
   onTabChanged(event) {
     console.log(event);
