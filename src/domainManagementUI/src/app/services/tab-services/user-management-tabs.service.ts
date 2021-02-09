@@ -41,7 +41,6 @@ export class UserManagementTabService {
     this.loading = true;
     this.isAdmin = false;
     this.tabCompleteBehvaiorSubject = new BehaviorSubject<boolean>(false);
-
     this.user_data = new UserModel();
     this.user_data_behavior_subject = new BehaviorSubject<UserModel>(
       new UserModel()
