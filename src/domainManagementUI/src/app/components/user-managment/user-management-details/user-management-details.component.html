@@ -8,10 +8,12 @@
     Options
   </button>
   <mat-menu #menu="matMenu">
+    <button (click)="umTabSvc.getUserAPIKey()" mat-menu-item>
+      <mat-icon>autorenew</mat-icon>Generate API Key
+    </button>
     <button (click)="deleteUser()" mat-menu-item>
       <mat-icon>delete_forever</mat-icon>Delete User
     </button>
-
     <button (click)="disableUser()" mat-menu-item>
       <mat-icon>location_disabled</mat-icon>Disable User
     </button>

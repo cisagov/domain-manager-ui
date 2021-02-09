@@ -28,6 +28,7 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.umTabSvc.init();
     this.umTabSvc.getUserUpdateBehvaiorSubject().subscribe((item) => {
       if (item.Username) {
         this.getApplicationGroups();
@@ -39,7 +40,7 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
     this.umTabSvc.getApplicationGroups().subscribe(
       (success) => {
         this.groupList = new MatTableDataSource<ApplicationGroupModel>(
-          this.setUsersActiveGroups(success) as ApplicationGroupModel[]
+          this.setUsersActiveGroups(success)
         );
       },
       (failure) => {

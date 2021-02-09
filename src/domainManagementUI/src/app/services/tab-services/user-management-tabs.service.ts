@@ -17,7 +17,7 @@ import { UserModel, AWSUserModel } from 'src/app/models/user.model';
   providedIn: 'root',
 })
 export class UserManagementTabService {
-  public loading = false;
+  public loading = true;
   public isAdmin = false;
   public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
@@ -33,7 +33,21 @@ export class UserManagementTabService {
     public applicationsSvc: ApplicationService,
     public userManageSvc: UserManagementService,
     public UserAuthSvc: UserAuthService
-  ) {}
+  ) {
+    this.init();
+  }
+
+  init(){
+    this.loading = true;
+    this.isAdmin = false;
+    this.tabCompleteBehvaiorSubject = new BehaviorSubject<boolean>(
+      false
+    );
+    this.user_data = new UserModel();
+    this.user_data_behavior_subject = new BehaviorSubject<UserModel>(
+      new UserModel()
+    );
+  }
 
   getUserUpdateBehvaiorSubject() {
     return this.user_data_behavior_subject;
@@ -116,5 +130,16 @@ export class UserManagementTabService {
 
   setUserGroups(groupData) {
     return this.userManageSvc.setUserGroups(this.user_data.Username, groupData);
+  }
+
+  getUserAPIKey() {
+    this.userManageSvc.getAPIKeys(this.user_data.Username).subscribe(
+      (success) => {
+        this.user_data.APIKey = success["api_key"] as string
+      },
+      (failure) => {
+        this.alertsSvc.alert(failure)
+      },
+    )
   }
 }
