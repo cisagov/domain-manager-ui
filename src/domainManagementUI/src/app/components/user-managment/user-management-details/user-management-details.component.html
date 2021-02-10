@@ -14,8 +14,19 @@
     <button (click)="deleteUser()" mat-menu-item>
       <mat-icon>delete_forever</mat-icon>Delete User
     </button>
-    <button (click)="disableUser()" mat-menu-item>
+    <button
+      *ngIf="umTabSvc.user_data?.Enabled"
+      (click)="disableUser()"
+      mat-menu-item
+    >
       <mat-icon>location_disabled</mat-icon>Disable User
+    </button>
+    <button
+      *ngIf="!umTabSvc.user_data?.Enabled"
+      (click)="enableUser()"
+      mat-menu-item
+    >
+      <mat-icon>refresh</mat-icon>Enable User
     </button>
   </mat-menu>
   <mat-tab-group
