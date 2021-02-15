@@ -65,72 +65,71 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
   }
 
   launchSite() {
-    if (this.ddTabSvc.canBeLaunched()) {
-      let progressDialogSettings = new ProgressBarDialogSettings();
-      progressDialogSettings.actionInProgress = 'Launching Domain';
-      progressDialogSettings.actionDetails =
-        'Launching the domain. This process can take several minutes. ' +
-        'If you close this dialog this process will continue in the background but you will have to remain on this page. ' +
-        'This window will close once the process is complete.';
-
-      this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
-        data: progressDialogSettings,
-      });
+    if (!this.ddTabSvc.canBeLaunched()) {
+      this.alertsSvc.alert('Domain cannot be launched.');
     }
 
-    this.ddTabSvc.launchSite().subscribe(
-      (success) => {
-        this.progressDialogRef.close();
-        this.alertsSvc.alert('Domain Successfully Launched');
-        //reload page to update the tab structure and display the newly created html
-        let domain_id = this.ddTabSvc.domain_data._id;
-        this.ddTabSvc.getDomainDetails(domain_id);
-      },
-      (failure) => {
-        this.progressDialogRef.close();
-        this.alertsSvc.alert(
-          'An error occured while launching the domain. Please try again',
-          undefined,
-          10000
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Confirm Launch';
+    dialogSettings.actionConfirming = `Are you sure you want to launch ${this.ddTabSvc.domain_data.name}`;
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.ddTabSvc.launchSite().subscribe(
+          (success) => {
+            this.alertsSvc.alert('Domain is Launching.');
+            // reload page to update the tab structure and display the newly created html
+            this.ddTabSvc.getDomainDetails(this.ddTabSvc.domain_data._id);
+          },
+          (failure) => {
+            this.alertsSvc.alert(
+              'An error occured while launching the domain. Please try again.',
+              undefined,
+              10000
+            );
+            this.ddTabSvc.domain_data.is_launching = false;
+            console.log(failure);
+          }
         );
-        this.ddTabSvc.domain_data.is_launching = false;
-        console.log(failure);
       }
-    );
+    });
   }
   takeDownSite() {
-    if (this.ddTabSvc.canBeTakenDown()) {
-      let progressDialogSettings = new ProgressBarDialogSettings();
-      progressDialogSettings.actionInProgress = 'Taking Down Domain';
-      progressDialogSettings.actionDetails =
-        'Taking down the domain. This process can take several minutes. ' +
-        'If you close this dialog this process will continue in the background but you will have to remain on this page. ' +
-        'This window will close once the process is complete.';
-
-      this.progressDialogRef = this.dialog.open(ProgressBarDialog, {
-        data: progressDialogSettings,
-      });
+    if (!this.ddTabSvc.canBeTakenDown()) {
+      console.log('Domain Cannot be taken down.');
     }
 
-    this.ddTabSvc.takeDownSite().subscribe(
-      (success) => {
-        this.progressDialogRef.close();
-        this.alertsSvc.alert('Domain Successfully Taken Down');
-        //reload page to update the tab structure and display the newly created html
-        let domain_id = this.ddTabSvc.domain_data._id;
-        this.ddTabSvc.getDomainDetails(domain_id);
-      },
-      (failure) => {
-        this.progressDialogRef.close();
-        this.alertsSvc.alert(
-          'An error occured while taking down the domain. Please try again',
-          undefined,
-          10000
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Confirm Take Down';
+    dialogSettings.actionConfirming = `Are you sure you want to take down ${this.ddTabSvc.domain_data.name}`;
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.ddTabSvc.takeDownSite().subscribe(
+          (success) => {
+            this.alertsSvc.alert('Domain is being taken down.');
+            // reload page to update the tab structure and display the newly created html
+            this.ddTabSvc.getDomainDetails(this.ddTabSvc.domain_data._id);
+          },
+          (failure) => {
+            this.alertsSvc.alert(
+              'An error occured while taking down the domain. Please try again.',
+              undefined,
+              10000
+            );
+            this.ddTabSvc.domain_data.is_delaunching = false;
+            console.log(failure);
+          }
         );
-        this.ddTabSvc.domain_data.is_delaunching = false;
-        console.log(failure);
       }
-    );
+    });
   }
 
   onTabChanged(event) {
@@ -139,7 +138,7 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
 
   deleteDomain() {
     console.log('trying to delte');
-    let confirmDialogSettings = new ConfirmDialogSettings();
+    const confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm domain delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.ddTabSvc.domain_data.name}, this action is permanent`;
 
