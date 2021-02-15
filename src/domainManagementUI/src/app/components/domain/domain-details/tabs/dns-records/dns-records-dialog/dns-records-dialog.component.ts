@@ -43,6 +43,7 @@ export class DnsRecordsDialogComponent implements OnInit {
       this.isRequired('REDIRECT'),
       this.validateDomain(),
     ]),
+    mailgunKey: new FormControl('', [this.isRequired('MAILGUN')]),
     mailgunValue: new FormControl('', [this.isRequired('MAILGUN')]),
   });
 
@@ -55,7 +56,7 @@ export class DnsRecordsDialogComponent implements OnInit {
     private domainSvc: DomainService,
     public ddTabSvc: DomainDetailsTabService,
     public alertsSvc: AlertsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.onChanges();
@@ -94,7 +95,7 @@ export class DnsRecordsDialogComponent implements OnInit {
     };
   }
 
-  createFormControl() {}
+  createFormControl() { }
 
   validateDomain(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
