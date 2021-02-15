@@ -16,6 +16,7 @@ import { TemplateModel } from 'src/app/models/template.model';
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'td-demo',
@@ -35,7 +36,8 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public domSanitizer: DomSanitizer,
     private router: Router,
-    public tdTabSvc: TemplateDetailsTabService
+    public tdTabSvc: TemplateDetailsTabService,
+    public userAuthSvc: UserAuthService
   ) {}
 
   ngOnInit(): void {
