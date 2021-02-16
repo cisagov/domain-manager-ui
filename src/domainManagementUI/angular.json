@@ -23,7 +23,6 @@
                 }
               ],
               "buildOptimizer": true,
-              "extractCss": true,
               "extractLicenses": true,
               "fileReplacements": [
                 {
