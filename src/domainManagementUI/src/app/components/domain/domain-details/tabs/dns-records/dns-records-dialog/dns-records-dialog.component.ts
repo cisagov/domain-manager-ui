@@ -43,6 +43,7 @@ export class DnsRecordsDialogComponent implements OnInit {
       this.isRequired('REDIRECT'),
       this.validateDomain(),
     ]),
+    mailgunKey: new FormControl('', [this.isRequired('MAILGUN')]),
     mailgunValue: new FormControl('', [this.isRequired('MAILGUN')]),
   });
 

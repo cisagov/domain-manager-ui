@@ -89,9 +89,25 @@
     </mat-error>
   </div>
 
-  <div *ngIf="record.record_type === 'MAILGUN'">
+  <div class="flex flex-column" *ngIf="record.record_type === 'MAILGUN'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Mailgun Domain Key</mat-label>
+      <input
+        matInput
+        trim="blur"
+        type="text"
+        required
+        formControlName="mailgunKey"
+        [(ngModel)]="record.config.key"
+        placeholder="mx._domain...."
+      />
+    </mat-form-field>
+    <mat-error *ngIf="recordForm.get('mailgunKey').invalid">
+      This is a required field and must be the domain key provided by mailgun.
+    </mat-error>
+
+    <mat-form-field style="width: 30em" appearance="outline">
+      <mat-label>Mailgun Domain Value</mat-label>
       <input
         matInput
         trim="blur"
