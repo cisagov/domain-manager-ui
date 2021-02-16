@@ -12,7 +12,7 @@ export class SettingsHttpService {
     private settingsService: SettingsService
   ) {}
 
-  initializeApp(): Promise<any> {
+  initializeApp(): Promise<void> {
     return new Promise((resolve) => {
       this.http
         .get('assets/settings.json')
