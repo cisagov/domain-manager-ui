@@ -14,7 +14,7 @@
     "angular-file": "^3.4.0",
     "aws-amplify": "^3.3.19",
     "bootstrap": "^4.6.0",
-    "rxjs": "~6.5.4",
+    "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
