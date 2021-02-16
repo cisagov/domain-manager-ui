@@ -3,16 +3,50 @@
   <div class="text-muted" style="margin-bottom: 0.5em">
     A full history of the users actions
   </div>
-  <div class="flex-row" style="height: 60vh; overflow: scroll">
-    <table class="display_table">
-      <tr>
-        <th>User Action</th>
-        <th>Date & Time</th>
-      </tr>
-      <tr *ngFor="let history of this.umTabSvc.user_data.History">
-        <td>{{ history.Action }}</td>
-        <td>{{ history.Time | date: "medium" }}</td>
-      </tr>
-    </table>
-  </div>
+
+  <mat-table [dataSource]="this.umTabSvc.user_data.History" matSort>
+    <ng-container matColumnDef="path">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Path</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.path }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="method">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Method</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.method }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="statusCode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Status Code</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.status_code }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="json">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>JSON</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ JSON.stringify(row.json) }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="error">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Error</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.error }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Created</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{
+        row.created | date: "medium"
+      }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+  </mat-table>
 </div>

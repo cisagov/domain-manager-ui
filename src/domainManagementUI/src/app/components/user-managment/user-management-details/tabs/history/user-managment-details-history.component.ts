@@ -11,6 +11,9 @@ import { UserManagementTabService } from 'src/app/services/tab-services/user-man
   styleUrls: ['./user-managment-details-history.component.scss'],
 })
 export class UserManagementDetailsHistoryComponent implements OnInit {
+  displayedColumns = ['path', 'method', 'statusCode', 'created'];
+  JSON = JSON;
+
   constructor(
     public alertsSvc: AlertsService,
     public umTabSvc: UserManagementTabService
