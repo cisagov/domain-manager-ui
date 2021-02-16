@@ -35,10 +35,26 @@ export class DnsRecordsDialogComponent implements OnInit {
         '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
       ),
     ]),
+    aaaaValue: new FormControl('', [
+      this.isRequired('AAAA'),
+      Validators.pattern(
+        '^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$'
+      ),
+    ]),
     cnameValue: new FormControl('', [
       this.isRequired('CNAME'),
       this.validateDomain(),
     ]),
+    mxValue: new FormControl('', [this.isRequired('MX')]),
+    nsValue: new FormControl('', [this.isRequired('NS')]),
+    ptrValue: new FormControl('', [
+      this.isRequired('PTR'),
+      Validators.pattern(
+        '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+      ),
+    ]),
+    srvValue: new FormControl('', [this.isRequired('SRV')]),
+    txtValue: new FormControl('', [this.isRequired('TXT')]),
     redirectValue: new FormControl('', [
       this.isRequired('REDIRECT'),
       this.validateDomain(),
@@ -47,7 +63,18 @@ export class DnsRecordsDialogComponent implements OnInit {
     mailgunValue: new FormControl('', [this.isRequired('MAILGUN')]),
   });
 
-  recordTypes = ['A', 'CNAME', 'REDIRECT', 'MAILGUN'];
+  recordTypes = [
+    'A',
+    'AAAA',
+    'CNAME',
+    'MX',
+    'PTR',
+    'NS',
+    'SRV',
+    'TXT',
+    'REDIRECT',
+    'MAILGUN',
+  ];
 
   constructor(
     public dialog: MatDialog,
@@ -129,17 +156,28 @@ export class DnsRecordsDialogComponent implements OnInit {
     ) {
       return false;
     }
-    if (this.record.record_type === 'A') {
-      return this.recordForm.get('aValue').valid;
-    }
-    if (this.record.record_type === 'CNAME') {
-      return this.recordForm.get('cnameValue').valid;
-    }
-    if (this.record.record_type === 'REDIRECT') {
-      return this.recordForm.get('redirectValue').valid;
-    }
-    if (this.record.record_type === 'MAILGUN') {
-      return this.recordForm.get('mailgunValue').valid;
+
+    switch (this.record.record_type) {
+      case 'A':
+        return this.recordForm.get('aValue').valid;
+      case 'AAAA':
+        return this.recordForm.get('aaaaValue').valid;
+      case 'CNAME':
+        return this.recordForm.get('cnameValue').valid;
+      case 'MX':
+        return this.recordForm.get('mxValue').valid;
+      case 'NS':
+        return this.recordForm.get('nsValue').valid;
+      case 'PTR':
+        return this.recordForm.get('ptrValue').valid;
+      case 'SRV':
+        return this.recordForm.get('srvValue').valid;
+      case 'TXT':
+        return this.recordForm.get('txtValue').valid;
+      case 'REDIRECT':
+        return this.recordForm.get('redirectValue').valid;
+      case 'MAILGUN':
+        return this.recordForm.get('mailgunValue').valid;
     }
   }
 
