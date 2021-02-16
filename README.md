@@ -37,6 +37,11 @@ Create your .env files
 
 - `cp ./etc/env.dist .env`
 
+Install NPM packages:
+
+- `cd src/domainManagementUI`
+- `npm install`
+
 Build containers:
 
 - `make build`
