@@ -14,6 +14,7 @@
     </div>
     <div class="add-new-button-container flex">
       <button
+        *ngIf="userIsAdmin"
         style="height: 50px"
         (click)="addDomain()"
         mat-raised-button
