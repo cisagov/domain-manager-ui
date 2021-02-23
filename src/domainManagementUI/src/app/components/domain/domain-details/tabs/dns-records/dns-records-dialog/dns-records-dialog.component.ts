@@ -59,8 +59,6 @@ export class DnsRecordsDialogComponent implements OnInit {
       this.isRequired('REDIRECT'),
       this.validateDomain(),
     ]),
-    mailgunKey: new FormControl('', [this.isRequired('MAILGUN')]),
-    mailgunValue: new FormControl('', [this.isRequired('MAILGUN')]),
   });
 
   recordTypes = [
@@ -73,7 +71,6 @@ export class DnsRecordsDialogComponent implements OnInit {
     'SRV',
     'TXT',
     'REDIRECT',
-    'MAILGUN',
   ];
 
   constructor(
@@ -176,8 +173,6 @@ export class DnsRecordsDialogComponent implements OnInit {
         return this.recordForm.get('txtValue').valid;
       case 'REDIRECT':
         return this.recordForm.get('redirectValue').valid;
-      case 'MAILGUN':
-        return this.recordForm.get('mailgunValue').valid;
     }
   }
 
