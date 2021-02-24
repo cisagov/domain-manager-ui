@@ -69,3 +69,7 @@ Remove containers:
 ### To access the Angular app
 
 Angular app located at [localhost:4200](http://localhost:4200)
+
+### Run pre-commit:
+
+- `pre-commit run --all-files`

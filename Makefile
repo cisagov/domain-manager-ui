@@ -13,9 +13,13 @@ help:
 build:
 	docker-compose -f local-docker-compose.yml build
 
-# target: app logs - Runs angular logs in the terminal
-logs:
+# target: attach logs - Runs angular logs in the terminal
+attach:
 	 docker attach --sig-proxy=false dm-ui
+
+# target: print logs - Print angular logs in the terminal
+logs:
+	 docker logs dm-api
 
 # target: up - Run local web server.
 up:

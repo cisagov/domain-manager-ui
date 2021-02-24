@@ -68,20 +68,17 @@ export class DomainDetailsTabService {
     return this.templateSelectionBehaviorSubject;
   }
 
-  getDomainDetails(_id) {
-    this.setLoadingStatus('domain_loading', true);
-    this.domain_data = new DomainModel();
-    this.domainSvc.getDomainDetails(_id).subscribe(
-      (success) => {
-        this.domain_data = success as DomainModel;
-        this.domain_data_behavior_subject.next(this.domain_data);
-        this.setLoadingStatus('domain_loading', false);
-      },
-      (failure) => {
-        this.alertsSvc.alert(failure['error']);
-        this.setLoadingStatus('domain_loading', false);
-      }
-    );
+  async getDomainDetails(_id) {
+    try {
+      this.setLoadingStatus('domain_loading', true);
+      this.domain_data = new DomainModel();
+      this.domain_data = await this.domainSvc.getDomainDetails(_id);
+      this.domain_data_behavior_subject.next(this.domain_data);
+    } catch (failure) {
+      this.alertsSvc.alert(failure.message);
+    } finally {
+      this.setLoadingStatus('domain_loading', false);
+    }
   }
 
   initalizeData() {
