@@ -1,6 +1,6 @@
 // Angular Imports
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -37,10 +37,9 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
     public layoutSvc: LayoutService,
     private router: Router,
     public ddTabSvc: DomainDetailsTabService,
-    public domainTemplateSvc: DomainService
-  ) {
-    this.layoutSvc.setTitle('Domain Details');
-  }
+    public domainTemplateSvc: DomainService,
+    private _changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     //Get the uuid param from the url
@@ -52,6 +51,11 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  ngAfterContentChecked() {
+    this.layoutSvc.setTitle(`${this.ddTabSvc.domain_data.name}`);
+    this._changeDetectorRef.detectChanges();
   }
 
   ngOnDestroy(): void {
