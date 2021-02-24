@@ -69,11 +69,16 @@ export class DomainDetailsTabService {
   }
 
   async getDomainDetails(_id) {
-    this.setLoadingStatus('domain_loading', true);
-    this.domain_data = new DomainModel();
-    this.domain_data = await this.domainSvc.getDomainDetails(_id);
-    this.domain_data_behavior_subject.next(this.domain_data);
-    this.setLoadingStatus('domain_loading', false);
+    try {
+      this.setLoadingStatus('domain_loading', true);
+      this.domain_data = new DomainModel();
+      this.domain_data = await this.domainSvc.getDomainDetails(_id);
+      this.domain_data_behavior_subject.next(this.domain_data);
+    } catch (failure) {
+      this.alertsSvc.alert(failure.message);
+    } finally {
+      this.setLoadingStatus('domain_loading', false);
+    }
   }
 
   initalizeData() {
