@@ -55,6 +55,7 @@ export class DomainHistoryModel {
 export class RedirectModel {
   subdomain: string;
   redirect_url: string;
+  protocol: string;
 }
 
 export class RecordModel {

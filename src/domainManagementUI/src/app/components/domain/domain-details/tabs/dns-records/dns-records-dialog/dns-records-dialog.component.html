@@ -170,6 +170,21 @@
       hostname per line.
     </mat-error>
   </div>
+  <div class="flex flex-column" *ngIf="record.record_type === 'REDIRECT'">
+    <mat-form-field appearance="outline">
+      <mat-label>Protocol</mat-label>
+      <mat-select
+        required
+        formControlName="protocol"
+        [(ngModel)]="record.config.protocol"
+      >
+        <mat-option [value]="null">--Select--</mat-option>
+        <mat-option *ngFor="let t of protocols" [value]="t">
+          {{ t }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
   <!-- TXT RECORD -->
   <div *ngIf="record.record_type === 'TXT'">
