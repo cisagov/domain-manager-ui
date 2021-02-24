@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 
 //3rd Party Modules
 import { ngfModule, ngf } from 'angular-file';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 //Custom Components
 import { AppComponent } from './app.component';
@@ -35,8 +36,11 @@ import { DominDetailsDnsRecordsComponent } from './components/domain/domain-deta
 import { DnsRecordsDialogComponent } from './components/domain/domain-details/tabs/dns-records/dns-records-dialog/dns-records-dialog.component';
 import { DomainCreateDialogComponent } from 'src/app/components/domain/domain-create-dialog/domain-create-dialog.component';
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
+import { LayoutBlankComponent } from 'src/app/components/layout/layout-blank/layout-blank.component'
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
+import { LoginComponent } from 'src/app/components/login/login.component'
 import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
+import { RegisterUserComponent } from 'src/app/components/register/register-user.component'
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateDetailsConnectedDomainsComponent } from 'src/app/components/template/template-details/tabs/connected-domains/template-details-connected-domains.component';
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
@@ -52,6 +56,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { LayoutService } from './services/layout.service';
+import { LoginService } from 'src/app/services/login.service'
 import { SettingsHttpService } from 'src/app/services/settings-http.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { ThemeService } from './services/theme.service';
@@ -75,15 +80,9 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     AppComponent,
     ApplicationEditDialogComponent,
     ApplicationListComponent,
-    LayoutMainComponent,
-    DomainCreateDialogComponent,
     ConfirmDialogComponent,
-    FileUploadDialogComponent,
-    ProgressBarDialog,
-    TemplateDetailsComponent,
-    TemplateDetailsConnectedDomainsComponent,
-    TemplateDetailsDemoComponent,
-    TemplateListComponent,
+    DnsRecordsDialogComponent,
+    DomainCreateDialogComponent,
     DomainDetailsComponent,
     DomainDetailsAttrbutesComponent,
     DomainDetailsDemoComponent,
@@ -92,19 +91,29 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DomainDetailsProxyCategorizaitonComponent,
     DomainDetailsSummaryComponent,
     DomainDetailsTemplateSelectionComponent,
+    DominDetailsDnsRecordsComponent,
     DomainListComponent,
+    FileUploadDialogComponent,
+    LayoutBlankComponent,
+    LayoutMainComponent,
+    LoginComponent,
+    ProgressBarDialog,
+    RegisterUserComponent,
+    TemplateDetailsComponent,
+    TemplateDetailsConnectedDomainsComponent,
+    TemplateDetailsDemoComponent,
+    TemplateListComponent,
     UserManagementListComponent,
     UserManagementDetailsComponent,
     UserManagementDetailsSummaryComponent,
     UserManagementDetailsGroupsComponent,
     UserManagementDetailsHistoryComponent,
-    DominDetailsDnsRecordsComponent,
-    DnsRecordsDialogComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FontAwesomeModule,
     FormsModule,
     HttpClientModule,
     MaterialModule,
@@ -117,16 +126,17 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     AlertsService,
     ApplicationService,
     CategoryService,
+    DomainDetailsTabService,
+    DomainService,
     HttpClient,
     LayoutService,
+    LoginService,
     TemplateService,
     TemplateDetailsTabService,
     ThemeService,
     UserAuthService,
     UserManagementTabService,
     UserManagementService,
-    DomainDetailsTabService,
-    DomainService,
     {
       provide: APP_INITIALIZER,
       useFactory: app_Init,

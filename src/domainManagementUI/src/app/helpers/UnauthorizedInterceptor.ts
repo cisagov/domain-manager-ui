@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
+  Router,
+} from '@angular/router';
+import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
@@ -13,7 +16,9 @@ import { UserAuthService } from '../services/user-auth.service';
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
-  constructor(private userAuthSvc: UserAuthService) {}
+  constructor(
+    private userAuthSvc: UserAuthService,
+    private router: Router) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -25,9 +30,10 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
           if (err.status === 401) {
             // auto logout if 401 response returned from api
 
+            this.router.navigateByUrl("/login");
             //Working
-            this.userAuthSvc.signOut();
-            location.reload(true);
+            //this.userAuthSvc.signOut();
+            // location.reload(true);
 
             //Test
             // return next.handle(request);

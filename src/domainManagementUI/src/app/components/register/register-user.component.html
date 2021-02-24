@@ -1,0 +1,192 @@
+<mat-card>
+    <mat-card-header class="mat-card-header-primary">
+      <mat-card-title>Register User</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <form autocomplete="off">
+              <p>
+                <mat-form-field appearance="outline" [formGroup]="userFormGroup">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Username"
+                    formControlName="username"
+                    autocomplete="off"
+                    [errorStateMatcher]="matcherusername"
+                  />
+                  <mat-icon matPrefix style="margin-right: 10px">face</mat-icon>
+                  <mat-error
+                    *ngIf="userFormGroup.controls.username.hasError('required')"
+                  >
+                    Username is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="outline" [formGroup]="userFormGroup">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Email"
+                    formControlName="email"
+                    autocomplete="off"
+                    [errorStateMatcher]="matchemail"
+                  />
+                  <mat-icon matPrefix style="margin-right: 10px">mail</mat-icon>
+                  <mat-error
+                    *ngIf="userFormGroup.controls.email.hasError('required')"
+                  >
+                    Email <strong>required</strong>
+                  </mat-error>
+                  <mat-error
+                    *ngIf="userFormGroup.controls.email.hasError('email')"
+                  >
+                    Check email format
+                  </mat-error>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="outline" [formGroup]="userFormGroup">
+                  <input
+                    type="password"
+                    matInput
+                    placeholder="Password"
+                    formControlName="password"
+                    autocomplete="off"
+                    [errorStateMatcher]="matcherpassword"
+                  />
+                  <mat-icon matPrefix style="margin-right: 10px">lock</mat-icon>
+                  <mat-error
+                    *ngIf="userFormGroup.controls.password.hasError('required')"
+                  >
+                    Password is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </p>
+  
+              <p>
+                <mat-form-field appearance="outline" [formGroup]="userFormGroup">
+                  <input
+                    type="password"
+                    matInput
+                    placeholder="Password"
+                    formControlName="confirmPassword"
+                    autocomplete="off"
+                    [errorStateMatcher]="matcherconfirmpassword"
+                  />
+                  <mat-icon matPrefix style="margin-right: 10px">lock</mat-icon>
+                  <mat-error
+                    *ngIf="
+                      userFormGroup.controls.confirmPassword.hasError('required')
+                    "
+                  >
+                    Confirm Password is <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="checkPasswordEquality()">
+                    Passwords do not match
+                  </mat-error>
+                </mat-form-field>
+              </p>
+  
+              <p *ngIf="error" class="error">
+                {{ error }}
+              </p>
+  
+              <div class="button">
+                <button
+                  type="submit"
+                  [disabled]="!userFormGroup.valid && !checkPasswordRules()"
+                  mat-raised-button
+                  color="accent"
+                  (click)="submit()"
+                >
+                  Login
+                </button>
+                <button mat-button [routerLink]="['/login/']" color="accent">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6" style="margin-left: 10px">
+            <div class="row" style="padding-bottom: 10px">
+              <div class="col-md-12 border-bottom">
+                <h5>Password Rules</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <ul style="list-style-type: none; padding: 0">
+                  <li>
+                    <div class="rules-list">
+                      <fa-icon
+                        class="text-danger"
+                        [icon]="!checkPasswordLength() ? faBan : faCheck"
+                        [styles]="{
+                          color: !checkPasswordLength() ? '#dc3545' : '#28a745'
+                        }"
+                      ></fa-icon>
+                    </div>
+                    Requires a length of at least 8 characters
+                  </li>
+                  <li>
+                    <div class="rules-list">
+                      <fa-icon
+                        class="text-danger"
+                        [icon]="!checkPasswordUpperChar() ? faBan : faCheck"
+                        [styles]="{
+                          color: !checkPasswordUpperChar() ? '#dc3545' : '#28a745'
+                        }"
+                      ></fa-icon>
+                    </div>
+                    Requires upper case
+                  </li>
+                  <li>
+                    <div class="rules-list">
+                      <fa-icon
+                        class="text-danger"
+                        [icon]="!checkPasswordLowerChar() ? faBan : faCheck"
+                        [styles]="{
+                          color: !checkPasswordLowerChar() ? '#dc3545' : '#28a745'
+                        }"
+                      ></fa-icon>
+                    </div>
+                    Requires lower case
+                  </li>
+                  <li>
+                    <div class="rules-list">
+                      <fa-icon
+                        class="text-danger"
+                        [icon]="!checkPasswordSpecialChar() ? faBan : faCheck"
+                        [styles]="{
+                          color: !checkPasswordSpecialChar()
+                            ? '#dc3545'
+                            : '#28a745'
+                        }"
+                      ></fa-icon>
+                    </div>
+                    Requires special character
+                  </li>
+                  <li>
+                    <div class="rules-list">
+                      <fa-icon
+                        class="text-danger"
+                        [icon]="!checkPasswordNumber() ? faBan : faCheck"
+                        [styles]="{
+                          color: !checkPasswordNumber() ? '#dc3545' : '#28a745'
+                        }"
+                      ></fa-icon>
+                    </div>
+                    Requires a number
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

@@ -28,15 +28,30 @@ export class AuthAppendInterceptor implements HttpInterceptor {
     httpRequest: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return from(this.userAuthSvc.getUserTokens()).pipe(
-      switchMap((token: any) => {
-        const headers = httpRequest.headers.set(
-          'Authorization',
-          'Bearer ' + token.idToken
-        );
-        const requestClone = httpRequest.clone({ headers });
-        return next.handle(requestClone);
-      })
-    );
+
+
+    const idToken = sessionStorage.getItem("id_token");
+
+    if (idToken) {
+      const cloned = httpRequest.clone({
+        headers: httpRequest.headers.set("Authorization", "Bearer " + idToken),
+      });
+
+      return next.handle(cloned);
+    } else {
+      return next.handle(httpRequest);
+    }
+
+
+    // return from(this.userAuthSvc.getUserTokens()).pipe(
+    //   switchMap((token: any) => {
+    //     const headers = httpRequest.headers.set(
+    //       'Authorization',
+    //       'Bearer ' + token.idToken
+    //     );
+    //     const requestClone = httpRequest.clone({ headers });
+    //     return next.handle(requestClone);
+    //   })
+    // );
   }
 }
