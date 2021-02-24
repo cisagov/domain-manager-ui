@@ -2,18 +2,17 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-//Local Service Imports
+// Local Service Imports
 import { environment } from 'src/environments/environment';
 import { SettingsService } from 'src/app/services/settings.service';
 
-//Models
+// Models
 import {
   RecordModel,
   RedirectModel,
   DomainModel,
 } from 'src/app/models/domain.model';
 import { AbstractUploadService } from './abstract-upload.service';
-import { Domain } from 'domain';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),

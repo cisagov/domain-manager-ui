@@ -20,6 +20,7 @@ import { UserModel, AWSUserModel } from 'src/app/models/user.model';
 export class UserManagementTabService {
   public loading = true;
   public isAdmin = false;
+  public userEmail = '';
   public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -42,6 +43,7 @@ export class UserManagementTabService {
   init() {
     this.loading = true;
     this.isAdmin = false;
+    this.userEmail = '';
     this.tabCompleteBehvaiorSubject = new BehaviorSubject<boolean>(false);
     this.user_data = new UserModel();
     this.user_data_behavior_subject = new BehaviorSubject<UserModel>(
@@ -58,9 +60,14 @@ export class UserManagementTabService {
     this.user_data = new UserModel();
     this.userManageSvc.getUser(Username).subscribe(
       (success) => {
-        console.log(success);
         this.user_data = success as UserModel;
         this.setAdminStatus();
+        this.user_data.Email = 'test';
+        this.user_data['UserAttributes'].forEach((attribute) => {
+          if (attribute['Name'] == 'email') {
+            this.user_data.Email = attribute['Value'];
+          }
+        });
         this.user_data_behavior_subject.next(this.user_data);
         this.loading = false;
       },

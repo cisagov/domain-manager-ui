@@ -16,6 +16,7 @@ export class UserModel extends AWSUserModel {
   _id: string;
   Groups: [];
   HasAPIKey: string;
+  Email: string;
   APIKey: string;
   History: Array<UserAction>;
 }

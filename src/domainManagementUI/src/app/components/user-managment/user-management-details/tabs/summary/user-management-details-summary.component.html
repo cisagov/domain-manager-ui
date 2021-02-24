@@ -60,6 +60,13 @@
     </div>
 
     <div class="flex-row">
+      <div class="flex sl_flex_title">Email Address</div>
+      <div class="flex sl_flex_content">
+        {{ umTabSvc.user_data.Email }}
+      </div>
+    </div>
+
+    <div class="flex-row">
       <div class="flex sl_flex_title">Created Date</div>
       <div class="flex sl_flex_content">
         {{ umTabSvc.user_data.UserCreateDate | date: "MM/dd/yy" }}
