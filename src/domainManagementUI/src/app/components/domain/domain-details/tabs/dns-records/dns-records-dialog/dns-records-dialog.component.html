@@ -4,11 +4,7 @@
   <!-- RECORD TYPE -->
   <div class="flex flex-column">
     <mat-form-field appearance="outline">
-      <mat-select
-        required
-        formControlName="recordType"
-        [(ngModel)]="record.record_type"
-      >
+      <mat-select required formControlName="recordType" [(ngModel)]="record.record_type">
         <mat-option [value]="null">--Select--</mat-option>
         <mat-option *ngFor="let t of recordTypes" [value]="t">
           {{ t }}
@@ -21,15 +17,8 @@
   <div class="flex flex-column">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Record Name</mat-label>
-      <input
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="name"
-        [(ngModel)]="record.name"
-        placeholder="something.{{ ddTabSvc.domain_data.name }}"
-      />
+      <input matInput trim="blur" type="text" required formControlName="name" [(ngModel)]="record.name"
+        placeholder="something.{{ ddTabSvc.domain_data.name }}" />
       <mat-error *ngIf="recordForm.get('name').invalid">
         This is a required field, and must end with the domain -
         {{ ddTabSvc.domain_data.name }}
@@ -41,15 +30,8 @@
   <div *ngIf="record.record_type === 'A'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>IPv4 Address</mat-label>
-      <input
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="aValue"
-        [(ngModel)]="record.config.value"
-        placeholder="IPv4 Address"
-      />
+      <input matInput trim="blur" type="text" required formControlName="aValue" [(ngModel)]="record.config.value"
+        placeholder="IPv4 Address" />
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('aValue').invalid">
       This is a required field and must be a valid ipv4 address.
@@ -60,15 +42,8 @@
   <div *ngIf="record.record_type === 'AAAA'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>IPv6 Address</mat-label>
-      <input
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="aaaaValue"
-        [(ngModel)]="record.config.value"
-        placeholder="IPv6 Address"
-      />
+      <input matInput trim="blur" type="text" required formControlName="aaaaValue" [(ngModel)]="record.config.value"
+        placeholder="IPv6 Address" />
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('aaaaValue').invalid">
       This is a required field and must be a valid ipv6 address.
@@ -79,15 +54,8 @@
   <div *ngIf="record.record_type === 'CNAME'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Domain</mat-label>
-      <input
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="cnameValue"
-        [(ngModel)]="record.config.value"
-        placeholder="Domain"
-      />
+      <input matInput trim="blur" type="text" required formControlName="cnameValue" [(ngModel)]="record.config.value"
+        placeholder="Domain" />
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('cnameValue').invalid">
       This is a required field and must be a valid domain.
@@ -98,15 +66,8 @@
   <div *ngIf="record.record_type === 'MX'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Value</mat-label>
-      <textarea
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="mxValue"
-        [(ngModel)]="record.config.value"
-        placeholder="[priority] [hostname]"
-      ></textarea>
+      <textarea matInput trim="blur" type="text" required formControlName="mxValue" [(ngModel)]="record.config.value"
+        placeholder="[priority] [hostname]"></textarea>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('mxValue').invalid">
       This is a required field and must have a priority and hostname per line.
@@ -117,15 +78,8 @@
   <div *ngIf="record.record_type === 'NS'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Value</mat-label>
-      <textarea
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="nsValue"
-        [(ngModel)]="record.config.value"
-        placeholder="list of hostnames"
-      ></textarea>
+      <textarea matInput trim="blur" type="text" required formControlName="nsValue" [(ngModel)]="record.config.value"
+        placeholder="list of hostnames"></textarea>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('nsValue').invalid">
       This is a required field and can be a list of nameservers.
@@ -136,15 +90,8 @@
   <div *ngIf="record.record_type === 'PTR'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>IPv4 Address</mat-label>
-      <input
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="ptrValue"
-        [(ngModel)]="record.config.value"
-        placeholder="IPv4 Address"
-      />
+      <input matInput trim="blur" type="text" required formControlName="ptrValue" [(ngModel)]="record.config.value"
+        placeholder="IPv4 Address" />
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('ptrValue').invalid">
       This is a required field and must be a valid ipv4 address.
@@ -155,15 +102,8 @@
   <div *ngIf="record.record_type === 'SRV'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Value</mat-label>
-      <textarea
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="srvValue"
-        [(ngModel)]="record.config.value"
-        placeholder="[priority] [weight] [port] [hostname]"
-      ></textarea>
+      <textarea matInput trim="blur" type="text" required formControlName="srvValue" [(ngModel)]="record.config.value"
+        placeholder="[priority] [weight] [port] [hostname]"></textarea>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('srvValue').invalid">
       This is a required field and must have a priority, weight, port and
@@ -173,11 +113,7 @@
   <div class="flex flex-column" *ngIf="record.record_type === 'REDIRECT'">
     <mat-form-field appearance="outline">
       <mat-label>Protocol</mat-label>
-      <mat-select
-        required
-        formControlName="protocol"
-        [(ngModel)]="record.config.protocol"
-      >
+      <mat-select required formControlName="protocol" [(ngModel)]="record.config.protocol">
         <mat-option [value]="null">--Select--</mat-option>
         <mat-option *ngFor="let t of protocols" [value]="t">
           {{ t }}
@@ -190,15 +126,8 @@
   <div *ngIf="record.record_type === 'TXT'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Value</mat-label>
-      <textarea
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="txtValue"
-        [(ngModel)]="record.config.value"
-        placeholder="text"
-      ></textarea>
+      <textarea matInput trim="blur" type="text" required formControlName="txtValue" [(ngModel)]="record.config.value"
+        placeholder="text"></textarea>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('txtValue').invalid">
       This is a required field and can have txt on multiple lines.
@@ -209,15 +138,8 @@
   <div *ngIf="record.record_type === 'REDIRECT'">
     <mat-form-field style="width: 30em" appearance="outline">
       <mat-label>Domain</mat-label>
-      <input
-        matInput
-        trim="blur"
-        type="text"
-        required
-        formControlName="redirectValue"
-        [(ngModel)]="record.config.value"
-        placeholder="Domain"
-      />
+      <input matInput trim="blur" type="text" required formControlName="redirectValue" [(ngModel)]="record.config.value"
+        placeholder="Domain" />
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('redirectValue').invalid">
       This is a required field and must be a valid domain.
@@ -226,13 +148,7 @@
 </form>
 
 <mat-dialog-actions align="end">
-  <button
-    *ngIf="isNewRecord"
-    [disabled]="!formValid"
-    (click)="createRecord()"
-    mat-raised-button
-    color="primary"
-  >
+  <button *ngIf="isNewRecord" [disabled]="!formValid" (click)="createRecord()" mat-raised-button color="primary">
     Create & Close
   </button>
   <!-- <button
@@ -242,13 +158,7 @@
     >
       Test
     </button> -->
-  <button
-    *ngIf="!isNewRecord"
-    [disabled]="!formValid"
-    (click)="updateRecord()"
-    mat-raised-button
-    color="primary"
-  >
+  <button *ngIf="!isNewRecord" [disabled]="!formValid" (click)="updateRecord()" mat-raised-button color="primary">
     Edit & Close
   </button>
   <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">

@@ -13,7 +13,7 @@ import {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -24,5 +24,5 @@ export class LoginComponent implements OnInit {
   ngAfterViewInit(): void {
   }
 
-  test() {}
+  test() { }
 }

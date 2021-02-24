@@ -21,9 +21,9 @@ export class DominDetailsDnsRecordsComponent implements OnInit {
     public dialog: MatDialog,
     public domainSvc: DomainService,
     public alertsSvc: AlertsService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   addRecord() {
     const dialogRef = this.dialog.open(DnsRecordsDialogComponent);
