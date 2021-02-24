@@ -37,7 +37,7 @@ export class DomainService extends AbstractUploadService {
 
   async getDomainDetails(domainId: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}`;
-    return await this.http.get<DomainModel>(url, headers).toPromise();
+    return this.http.get<DomainModel>(url, headers).toPromise();
   }
 
   updateDomain(domain: DomainModel) {
