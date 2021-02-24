@@ -40,7 +40,6 @@ import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-ba
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateDetailsConnectedDomainsComponent } from 'src/app/components/template/template-details/tabs/connected-domains/template-details-connected-domains.component';
 import { TemplateDetailsDemoComponent } from 'src/app/components/template/template-details/tabs/demo/template-details-demo.component';
-import { TemplateDetailsHistoricalComponent } from 'src/app/components/template/template-details/tabs/historical/template-details-historical.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
 import { UserManagementListComponent } from './components/user-managment/user-management-list/user-management-list.component';
 import { UserManagementDetailsComponent } from './components/user-managment/user-management-details/user-management-details.component';
@@ -84,7 +83,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     TemplateDetailsComponent,
     TemplateDetailsConnectedDomainsComponent,
     TemplateDetailsDemoComponent,
-    TemplateDetailsHistoricalComponent,
     TemplateListComponent,
     DomainDetailsComponent,
     DomainDetailsAttrbutesComponent,

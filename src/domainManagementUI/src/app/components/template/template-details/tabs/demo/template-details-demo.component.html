@@ -18,7 +18,7 @@
     >
       <mat-icon>build</mat-icon>Create Domain
     </button> -->
-    <button (click)="delete()" mat-menu-item>
+    <button *ngIf="userAuthSvc.isAdmin" (click)="delete()" mat-menu-item>
       <mat-icon>delete</mat-icon> Delete
     </button>
   </mat-menu>
