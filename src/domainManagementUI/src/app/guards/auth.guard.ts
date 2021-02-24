@@ -5,9 +5,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
-import { UserAuthService } from '../services/user-auth.service';
 import { Observable } from 'rxjs';
-import Auth from '@aws-amplify/auth';
 import { LoginService } from 'src/app/services/login.service';
 
 @Injectable({ providedIn: 'root' })
