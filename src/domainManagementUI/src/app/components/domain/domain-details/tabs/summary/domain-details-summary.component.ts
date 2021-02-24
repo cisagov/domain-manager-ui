@@ -39,7 +39,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
     public domainSvc: DomainService
   ) {}
   ngOnInit(): void {
-    this.userIsAdmin = this.userAuthSvc.userIsAdmin()
+    this.userIsAdmin = this.userAuthSvc.userIsAdmin();
     this.ddTabSvc.getDomainDataBehaviorSubject().subscribe((data) => {
       if (data._id) {
         this.domainDataExists = true;

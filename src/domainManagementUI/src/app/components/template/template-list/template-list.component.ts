@@ -81,7 +81,6 @@ export class TemplateListComponent implements OnInit {
   }
 
   uploadTemplate() {
-
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'template';
     fileUploadSettings.uploadFileType = 'application/x-zip-compressed';

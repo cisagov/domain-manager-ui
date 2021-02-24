@@ -43,7 +43,7 @@ export class UserManagementTabService {
   init() {
     this.loading = true;
     this.isAdmin = false;
-    this.userEmail = ""
+    this.userEmail = '';
     this.tabCompleteBehvaiorSubject = new BehaviorSubject<boolean>(false);
     this.user_data = new UserModel();
     this.user_data_behavior_subject = new BehaviorSubject<UserModel>(
@@ -62,10 +62,10 @@ export class UserManagementTabService {
       (success) => {
         this.user_data = success as UserModel;
         this.setAdminStatus();
-        this.user_data.Email = 'test'
-        this.user_data['UserAttributes'].forEach(attribute => {
-          if(attribute['Name'] == 'email'){
-            this.user_data.Email = attribute['Value']
+        this.user_data.Email = 'test';
+        this.user_data['UserAttributes'].forEach((attribute) => {
+          if (attribute['Name'] == 'email') {
+            this.user_data.Email = attribute['Value'];
           }
         });
         this.user_data_behavior_subject.next(this.user_data);

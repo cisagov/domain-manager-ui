@@ -1,7 +1,7 @@
 export class RegisterUser {
-    constructor(
-      public Username: string,
-      public Email: string,
-      public Password: string
-    ) {}
-  }
+  constructor(
+    public Username: string,
+    public Email: string,
+    public Password: string
+  ) {}
+}

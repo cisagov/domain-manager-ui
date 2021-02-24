@@ -6,9 +6,9 @@ import { ApplicationListComponent } from 'src/app/components/applications/applic
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
 import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
-import { LayoutBlankComponent } from "src/app/components/layout/layout-blank/layout-blank.component";
-import { LoginComponent } from "src/app/components/login/login.component";
-import { RegisterUserComponent } from 'src/app/components/register/register-user.component'
+import { LayoutBlankComponent } from 'src/app/components/layout/layout-blank/layout-blank.component';
+import { LoginComponent } from 'src/app/components/login/login.component';
+import { RegisterUserComponent } from 'src/app/components/register/register-user.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
 import { UserManagementListComponent } from 'src/app/components/user-managment/user-management-list/user-management-list.component';
@@ -43,11 +43,11 @@ const routes: Routes = [
     children: [{ path: '', component: DomainDetailsComponent }],
   },
   {
-    path: "login",
+    path: 'login',
     component: LayoutBlankComponent,
     children: [
-      { path: "", component: LoginComponent },
-      { path: "registeruser", component: RegisterUserComponent },
+      { path: '', component: LoginComponent },
+      { path: 'registeruser', component: RegisterUserComponent },
     ],
   },
   {

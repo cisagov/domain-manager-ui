@@ -10,7 +10,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThemeService } from 'src/app/services/theme.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
-import { LoginService } from 'src/app/services/login.service'
+import { LoginService } from 'src/app/services/login.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -38,8 +38,8 @@ export class LayoutMainComponent implements OnInit {
     // this.userAuthSvc.getUserNameBehaviorSubject().subscribe((value) => {
     //   this.currentUserName = value;
     // });
-    if( this.loginSvc.isLoggedIn()){
-      this.currentUserName = sessionStorage.getItem('username')
+    if (this.loginSvc.isLoggedIn()) {
+      this.currentUserName = sessionStorage.getItem('username');
     }
   }
 

@@ -82,7 +82,5 @@ export class UserManagementDetailsComponent implements OnInit {
     this.umTabSvc.enableUser();
   }
 
-  onTabChanged(event) {
-    
-  }
+  onTabChanged(event) {}
 }

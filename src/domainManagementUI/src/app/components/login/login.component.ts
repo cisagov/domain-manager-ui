@@ -1,19 +1,19 @@
 // Angular Imports
-import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import {
   FormControl,
   NgForm,
   FormGroupDirective,
   Validators,
-} from "@angular/forms";
-import { HttpErrorResponse } from "@angular/common/http";
-import { ErrorStateMatcher } from "@angular/material/core";
+} from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 // Local Service Imports
-import { LoginService } from "src/app/services/login.service";
+import { LoginService } from 'src/app/services/login.service';
 
 // Models
-import { Login } from "src/app/models/login.model";
+import { Login } from 'src/app/models/login.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -31,17 +31,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  model = new Login("", "");
+  model = new Login('', '');
   matcherusername = new MyErrorStateMatcher();
   matcherpassword = new MyErrorStateMatcher();
 
-  username = new FormControl("", [Validators.required]);
-  password = new FormControl("", [Validators.required]);
+  username = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required]);
 
   @Input() error: string | null;
 
@@ -64,25 +64,25 @@ export class LoginComponent implements OnInit {
           if (httpError.status === 403) {
             // Username or password Failed
             this.error =
-              "We were unable to log you in. Verify that you have the correct credentials";
+              'We were unable to log you in. Verify that you have the correct credentials';
           } else if (httpError.status === 423) {
             // Locked Out
-            this.error = "We were unable to log you in. Locked out.";
+            this.error = 'We were unable to log you in. Locked out.';
           } else if (httpError.status === 400) {
             // Generic Error
             this.error =
-              "We were unable to log you in. Error with login. Try again.";
+              'We were unable to log you in. Error with login. Try again.';
           } else if (httpError.status === 400) {
             this.error =
-              "We were unable to log you in.  Error with login. Try again.";
+              'We were unable to log you in.  Error with login. Try again.';
           } else {
             // All other errors
             this.error =
-              "We were unable to log you in.  Error with login. Try again.";
+              'We were unable to log you in.  Error with login. Try again.';
           }
         } else {
           this.error =
-            "We were unable to log you in.  Error with login. Try again.";
+            'We were unable to log you in.  Error with login. Try again.';
         }
       }
     );

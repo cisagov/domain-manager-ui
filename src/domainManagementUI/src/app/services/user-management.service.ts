@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { share } from "rxjs/operators";
+import { share } from 'rxjs/operators';
 
 //Local Service Imports
 import { environment } from 'src/environments/environment';
@@ -9,7 +9,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 //Models
 import { UserModel } from 'src/app/models/user.model';
-import { RegisterUser } from "src/app/models/registered-user.model";
+import { RegisterUser } from 'src/app/models/registered-user.model';
 import { group } from '@angular/animations';
 
 const headers = {
@@ -84,7 +84,7 @@ export class UserManagementService {
   }
 
   postCreateUser(user: RegisterUser): Observable<any> {
-    const url = `${this.settingsService.settings.apiUrl}/api/auth/register`
+    const url = `${this.settingsService.settings.apiUrl}/api/auth/register`;
     return this.http.post(url, user).pipe(share());
   }
 }

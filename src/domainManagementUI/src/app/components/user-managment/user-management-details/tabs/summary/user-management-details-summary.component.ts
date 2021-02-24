@@ -16,8 +16,7 @@ export class UserManagementDetailsSummaryComponent implements OnInit {
     public umTabSvc: UserManagementTabService
   ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   confirmUser() {
     this.umTabSvc.confirmUser();

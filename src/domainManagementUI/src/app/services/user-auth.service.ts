@@ -115,12 +115,12 @@ export class UserAuthService {
   getUserIsAdminBehaviorSubject(): Observable<any> {
     return this.isAdminSubject;
   }
-  userIsAdmin(){
-    if(sessionStorage.getItem('isAdmin')){
-      if(sessionStorage.getItem('isAdmin') == 'true'){
+  userIsAdmin() {
+    if (sessionStorage.getItem('isAdmin')) {
+      if (sessionStorage.getItem('isAdmin') == 'true') {
         return true;
       }
-    } 
+    }
     return false;
   }
 

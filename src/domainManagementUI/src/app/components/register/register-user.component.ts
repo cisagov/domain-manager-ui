@@ -1,24 +1,24 @@
 // Angular Imports
-import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import {
   FormControl,
   NgForm,
   FormGroupDirective,
   Validators,
   FormGroup,
-} from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material/core";
-import { HttpErrorResponse } from "@angular/common/http";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router } from "@angular/router";
+} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
-import { RegisterUser } from "src/app/models/registered-user.model";
+import { RegisterUser } from 'src/app/models/registered-user.model';
 
 //Third party imports
-import { faBan, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 // Local Service Imports
-import { UserManagementService } from "src/app/services/user-management.service";
+import { UserManagementService } from 'src/app/services/user-management.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,12 +36,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: "app-register-user",
-  templateUrl: "./register-user.component.html",
-  styleUrls: ["./register-user.component.scss"],
+  selector: 'app-register-user',
+  templateUrl: './register-user.component.html',
+  styleUrls: ['./register-user.component.scss'],
 })
 export class RegisterUserComponent implements OnInit {
-  model = new RegisterUser("", "", "");
+  model = new RegisterUser('', '', '');
   faBan = faBan;
   faCheck = faCheck;
 
@@ -52,10 +52,10 @@ export class RegisterUserComponent implements OnInit {
   matchemail = new MyErrorStateMatcher();
 
   userFormGroup = new FormGroup({
-    username: new FormControl("", [Validators.required]),
-    password: new FormControl("", [Validators.required]),
-    email: new FormControl("", [Validators.required, Validators.email]),
-    confirmPassword: new FormControl("", [Validators.required]),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    confirmPassword: new FormControl('', [Validators.required]),
   });
 
   @Input() error: string | null;
@@ -72,26 +72,27 @@ export class RegisterUserComponent implements OnInit {
 
   submit() {
     if (this.userFormGroup.valid) {
-      this.model.Username = this.userFormGroup.controls["username"].value;
-      this.model.Email = this.userFormGroup.controls["email"].value;
-      this.model.Password = this.userFormGroup.controls["password"].value;
+      this.model.Username = this.userFormGroup.controls['username'].value;
+      this.model.Email = this.userFormGroup.controls['email'].value;
+      this.model.Password = this.userFormGroup.controls['password'].value;
       this.userSvc.postCreateUser(this.model).subscribe(
         (data) => {
           this._snackBar.open(
-              "User created successfully, your account is awaiting admin approval", 
-              "close", 
-              {
-                duration: 0, 
-                verticalPosition: 'top',
-            });
-          this._router.navigateByUrl("/login");
+            'User created successfully, your account is awaiting admin approval',
+            'close',
+            {
+              duration: 0,
+              verticalPosition: 'top',
+            }
+          );
+          this._router.navigateByUrl('/login');
         },
         (err) => {
           if (err instanceof HttpErrorResponse) {
             let httpError: HttpErrorResponse = err;
-            this.error = "We are unable to create user";
+            this.error = 'We are unable to create user';
           } else {
-            this.error = "We are unable to create user";
+            this.error = 'We are unable to create user';
           }
         }
       );
@@ -112,21 +113,21 @@ export class RegisterUserComponent implements OnInit {
       this.checkPasswordSpecialChar() &&
       this.checkPasswordNumber() &&
       this.checkPasswordEquality() &&
-      this.userFormGroup.controls["username"].value;
+      this.userFormGroup.controls['username'].value;
     return pass;
   }
 
   checkPasswordEquality() {
     var equal =
-      this.userFormGroup.controls["password"].value ===
-      this.userFormGroup.controls["confirmPassword"].value;
+      this.userFormGroup.controls['password'].value ===
+      this.userFormGroup.controls['confirmPassword'].value;
     return equal;
   }
 
   checkPasswordLength() {
-    if (this.userFormGroup.controls["password"].value) {
+    if (this.userFormGroup.controls['password'].value) {
       return (
-        this.userFormGroup.controls["password"].value.length >=
+        this.userFormGroup.controls['password'].value.length >=
         this.minNumberOfChar
       );
     }
@@ -134,31 +135,31 @@ export class RegisterUserComponent implements OnInit {
   }
 
   checkPasswordUpperChar() {
-    if (this.userFormGroup.controls["password"].value) {
-      return /[A-Z]/.test(this.userFormGroup.controls["password"].value);
+    if (this.userFormGroup.controls['password'].value) {
+      return /[A-Z]/.test(this.userFormGroup.controls['password'].value);
     }
     return false;
   }
 
   checkPasswordLowerChar() {
-    if (this.userFormGroup.controls["password"].value) {
-      return /[a-z]/.test(this.userFormGroup.controls["password"].value);
+    if (this.userFormGroup.controls['password'].value) {
+      return /[a-z]/.test(this.userFormGroup.controls['password'].value);
     }
     return false;
   }
 
   checkPasswordSpecialChar() {
-    if (this.userFormGroup.controls["password"].value) {
+    if (this.userFormGroup.controls['password'].value) {
       return /[~`@!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(
-        this.userFormGroup.controls["password"].value
+        this.userFormGroup.controls['password'].value
       );
     }
     return false;
   }
 
   checkPasswordNumber() {
-    if (this.userFormGroup.controls["password"].value) {
-      return /[\d/]/.test(this.userFormGroup.controls["password"].value);
+    if (this.userFormGroup.controls['password'].value) {
+      return /[\d/]/.test(this.userFormGroup.controls['password'].value);
     }
     return false;
   }
