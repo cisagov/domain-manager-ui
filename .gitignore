@@ -15,3 +15,5 @@ dist
 src/domainManagementUI/src/assets/settings.json
 /debug.log
 /src/domainManagementUI/debug.log
+
+.venv/
