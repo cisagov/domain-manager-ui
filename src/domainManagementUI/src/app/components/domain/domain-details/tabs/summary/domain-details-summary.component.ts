@@ -85,6 +85,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
     this.ddTabSvc.updateDomain().subscribe(
       (success) => {
         this.alertsSvc.alert('Domain Application Updated');
+        this.ddTabSvc.getDomainDetails(this.ddTabSvc.domain_data._id);
       },
       (failure) => {
         this.alertsSvc.alert('Domain Application Update failed');

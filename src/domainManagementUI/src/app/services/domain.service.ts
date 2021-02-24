@@ -13,6 +13,7 @@ import {
   DomainModel,
 } from 'src/app/models/domain.model';
 import { AbstractUploadService } from './abstract-upload.service';
+import { Domain } from 'domain';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -34,9 +35,9 @@ export class DomainService extends AbstractUploadService {
     return this.http.get(url, headers);
   }
 
-  getDomainDetails(domainId: string) {
+  async getDomainDetails(domainId: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}`;
-    return this.http.get(url, headers);
+    return this.http.get<DomainModel>(url, headers).toPromise();
   }
 
   updateDomain(domain: DomainModel) {
