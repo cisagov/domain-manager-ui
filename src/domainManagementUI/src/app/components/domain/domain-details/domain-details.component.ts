@@ -1,6 +1,6 @@
 // Angular Imports
 import { ActivatedRoute } from '@angular/router';
-import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -37,12 +37,13 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
     public layoutSvc: LayoutService,
     private router: Router,
     public ddTabSvc: DomainDetailsTabService,
-    public domainTemplateSvc: DomainService,
-    private _changeDetectorRef: ChangeDetectorRef
-  ) {}
+    public domainTemplateSvc: DomainService
+  ) {
+    this.layoutSvc.setTitle('Domain Details');
+  }
 
   ngOnInit(): void {
-    //Get the uuid param from the url
+    // Get the uuid param from the url
     this.component_subscriptions.push(
       this.activeRoute.params.subscribe((params) => {
         this._id = params['_id'];
@@ -53,19 +54,15 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngAfterContentChecked() {
-    this.layoutSvc.setTitle(`${this.ddTabSvc.domain_data.name}`);
-    this._changeDetectorRef.detectChanges();
-  }
-
   ngOnDestroy(): void {
     this.component_subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
 
-  loadDomain(_id) {
-    this.ddTabSvc.getDomainDetails(_id);
+  async loadDomain(_id) {
+    await this.ddTabSvc.getDomainDetails(_id);
+    this.layoutSvc.setTitle(`${this.ddTabSvc.domain_data.name}`);
   }
 
   launchSite() {
