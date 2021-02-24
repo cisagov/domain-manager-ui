@@ -39,16 +39,5 @@ export class AuthAppendInterceptor implements HttpInterceptor {
     } else {
       return next.handle(httpRequest);
     }
-
-    // return from(this.userAuthSvc.getUserTokens()).pipe(
-    //   switchMap((token: any) => {
-    //     const headers = httpRequest.headers.set(
-    //       'Authorization',
-    //       'Bearer ' + token.idToken
-    //     );
-    //     const requestClone = httpRequest.clone({ headers });
-    //     return next.handle(requestClone);
-    //   })
-    // );
   }
 }
