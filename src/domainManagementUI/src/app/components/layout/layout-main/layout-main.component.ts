@@ -35,9 +35,6 @@ export class LayoutMainComponent implements OnInit {
     if (this.isDark) {
       overlayContainer.getContainerElement().classList.add('theme-alternate');
     }
-    // this.userAuthSvc.getUserNameBehaviorSubject().subscribe((value) => {
-    //   this.currentUserName = value;
-    // });
     if (this.loginSvc.isLoggedIn()) {
       this.currentUserName = sessionStorage.getItem('username');
     }
