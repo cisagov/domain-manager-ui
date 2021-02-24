@@ -57,10 +57,7 @@ export class DomainListComponent implements OnInit {
     public domainSvc: DomainService
   ) {
     this.layoutSvc.setTitle('Domains');
-    this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
-      console.log(value);
-      this.userIsAdmin = value;
-    });
+    this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }
 
   ngOnInit(): void {
@@ -86,7 +83,6 @@ export class DomainListComponent implements OnInit {
         this.domainList = new MatTableDataSource<DomainModel>(
           success as DomainModel[]
         );
-        console.log(this.domainList);
         this.loading = false;
         this.domainList.sort = this.sort;
       },

@@ -83,6 +83,6 @@ export class UserManagementDetailsComponent implements OnInit {
   }
 
   onTabChanged(event) {
-    console.log(event);
+    
   }
 }

@@ -18,6 +18,7 @@
     "aws-amplify": "^3.3.19",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
+    "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",

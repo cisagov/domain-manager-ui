@@ -64,7 +64,6 @@ export class TemplateListComponent implements OnInit {
         this.templateList = new MatTableDataSource<TemplateModel>(
           success as TemplateModel[]
         );
-        console.log(success);
         this.templateList.sort = this.sort;
         this.loading = false;
       },
@@ -82,7 +81,6 @@ export class TemplateListComponent implements OnInit {
   }
 
   uploadTemplate() {
-    console.log('opening upload template dialog');
 
     let fileUploadSettings = new FileUploadSettings();
     fileUploadSettings.uploadType = 'template';

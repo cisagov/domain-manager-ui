@@ -10,6 +10,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThemeService } from 'src/app/services/theme.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
+import { LoginService } from 'src/app/services/login.service'
 import { Location } from '@angular/common';
 
 @Component({
@@ -25,6 +26,7 @@ export class LayoutMainComponent implements OnInit {
   constructor(
     private themeSvc: ThemeService,
     public layoutSvc: LayoutService,
+    public loginSvc: LoginService,
     public userAuthSvc: UserAuthService,
     public overlayContainer: OverlayContainer,
     public location: Location
@@ -33,9 +35,12 @@ export class LayoutMainComponent implements OnInit {
     if (this.isDark) {
       overlayContainer.getContainerElement().classList.add('theme-alternate');
     }
-    this.userAuthSvc.getUserNameBehaviorSubject().subscribe((value) => {
-      this.currentUserName = value;
-    });
+    // this.userAuthSvc.getUserNameBehaviorSubject().subscribe((value) => {
+    //   this.currentUserName = value;
+    // });
+    if( this.loginSvc.isLoggedIn()){
+      this.currentUserName = sessionStorage.getItem('username')
+    }
   }
 
   @ViewChild('drawer', { static: false })
@@ -67,7 +72,7 @@ export class LayoutMainComponent implements OnInit {
   }
 
   logOut() {
-    this.userAuthSvc.signOut();
+    this.loginSvc.logout();
   }
 
   ngOnInit(): void {}

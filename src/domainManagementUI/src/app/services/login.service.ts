@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
+import jwt_decode from 'jwt-decode';
 import { share } from "rxjs/operators";
 
 //Third party imports
@@ -27,16 +28,15 @@ export class LoginService {
   }
 
   public postLogin(login: Login): Observable<any> {
-    // let url = `${this.settingsService.settings.apiUrl}/api/auth/signin/`;
-    // return this.http.post(url, login);
-
-    return this.http.post(this.apiUrl + "/api/auth/signin", login).pipe(share());
+    let url = `${this.settingsService.settings.apiUrl}/api/auth/signin/`;
+    return this.http.post(url, login);
   }
 
   public logout() {
     sessionStorage.removeItem("id_token");
     sessionStorage.removeItem("expires_at");
     sessionStorage.removeItem("username");
+    sessionStorage.removeItem("isAdmin");
     this.router.navigateByUrl("/login");
   }
 
@@ -44,6 +44,21 @@ export class LoginService {
     sessionStorage.setItem("id_token", authResult.id_token);
     sessionStorage.setItem("expires_at", authResult.expires_at);
     sessionStorage.setItem("username", authResult.username);
+    try{
+      let jwt = jwt_decode(authResult.id_token)
+      console.log(jwt)
+      if(jwt['cognito:groups']){
+        jwt['cognito:groups'].forEach(group => {
+          if(group == "admin"){
+            sessionStorage.setItem('isAdmin', 'true')
+            console.log("SETTING ADMIN")
+          }
+        });
+      }
+    } finally {
+
+    }
+    // sessionStorage.setItem("isDMAdmin", )
     this.router.navigateByUrl("/");
   }
 

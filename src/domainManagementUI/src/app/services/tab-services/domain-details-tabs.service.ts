@@ -56,9 +56,8 @@ export class DomainDetailsTabService {
       this.initalizeData();
       this._setFormData();
     });
-    this.userAuthSvc.getUserIsAdminBehaviorSubject().subscribe((value) => {
-      this.userIsAdmin = value;
-    });
+
+    this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }
 
   getDomainDataBehaviorSubject() {

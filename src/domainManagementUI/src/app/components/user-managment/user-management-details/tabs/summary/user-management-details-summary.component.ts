@@ -17,7 +17,6 @@ export class UserManagementDetailsSummaryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('test');
   }
 
   confirmUser() {

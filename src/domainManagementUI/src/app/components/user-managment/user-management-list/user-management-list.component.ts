@@ -62,7 +62,6 @@ export class UserManagementListComponent implements OnInit {
     this.loading = true;
     this.userManageSVC.getAllUsers().subscribe(
       (success) => {
-        console.log(success);
         this.userList = new MatTableDataSource<UserModel>(
           success as UserModel[]
         );

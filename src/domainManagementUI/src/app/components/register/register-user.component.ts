@@ -77,7 +77,13 @@ export class RegisterUserComponent implements OnInit {
       this.model.Password = this.userFormGroup.controls["password"].value;
       this.userSvc.postCreateUser(this.model).subscribe(
         (data) => {
-          this.openSnackBar("User created successfully", "");
+          this._snackBar.open(
+              "User created successfully, your account is awaiting admin approval", 
+              "close", 
+              {
+                duration: 0, 
+                verticalPosition: 'top',
+            });
           this._router.navigateByUrl("/login");
         },
         (err) => {
