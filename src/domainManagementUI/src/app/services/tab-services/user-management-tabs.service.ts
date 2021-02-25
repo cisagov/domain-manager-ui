@@ -114,7 +114,7 @@ export class UserManagementTabService {
   }
 
   isCurrentUser() {
-    if (this.UserAuthSvc.currentAuthUser == this.user_data.Username) {
+    if (this.UserAuthSvc.currentAuthUser === this.user_data.Username) {
       return true;
     }
   }

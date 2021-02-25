@@ -189,7 +189,7 @@ export class DnsRecordsDialogComponent implements OnInit {
         control.value
           ?.toLowerCase()
           .endsWith(this.ddTabSvc.domain_data.name.toLowerCase()) &&
-        control.value.length > this.ddTabSvc.domain_data.name.length;
+        control.value.length >= this.ddTabSvc.domain_data.name.length;
       return endsWithDomain ? null : { endsWithDomain: control.value };
     };
   }
