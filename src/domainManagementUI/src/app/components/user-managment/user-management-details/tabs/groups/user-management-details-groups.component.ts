@@ -7,8 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
 
-//Models
+// Models
 import { ApplicationGroupModel } from 'src/app/models/application.model';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-user-management-details-groups',
@@ -18,13 +19,14 @@ import { ApplicationGroupModel } from 'src/app/models/application.model';
 export class UserManagementDetailsGroupsComponent implements OnInit {
   allChecked = false;
   groupList: MatTableDataSource<ApplicationGroupModel> = new MatTableDataSource<ApplicationGroupModel>();
-  displayedColumns = ['name', 'checked'];
+  displayedColumns = ['name'];
   user_data_behvior_subject = null;
   search_input = '';
 
   constructor(
     public alertsSvc: AlertsService,
-    public umTabSvc: UserManagementTabService
+    public umTabSvc: UserManagementTabService,
+    public userAuthSvc: UserAuthService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +36,9 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
         this.getApplicationGroups();
       }
     });
+    if (this.userAuthSvc.isAdmin) {
+      this.displayedColumns.push('checked');
+    }
   }
 
   getApplicationGroups() {

@@ -27,51 +27,50 @@ export class LoginService {
   }
 
   public postLogin(login: Login): Observable<any> {
-    let url = `${this.settingsService.settings.apiUrl}/api/auth/signin/`;
+    const url = `${this.settingsService.settings.apiUrl}/api/auth/signin/`;
     return this.http.post(url, login);
   }
 
   public logout() {
-    sessionStorage.removeItem('id_token');
-    sessionStorage.removeItem('expires_at');
-    sessionStorage.removeItem('username');
-    sessionStorage.removeItem('isAdmin');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    localStorage.removeItem('username');
+    localStorage.removeItem('isAdmin');
     this.router.navigateByUrl('/login');
   }
 
   public setSession(authResult) {
-    sessionStorage.setItem('id_token', authResult.id_token);
-    sessionStorage.setItem('expires_at', authResult.expires_at);
-    sessionStorage.setItem('username', authResult.username);
+    localStorage.setItem('id_token', authResult.id_token);
+    localStorage.setItem('expires_at', authResult.expires_at);
+    localStorage.setItem('username', authResult.username);
+    localStorage.setItem('isAdmin', 'false');
     try {
-      let jwt = jwt_decode(authResult.id_token);
-      console.log(jwt);
+      const jwt = jwt_decode(authResult.id_token);
       if (jwt['cognito:groups']) {
         jwt['cognito:groups'].forEach((group) => {
-          if (group == 'admin') {
-            sessionStorage.setItem('isAdmin', 'true');
-            console.log('SETTING ADMIN');
+          if (group === 'admin') {
+            localStorage.setItem('isAdmin', 'true');
           }
         });
       }
     } finally {
     }
-    // sessionStorage.setItem("isDMAdmin", )
+    // localStorage.setItem("isDMAdmin", )
     this.router.navigateByUrl('/');
   }
 
   public isLoggedIn() {
-    if (sessionStorage.getItem('id_token') != null) {
+    if (localStorage.getItem('id_token') != null) {
       return moment().isBefore(this.getExpiration());
     }
     return false;
   }
 
   private getExpiration() {
-    if (sessionStorage.getItem('expires_at') == null) {
+    if (localStorage.getItem('expires_at') == null) {
       return null;
     }
-    const expiration = sessionStorage.getItem('expires_at');
+    const expiration = localStorage.getItem('expires_at');
     return moment(expiration);
   }
 
