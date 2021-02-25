@@ -1,6 +1,13 @@
-export class UserAction {
-  Action: string;
-  Time: Date;
+export class UserHistory {
+  username: string;
+  is_admin: boolean;
+  status_code: number;
+  path: string;
+  method: string;
+  args: any;
+  json: any;
+  created: Date;
+  error: string;
 }
 
 export class AWSUserModel {
@@ -18,5 +25,5 @@ export class UserModel extends AWSUserModel {
   HasAPIKey: string;
   Email: string;
   APIKey: string;
-  History: Array<UserAction>;
+  History: Array<UserHistory>;
 }

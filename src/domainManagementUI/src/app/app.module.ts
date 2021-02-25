@@ -70,6 +70,7 @@ import { DomainService } from 'src/app/services/domain.service';
 //Helpers
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
 import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor';
+import { GenericViewComponent } from './components/dialog-windows/generic-view/generic-view.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -108,6 +109,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     UserManagementDetailsSummaryComponent,
     UserManagementDetailsGroupsComponent,
     UserManagementDetailsHistoryComponent,
+    GenericViewComponent,
   ],
   imports: [
     AppRoutingModule,
