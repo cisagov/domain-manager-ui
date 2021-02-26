@@ -1,5 +1,8 @@
 // Angular Imports
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericViewComponent } from 'src/app/components/dialog-windows/generic-view/generic-view.component';
+import { UserHistory } from 'src/app/models/user.model';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -16,8 +19,13 @@ export class UserManagementDetailsHistoryComponent implements OnInit {
 
   constructor(
     public alertsSvc: AlertsService,
-    public umTabSvc: UserManagementTabService
+    public umTabSvc: UserManagementTabService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
+
+  viewRecord(record: UserHistory) {
+    this.dialog.open(GenericViewComponent, { data: record });
+  }
 }
