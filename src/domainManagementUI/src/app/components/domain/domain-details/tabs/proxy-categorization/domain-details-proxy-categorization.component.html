@@ -27,7 +27,6 @@
         A category must be selected
       </mat-error>
     </mat-form-field>
-
     <!-- <div class="mb-2" *ngIf="isEmptySelection(f.category_one)">
       <mat-label class="category_label">Category Two</mat-label>
     </div>
@@ -103,4 +102,86 @@
       Submit
     </button>
   </div>
+</div>
+<div class="flex flex-container tab">
+  <h5>Manual Proxy Categorization</h5>
+  <div class="text-muted mb-5">
+    Please fill and submit the categorization request forms below.
+  </div>
+  <div class="flex-row flex-start mt-4">
+    <button
+      class="proxy_button"
+      mat-raised-button
+      color="primary"
+      onClick="window.open('//sitereview.bluecoat.com/#/', '_blank')"
+    >
+      Bluecoat
+    </button>
+    &nbsp;
+    <button
+      class="proxy_button"
+      mat-raised-button
+      color="primary"
+      onClick="window.open('//talosintelligence.com/reputation_center', '_blank')"
+    >
+      Cisco Talos
+    </button>
+    &nbsp;
+    <button
+      class="proxy_button"
+      mat-raised-button
+      color="primary"
+      onClick="window.open('//fortiguard.com/faq/wfratingsubmit', '_blank')"
+    >
+      Fortiguard
+    </button>
+    &nbsp;
+    <button
+      class="proxy_button"
+      mat-raised-button
+      color="primary"
+      onClick="window.open('//exchange.xforce.ibmcloud.com', '_blank')"
+    >
+      IBM X-Force
+    </button>
+    &nbsp;
+    <button
+      class="proxy_button"
+      mat-raised-button
+      color="primary"
+      onClick="window.open('//trustedsource.org/', '_blank')"
+    >
+      McAfee Trusted Source
+    </button>
+    &nbsp;
+  </div>
+</div>
+<div class="tab">
+  <button
+    class="proxy_button"
+    mat-raised-button
+    color="primary"
+    onClick="window.open('//urlfiltering.paloaltonetworks.com/', '_blank')"
+  >
+    Palo Alto Networks
+  </button>
+  &nbsp;
+  <button
+    class="proxy_button"
+    mat-raised-button
+    color="primary"
+    onClick="window.open('//global.sitesafety.trendmicro.com/', '_blank')"
+  >
+    Trend Micro
+  </button>
+  &nbsp;
+  <button
+    class="proxy_button"
+    mat-raised-button
+    color="primary"
+    onClick="window.open('//csi.websense.com/', '_blank')"
+  >
+    Websense Forcepoint
+  </button>
+  &nbsp;
 </div>
