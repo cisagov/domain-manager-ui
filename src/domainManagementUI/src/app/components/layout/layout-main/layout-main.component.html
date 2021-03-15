@@ -36,12 +36,9 @@
         yPosition="below"
         class="mat-menu-custom-header"
       >
-        <!--<button mat-menu-item>Profile</button>-->
-        <!-- <mat-slide-toggle [checked]="isDark" (change)="setTheme($event)">
-          <mat-label [ngStyle]="{ color: isDark ? '#fff' : '#000' }"
-            >Dark</mat-label
-          >
-        </mat-slide-toggle> -->
+        <button mat-menu-item *ngIf="currentUserName" (click)="myProfile()">
+          My Profile
+        </button>
         <button mat-menu-item (click)="help()">Help</button>
         <button mat-menu-item (click)="logOut()">Logout</button>
       </mat-menu>

@@ -13,6 +13,8 @@ RUN npm install -g @angular/cli
 
 COPY ./src/domainManagementUI .
 
+RUN ng build --configuration production --output-path=/usr/share/nginx/html/
+
 COPY ./etc/default.conf /etc/nginx/conf.d/default.conf
 COPY ./etc/mime.types /etc/nginx/mime.types
 

@@ -45,8 +45,9 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row
-      class="table-row"
+      class="table-row cursor-pointer"
       *matRowDef="let row; columns: displayedColumns"
+      (click)="viewRecord(row)"
     ></mat-row>
   </mat-table>
 </div>

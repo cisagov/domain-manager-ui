@@ -4,7 +4,11 @@
     Groups the user is assigned to.
   </div>
 
-  <div class="add-new-button-container flex" style="margin-bottom: 1em">
+  <div
+    class="add-new-button-container flex"
+    style="margin-bottom: 1em"
+    *ngIf="userAuthSvc.isAdmin"
+  >
     <button
       mat-raised-button
       color="primary"
