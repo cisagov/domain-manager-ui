@@ -56,7 +56,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   openInNewTab() {
-    window.open(this.ddTabSvc.domain_data.s3_url + 'home.html', '_blank');
+    window.open(`${this.ddTabSvc.domain_data.s3_url}home.html`, '_blank');
   }
   newTemplate() {
     let confirmDialogSettings = new ConfirmDialogSettings();

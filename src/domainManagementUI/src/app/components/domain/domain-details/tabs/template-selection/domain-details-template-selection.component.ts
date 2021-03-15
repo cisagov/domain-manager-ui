@@ -199,7 +199,7 @@ export class DomainDetailsTemplateSelectionComponent
   }
 
   openInNewTab() {
-    window.open(this.url, '_blank');
+    window.open(`https://${this.url}preview/home.html`, '_blank');
   }
 
   nextTab() {
