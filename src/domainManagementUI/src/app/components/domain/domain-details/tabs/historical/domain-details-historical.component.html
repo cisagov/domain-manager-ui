@@ -14,14 +14,12 @@
   <div *ngIf="ddTabSvc.hasHistory()" class="flex-row">
     <table class="display_table">
       <tr>
-        <th>Domain</th>
         <th>Application</th>
         <th>Start Date</th>
         <th>Stop Date</th>
       </tr>
       <tr *ngFor="let history of ddTabSvc.domain_data.history">
-        <td>{{ history.domain }}</td>
-        <td>{{ history.application }}</td>
+        <td>{{ history.application.name }}</td>
         <td>{{ history.start_date | date: "MM/dd/yy" }}</td>
         <td>{{ history.end_date | date: "MM/dd/yy" }}</td>
       </tr>
