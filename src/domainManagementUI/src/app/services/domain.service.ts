@@ -29,6 +29,11 @@ export class DomainService extends AbstractUploadService {
     super();
   }
 
+  async getDomains() {
+    const url = `${this.settingsService.settings.apiUrl}/api/domains/`;
+    return this.http.get<DomainModel[]>(url, headers).toPromise();
+  }
+
   getAllDomains() {
     const url = `${this.settingsService.settings.apiUrl}/api/domains/`;
     return this.http.get(url, headers);

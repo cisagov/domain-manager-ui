@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 
 // Models
 import { ApplicationModel } from 'src/app/models/application.model';
+import { DomainModel } from '../models/domain.model';
 
 @Injectable()
 export class ApplicationService {
@@ -20,6 +21,11 @@ export class ApplicationService {
 
   getApplicationNameByUUID(uuid: string) {
     console.log('This method needs to go.');
+  }
+
+  async getApplications() {
+    const url = `${this.settingsService.settings.apiUrl}/api/applications/`;
+    return this.http.get<ApplicationModel[]>(url).toPromise();
   }
 
   getAllApplications() {
