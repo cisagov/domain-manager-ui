@@ -1,11 +1,5 @@
 //Angular Imports
-import {
-  AfterViewInit,
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,6 +18,7 @@ import { DomainModel } from 'src/app/models/domain.model';
 // Dialogs
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
 import { DomainCreateDialogComponent } from 'src/app/components/domain/domain-create-dialog/domain-create-dialog.component';
+import { ApplicationService } from 'src/app/services/applications.service';
 
 @Component({
   selector: 'domain-list',
@@ -36,8 +31,8 @@ export class DomainListComponent implements OnInit {
   create_dialog: MatDialogRef<DomainCreateDialogComponent> = null;
   displayedColumns = [
     'name',
+    'application_name',
     'template_base_name',
-    'created_date',
     'is_launched',
   ];
   search_input = '';
@@ -54,7 +49,8 @@ export class DomainListComponent implements OnInit {
     public layoutSvc: LayoutService,
     private router: Router,
     private userAuthSvc: UserAuthService,
-    public domainSvc: DomainService
+    public domainSvc: DomainService,
+    public applicationSvc: ApplicationService
   ) {
     this.layoutSvc.setTitle('Domains');
     this.userIsAdmin = this.userAuthSvc.userIsAdmin();
@@ -71,28 +67,29 @@ export class DomainListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.domainList.sort = this.sort;
-  }
-
-  getDomains() {
+  async getDomains() {
     this.loading = true;
-    this.domainSvc.getAllDomains().subscribe(
-      (success) => {
-        this._formatDomainListData(success);
-        this.domainList = new MatTableDataSource<DomainModel>(
-          success as DomainModel[]
+
+    try {
+      const domains = await this.domainSvc.getDomains();
+      const applications = await this.applicationSvc.getApplications();
+      domains.forEach((domain) => {
+        const application = applications.filter(
+          (x) => x._id === domain.application_id
         );
-        this.loading = false;
-        this.domainList.sort = this.sort;
-      },
-      (error) => {
-        console.log('Error getting domain list');
-        console.log(error);
-        this.loading = false;
-        this.alertsSvc.alert('Failed to get domain list');
-      }
-    );
+        if (application.length === 1) {
+          domain.application_name = application[0].name;
+        }
+      });
+      this.domainList = new MatTableDataSource<DomainModel>(domains);
+      this.loading = false;
+      this.domainList.sort = this.sort;
+    } catch (error) {
+      console.log('Error getting domain list');
+      console.log(error);
+      this.loading = false;
+      this.alertsSvc.alert('Failed to get domain list');
+    }
   }
 
   viewDomain(_id) {
@@ -123,7 +120,6 @@ export class DomainListComponent implements OnInit {
     console.log(this.userIsAdmin);
     if (this.userIsAdmin) {
       this.displayedColumns.unshift('checked');
-      this.displayedColumns.push('isAvailable');
     }
   }
 
