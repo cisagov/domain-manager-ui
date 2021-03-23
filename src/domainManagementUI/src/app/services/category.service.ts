@@ -1,11 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
-import { Observable } from 'rxjs';
-
-//Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
-import { environment } from 'src/environments/environment';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -13,34 +9,7 @@ const headers = {
 
 @Injectable()
 export class CategoryService {
-  category_list = new Array();
-
-  category_list_testing_data = [
-    {
-      name: 'Internets',
-      _id: 'UUID-1',
-    },
-    {
-      name: 'Domains',
-      _id: 'UUID-2',
-    },
-    {
-      name: 'SearchEngines',
-      _id: 'UUID-3',
-    },
-    {
-      name: 'Video Hosting Sites',
-      _id: 'UUID-4',
-    },
-    {
-      name: 'News',
-      _id: 'UUID-5',
-    },
-    {
-      name: 'Streaming Service',
-      _id: 'UUID-6',
-    },
-  ];
+  categories = {};
 
   constructor(
     public alertsSvc: AlertsService,
@@ -51,30 +20,30 @@ export class CategoryService {
   }
 
   getAllCategories() {
-    let url = `${this.settingsService.settings.apiUrl}/api/categories/`;
-
-    if (!environment.localData) {
-      this.http.get(url, headers).subscribe(
-        (success) => {
-          this.category_list = success as [];
-        },
-        (failure) => {
-          this.alertsSvc.alert('Failed to get category list');
-          console.log(failure);
-        }
-      );
-    }
+    const url = `${this.settingsService.settings.apiUrl}/api/categories/`;
+    this.http.get(url).subscribe(
+      (success) => {
+        this.categories = success as {};
+      },
+      (failure) => {
+        this.alertsSvc.alert('Failed to get category list');
+        console.log(failure);
+      }
+    );
   }
 
-  getCategroyNameByUUID(uuid) {
-    if (this.category_list.length) {
-      return this.category_list.find((c) => c._id === uuid)?.name;
-    }
-    return 'ERROR';
+  submitCategory(domainId: string, categoryName: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
+    return this.http.post(url, { category: categoryName });
   }
 
-  submitCategory(domain_id, category_name) {
-    let url = `${this.settingsService.settings.apiUrl}/api/domain/${domain_id}/categorize?category=${category_name}`;
-    return this.http.get(url, headers);
+  checkCategory(domainId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
+    return this.http.get(url);
+  }
+
+  manuallyCategorize(domainId: string, proxy: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
+    return this.http.put(url, { proxy });
   }
 }

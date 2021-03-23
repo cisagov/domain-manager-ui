@@ -24,8 +24,21 @@ export class DomainModel {
   is_launching: boolean;
   is_delaunching: boolean;
   is_generating_template: boolean;
-  is_category_submitted: boolean;
   cloudfront_status: any;
+
+  // Categorization
+  category_results: CategoryResult[];
+  submitted_category: string;
+}
+
+export class CategoryResult {
+  proxy: string;
+  is_submitted: boolean;
+  submitted_category: string;
+  categorize_url: string;
+  check_url: string;
+  category: string;
+  manually_submitted: boolean;
 }
 
 export class HostedZoneModel {
