@@ -1,23 +1,15 @@
 <div class="flex flex-container tab">
   <h5>Proxy Categorization</h5>
   <div
-    *ngIf="!this.ddTabSvc.domain_data.is_category_submitted"
+    *ngIf="!this.ddTabSvc.domain_data.submitted_category"
     [formGroup]="tabForm"
   >
-    <div class="text-muted mb-3">
-      At least one proxy category must be selected.
-    </div>
-    <div>
-      <mat-label class="category_label">Category One</mat-label>
-    </div>
+    <div class="text-muted mb-3">A proxy category must be selected.</div>
     <mat-form-field style="width: 20em" appearance="outline">
       <mat-select formControlName="category_one">
         <mat-option [value]="null">--Select--</mat-option>
-        <mat-option
-          *ngFor="let c of filterCategories(categories, 'cat_one')"
-          [value]="c.name"
-        >
-          {{ c.name }}
+        <mat-option *ngFor="let c of categories" [value]="c">
+          {{ c }}
         </mat-option>
       </mat-select>
       <mat-error
@@ -27,60 +19,8 @@
         A category must be selected
       </mat-error>
     </mat-form-field>
-    <!-- <div class="mb-2" *ngIf="isEmptySelection(f.category_one)">
-      <mat-label class="category_label">Category Two</mat-label>
-    </div>
-
-    <mat-form-field
-      *ngIf="isEmptySelection(f.category_one)"
-      style="width: 20em"
-      appearance="outline"
-    >
-      <mat-select formControlName="category_two">
-        <mat-option [value]="null">--Select--</mat-option>
-        <mat-option
-          *ngFor="let c of filterCategories(categories, 'cat_two')"
-          [value]="c.name"
-        >
-          {{ c.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error
-        *ngIf="f.category_one.errors?.required"
-        class="invalid-feedback"
-      >
-        A category must be selected
-      </mat-error>
-    </mat-form-field>
-
-    <div class="mb-2" *ngIf="isEmptySelection(f.category_two)">
-      <mat-label class="category_label">Category Three</mat-label>
-    </div>
-
-    <mat-form-field
-      *ngIf="isEmptySelection(f.category_two)"
-      style="width: 20em"
-      appearance="outline"
-    >
-      <mat-select formControlName="category_three">
-        <mat-option [value]="null">--Select--</mat-option>
-        <mat-option
-          *ngFor="let c of filterCategories(categories, 'cat_three')"
-          [value]="c.name"
-        >
-          {{ c.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error
-        *ngIf="f.category_one.errors?.required"
-        class="invalid-feedback"
-      >
-        A category must be selected
-      </mat-error>
-    </mat-form-field>
-  </div> -->
   </div>
-  <div *ngIf="this.ddTabSvc.domain_data.is_category_submitted">
+  <div *ngIf="this.ddTabSvc.domain_data.submitted_category">
     <div class="text-muted mb-3">Domain categorization in process.</div>
     <div>
       The domain has had a category submitted and is in the process of applying
@@ -89,7 +29,7 @@
     </div>
   </div>
   <div
-    *ngIf="!this.ddTabSvc.domain_data.is_category_submitted"
+    *ngIf="!this.ddTabSvc.domain_data.submitted_category"
     class="flex-row flex-end mt-4"
   >
     <button
@@ -103,85 +43,79 @@
     </button>
   </div>
 </div>
-<div class="flex flex-container tab">
-  <h5>Manual Proxy Categorization</h5>
-  <div class="text-muted mb-5">
-    Please fill and submit the categorization request forms below.
+
+<div
+  class="flex flex-container tab"
+  *ngIf="this.ddTabSvc.domain_data.submitted_category"
+>
+  <h5>Categorization Status</h5>
+
+  <div *ngIf="categorizedTable" class="flex-row">
+    <table class="display_table">
+      <tr>
+        <th>Proxy</th>
+        <th>Submitted Category</th>
+        <th>Status</th>
+        <th>Manually Categorize</th>
+      </tr>
+      <tr *ngFor="let result of categorizedTable">
+        <td>{{ result.proxy }}</td>
+        <td>{{ result.submitted_category }}</td>
+        <td>
+          <div *ngIf="result.is_submitted && !result.manually_submitted">
+            Success
+          </div>
+          <div *ngIf="result.is_submitted && result.manually_submitted">
+            Manually Submitted
+          </div>
+          <div *ngIf="!result.is_submitted && result.submitted_category">
+            Error
+          </div>
+          <div *ngIf="!result.is_submitted && !result.submitted_category">
+            Auto Categorization Not Supported
+          </div>
+        </td>
+        <td>
+          <button
+            [disabled]="result.is_submitted"
+            class="proxy_button"
+            mat-raised-button
+            color="accent"
+            (click)="manuallyCategorize(result)"
+          >
+            Manually Categorize
+          </button>
+        </td>
+      </tr>
+    </table>
   </div>
-  <div class="flex-row flex-start mt-4">
-    <button
-      class="proxy_button"
-      mat-raised-button
-      color="primary"
-      onClick="window.open('//sitereview.bluecoat.com/#/', '_blank')"
-    >
-      Bluecoat
+  <div class="text-right" style="margin-top: 2em; margin-bottom: -2em">
+    <button mat-raised-button color="primary" (click)="checkCategory()">
+      Check Categories
     </button>
-    &nbsp;
-    <button
-      class="proxy_button"
-      mat-raised-button
-      color="primary"
-      onClick="window.open('//talosintelligence.com/reputation_center', '_blank')"
-    >
-      Cisco Talos
-    </button>
-    &nbsp;
-    <button
-      class="proxy_button"
-      mat-raised-button
-      color="primary"
-      onClick="window.open('//fortiguard.com/faq/wfratingsubmit', '_blank')"
-    >
-      Fortiguard
-    </button>
-    &nbsp;
-    <button
-      class="proxy_button"
-      mat-raised-button
-      color="primary"
-      onClick="window.open('//exchange.xforce.ibmcloud.com', '_blank')"
-    >
-      IBM X-Force
-    </button>
-    &nbsp;
-    <button
-      class="proxy_button"
-      mat-raised-button
-      color="primary"
-      onClick="window.open('//trustedsource.org/', '_blank')"
-    >
-      McAfee Trusted Source
-    </button>
-    &nbsp;
   </div>
-</div>
-<div class="tab">
-  <button
-    class="proxy_button"
-    mat-raised-button
-    color="primary"
-    onClick="window.open('//urlfiltering.paloaltonetworks.com/', '_blank')"
-  >
-    Palo Alto Networks
-  </button>
-  &nbsp;
-  <button
-    class="proxy_button"
-    mat-raised-button
-    color="primary"
-    onClick="window.open('//global.sitesafety.trendmicro.com/', '_blank')"
-  >
-    Trend Micro
-  </button>
-  &nbsp;
-  <button
-    class="proxy_button"
-    mat-raised-button
-    color="primary"
-    onClick="window.open('//csi.websense.com/', '_blank')"
-  >
-    Websense Forcepoint
-  </button>
-  &nbsp;
+  <h5>Check Results</h5>
+  <div *ngIf="checkedTable" class="flex-row">
+    <table class="display_table">
+      <tr>
+        <th>Proxy</th>
+        <th>Category</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let result of checkedTable">
+        <td>{{ result.proxy }}</td>
+        <td>{{ result.category }}</td>
+        <td>
+          <button
+            class="proxy_button"
+            mat-raised-button
+            color="primary"
+            (click)="manuallyCheck(result)"
+          >
+            Manually Check
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
