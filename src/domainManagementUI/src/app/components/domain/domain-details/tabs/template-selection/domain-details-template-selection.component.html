@@ -1,26 +1,14 @@
 <div class="flex flex-container tab">
-  <div
-    *ngIf="!ddTabSvc.domain_data.is_generating_template"
-    class="template_mode"
-  >
+  <div *ngIf="!ddTabSvc.domain_data.is_generating_template" class="template_mode">
     <h5>Select a Template For This Domain</h5>
     <div class="text-muted">Select your method to select a template</div>
     <div>
-      <mat-radio-group
-        aria-labelledby="template-selection-radio-group"
-        class="example-radio-group"
-        [(ngModel)]="ddTabSvc.templateSelectinoMethod"
-      >
-        <mat-radio-button
-          class="template-selection-radio-button"
-          value="upload"
-        >
+      <mat-radio-group aria-labelledby="template-selection-radio-group" class="example-radio-group"
+        [(ngModel)]="ddTabSvc.templateSelectinoMethod">
+        <mat-radio-button class="template-selection-radio-button" value="upload" *ngIf="userIsAdmin">
           Upload from zip
         </mat-radio-button>
-        <mat-radio-button
-          class="template-selection-radio-button"
-          value="template_selection"
-        >
+        <mat-radio-button class="template-selection-radio-button" value="template_selection">
           Select from templates
         </mat-radio-button>
       </mat-radio-group>
@@ -36,24 +24,13 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
 
-  <div
-    class="template_upload_section"
-    *ngIf="ddTabSvc.templateSelectinoMethod === 'upload'"
-  >
-    <button
-      class="all_tab_option_button"
-      mat-raised-button
-      color="primary"
-      (click)="uploadDomain()"
-    >
+  <div class="template_upload_section" *ngIf="ddTabSvc.templateSelectinoMethod === 'upload'">
+    <button class="all_tab_option_button" mat-raised-button color="primary" (click)="uploadDomain()">
       Upload
     </button>
   </div>
 
-  <div
-    class="template_selection_section"
-    *ngIf="ddTabSvc.templateSelectinoMethod === 'template_selection'"
-  >
+  <div class="template_selection_section" *ngIf="ddTabSvc.templateSelectinoMethod === 'template_selection'">
     <h5>Select a Template Base</h5>
     <div class="text-muted">
       Select a template base that will be used to generate your domain.
@@ -62,21 +39,14 @@
     <div class="search-bar flex">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Search</mat-label>
-        <input
-          [(ngModel)]="search_input"
-          (keyup)="filterList($event.target.value)"
-          matInput
-          placeholder="Search"
-        />
+        <input [(ngModel)]="search_input" (keyup)="filterList($event.target.value)" matInput placeholder="Search" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
     <mat-table [dataSource]="templateList" matSort class="mb-5">
       <!-- Template Name -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Template Name</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Template Name</mat-header-cell>
         <mat-cell *matCellDef="let row" (click)="displayTemplate(row.s3_url)">{{
           row.name
         }}</mat-cell>
@@ -84,8 +54,7 @@
 
       <!-- Created Date -->
       <ng-container matColumnDef="created_date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Created Date
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date
         </mat-header-cell>
         <mat-cell *matCellDef="let row" (click)="displayTemplate(row.s3_url)">{{
           row.created | date: "MM/dd/yy"
@@ -98,23 +67,11 @@
           Selected Template
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <button
-            *ngIf="row.selected"
-            class="selected_button"
-            mat-raised-button
-            color="accent"
-            class="flex"
-            (click)="deSelectTemplate()"
-          >
+          <button *ngIf="row.selected" class="selected_button" mat-raised-button color="accent" class="flex"
+            (click)="deSelectTemplate()">
             Selected
           </button>
-          <button
-            *ngIf="!row.selected"
-            mat-raised-button
-            color="primary"
-            class="flex"
-            (click)="selectTemplate(row)"
-          >
+          <button *ngIf="!row.selected" mat-raised-button color="primary" class="flex" (click)="selectTemplate(row)">
             Select
           </button>
         </mat-cell>
@@ -122,10 +79,7 @@
 
       <!-- Header Info -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row
-        class="table-row cursor-pointer"
-        *matRowDef="let row; columns: displayedColumns"
-      ></mat-row>
+      <mat-row class="table-row cursor-pointer" *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
 
     <div *ngIf="safeURL" class="iframe_container">
@@ -136,42 +90,25 @@
       </div>
       <iframe [src]="safeURL" height="100%" width="100%"></iframe>
     </div>
-    <div
-      style="margin-top: 2em"
-      *ngIf="ddTabSvc.template_selection_form.valid"
-      [formGroup]="attributeForm"
-    >
+    <div style="margin-top: 2em" *ngIf="ddTabSvc.template_selection_form.valid" [formGroup]="attributeForm">
       <h5>Assign the Templates Attributes</h5>
       <!-- ATTRIBUTES -->
       <div class="text-muted">
         Assign the attributes that will be used to populate the fields within
         your selected template
       </div>
-      <div
-        class="flex flex-row"
-        *ngFor="let attribute of ddTabSvc.attributeList; let i; index"
-      >
+      <div class="flex flex-row" *ngFor="let attribute of ddTabSvc.attributeList; let i; index">
         <mat-form-field style="width: 20em" appearance="outline">
           <mat-label>{{ attribute.key | titlecase }}</mat-label>
-          <input
-            matInput
-            trim="blur"
-            type="text"
-            formControlName="{{ attribute.key }}"
-            placeholder=" Type Attribute Here"
-          />
+          <input matInput trim="blur" type="text" formControlName="{{ attribute.key }}"
+            placeholder=" Type Attribute Here" />
         </mat-form-field>
       </div>
     </div>
 
     <div class="flex-row flex-end mt-4">
-      <button
-        mat-raised-button
-        color="primary"
-        class="flex"
-        (click)="generateFromTemplate()"
-        [disabled]="!attributeForm.valid"
-      >
+      <button mat-raised-button color="primary" class="flex" (click)="generateFromTemplate()"
+        [disabled]="!attributeForm.valid">
         Create Domain HTML
       </button>
     </div>
