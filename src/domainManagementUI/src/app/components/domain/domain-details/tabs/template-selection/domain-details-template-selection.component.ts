@@ -52,7 +52,7 @@ export class DomainDetailsTemplateSelectionComponent
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
     public ddTabSvc: DomainDetailsTabService,
-    private userAuthSvc: UserAuthService,
+    private userAuthSvc: UserAuthService
   ) {
     this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }
