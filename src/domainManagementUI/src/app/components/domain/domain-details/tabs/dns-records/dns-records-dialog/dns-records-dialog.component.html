@@ -20,20 +20,17 @@
   <!-- RECORD NAME -->
   <div class="flex flex-column">
     <mat-form-field style="width: 30em" appearance="outline">
-      <mat-label>Record Name</mat-label>
       <input
         matInput
         trim="blur"
         type="text"
-        required
         formControlName="name"
         [(ngModel)]="record.name"
-        placeholder="something.{{ ddTabSvc.domain_data.name }}"
+        style="text-align: right"
       />
-      <mat-error *ngIf="recordForm.get('name').invalid">
-        This is a required field, and must end with the domain -
-        {{ ddTabSvc.domain_data.name }}
-      </mat-error>
+      <span matSuffix style="position: relative; bottom: 3px"
+        >.{{ ddTabSvc.domain_data.name }}</span
+      >
     </mat-form-field>
   </div>
 

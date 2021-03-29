@@ -28,7 +28,7 @@ export class DnsRecordsDialogComponent implements OnInit {
 
   recordForm = new FormGroup({
     recordType: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required, this.validateRecordName()]),
+    name: new FormControl(''),
     aValue: new FormControl('', [
       this.isRequired('A'),
       Validators.pattern(
@@ -96,8 +96,15 @@ export class DnsRecordsDialogComponent implements OnInit {
   }
 
   createRecord() {
+    // Clone the object so it doesn't mess with the form.
+    const recordClone = Object.assign({}, this.record);
+    if (!recordClone.name) {
+      recordClone.name = this.ddTabSvc.domain_data.name;
+    } else {
+      recordClone.name = `${recordClone.name}.${this.ddTabSvc.domain_data.name}`;
+    }
     this.domainSvc
-      .createRecord(this.ddTabSvc.domain_data._id, this.record)
+      .createRecord(this.ddTabSvc.domain_data._id, recordClone)
       .subscribe(
         () => {
           this.dialogRef.close(true);
@@ -181,16 +188,5 @@ export class DnsRecordsDialogComponent implements OnInit {
           this.recordForm.get('protocol').valid
         );
     }
-  }
-
-  validateRecordName(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const endsWithDomain =
-        control.value
-          ?.toLowerCase()
-          .endsWith(this.ddTabSvc.domain_data.name.toLowerCase()) &&
-        control.value.length >= this.ddTabSvc.domain_data.name.length;
-      return endsWithDomain ? null : { endsWithDomain: control.value };
-    };
   }
 }
