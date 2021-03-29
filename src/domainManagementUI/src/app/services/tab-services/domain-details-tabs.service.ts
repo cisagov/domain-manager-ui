@@ -305,6 +305,14 @@ export class DomainDetailsTabService {
     );
   }
 
+  checkCategory() {
+    return this.categorySvc.checkCategory(this.domain_data._id);
+  }
+
+  manuallyCategorize(proxy: string) {
+    return this.categorySvc.manuallyCategorize(this.domain_data._id, proxy);
+  }
+
   isValid(form: FormGroup) {
     if (form.valid) {
       return true;

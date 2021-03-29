@@ -102,8 +102,9 @@ export class DnsRecordsDialogComponent implements OnInit {
         () => {
           this.dialogRef.close(true);
         },
-        () => {
-          this.alertsSvc.alert('Error creating record.');
+        (error) => {
+          console.log(error.error);
+          this.alertsSvc.alert(error.error);
         }
       );
   }
@@ -184,7 +185,6 @@ export class DnsRecordsDialogComponent implements OnInit {
 
   validateRecordName(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      console.log(control.value);
       const endsWithDomain =
         control.value
           ?.toLowerCase()

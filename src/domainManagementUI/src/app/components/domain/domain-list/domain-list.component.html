@@ -84,6 +84,16 @@
         }}</mat-cell>
       </ng-container>
 
+      <!-- Application Name -->
+      <ng-container matColumnDef="application_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Application Name</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{
+          row.application_name
+        }}</mat-cell>
+      </ng-container>
+
       <!-- Template Base -->
       <ng-container matColumnDef="template_base_name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -91,16 +101,6 @@
         >
         <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{
           row.category
-        }}</mat-cell>
-      </ng-container>
-
-      <!-- Created Date -->
-      <ng-container matColumnDef="created_date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Created Date
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{
-          row.created_date | date: "MM/dd/yy"
         }}</mat-cell>
       </ng-container>
 
