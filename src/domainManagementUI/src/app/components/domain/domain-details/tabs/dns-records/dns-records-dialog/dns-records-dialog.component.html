@@ -3,18 +3,19 @@
 <form [formGroup]="recordForm" class="dialog text-muted" mat-dialog-content>
   <!-- RECORD TYPE -->
   <div class="flex flex-column">
-    <mat-form-field appearance="outline">
-      <mat-select
-        required
-        formControlName="recordType"
-        [(ngModel)]="record.record_type"
+    <mat-radio-group
+      required
+      formControlName="recordType"
+      [(ngModel)]="record.record_type"
+    >
+      <mat-radio-button
+        class="flex flex-column"
+        *ngFor="let t of recordTypes"
+        [value]="t"
       >
-        <mat-option [value]="null">--Select--</mat-option>
-        <mat-option *ngFor="let t of recordTypes" [value]="t">
-          {{ t }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+        {{ t }}
+      </mat-radio-button>
+    </mat-radio-group>
   </div>
 
   <!-- RECORD NAME -->
