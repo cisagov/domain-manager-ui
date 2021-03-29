@@ -122,10 +122,10 @@ export class LoginService {
 
   private startRefreshTokenTimer() {     
       // How long before expiration the refresh should occur in minutes
-      let refreshAt = 5
+      let refreshAt = 61
       let timeout = Math.floor((this.getTimeTillExpire() - refreshAt) * 60000)
       if(timeout <= 0){
-        timeout = 1
+        timeout = 5000 //if timeout is negative, set to five seconds
       }
       this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(
         (success) => {
