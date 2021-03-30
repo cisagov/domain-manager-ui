@@ -57,7 +57,10 @@ export class LoginComponent implements OnInit {
     this.model.username = this.username.value;
     this.model.password = this.password.value;
     this.loginService.postLogin(this.model).subscribe(
-      (data) => this.loginService.setSession(data),
+      (data) => {
+        console.log(data);
+        this.loginService.setSession(data);
+      },
       (err) => {
         if (err instanceof HttpErrorResponse) {
           let httpError: HttpErrorResponse = err;
