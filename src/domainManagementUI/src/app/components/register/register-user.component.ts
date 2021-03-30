@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 import { RegisterUser } from 'src/app/models/registered-user.model';
 
-//Third party imports
+// Third party imports
 import { faBan, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 // Local Service Imports
@@ -41,18 +41,25 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./register-user.component.scss'],
 })
 export class RegisterUserComponent implements OnInit {
-  model = new RegisterUser('', '', '');
+  model = new RegisterUser();
   faBan = faBan;
   faCheck = faCheck;
 
-  minNumberOfChar: number = 8;
+  minNumberOfChar = 8;
   matcherusername = new MyErrorStateMatcher();
   matcherpassword = new MyErrorStateMatcher();
   matcherconfirmpassword = new MyErrorStateMatcher();
   matchemail = new MyErrorStateMatcher();
 
   userFormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+    firstname: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[A-za-z]*$'),
+    ]),
+    lastname: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[A-za-z]*$'),
+    ]),
     password: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     confirmPassword: new FormControl('', [Validators.required]),
@@ -64,70 +71,63 @@ export class RegisterUserComponent implements OnInit {
 
   constructor(
     public userSvc: UserManagementService,
-    private _router: Router,
-    private _snackBar: MatSnackBar
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {}
 
   submit() {
     if (this.userFormGroup.valid) {
-      this.model.Username = this.userFormGroup.controls['username'].value;
-      this.model.Email = this.userFormGroup.controls['email'].value;
-      this.model.Password = this.userFormGroup.controls['password'].value;
+      this.model.Username = `${this.model.FirstName.toLowerCase()}.${this.model.LastName.toLowerCase()}`;
       this.userSvc.postCreateUser(this.model).subscribe(
         (data) => {
-          this._snackBar.open(
-            'User created successfully, your account is awaiting admin approval',
+          this.snackBar.open(
+            `User created successfully (${this.model.Username}), your account is awaiting admin approval`,
             'close',
             {
               duration: 0,
               verticalPosition: 'top',
             }
           );
-          this._router.navigateByUrl('/login');
+          this.router.navigateByUrl('/login');
         },
-        (err) => {
-          if (err instanceof HttpErrorResponse) {
-            let httpError: HttpErrorResponse = err;
-            this.error = 'We are unable to create user';
-          } else {
-            this.error = 'We are unable to create user';
-          }
+        () => {
+          this.error = 'We are unable to create user';
         }
       );
     }
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 2000,
     });
   }
 
   checkPasswordRules() {
-    var pass: boolean =
+    const pass: boolean =
       this.checkPasswordLength() &&
       this.checkPasswordUpperChar() &&
       this.checkPasswordLowerChar() &&
       this.checkPasswordSpecialChar() &&
       this.checkPasswordNumber() &&
       this.checkPasswordEquality() &&
-      this.userFormGroup.controls['username'].value;
+      this.userFormGroup.controls.username.value;
     return pass;
   }
 
   checkPasswordEquality() {
-    var equal =
-      this.userFormGroup.controls['password'].value ===
-      this.userFormGroup.controls['confirmPassword'].value;
-    return equal;
+    return (
+      this.userFormGroup.controls.password.value ===
+      this.userFormGroup.controls.confirmPassword.value
+    );
   }
 
   checkPasswordLength() {
-    if (this.userFormGroup.controls['password'].value) {
+    if (this.userFormGroup.controls.password.value) {
       return (
-        this.userFormGroup.controls['password'].value.length >=
+        this.userFormGroup.controls.password.value.length >=
         this.minNumberOfChar
       );
     }
@@ -135,31 +135,31 @@ export class RegisterUserComponent implements OnInit {
   }
 
   checkPasswordUpperChar() {
-    if (this.userFormGroup.controls['password'].value) {
-      return /[A-Z]/.test(this.userFormGroup.controls['password'].value);
+    if (this.userFormGroup.controls.password.value) {
+      return /[A-Z]/.test(this.userFormGroup.controls.password.value);
     }
     return false;
   }
 
   checkPasswordLowerChar() {
-    if (this.userFormGroup.controls['password'].value) {
-      return /[a-z]/.test(this.userFormGroup.controls['password'].value);
+    if (this.userFormGroup.controls.password.value) {
+      return /[a-z]/.test(this.userFormGroup.controls.password.value);
     }
     return false;
   }
 
   checkPasswordSpecialChar() {
-    if (this.userFormGroup.controls['password'].value) {
+    if (this.userFormGroup.controls.password.value) {
       return /[~`@!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(
-        this.userFormGroup.controls['password'].value
+        this.userFormGroup.controls.password.value
       );
     }
     return false;
   }
 
   checkPasswordNumber() {
-    if (this.userFormGroup.controls['password'].value) {
-      return /[\d/]/.test(this.userFormGroup.controls['password'].value);
+    if (this.userFormGroup.controls.password.value) {
+      return /[\d/]/.test(this.userFormGroup.controls.password.value);
     }
     return false;
   }

@@ -7,24 +7,46 @@
       <div class="row">
         <div class="col-md-3">
           <form autocomplete="off">
+            <!-- FIRST NAME -->
             <p>
               <mat-form-field appearance="outline" [formGroup]="userFormGroup">
                 <input
                   type="text"
                   matInput
-                  placeholder="Username"
-                  formControlName="username"
+                  placeholder="First Name"
+                  formControlName="firstname"
                   autocomplete="off"
                   [errorStateMatcher]="matcherusername"
+                  [(ngModel)]="model.FirstName"
                 />
                 <mat-icon matPrefix style="margin-right: 10px">face</mat-icon>
-                <mat-error
-                  *ngIf="userFormGroup.controls.username.hasError('required')"
-                >
-                  Username is <strong>required</strong>
+                <mat-error *ngIf="userFormGroup.controls.firstname.invalid">
+                  First name is <strong>required</strong> and cannot contain
+                  spaces, special characters, or numbers.
                 </mat-error>
               </mat-form-field>
             </p>
+
+            <!-- LAST NAME -->
+            <p>
+              <mat-form-field appearance="outline" [formGroup]="userFormGroup">
+                <input
+                  type="text"
+                  matInput
+                  placeholder="Last Name"
+                  formControlName="lastname"
+                  autocomplete="off"
+                  [errorStateMatcher]="matcherusername"
+                  [(ngModel)]="model.LastName"
+                />
+                <mat-icon matPrefix style="margin-right: 10px">face</mat-icon>
+                <mat-error *ngIf="userFormGroup.controls.lastname.invalid">
+                  Last name is <strong>required</strong> and cannot contain
+                  spaces, special characters, or numbers.
+                </mat-error>
+              </mat-form-field>
+            </p>
+
             <p>
               <mat-form-field appearance="outline" [formGroup]="userFormGroup">
                 <input
@@ -34,6 +56,7 @@
                   formControlName="email"
                   autocomplete="off"
                   [errorStateMatcher]="matchemail"
+                  [(ngModel)]="model.Email"
                 />
                 <mat-icon matPrefix style="margin-right: 10px">mail</mat-icon>
                 <mat-error
@@ -57,6 +80,7 @@
                   formControlName="password"
                   autocomplete="off"
                   [errorStateMatcher]="matcherpassword"
+                  [(ngModel)]="model.Password"
                 />
                 <mat-icon matPrefix style="margin-right: 10px">lock</mat-icon>
                 <mat-error
@@ -112,6 +136,18 @@
           </form>
         </div>
         <div class="col-md-6" style="margin-left: 10px">
+          <div class="row" style="padding-bottom: 10px">
+            <div class="col-md-12 border-bottom">
+              <h5>Username Instructions</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              Your resulting username will be
+              <strong>firstname.lastname</strong> all in lowercase.
+            </div>
+          </div>
+
           <div class="row" style="padding-bottom: 10px">
             <div class="col-md-12 border-bottom">
               <h5>Password Rules</h5>
