@@ -5,23 +5,17 @@ import {
   HttpRequest,
   HttpHandler,
 } from '@angular/common/http';
-import { LoginService } from 'src/app/services/login.service'
+import { LoginService } from 'src/app/services/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthAppendInterceptor implements HttpInterceptor {
-
-
-
-  constructor(
-    private loginSvc: LoginService
-  ) {}
+  constructor(private loginSvc: LoginService) {}
 
   intercept(
     httpRequest: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    
     this.loginSvc.checkTimer();
     const idToken = localStorage.getItem('id_token');
 
