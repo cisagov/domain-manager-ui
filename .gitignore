@@ -17,3 +17,5 @@ src/domainManagementUI/src/assets/settings.json
 /src/domainManagementUI/debug.log
 
 .venv/
+
+Dockerfile-x
