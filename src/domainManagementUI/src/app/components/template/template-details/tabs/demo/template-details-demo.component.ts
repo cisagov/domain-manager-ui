@@ -40,7 +40,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     public tdTabSvc: TemplateDetailsTabService,
     public userAuthSvc: UserAuthService,
     public templateSvc: TemplateService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.component_subscriptions.push(
@@ -48,7 +48,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => {}
+        (failure) => { }
       )
     );
   }
@@ -139,6 +139,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           console.log(success);
           this.alertsSvc.alert('Template has been approved.');
+          this.tdTabSvc.template_data.is_approved = true;
         },
         (failure) => {
           this.progressDialogRef.close();
@@ -155,6 +156,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           console.log(success);
           this.alertsSvc.alert('Template has been unapproved.');
+          this.tdTabSvc.template_data.is_approved = false;
         },
         (failure) => {
           this.progressDialogRef.close();
