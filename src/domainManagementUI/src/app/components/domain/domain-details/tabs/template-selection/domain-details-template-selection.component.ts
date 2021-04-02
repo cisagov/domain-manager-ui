@@ -9,7 +9,6 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
-import { UserAuthService } from 'src/app/services/user-auth.service';
 
 //Models
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
@@ -52,9 +51,7 @@ export class DomainDetailsTemplateSelectionComponent
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
     public ddTabSvc: DomainDetailsTabService,
-    private userAuthSvc: UserAuthService
   ) {
-    this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }
 
   ngOnInit(): void {
