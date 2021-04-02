@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 //Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
-import { UserAuthService } from 'src/app/services/user-auth.service';
 
 //Models
 import { TemplateModel } from 'src/app/models/template.model';
@@ -31,27 +30,23 @@ import { Observable } from 'rxjs';
 })
 export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['name', 'created_date', 'uploaded_by'];
+  displayedColumns = ['name', 'is_approved', 'created_date', 'uploaded_by'];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
   loading = true;
   @ViewChild(MatSort) sort: MatSort;
 
-  userIsAdmin: boolean = false;
-
   constructor(
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public templateSvc: TemplateService,
-    private userAuthSvc: UserAuthService
+    public templateSvc: TemplateService
   ) {
     this.layoutSvc.setTitle('Templates');
   }
 
   ngOnInit(): void {
     this.getTemplates();
-    this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }
 
   ngOnDestroy(): void {

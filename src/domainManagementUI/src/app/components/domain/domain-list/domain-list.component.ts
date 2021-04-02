@@ -33,6 +33,7 @@ export class DomainListComponent implements OnInit {
     'name',
     'application_name',
     'template_base_name',
+    'is_approved',
     'is_launched',
   ];
   search_input = '';

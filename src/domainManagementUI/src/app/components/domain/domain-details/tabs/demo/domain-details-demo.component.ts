@@ -4,8 +4,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
-import { DomainService } from 'src/app/services/domain.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
+import { DomainService } from 'src/app/services/domain.service';
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
@@ -13,6 +15,7 @@ import { DomainModel } from 'src/app/models/domain.model';
 
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
 
 @Component({
   selector: 'dd-demo',
@@ -27,9 +30,12 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
 
   constructor(
+    public alertsSvc: AlertsService,
     public dialog: MatDialog,
     public domSanitizer: DomSanitizer,
-    public ddTabSvc: DomainDetailsTabService
+    public ddTabSvc: DomainDetailsTabService,
+    public domainSvc: DomainService,
+    public userAuthSvc: UserAuthService
   ) {}
 
   ngOnInit(): void {
@@ -75,5 +81,32 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
       }
     });
   }
-  test() {}
+
+  approve() {
+    this.domainSvc.approveDomain(this.ddTabSvc.domain_data._id).subscribe(
+      (success) => {
+        console.log(success);
+        this.alertsSvc.alert('Content has been approved.');
+        this.ddTabSvc.domain_data.is_approved = true;
+      },
+      (failure) => {
+        console.log(failure);
+        this.alertsSvc.alert(failure);
+      }
+    );
+  }
+
+  disapprove() {
+    this.domainSvc.disapproveDomain(this.ddTabSvc.domain_data._id).subscribe(
+      (success) => {
+        console.log(success);
+        this.alertsSvc.alert('Content has been unapproved.');
+        this.ddTabSvc.domain_data.is_approved = false;
+      },
+      (failure) => {
+        console.log(failure);
+        this.alertsSvc.alert(failure);
+      }
+    );
+  }
 }

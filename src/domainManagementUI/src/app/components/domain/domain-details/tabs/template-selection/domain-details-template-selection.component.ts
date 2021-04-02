@@ -9,7 +9,6 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
-import { UserAuthService } from 'src/app/services/user-auth.service';
 
 //Models
 import { FileUploadSettings } from 'src/app/models/fileUploadSettings.model';
@@ -51,11 +50,8 @@ export class DomainDetailsTemplateSelectionComponent
     public dialog: MatDialog,
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
-    public ddTabSvc: DomainDetailsTabService,
-    private userAuthSvc: UserAuthService
-  ) {
-    this.userIsAdmin = this.userAuthSvc.userIsAdmin();
-  }
+    public ddTabSvc: DomainDetailsTabService
+  ) {}
 
   ngOnInit(): void {
     this.getTemplates();
@@ -69,8 +65,10 @@ export class DomainDetailsTemplateSelectionComponent
 
   getTemplates() {
     this.ddTabSvc.getAllTemplates().subscribe(
-      (success) => {
-        let data = this._formatTemplateList(success);
+      (success: TemplateModel[]) => {
+        const data = this._formatTemplateList(success).filter(
+          (t) => t.is_approved === true
+        );
         this.templateList = new MatTableDataSource<TemplateModel>(
           data as TemplateModel[]
         );
@@ -131,12 +129,10 @@ export class DomainDetailsTemplateSelectionComponent
     );
   }
 
-  _formatTemplateList(data) {
-    if (data instanceof Array) {
-      data.forEach((templateItem) => {
-        templateItem['selected'] = false;
-      });
-    }
+  _formatTemplateList(data: TemplateModel[]) {
+    data.forEach((templateItem) => {
+      templateItem.selected = false;
+    });
     return data;
   }
 

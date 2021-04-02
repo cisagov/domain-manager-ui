@@ -60,6 +60,16 @@ export class TemplateService extends AbstractUploadService {
     return this.http.get(url, headers);
   }
 
+  approveTemplate(templateId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/template/${templateId}/approve/`;
+    return this.http.get(url);
+  }
+
+  disapproveTemplate(templateId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/template/${templateId}/approve/`;
+    return this.http.delete(url);
+  }
+
   getTemplateAttributes() {
     const url = `${this.settingsService.settings.apiUrl}/api/templates/attributes/`;
     return this.http.get(url);

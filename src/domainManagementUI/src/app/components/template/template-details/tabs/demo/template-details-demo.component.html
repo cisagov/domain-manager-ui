@@ -9,15 +9,27 @@
     Options
   </button>
   <mat-menu #menu="matMenu">
+    <!-- Approve Template -->
+    <button
+      (click)="approve()"
+      mat-menu-item
+      *ngIf="!tdTabSvc.template_data.is_approved && userAuthSvc.userIsAdmin()"
+    >
+      <mat-icon>thumb_up</mat-icon>Approve Template
+    </button>
+    <!-- Unapprove Template -->
+    <button
+      (click)="disapprove()"
+      mat-menu-item
+      *ngIf="tdTabSvc.template_data.is_approved && userAuthSvc.userIsAdmin()"
+    >
+      <mat-icon>thumb_down</mat-icon>Unapprove Template
+    </button>
+    <!-- Download Template -->
     <button (click)="download()" mat-menu-item>
       <mat-icon>download</mat-icon>Download ZIP
     </button>
-    <!-- <button
-      (click)="createDomainFromTemplate(tdTabSvc.template_data._id)"
-      mat-menu-item
-    >
-      <mat-icon>build</mat-icon>Create Domain
-    </button> -->
+    <!-- Delete Template -->
     <button *ngIf="userAuthSvc.userIsAdmin()" (click)="delete()" mat-menu-item>
       <mat-icon>delete</mat-icon> Delete
     </button>

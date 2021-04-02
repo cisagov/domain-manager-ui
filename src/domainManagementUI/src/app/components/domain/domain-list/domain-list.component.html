@@ -104,6 +104,21 @@
         }}</mat-cell>
       </ng-container>
 
+      <!-- Is Approved -->
+      <ng-container matColumnDef="is_approved">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Approved</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">
+          <mat-icon
+            *ngIf="row.is_approved"
+            aria-hidden="false"
+            aria-label="check_circle icon"
+            >check_circle</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
+
       <!-- Is Available -->
       <ng-container matColumnDef="isAvailable">
         <mat-header-cell *matHeaderCellDef mat-sort-header

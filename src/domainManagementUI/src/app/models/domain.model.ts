@@ -1,10 +1,9 @@
 import { ApplicationModel } from './application.model';
+import { BaseModel } from './base.model';
 
-export class DomainModel {
+export class DomainModel extends BaseModel {
   name: string;
-  _id: string;
   s3_url: string;
-  created_date: Date;
   launch_date: Date;
   template_base_name: string;
   template_base_uuid: string;
@@ -13,6 +12,7 @@ export class DomainModel {
   application_name: string;
   application_id: string;
   is_active: boolean;
+  is_approved: boolean;
   application_using: ApplicationModel;
   history: DomainHistoryModel[];
   route53: string;

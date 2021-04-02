@@ -1,3 +1,5 @@
+import { BaseModel } from './base.model';
+
 export class UserHistory {
   username: string;
   is_admin: boolean;
@@ -10,20 +12,16 @@ export class UserHistory {
   error: string;
 }
 
-export class AWSUserModel {
+export class UserModel extends BaseModel {
+  APIKey: string;
   Attributes: [];
+  Email: string;
   Enabled: boolean;
+  Groups: [];
+  HasAPIKey: string;
+  History: Array<UserHistory>;
   UserCreateDate: Date;
   UserLastModifiedDate: Date;
   UserStatus: string;
   Username: string;
-}
-
-export class UserModel extends AWSUserModel {
-  _id: string;
-  Groups: [];
-  HasAPIKey: string;
-  Email: string;
-  APIKey: string;
-  History: Array<UserHistory>;
 }
