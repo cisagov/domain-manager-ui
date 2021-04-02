@@ -28,7 +28,6 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
   template_data: DomainModel = new DomainModel();
 
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
-  progressDialogRef: MatDialogRef<ProgressBarDialog> = null;
 
   constructor(
     public alertsSvc: AlertsService,
@@ -91,7 +90,6 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
         this.ddTabSvc.domain_data.is_approved = true;
       },
       (failure) => {
-        this.progressDialogRef.close();
         console.log(failure);
         this.alertsSvc.alert(failure);
       }
@@ -108,7 +106,6 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
           this.ddTabSvc.domain_data.is_approved = false;
         },
         (failure) => {
-          this.progressDialogRef.close();
           console.log(failure);
           this.alertsSvc.alert(failure);
         }
