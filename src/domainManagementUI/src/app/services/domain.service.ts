@@ -190,32 +190,7 @@ export class DomainService extends AbstractUploadService {
     }
   }
 
-  //TEST FUNCITON TODO: REMOVE
-  getTestURL(counter) {
-    if (counter % 2 == 0) {
-      return 'https://domain-manager-test.s3.amazonaws.com/pesticide/mypestcompany.com/home.html';
-    } else {
-      return 'http://localhost:4200/';
-    }
-  }
-
-  deleteRedirect(domainId: string, subdomain: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/redirect/?subdomain=${subdomain}`;
-    return this.http.delete(url);
-  }
-
-  createRedirect(domainId: string, redirect: RedirectModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/redirect/`;
-    return this.http.post(url, redirect);
-  }
-
-  updateRedirect(domainId: string, redirect: RedirectModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/redirect/`;
-    return this.http.put(url, redirect);
-  }
-
   createRecord(domainId: string, record: RecordModel) {
-    console.log(record);
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/`;
     return this.http.post(url, record);
   }
@@ -223,6 +198,11 @@ export class DomainService extends AbstractUploadService {
   deleteRecord(domainId: string, recordId: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/?record_id=${recordId}`;
     return this.http.delete(url);
+  }
+
+  updateRecord(domainId: string, record: RecordModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/?record_id=${record.record_id}`;
+    return this.http.put(url, record);
   }
 
   getCloudfrontStatus(domainId: string) {

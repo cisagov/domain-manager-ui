@@ -227,7 +227,7 @@
   <button
     *ngIf="isNewRecord"
     [disabled]="!formValid"
-    (click)="createRecord()"
+    (click)="manageRecord('create')"
     mat-raised-button
     color="primary"
   >
@@ -243,7 +243,7 @@
   <button
     *ngIf="!isNewRecord"
     [disabled]="!formValid"
-    (click)="updateRecord()"
+    (click)="manageRecord('update')"
     mat-raised-button
     color="primary"
   >
