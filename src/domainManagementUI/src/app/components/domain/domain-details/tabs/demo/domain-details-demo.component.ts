@@ -83,7 +83,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   approve() {
-    this.domainSvc.getDomainApproval(this.ddTabSvc.domain_data._id).subscribe(
+    this.domainSvc.approveDomain(this.ddTabSvc.domain_data._id).subscribe(
       (success) => {
         console.log(success);
         this.alertsSvc.alert('Content has been approved.');
@@ -97,18 +97,16 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   disapprove() {
-    this.domainSvc
-      .getDomainDisapproval(this.ddTabSvc.domain_data._id)
-      .subscribe(
-        (success) => {
-          console.log(success);
-          this.alertsSvc.alert('Content has been unapproved.');
-          this.ddTabSvc.domain_data.is_approved = false;
-        },
-        (failure) => {
-          console.log(failure);
-          this.alertsSvc.alert(failure);
-        }
-      );
+    this.domainSvc.disapproveDomain(this.ddTabSvc.domain_data._id).subscribe(
+      (success) => {
+        console.log(success);
+        this.alertsSvc.alert('Content has been unapproved.');
+        this.ddTabSvc.domain_data.is_approved = false;
+      },
+      (failure) => {
+        console.log(failure);
+        this.alertsSvc.alert(failure);
+      }
+    );
   }
 }

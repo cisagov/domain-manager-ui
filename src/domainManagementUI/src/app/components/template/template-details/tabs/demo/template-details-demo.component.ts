@@ -133,25 +133,23 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   approve() {
-    this.templateSvc
-      .getTemplateApproval(this.tdTabSvc.template_data._id)
-      .subscribe(
-        (success) => {
-          console.log(success);
-          this.alertsSvc.alert('Template has been approved.');
-          this.tdTabSvc.template_data.is_approved = true;
-        },
-        (failure) => {
-          this.progressDialogRef.close();
-          console.log(failure);
-          this.alertsSvc.alert(failure);
-        }
-      );
+    this.templateSvc.approveTemplate(this.tdTabSvc.template_data._id).subscribe(
+      (success) => {
+        console.log(success);
+        this.alertsSvc.alert('Template has been approved.');
+        this.tdTabSvc.template_data.is_approved = true;
+      },
+      (failure) => {
+        this.progressDialogRef.close();
+        console.log(failure);
+        this.alertsSvc.alert(failure);
+      }
+    );
   }
 
   disapprove() {
     this.templateSvc
-      .getTemplateDisapproval(this.tdTabSvc.template_data._id)
+      .disapproveTemplate(this.tdTabSvc.template_data._id)
       .subscribe(
         (success) => {
           console.log(success);
