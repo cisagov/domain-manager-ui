@@ -29,7 +29,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public domSanitizer: DomSanitizer,
     public ddTabSvc: DomainDetailsTabService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.component_subscriptions.push(
@@ -37,7 +37,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => { }
+        (failure) => {}
       )
     );
   }
@@ -74,5 +74,5 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
       }
     });
   }
-  test() { }
+  test() {}
 }

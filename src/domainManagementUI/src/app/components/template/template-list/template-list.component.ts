@@ -40,7 +40,7 @@ export class TemplateListComponent implements OnInit {
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public templateSvc: TemplateService,
+    public templateSvc: TemplateService
   ) {
     this.layoutSvc.setTitle('Templates');
   }
@@ -55,7 +55,7 @@ export class TemplateListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void { }
+  ngAfterViewInit(): void {}
 
   getTemplates() {
     this.loading = true;

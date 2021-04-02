@@ -1,11 +1,16 @@
 <div class="flex flex-container tab">
   <!-- <h5>Domain : {{tdTabSvc.template_data.name}}</h5> -->
   <h5>Domain : {{ ddTabSvc.domain_data.name }}</h5>
-  <h5>Approval Status: <mat-icon *ngIf="ddTabSvc.domain_data.is_approved;else notapproved" aria-hidden="false"
-      aria-label="check_circle icon">check_circle</mat-icon>
+  <h5>
+    Approval Status:
+    <mat-icon
+      *ngIf="ddTabSvc.domain_data.is_approved; else notapproved"
+      aria-hidden="false"
+      aria-label="check_circle icon"
+      >check_circle</mat-icon
+    >
     <ng-template #notapproved>Pending</ng-template>
   </h5>
-
 
   <div class="text-muted">A demo of the domain as it will be seen directly</div>
 

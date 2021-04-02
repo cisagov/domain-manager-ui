@@ -50,9 +50,8 @@ export class DomainDetailsTemplateSelectionComponent
     public dialog: MatDialog,
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
-    public ddTabSvc: DomainDetailsTabService,
-  ) {
-  }
+    public ddTabSvc: DomainDetailsTabService
+  ) {}
 
   ngOnInit(): void {
     this.getTemplates();
