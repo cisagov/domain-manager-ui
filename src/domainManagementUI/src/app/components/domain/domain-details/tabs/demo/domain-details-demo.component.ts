@@ -36,8 +36,8 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
     public domSanitizer: DomSanitizer,
     public ddTabSvc: DomainDetailsTabService,
     public domainSvc: DomainService,
-    public userAuthSvc: UserAuthService,
-  ) { }
+    public userAuthSvc: UserAuthService
+  ) {}
 
   ngOnInit(): void {
     this.component_subscriptions.push(
@@ -45,7 +45,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => { }
+        (failure) => {}
       )
     );
   }
@@ -87,7 +87,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
     this.domainSvc.getDomainApproval(this.ddTabSvc.domain_data._id).subscribe(
       (success) => {
         console.log(success);
-        this.alertsSvc.alert("Content has been approved.");
+        this.alertsSvc.alert('Content has been approved.');
         this.ddTabSvc.domain_data.is_approved = true;
       },
       (failure) => {
@@ -99,17 +99,19 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   disapprove() {
-    this.domainSvc.getDomainDisapproval(this.ddTabSvc.domain_data._id).subscribe(
-      (success) => {
-        console.log(success);
-        this.alertsSvc.alert("Content has been unapproved.");
-        this.ddTabSvc.domain_data.is_approved = false;
-      },
-      (failure) => {
-        this.progressDialogRef.close();
-        console.log(failure);
-        this.alertsSvc.alert(failure);
-      }
-    );
+    this.domainSvc
+      .getDomainDisapproval(this.ddTabSvc.domain_data._id)
+      .subscribe(
+        (success) => {
+          console.log(success);
+          this.alertsSvc.alert('Content has been unapproved.');
+          this.ddTabSvc.domain_data.is_approved = false;
+        },
+        (failure) => {
+          this.progressDialogRef.close();
+          console.log(failure);
+          this.alertsSvc.alert(failure);
+        }
+      );
   }
 }

@@ -40,7 +40,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     public tdTabSvc: TemplateDetailsTabService,
     public userAuthSvc: UserAuthService,
     public templateSvc: TemplateService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.component_subscriptions.push(
@@ -48,7 +48,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => { }
+        (failure) => {}
       )
     );
   }
@@ -133,30 +133,34 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   approve() {
-    this.templateSvc.getTemplateApproval(this.tdTabSvc.template_data._id).subscribe(
-      (success) => {
-        console.log(success);
-        this.alertsSvc.alert("Template has been approved.");
-      },
-      (failure) => {
-        this.progressDialogRef.close();
-        console.log(failure);
-        this.alertsSvc.alert(failure);
-      }
-    );
+    this.templateSvc
+      .getTemplateApproval(this.tdTabSvc.template_data._id)
+      .subscribe(
+        (success) => {
+          console.log(success);
+          this.alertsSvc.alert('Template has been approved.');
+        },
+        (failure) => {
+          this.progressDialogRef.close();
+          console.log(failure);
+          this.alertsSvc.alert(failure);
+        }
+      );
   }
 
   disapprove() {
-    this.templateSvc.getTemplateDisapproval(this.tdTabSvc.template_data._id).subscribe(
-      (success) => {
-        console.log(success);
-        this.alertsSvc.alert("Template has been unapproved.");
-      },
-      (failure) => {
-        this.progressDialogRef.close();
-        console.log(failure);
-        this.alertsSvc.alert(failure);
-      }
-    );
+    this.templateSvc
+      .getTemplateDisapproval(this.tdTabSvc.template_data._id)
+      .subscribe(
+        (success) => {
+          console.log(success);
+          this.alertsSvc.alert('Template has been unapproved.');
+        },
+        (failure) => {
+          this.progressDialogRef.close();
+          console.log(failure);
+          this.alertsSvc.alert(failure);
+        }
+      );
   }
 }
