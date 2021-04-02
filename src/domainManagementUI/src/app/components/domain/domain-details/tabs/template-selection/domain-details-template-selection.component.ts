@@ -65,8 +65,10 @@ export class DomainDetailsTemplateSelectionComponent
 
   getTemplates() {
     this.ddTabSvc.getAllTemplates().subscribe(
-      (success) => {
-        let data = this._formatTemplateList(success);
+      (success: TemplateModel[]) => {
+        const data = this._formatTemplateList(success).filter(
+          (t) => t.is_approved === true
+        );
         this.templateList = new MatTableDataSource<TemplateModel>(
           data as TemplateModel[]
         );
@@ -127,12 +129,10 @@ export class DomainDetailsTemplateSelectionComponent
     );
   }
 
-  _formatTemplateList(data) {
-    if (data instanceof Array) {
-      data.forEach((templateItem) => {
-        templateItem['selected'] = false;
-      });
-    }
+  _formatTemplateList(data: TemplateModel[]) {
+    data.forEach((templateItem) => {
+      templateItem.selected = false;
+    });
     return data;
   }
 

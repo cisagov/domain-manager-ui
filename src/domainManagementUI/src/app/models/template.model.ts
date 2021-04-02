@@ -6,6 +6,7 @@ export class TemplateModel extends BaseModel {
   is_approved: boolean;
 
   template_attributes: Array<TemplateAttribute>;
+  selected: boolean;
 }
 
 export class TemplateAttribute {
