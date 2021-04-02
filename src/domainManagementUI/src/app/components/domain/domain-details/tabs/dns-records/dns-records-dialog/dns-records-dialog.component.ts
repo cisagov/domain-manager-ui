@@ -89,13 +89,18 @@ export class DnsRecordsDialogComponent implements OnInit {
     this.onChanges();
     if (this.data) {
       this.record = JSON.parse(JSON.stringify(this.data));
-      this.recordForm.disable();
+      this.record.name = this.record.name.substring(
+        0,
+        this.record.name.length - (this.ddTabSvc.domain_data.name.length + 1)
+      );
+      this.recordForm.get('recordType').disable();
+      this.recordForm.get('name').disable();
     } else {
       this.isNewRecord = true;
     }
   }
 
-  createRecord() {
+  manageRecord(action: string) {
     // Clone the object so it doesn't mess with the form.
     const recordClone = Object.assign({}, this.record);
     if (!recordClone.name) {
@@ -103,21 +108,31 @@ export class DnsRecordsDialogComponent implements OnInit {
     } else {
       recordClone.name = `${recordClone.name}.${this.ddTabSvc.domain_data.name}`;
     }
-    this.domainSvc
-      .createRecord(this.ddTabSvc.domain_data._id, recordClone)
-      .subscribe(
-        () => {
-          this.dialogRef.close(true);
-        },
-        (error) => {
-          console.log(error.error);
-          this.alertsSvc.alert(error.error);
-        }
-      );
-  }
-
-  updateRecord() {
-    console.log('Not implemented yet.');
+    if (action === 'create') {
+      this.domainSvc
+        .createRecord(this.ddTabSvc.domain_data._id, recordClone)
+        .subscribe(
+          () => {
+            this.dialogRef.close(true);
+          },
+          (error) => {
+            console.log(error.error);
+            this.alertsSvc.alert(error.error);
+          }
+        );
+    } else if (action === 'update') {
+      this.domainSvc
+        .updateRecord(this.ddTabSvc.domain_data._id, recordClone)
+        .subscribe(
+          () => {
+            this.dialogRef.close(true);
+          },
+          (error) => {
+            console.log(error.error);
+            this.alertsSvc.alert(error.error);
+          }
+        );
+    }
   }
 
   isRequired(recordType: string): ValidatorFn {
