@@ -40,7 +40,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     public tdTabSvc: TemplateDetailsTabService,
     public userAuthSvc: UserAuthService,
     public templateSvc: TemplateService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.component_subscriptions.push(
@@ -48,7 +48,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => { }
+        (failure) => {}
       )
     );
   }
