@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 //Local Service Imports
 import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
-import { UserAuthService } from 'src/app/services/user-auth.service';
 
 //Models
 import { TemplateModel } from 'src/app/models/template.model';
@@ -37,21 +36,17 @@ export class TemplateListComponent implements OnInit {
   loading = true;
   @ViewChild(MatSort) sort: MatSort;
 
-  userIsAdmin: boolean = false;
-
   constructor(
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
     public templateSvc: TemplateService,
-    private userAuthSvc: UserAuthService
   ) {
     this.layoutSvc.setTitle('Templates');
   }
 
   ngOnInit(): void {
     this.getTemplates();
-    this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }
 
   ngOnDestroy(): void {
@@ -60,7 +55,7 @@ export class TemplateListComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   getTemplates() {
     this.loading = true;
