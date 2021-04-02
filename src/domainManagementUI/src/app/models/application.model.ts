@@ -1,12 +1,11 @@
-export class ApplicationModel {
-  _id: string;
+import { BaseModel } from './base.model';
+
+export class ApplicationModel extends BaseModel {
   name: string;
   requester_name: string;
   contact_name: string;
   contact_email: string;
   contact_phone: string;
-  created: Date;
-  updated: Date;
 
   // Helper attributes
   domains_used_count: Number;

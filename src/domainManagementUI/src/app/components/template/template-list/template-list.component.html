@@ -37,17 +37,15 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Template Name</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
-          row.name
-        }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
       </ng-container>
 
-      <!-- Uploaded By -->
+      <!-- Is Approved -->
       <ng-container matColumnDef="is_approved">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Approved</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewTemplate(row.is_approved)">
+        <mat-cell *matCellDef="let row">
           <mat-icon
             *ngIf="row.is_approved"
             aria-hidden="false"
@@ -62,7 +60,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Created Date</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
+        <mat-cell *matCellDef="let row">{{
           row.created | date: "MM/dd/yy"
         }}</mat-cell>
       </ng-container>
@@ -72,11 +70,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Uploaded By</mat-header-cell
         >
-        <mat-cell
-          *matCellDef="let row"
-          (click)="viewTemplate(row.created_by)"
-          >{{ row.created_by }}</mat-cell
-        >
+        <mat-cell *matCellDef="let row">{{ row.created_by }}</mat-cell>
       </ng-container>
 
       <!-- Header Info -->
@@ -84,6 +78,7 @@
       <mat-row
         class="table-row cursor-pointer"
         *matRowDef="let row; columns: displayedColumns"
+        (click)="viewTemplate(row._id)"
       ></mat-row>
     </mat-table>
   </div>

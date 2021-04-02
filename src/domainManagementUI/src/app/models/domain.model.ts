@@ -1,10 +1,9 @@
 import { ApplicationModel } from './application.model';
+import { BaseModel } from './base.model';
 
-export class DomainModel {
+export class DomainModel extends BaseModel {
   name: string;
-  _id: string;
   s3_url: string;
-  created_date: Date;
   launch_date: Date;
   template_base_name: string;
   template_base_uuid: string;
