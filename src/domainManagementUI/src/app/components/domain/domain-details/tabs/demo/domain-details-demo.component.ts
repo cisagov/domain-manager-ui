@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 // Local Service Imports
-import { DomainService } from 'src/app/services/domain.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 
 //Models
@@ -30,7 +29,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public domSanitizer: DomSanitizer,
     public ddTabSvc: DomainDetailsTabService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.component_subscriptions.push(
@@ -38,7 +37,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => {}
+        (failure) => { }
       )
     );
   }
@@ -75,5 +74,5 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
       }
     });
   }
-  test() {}
+  test() { }
 }

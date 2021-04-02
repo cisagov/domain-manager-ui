@@ -13,6 +13,7 @@ export class DomainModel {
   application_name: string;
   application_id: string;
   is_active: boolean;
+  is_approved: boolean;
   application_using: ApplicationModel;
   history: DomainHistoryModel[];
   route53: string;
