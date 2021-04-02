@@ -28,6 +28,14 @@
         }}</mat-cell>
       </ng-container>
 
+      <!-- Uploaded By -->
+      <ng-container matColumnDef="is_approved">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Approved</mat-header-cell>
+        <mat-cell *matCellDef="let row" (click)="viewTemplate(row.is_approved)">
+          <mat-icon *ngIf="row.is_approved" aria-hidden="false" aria-label="check_circle icon">check_circle</mat-icon>
+        </mat-cell>
+      </ng-container>
+
       <!-- Create Date -->
       <ng-container matColumnDef="created_date">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>

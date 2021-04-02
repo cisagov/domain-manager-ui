@@ -30,7 +30,7 @@ import { Observable } from 'rxjs';
 })
 export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['name', 'created_date', 'uploaded_by'];
+  displayedColumns = ['name', 'is_approved', 'created_date', 'uploaded_by'];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
   loading = true;
