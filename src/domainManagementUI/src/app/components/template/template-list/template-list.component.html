@@ -3,12 +3,7 @@
     <div class="search-bar flex">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Search</mat-label>
-        <input
-          [(ngModel)]="search_input"
-          (keyup)="filterList($event.target.value)"
-          matInput
-          placeholder="Search"
-        />
+        <input [(ngModel)]="search_input" (keyup)="filterList($event.target.value)" matInput placeholder="Search" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
@@ -20,23 +15,14 @@
   </div>
 
   <div class="col p-0 w-100">
-    <div
-      *ngIf="loading"
-      style="text-align: center; padding-top: 2rem; padding-bottom: 2rem"
-    >
-      <mat-spinner
-        class="spinner"
-        style="margin-left: auto; margin-right: auto"
-        diameter="50"
-      ></mat-spinner>
+    <div *ngIf="loading" style="text-align: center; padding-top: 2rem; padding-bottom: 2rem">
+      <mat-spinner class="spinner" style="margin-left: auto; margin-right: auto" diameter="50"></mat-spinner>
     </div>
 
     <mat-table [hidden]="loading" [dataSource]="templateList" matSort>
       <!-- Template Name -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Template Name</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Template Name</mat-header-cell>
         <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
           row.name
         }}</mat-cell>
@@ -44,24 +30,15 @@
 
       <!-- Uploaded By -->
       <ng-container matColumnDef="is_approved">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Approved</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Approved</mat-header-cell>
         <mat-cell *matCellDef="let row" (click)="viewTemplate(row.is_approved)">
-          <mat-icon
-            *ngIf="row.is_approved"
-            aria-hidden="false"
-            aria-label="check_circle icon"
-            >check_circle</mat-icon
-          >
+          <mat-icon *ngIf="row.is_approved" aria-hidden="false" aria-label="check_circle icon">check_circle</mat-icon>
         </mat-cell>
       </ng-container>
 
       <!-- Create Date -->
       <ng-container matColumnDef="created_date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Created Date</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
         <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
           row.created | date: "MM/dd/yy"
         }}</mat-cell>
@@ -69,20 +46,15 @@
 
       <!-- Uploaded By -->
       <ng-container matColumnDef="uploaded_by">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Uploaded By</mat-header-cell
-        >
-        <mat-cell *matCellDef="let row" (click)="viewTemplate(row._id)">{{
-          row.uploaded_by
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Uploaded By</mat-header-cell>
+        <mat-cell *matCellDef="let row" (click)="viewTemplate(row.created_by)">{{
+          row.created_by
         }}</mat-cell>
       </ng-container>
 
       <!-- Header Info -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row
-        class="table-row cursor-pointer"
-        *matRowDef="let row; columns: displayedColumns"
-      ></mat-row>
+      <mat-row class="table-row cursor-pointer" *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
   </div>
 </div>
