@@ -74,6 +74,16 @@ export class DomainService extends AbstractUploadService {
     }
   }
 
+  getDomainApproval(domainId) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/approve/`;
+    return this.http.get(url);
+  }
+
+  getDomainDisapproval(domainId) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/disapprove/`;
+    return this.http.get(url);
+  }
+
   preloadValidationData() {
     // Don't think there is anything we need to do here
   }

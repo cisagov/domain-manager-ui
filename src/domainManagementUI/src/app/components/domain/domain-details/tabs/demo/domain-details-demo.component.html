@@ -1,17 +1,28 @@
 <div class="flex flex-container tab">
   <!-- <h5>Domain : {{tdTabSvc.template_data.name}}</h5> -->
   <h5>Domain : {{ ddTabSvc.domain_data.name }}</h5>
-  <h5>
-    Approval Status:
-    <mat-icon
-      *ngIf="ddTabSvc.domain_data.is_approved; else notapproved"
-      aria-hidden="false"
-      aria-label="check_circle icon"
-      >check_circle</mat-icon
-    >
-    <ng-template #notapproved>Pending</ng-template>
-  </h5>
+  <div class="mb-2">
+    <h5>Approval Status: <mat-icon *ngIf="ddTabSvc.domain_data.is_approved; else unapproved" aria-hidden="false"
+        aria-label="check_circle icon">
+        check_circle
+      </mat-icon>
+      <ng-template #unapproved>
+        <mat-icon aria-hidden="false" aria-label="cancel icon">
+          cancel
+        </mat-icon>
+      </ng-template>
+    </h5>
 
+    <p *ngIf="!ddTabSvc.domain_data.is_approved && !userAuthSvc.userIsAdmin()">Pending</p>
+    <button (click)="approve()" *ngIf="!ddTabSvc.domain_data.is_approved && userAuthSvc.userIsAdmin(); else unapprove"
+      mat-raised-button color="primary">
+      Approve
+    </button>
+    <ng-template #unapprove><button (click)="disapprove()"
+        *ngIf="ddTabSvc.domain_data.is_approved && userAuthSvc.userIsAdmin()" mat-raised-button color="primary">
+        Unapprove
+      </button></ng-template>
+  </div>
   <div class="text-muted">A demo of the domain as it will be seen directly</div>
 
   <div *ngIf="safeURL" class="iframe_container">
