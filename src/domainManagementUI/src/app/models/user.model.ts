@@ -24,4 +24,5 @@ export class UserModel extends BaseModel {
   UserLastModifiedDate: Date;
   UserStatus: string;
   Username: string;
+  UsernameLowereCase: string;
 }

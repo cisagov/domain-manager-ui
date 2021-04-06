@@ -29,7 +29,7 @@ import { UserModel } from 'src/app/models/user.model';
 })
 export class UserManagementListComponent implements OnInit {
   displayedColumns = [
-    'Username',
+    'UsernameLowereCase',
     'UserStatus',
     'UserCreateDate',
     'UserLastModifiedDate',
@@ -62,6 +62,11 @@ export class UserManagementListComponent implements OnInit {
     this.loading = true;
     this.userManageSVC.getAllUsers().subscribe(
       (success) => {
+        let userData = success as UserModel[]
+        userData.forEach(element => {
+          let lowerCase = element['Username'] as string
+          element["UsernameLowereCase"] = lowerCase.toLowerCase()
+        });
         this.userList = new MatTableDataSource<UserModel>(
           success as UserModel[]
         );
@@ -85,6 +90,7 @@ export class UserManagementListComponent implements OnInit {
 
   //Used by mat table for filtering with the search bar
   public filterList = (value: string) => {
+    console.log(this.userList)
     this.userList.filter = value.trim().toLocaleLowerCase();
   };
 }
