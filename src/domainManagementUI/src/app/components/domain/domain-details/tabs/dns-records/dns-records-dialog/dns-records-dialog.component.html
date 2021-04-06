@@ -35,6 +35,22 @@
     </mat-form-field>
   </div>
 
+  <!-- RECORD TTL -->
+  <div class="flex flex-column">
+    <mat-form-field style="width: 30em" appearance="outline">
+      <mat-label>TTL</mat-label>
+      <input
+        matInput
+        trim="blur"
+        type="number"
+        formControlName="ttl"
+        [(ngModel)]="record.ttl"
+        style="text-align: right"
+      />
+      <mat-hint>Recommended values: 60 to 172800 (two days)</mat-hint>
+    </mat-form-field>
+  </div>
+
   <!-- A RECORD -->
   <div *ngIf="record.record_type === 'A'">
     <mat-form-field style="width: 30em" appearance="outline">
