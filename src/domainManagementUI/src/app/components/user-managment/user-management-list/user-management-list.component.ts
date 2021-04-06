@@ -62,10 +62,10 @@ export class UserManagementListComponent implements OnInit {
     this.loading = true;
     this.userManageSVC.getAllUsers().subscribe(
       (success) => {
-        let userData = success as UserModel[]
-        userData.forEach(element => {
-          let lowerCase = element['Username'] as string
-          element["UsernameLowereCase"] = lowerCase.toLowerCase()
+        let userData = success as UserModel[];
+        userData.forEach((element) => {
+          let lowerCase = element['Username'] as string;
+          element['UsernameLowereCase'] = lowerCase.toLowerCase();
         });
         this.userList = new MatTableDataSource<UserModel>(
           success as UserModel[]
@@ -88,9 +88,8 @@ export class UserManagementListComponent implements OnInit {
     this.router.navigate([`/user/details/${username}`]);
   }
 
-  //Used by mat table for filtering with the search bar
+  // Used by mat table for filtering with the search bar
   public filterList = (value: string) => {
-    console.log(this.userList)
     this.userList.filter = value.trim().toLocaleLowerCase();
   };
 }
