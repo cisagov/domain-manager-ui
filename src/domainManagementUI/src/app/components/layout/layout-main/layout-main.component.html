@@ -1,21 +1,22 @@
 <ng-container>
   <mat-toolbar class="docs-header" color="primary">
-    
     <button
       mat-icon-button
       class="menu-button"
       type="button"
-      style="margin-left: 1em;"
+      style="margin-left: 1em"
       aria-label="Toggle sidenav"
       (click)="drawer.toggle()"
     >
       <i class="material-icons">menu</i>
     </button>
-    <img src="/assets/images/logo_dm_horz.jpg" 
-      onclick="window.location.href='/'" 
-      class="dm-header-logo" 
+    <img
+      src="/assets/images/logo_dm_horz.jpg"
+      onclick="window.location.href='/'"
+      class="dm-header-logo"
       style="cursor: pointer"
-      alt="Domain Manager Logo Image" />
+      alt="Domain Manager Logo Image"
+    />
     <span class="fill-remaining-space"></span>
     <span class="loggin-user">
       {{ currentUserName }}
@@ -66,9 +67,11 @@
           >Users</a
         >
       </mat-nav-list>
-      <img src="/assets/images/logo_dm.png" 
-        class="dm-sidenav-logo" 
-        alt="Domain Manager Sidenav Logo Image" />
+      <img
+        src="/assets/images/logo_dm.png"
+        class="dm-sidenav-logo"
+        alt="Domain Manager Sidenav Logo Image"
+      />
     </mat-sidenav>
     <mat-sidenav-content #mainContent class="sidenav-content">
       <div class="header-title">
