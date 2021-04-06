@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { HelpService } from 'src/app/services/help.service'
 import { ThemeService } from 'src/app/services/theme.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
@@ -19,6 +20,8 @@ export class LayoutMainComponent implements OnInit {
   currentUserName = '';
 
   constructor(
+
+    private helpSvc: HelpService,
     private themeSvc: ThemeService,
     public layoutSvc: LayoutService,
     public loginSvc: LoginService,
@@ -60,12 +63,26 @@ export class LayoutMainComponent implements OnInit {
   }
 
   help() {
-    const angularRoute = this.location.path();
-    const url = window.location.href;
-    const appDomain = url.replace(angularRoute, '');
+    console.log("HELP")
+    this.helpSvc.getUserGuide()
+    .subscribe(
+      (success) => {
+        console.log(success)
+        this.downloadObject('DomainManagerUserGuide.pdf', success);
+      },
+      (failure) => {
+        console.log(failure)
+      }
+    )
+  }
 
-    const helpUrl = appDomain + '/assets/htmlhelp/introduction_to_con_pca.htm';
-    window.open(helpUrl, '_blank');
+  downloadObject(filename, blob) {
+    const a = document.createElement('a');
+    const objectUrl = URL.createObjectURL(blob);
+    a.href = objectUrl;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
 
   logOut() {
