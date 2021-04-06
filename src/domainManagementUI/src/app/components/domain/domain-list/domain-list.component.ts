@@ -82,14 +82,22 @@ export class DomainListComponent implements OnInit {
           domain.application_name = application[0].name;
         }
 
-        let nameLowerCase = domain['name'] ? domain['name'] as string : ""
-        let applicationLowerCase = domain['application_name'] ? domain['application_name'] as string : ""
-        let templateLowerCase = domain['category'] ? domain['category'] as string : ""
-        domain["nameLowerCase"] = nameLowerCase.toLowerCase();
-        domain["application_name_lower_case"] = applicationLowerCase.toLowerCase();
-        domain["template_base_name_lower_case"] = templateLowerCase.toLowerCase();
+        let nameLowerCase = domain['name'] ? (domain['name'] as string) : '';
+        let applicationLowerCase = domain['application_name']
+          ? (domain['application_name'] as string)
+          : '';
+        let templateLowerCase = domain['category']
+          ? (domain['category'] as string)
+          : '';
+        domain['nameLowerCase'] = nameLowerCase.toLowerCase();
+        domain[
+          'application_name_lower_case'
+        ] = applicationLowerCase.toLowerCase();
+        domain[
+          'template_base_name_lower_case'
+        ] = templateLowerCase.toLowerCase();
       });
-      
+
       this.domainList = new MatTableDataSource<DomainModel>(domains);
       this.loading = false;
       this.domainList.sort = this.sort;
