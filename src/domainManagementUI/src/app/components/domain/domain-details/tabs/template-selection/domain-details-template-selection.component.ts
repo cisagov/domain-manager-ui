@@ -28,10 +28,10 @@ import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-ba
 export class DomainDetailsTemplateSelectionComponent
   implements OnInit, OnDestroy {
   displayedColumns = [
-    'name',
+    'nameLowerCase',
     // 'created_by',
-    'created_date',
-    'selected_template',
+    'created',
+    'selected',
   ];
   progressDialogRef: MatDialogRef<ProgressBarDialog> = null;
   templateList: MatTableDataSource<TemplateModel>;
@@ -66,6 +66,18 @@ export class DomainDetailsTemplateSelectionComponent
   getTemplates() {
     this.ddTabSvc.getAllTemplates().subscribe(
       (success: TemplateModel[]) => {
+        const templateData = success as TemplateModel[];
+        templateData.forEach((element) => {
+          let lowerCaseName = element['name']
+            ? (element['name'] as string)
+            : '';
+          let lowerCaseCreatedBy = element['created_by']
+            ? (element['created_by'] as string)
+            : '';
+          element['nameLowerCase'] = lowerCaseName.toLowerCase();
+          element['createdByLowerCase'] = lowerCaseCreatedBy.toLowerCase();
+        });
+
         const data = this._formatTemplateList(success).filter(
           (t) => t.is_approved === true
         );
@@ -210,6 +222,7 @@ export class DomainDetailsTemplateSelectionComponent
   }
 
   public filterList = (value: string) => {
+    console.log(this.templateList);
     this.templateList.filter = value.trim().toLocaleLowerCase();
   };
 

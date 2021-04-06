@@ -3,13 +3,16 @@ import { BaseModel } from './base.model';
 
 export class DomainModel extends BaseModel {
   name: string;
+  nameLowerCase: string;
   s3_url: string;
   launch_date: Date;
   template_base_name: string;
+  template_base_name_lower_case: string;
   template_base_uuid: string;
   category: string;
   domain_parameters: WebSiteParameter[];
   application_name: string;
+  application_name_lower_case: string;
   application_id: string;
   is_active: boolean;
   is_approved: boolean;

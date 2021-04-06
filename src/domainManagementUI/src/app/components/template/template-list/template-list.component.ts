@@ -30,7 +30,12 @@ import { Observable } from 'rxjs';
 })
 export class TemplateListComponent implements OnInit {
   component_subscriptions = [];
-  displayedColumns = ['name', 'is_approved', 'created_date', 'uploaded_by'];
+  displayedColumns = [
+    'nameLowerCase',
+    'is_approved',
+    'created_date',
+    'createdByLowerCase',
+  ];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
   loading = true;
@@ -61,6 +66,17 @@ export class TemplateListComponent implements OnInit {
     this.loading = true;
     this.templateSvc.getAllTemplates().subscribe(
       (success) => {
+        let templateData = success as TemplateModel[];
+        templateData.forEach((element) => {
+          let lowerCaseName = element['name']
+            ? (element['name'] as string)
+            : '';
+          let lowerCaseCreatedBy = element['created_by']
+            ? (element['created_by'] as string)
+            : '';
+          element['nameLowerCase'] = lowerCaseName.toLowerCase();
+          element['createdByLowerCase'] = lowerCaseCreatedBy.toLowerCase();
+        });
         this.templateList = new MatTableDataSource<TemplateModel>(
           success as TemplateModel[]
         );

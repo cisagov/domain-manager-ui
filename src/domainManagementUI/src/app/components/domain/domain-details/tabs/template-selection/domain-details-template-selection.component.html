@@ -71,9 +71,9 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
-    <mat-table [dataSource]="templateList" matSort class="mb-5">
+    <mat-table [dataSource]="templateList" class="mb-5" matSort>
       <!-- Template Name -->
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="nameLowerCase">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Template Name</mat-header-cell
         >
@@ -83,7 +83,7 @@
       </ng-container>
 
       <!-- Created Date -->
-      <ng-container matColumnDef="created_date">
+      <ng-container matColumnDef="created">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Created Date
         </mat-header-cell>
@@ -93,10 +93,8 @@
       </ng-container>
 
       <!-- Select Template -->
-      <ng-container matColumnDef="selected_template">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Selected Template
-        </mat-header-cell>
+      <ng-container matColumnDef="selected">
+        <mat-header-cell *matHeaderCellDef> Selected Template </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <button
             *ngIf="row.selected"

@@ -32,7 +32,7 @@ import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.mode
 export class ApplicationListComponent
   implements OnInit, OnDestroy, AfterViewInit {
   componentSubscriptions = [];
-  displayedColumns = ['application_name', 'domains_used_count', 'select'];
+  displayedColumns = ['nameLowerCase', 'domains_used_count', 'select'];
   applicationList = new MatTableDataSource<ApplicationModel>();
   loading = true;
   searchInput = '';
@@ -65,6 +65,7 @@ export class ApplicationListComponent
     this.applicationSvc.getAllApplications().subscribe(
       (applications: ApplicationModel[]) => {
         applications.forEach((app: ApplicationModel) => {
+          app.nameLowerCase = app.name.toLowerCase();
           // Get Domains used count
           this.applicationSvc
             .getDomainsByApplication(app._id)

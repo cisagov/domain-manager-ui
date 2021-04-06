@@ -33,7 +33,7 @@
 
     <mat-table [hidden]="loading" [dataSource]="templateList" matSort>
       <!-- Template Name -->
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="nameLowerCase">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Template Name</mat-header-cell
         >
@@ -66,7 +66,7 @@
       </ng-container>
 
       <!-- Uploaded By -->
-      <ng-container matColumnDef="uploaded_by">
+      <ng-container matColumnDef="createdByLowerCase">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Uploaded By</mat-header-cell
         >
