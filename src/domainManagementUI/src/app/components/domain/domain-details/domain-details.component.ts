@@ -86,11 +86,7 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
             this.ddTabSvc.getDomainDetails(this.ddTabSvc.domain_data._id);
           },
           (failure) => {
-            this.alertsSvc.alert(
-              'An error occured while launching the domain. Please try again.',
-              undefined,
-              10000
-            );
+            this.alertsSvc.alert(failure.error, undefined, 10000);
             this.ddTabSvc.domain_data.is_launching = false;
             console.log(failure);
           }
