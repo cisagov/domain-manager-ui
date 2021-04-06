@@ -29,6 +29,7 @@ export class DnsRecordsDialogComponent implements OnInit {
   recordForm = new FormGroup({
     recordType: new FormControl('', [Validators.required]),
     name: new FormControl(''),
+    ttl: new FormControl(''),
     aValue: new FormControl('', [
       this.isRequired('A'),
       Validators.pattern(

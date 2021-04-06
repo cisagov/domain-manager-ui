@@ -77,6 +77,7 @@ export class RedirectModel {
 export class RecordModel {
   record_id: string;
   record_type: string;
+  ttl = 60;
   name: string;
   config: any = {};
 }
