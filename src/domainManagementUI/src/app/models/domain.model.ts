@@ -9,7 +9,7 @@ export class DomainModel extends BaseModel {
   template_base_name: string;
   template_base_name_lower_case: string;
   template_base_uuid: string;
-  category: string;
+  template_name: string;
   domain_parameters: WebSiteParameter[];
   application_name: string;
   application_name_lower_case: string;

@@ -86,8 +86,8 @@ export class DomainListComponent implements OnInit {
         let applicationLowerCase = domain['application_name']
           ? (domain['application_name'] as string)
           : '';
-        let templateLowerCase = domain['category']
-          ? (domain['category'] as string)
+        let templateLowerCase = domain['template_name']
+          ? (domain['template_name'] as string)
           : '';
         domain['nameLowerCase'] = nameLowerCase.toLowerCase();
         domain[

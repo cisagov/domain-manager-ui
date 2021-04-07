@@ -77,7 +77,7 @@ export class TemplateDetailsTabService {
       (success) => {
         let data = success as Array<DomainModel>;
         this.domains_used_list = data.filter(
-          (ws) => ws.category === this.template_data.name
+          (ws) => ws.template_name === this.template_data.name
         );
       },
       (failure) => {
