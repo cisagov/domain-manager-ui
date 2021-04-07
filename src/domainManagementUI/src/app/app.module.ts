@@ -55,6 +55,7 @@ import { UserManagementDetailsSummaryComponent } from './components/user-managme
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { HelpService } from 'src/app/services/help.service';
 import { LayoutService } from './services/layout.service';
 import { LoginService } from 'src/app/services/login.service';
 import { SettingsHttpService } from 'src/app/services/settings-http.service';
@@ -130,6 +131,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     CategoryService,
     DomainDetailsTabService,
     DomainService,
+    HelpService,
     HttpClient,
     LayoutService,
     LoginService,

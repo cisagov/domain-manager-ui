@@ -28,6 +28,9 @@ export class TemplateDetailsTabService {
   public template_data_behavior_subject: BehaviorSubject<TemplateModel> = new BehaviorSubject<TemplateModel>(
     new TemplateModel()
   );
+  public domains_used_behavior_subject: BehaviorSubject<
+    Array<DomainModel>
+  > = new BehaviorSubject<Array<DomainModel>>(new Array<DomainModel>());
   public domains_used_list: Array<DomainModel> = [];
 
   constructor(
@@ -79,6 +82,8 @@ export class TemplateDetailsTabService {
         this.domains_used_list = data.filter(
           (ws) => ws.category === this.template_data.name
         );
+        this.domains_used_behavior_subject.next(this.domains_used_list);
+        console.log(this.domains_used_list);
       },
       (failure) => {
         this.alertsSvc.alert(failure);
