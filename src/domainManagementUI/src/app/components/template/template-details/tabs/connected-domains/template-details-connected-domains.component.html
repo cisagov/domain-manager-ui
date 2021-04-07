@@ -4,34 +4,27 @@
     A list of all domains that are currently using this template
   </div>
   <div class="flex-row">
-    
-    <mat-table [dataSource]="domainsUsedList" style="width:100%" matSort>
+    <mat-table [dataSource]="domainsUsedList" style="width: 100%" matSort>
       <!-- Domain Name -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Domain Name</mat-header-cell
         >
-        <mat-cell *matCellDef="let row">{{
-          row.name
-        }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
       </ng-container>
-    
+
       <!-- Applications Using -->
       <ng-container matColumnDef="application_name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >Applications Using</mat-header-cell
         >
-        <mat-cell *matCellDef="let row" >{{
-          row.application_name
-        }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.application_name }}</mat-cell>
       </ng-container>
-    
+
       <!-- Download -->
       <ng-container matColumnDef="download">
-        <mat-header-cell *matHeaderCellDef 
-          >Download
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" >
+        <mat-header-cell *matHeaderCellDef>Download </mat-header-cell>
+        <mat-cell *matCellDef="let row">
           <button
             mat-raised-button
             color="primary"
@@ -42,8 +35,7 @@
           </button>
         </mat-cell>
       </ng-container>
-    
-    
+
       <!-- Header Info -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
@@ -51,7 +43,5 @@
         *matRowDef="let row; columns: displayedColumns"
       ></mat-row>
     </mat-table>
-
-
   </div>
 </div>

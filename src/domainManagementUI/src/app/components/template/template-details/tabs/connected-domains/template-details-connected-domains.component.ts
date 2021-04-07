@@ -1,6 +1,6 @@
 // Angular Imports
 import { Template } from '@angular/compiler/src/render3/r3_ast';
-import { Component, OnInit, OnDestroy, ViewChild, } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -27,20 +27,20 @@ export class TemplateDetailsConnectedDomainsComponent
   @ViewChild(MatSort) sort: MatSort;
   domainsUsedList: MatTableDataSource<DomainModel> = new MatTableDataSource<DomainModel>();
 
-
   constructor(public tdTabSvc: TemplateDetailsTabService) {}
 
   ngOnInit(): void {
     this.dataSub = this.tdTabSvc.domains_used_behavior_subject.subscribe(
-      (val) => {console.log(val)
-        if(val.length){
+      (val) => {
+        console.log(val);
+        if (val.length) {
           this.domainsUsedList = new MatTableDataSource<DomainModel>(
             val as DomainModel[]
           );
-          this.domainsUsedList.sort = this.sort
+          this.domainsUsedList.sort = this.sort;
         }
       }
-    )
+    );
   }
 
   ngOnDestroy(): void {

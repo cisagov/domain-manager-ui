@@ -1,5 +1,5 @@
 // Angular Imports
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 
@@ -11,16 +11,15 @@ export class HelpService {
   ) {}
 
   getUserGuide() {
-    console.log("getUserGuide")
+    console.log('getUserGuide');
     const downloadHeaders = new HttpHeaders().set(
-        'content-type',
-        'application/zip'
-      );
+      'content-type',
+      'application/zip'
+    );
     const url = `${this.settingsService.settings.apiUrl}/api/help/`;
     return this.http.get(url, {
-        headers: downloadHeaders,
-        responseType: 'blob',
+      headers: downloadHeaders,
+      responseType: 'blob',
     });
   }
-
 }

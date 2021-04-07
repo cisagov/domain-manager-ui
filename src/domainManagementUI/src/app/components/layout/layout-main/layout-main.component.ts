@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { HelpService } from 'src/app/services/help.service'
+import { HelpService } from 'src/app/services/help.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
@@ -20,7 +20,6 @@ export class LayoutMainComponent implements OnInit {
   currentUserName = '';
 
   constructor(
-
     private helpSvc: HelpService,
     private themeSvc: ThemeService,
     public layoutSvc: LayoutService,
@@ -63,17 +62,16 @@ export class LayoutMainComponent implements OnInit {
   }
 
   help() {
-    console.log("HELP")
-    this.helpSvc.getUserGuide()
-    .subscribe(
+    console.log('HELP');
+    this.helpSvc.getUserGuide().subscribe(
       (success) => {
-        console.log(success)
+        console.log(success);
         this.downloadObject('DomainManagerUserGuide.pdf', success);
       },
       (failure) => {
-        console.log(failure)
+        console.log(failure);
       }
-    )
+    );
   }
 
   downloadObject(filename, blob) {
