@@ -61,14 +61,22 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
 
   setURL(template: TemplateModel) {
     console.log(template);
-    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      `https://${template.s3_url}preview/home.html`
-    );
+    if (this.tdTabSvc.template_data.is_go_template) {
+      var url = `https://${this.tdTabSvc.template_data.s3_url}preview/home.html`;
+    } else {
+      var url = `https://${this.tdTabSvc.template_data.s3_url}template/home.html`;
+    }
+    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
     console.log(this.safeURL);
   }
 
   openInNewTab() {
-    var url = `https://${this.tdTabSvc.template_data.s3_url}preview/home.html`;
+    if (this.tdTabSvc.template_data.is_go_template) {
+      var url = `https://${this.tdTabSvc.template_data.s3_url}preview/home.html`;
+    } else {
+      var url = `https://${this.tdTabSvc.template_data.s3_url}template/home.html`;
+    }
+
     window.open(url, '_blank');
   }
 
