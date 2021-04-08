@@ -60,14 +60,12 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
   }
 
   setURL(template: TemplateModel) {
-    console.log(template);
     if (this.tdTabSvc.template_data.is_go_template) {
       var url = `https://${this.tdTabSvc.template_data.s3_url}preview/home.html`;
     } else {
       var url = `https://${this.tdTabSvc.template_data.s3_url}template/home.html`;
     }
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
-    console.log(this.safeURL);
   }
 
   openInNewTab() {

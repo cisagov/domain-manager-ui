@@ -97,7 +97,7 @@ export class DomainDetailsTemplateSelectionComponent
                 '_value'
               ].filter((t) => t._id == _id);
               if (Array.isArray(selectedTemplate)) {
-                this.displayTemplate(selectedTemplate[0].s3_url);
+                this.displayTemplate(selectedTemplate[0]);
               }
             }
           },
@@ -122,7 +122,7 @@ export class DomainDetailsTemplateSelectionComponent
 
   selectTemplate(template: TemplateModel) {
     let _id = template._id;
-    this.displayTemplate(template.s3_url);
+    this.displayTemplate(template);
     let data = this.templateList['_data']['_value'];
     data.forEach((t) => (t.selected = false));
     data
@@ -134,11 +134,14 @@ export class DomainDetailsTemplateSelectionComponent
     this.tabForm.controls.name.setValue(template.name);
   }
 
-  displayTemplate(url) {
-    this.url = url;
-    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      `https://${url}preview/home.html`
-    );
+  displayTemplate(template: TemplateModel) {
+    if (template.is_go_template) {
+      this.url = `https://${template.s3_url}preview/home.html`;
+    } else {
+      this.url = `https://${template.s3_url}template/home.html`;
+    }
+
+    this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
 
   _formatTemplateList(data: TemplateModel[]) {
