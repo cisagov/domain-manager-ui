@@ -6,26 +6,6 @@
 
   <div *ngIf="!ddTabSvc.isLoading()">
     <h5>Domain: {{ ddTabSvc.domain_data.name }}</h5>
-    <!--
-    <button
-      class="manipulate_menu"
-      mat-raised-button
-      color="primary"
-      [matMenuTriggerFor]="menu"
-    >
-      Options
-    </button>
-    <mat-menu #menu="matMenu">
-      <button (click)="downloadDomain()" mat-menu-item>
-        <mat-icon>download</mat-icon>Download ZIP
-      </button>
-      <button
-        (click)="deleteDomain(ddTabSvc.domain_data._id)"
-        mat-menu-item
-      >
-        <mat-icon>delete</mat-icon> Delete
-      </button>
-    </mat-menu> -->
 
     <div class="text-muted mb-4">Detailed information for the domain</div>
 
@@ -48,10 +28,10 @@
           {{ ddTabSvc.domain_data.cloudfront_status.Status }}
         </div>
       </div>
-      <div class="flex-row" *ngIf="ddTabSvc.domain_data?.category">
+      <div class="flex-row" *ngIf="ddTabSvc.domain_data?.template_name">
         <div class="flex sl_flex_title">Template Base Name</div>
         <div class="flex sl_flex_content">
-          {{ ddTabSvc.domain_data.category }}
+          {{ ddTabSvc.domain_data.template_name }}
         </div>
       </div>
 
@@ -103,42 +83,5 @@
       <div class="flex sl_flex_title">Taking Down In Progress</div>
       <div class="flex sl_flex_content">True</div>
     </div>
-
-    <!-- <div class="flex summary_list" *ngIf="ddTabSvc.domain_data._id" [formGroup]="tabForm">
-      <div class="flex-column titles">
-        <div class="flex-row">Domain Name</div>
-        <div class="flex-row">Domain URL</div>
-        <div *ngIf="ddTabSvc.domain_data?.category"  class="flex-row">Template Base Name</div>
-        <div *ngIf="ddTabSvc.domain_data?.application_using?._id" class="flex-row">Applications Using</div>
-        <div *ngIf="ddTabSvc.userIsAdmin" class="flex-row">Applications Using</div>
-      </div>
-
-      <div class="flex-column values">
-        <div class="flex-row">{{ ddTabSvc.domain_data.name }}</div>
-        <div class="flex-row">{{ ddTabSvc.domain_data.domain_url }}</div>
-        <div *ngIf="ddTabSvc.domain_data?.category"  class="flex-row">
-          {{ ddTabSvc.domain_data.category }}
-        </div>
-        <div *ngIf="ddTabSvc.domain_data?.application_using?._id" class="flex-row">{{ ddTabSvc.domain_data.application_using.name }}</div>
-        <div *ngIf="ddTabSvc.userIsAdmin" class="flex-row">
-
-
-        </div>
-      </div>
-    </div> -->
   </div>
-
-  <!-- <mat-label class="mt-3">Domain Attributes</mat-label>
-  <div class="flex-row">
-    <table class="display_table">
-      <tr>
-        <th>Attribute/Parameter Name</th>
-        <th>Current Value</th>
-      </tr>
-      <tr *ngFor="let parameter of ddTabSvc?.domain_data?.domain_parameters">
-        <td>{{ parameter.param_name }}</td>
-        <td>{{ parameter.value }}</td>
-      </tr>
-    </table>
-  </div> -->
 </div>
