@@ -56,7 +56,7 @@ export class DomainService extends AbstractUploadService {
 
   uploadDomain(formData, domainId, templateName) {
     console.log(formData);
-    let url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/content/?template-name=${templateName}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/content/?template_name=${templateName}`;
 
     if (!environment.localData) {
       const config = new HttpRequest('POST', url, formData, {
@@ -162,7 +162,7 @@ export class DomainService extends AbstractUploadService {
   }
 
   generateFromTemplate(domain_id, template_name, attributes: {}) {
-    let url = `${this.settingsService.settings.apiUrl}/api/domain/${domain_id}/generate/?template-name=${template_name}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/domain/${domain_id}/generate/?template_name=${template_name}`;
     console.log(url);
 
     if (!environment.localData) {
