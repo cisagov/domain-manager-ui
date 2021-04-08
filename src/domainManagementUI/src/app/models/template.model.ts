@@ -8,6 +8,7 @@ export class TemplateModel extends BaseModel {
   createdByLowerCase: string;
   template_attributes: Array<TemplateAttribute>;
   selected: boolean;
+  is_go_template: boolean;
 }
 
 export class TemplateAttribute {
