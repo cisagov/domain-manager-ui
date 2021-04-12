@@ -73,6 +73,7 @@ export class DomainDetailsTabService {
       this.domain_data = new DomainModel();
       this.domain_data = await this.domainSvc.getDomainDetails(_id);
       this.domain_data_behavior_subject.next(this.domain_data);
+      this._buildAttributesForm(this.domain_data.name);
     } catch (failure) {
       this.alertsSvc.alert(failure.message);
     } finally {
@@ -136,7 +137,6 @@ export class DomainDetailsTabService {
   _rebuildForms() {
     this._buildTemplateSelectionForm();
     this._buildSummaryForm();
-    this._buildAttributesForm();
     this._buildCategoryForm();
   }
 
@@ -147,15 +147,22 @@ export class DomainDetailsTabService {
     });
   }
 
-  _buildAttributesForm() {
+  _buildAttributesForm(name: string) {
     this.attributes_form = new FormGroup({});
-
     this.templateSvc
       .getTemplateAttributes()
-      .subscribe((attributes: string[]) => {
-        attributes.forEach((att: string) => {
+      .subscribe((attributes: { [key: string]: string }) => {
+        Object.entries(attributes).forEach((key, value) => {
           const attribute = new TemplateAttribute();
-          attribute.key = att;
+
+          if (key[0] == 'name') {
+            key[1] = name;
+          } else if (key[0] == 'email') {
+            key[1] = `info@${name}`;
+          }
+
+          attribute.key = key[0];
+          attribute.value = key[1];
           this.attributeList.push(attribute);
           this.attributes_form.addControl(
             attribute.key,
