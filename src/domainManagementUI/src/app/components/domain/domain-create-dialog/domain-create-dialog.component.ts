@@ -37,7 +37,7 @@ export class DomainCreateDialogComponent implements OnInit {
   createDomain() {
     const input = this.domainForm.get('url').value;
     let urls = input
-      .replace(/(\r\n|\n|\r)/gm, '') //remove eol
+      .replace(/(\r\n|\n|\r)/gm, ',') //remove eol
       .replace(/\s/g, '') //remove spaces
       .split(',');
     let vals = [];
@@ -47,7 +47,6 @@ export class DomainCreateDialogComponent implements OnInit {
       }
     });
 
-    console.log(vals);
     this.domainSvc.createDomain(vals).subscribe(
       () => {
         this.dialogRef.close(true);
@@ -83,7 +82,7 @@ function validateURLs(control: FormControl) {
 
   let input = control.value as string;
   let urls = input
-    .replace(/(\r\n|\n|\r)/gm, '') //remove eol
+    .replace(/(\r\n|\n|\r)/gm, ',') //remove eol
     .replace(/\s/g, '') //remove spaces
     .split(',');
 
