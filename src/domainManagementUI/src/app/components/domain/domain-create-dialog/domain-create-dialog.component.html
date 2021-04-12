@@ -4,7 +4,12 @@
   style="display: inline-block; top: -4em; margin-bottom: -4em"
   [mat-dialog-close]="false"
 ></button>
-<form [formGroup]="domainForm" class="dialog text-muted" style="height: 25em" mat-dialog-content>
+<form
+  [formGroup]="domainForm"
+  class="dialog text-muted"
+  style="height: 25em"
+  mat-dialog-content
+>
   <div class="text-muted mb-4">
     Please enter one or more domains to add, seperated by a comma.
   </div>
@@ -25,13 +30,15 @@
           *ngIf="domainForm.get('url').invalid"
           class="invalid-feedback"
         >
-        <p *ngIf="domainForm.get('url').errors.required">A url must be provided.</p>
-        <div *ngIf="domainForm.get('url').errors.urlErrors">
-          URL errors
-          <p *ngFor="let error of domainForm.get('url').errors.urlErrors">
-            {{error}}
+          <p *ngIf="domainForm.get('url').errors.required">
+            A url must be provided.
           </p>
-        </div> 
+          <div *ngIf="domainForm.get('url').errors.urlErrors">
+            URL errors
+            <p *ngFor="let error of domainForm.get('url').errors.urlErrors">
+              {{ error }}
+            </p>
+          </div>
         </mat-error>
       </mat-form-field>
     </div>

@@ -140,7 +140,6 @@ export class DomainService extends AbstractUploadService {
 
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
     return this.http.post(url, body);
-    
   }
 
   launchDomain(domainId: string) {
