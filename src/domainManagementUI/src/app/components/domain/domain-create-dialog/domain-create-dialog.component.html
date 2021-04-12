@@ -11,7 +11,7 @@
   mat-dialog-content
 >
   <div class="text-muted mb-4">
-    Please enter one or more domains to add, seperated by a comma.
+    Please enter one or more domains to add, seperated by new lines.
   </div>
 
   <div class="flex-column" [formGroup]="domainForm">
@@ -59,7 +59,7 @@
   <input
     id="csvUpload"
     type="file"
-    accept=".csv,.xls,.xlsx"
+    accept=".csv,.txt"
     (change)="fileSelect($event)"
     class="d-none"
     style="display: none"
