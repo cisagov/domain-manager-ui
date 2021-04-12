@@ -47,6 +47,23 @@
 
 <mat-dialog-actions align="end">
   <button
+    mat-raised-button
+    color="primary"
+    class="mb-3"
+    style="margin-right: auto"
+    (click)="openFileBrowser($event)"
+  >
+    Upload CSV List <i class="fa fa-upload"></i>
+  </button>
+  <input
+    id="csvUpload"
+    type="file"
+    accept=".csv,.xls,.xlsx"
+    (change)="fileSelect($event)"
+    class="d-none"
+    style="display: none"
+  />
+  <button
     [disabled]="!domainForm.valid"
     (click)="createDomain()"
     mat-raised-button

@@ -12,6 +12,7 @@ import { DomainService } from 'src/app/services/domain.service';
 
 //Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
+import { CSVHelper } from 'src/app/helpers/csvHelper';
 
 @Component({
   selector: 'app-domain-create',
@@ -23,8 +24,6 @@ export class DomainCreateDialogComponent implements OnInit {
       validators: [Validators.required, validateURLs],
     }),
   });
-
-  urlErrors: string = 'test error';
 
   constructor(
     public alertsSvc: AlertsService,
@@ -58,6 +57,25 @@ export class DomainCreateDialogComponent implements OnInit {
         console.log(failure);
       }
     );
+  }
+  fileSelect(e: any) {
+    const file: any = e.target.files[0];
+
+    const x = new CSVHelper();
+    x.convertCsv(file).then((xyz: string) => {
+      this.domainForm.get('url').setValue(xyz);
+      this.domainForm.markAllAsTouched();
+    });
+  }
+  /**
+   * Programatically clicks the corresponding file upload element.
+   */
+  openFileBrowser(event: any) {
+    event.preventDefault();
+    const element: HTMLElement = document.getElementById(
+      'csvUpload'
+    ) as HTMLElement;
+    element.click();
   }
 }
 function validateURLs(control: FormControl) {
