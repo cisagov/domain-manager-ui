@@ -134,21 +134,13 @@ export class DomainService extends AbstractUploadService {
     return this.http.get(url);
   }
 
-  createDomain(domainUrl: string) {
-    console.log(domainUrl);
-    let body = { name: domainUrl };
+  createDomain(domainUrls: string[]) {
+    console.log(domainUrls);
+    let body = domainUrls;
 
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
-
-    if (!environment.localData) {
-      return this.http.post(url, body);
-    } else {
-      return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('domain Created');
-        }, Math.floor(Math.random() * 1500));
-      });
-    }
+    return this.http.post(url, body);
+    
   }
 
   launchDomain(domainId: string) {
