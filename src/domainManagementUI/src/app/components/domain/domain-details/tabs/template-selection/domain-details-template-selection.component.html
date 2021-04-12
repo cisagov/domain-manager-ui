@@ -156,7 +156,7 @@
             trim="blur"
             type="text"
             formControlName="{{ attribute.key }}"
-            placeholder=" {{ attribute.value }}"
+            [(ngModel)]="attribute.value"
             autocomplete="off"
           />
         </mat-form-field>
