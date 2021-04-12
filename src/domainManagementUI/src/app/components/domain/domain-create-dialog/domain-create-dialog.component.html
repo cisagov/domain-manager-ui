@@ -1,31 +1,45 @@
-<h2 mat-dialog-title>Add New Domain</h2>
+<h2 mat-dialog-title>Add New Domains</h2>
 <button
   mat-button
   style="display: inline-block; top: -4em; margin-bottom: -4em"
   [mat-dialog-close]="false"
 ></button>
-<form [formGroup]="domainForm" class="dialog text-muted" mat-dialog-content>
+<form
+  [formGroup]="domainForm"
+  class="dialog text-muted"
+  style="height: 25em"
+  mat-dialog-content
+>
   <div class="text-muted mb-4">
-    Provide a domain and select submit to create a new domain
+    Please enter one or more domains to add, seperated by new lines.
   </div>
 
   <div class="flex-column" [formGroup]="domainForm">
     <div class="flex flex-column">
       <mat-label>Domain</mat-label>
       <mat-form-field style="width: 30em" appearance="outline">
-        <mat-label>Domain URL</mat-label>
-        <input
+        <mat-label>Domain URL's</mat-label>
+        <textarea
           matInput
           trim="blur"
           type="text"
           formControlName="url"
           placeholder=" The url of the new domain"
-        />
+          rows="10"
+        ></textarea>
         <mat-error
           *ngIf="domainForm.get('url').invalid"
           class="invalid-feedback"
         >
-          A url must be provided.
+          <p *ngIf="domainForm.get('url').errors.required">
+            A url must be provided.
+          </p>
+          <div *ngIf="domainForm.get('url').errors.urlErrors">
+            URL errors
+            <p *ngFor="let error of domainForm.get('url').errors.urlErrors">
+              {{ error }}
+            </p>
+          </div>
         </mat-error>
       </mat-form-field>
     </div>
@@ -33,6 +47,23 @@
 </form>
 
 <mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    class="mb-3"
+    style="margin-right: auto"
+    (click)="openFileBrowser($event)"
+  >
+    Upload CSV List <i class="fa fa-upload"></i>
+  </button>
+  <input
+    id="csvUpload"
+    type="file"
+    accept=".csv,.txt"
+    (change)="fileSelect($event)"
+    class="d-none"
+    style="display: none"
+  />
   <button
     [disabled]="!domainForm.valid"
     (click)="createDomain()"
