@@ -149,6 +149,7 @@ export class DomainDetailsTabService {
 
   _buildAttributesForm(name: string) {
     this.attributes_form = new FormGroup({});
+    this.attributeList = [];
     this.templateSvc
       .getTemplateAttributes()
       .subscribe((attributes: { [key: string]: string }) => {
