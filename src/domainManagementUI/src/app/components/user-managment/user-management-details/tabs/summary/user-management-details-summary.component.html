@@ -101,10 +101,10 @@
 
     <div *ngIf="!umTabSvc.user_data.APIKey" class="flex-row">
       <div class="flex sl_flex_title">API Key generated</div>
-      <div *ngIf="umTabSvc.user_data.HasAPIKey" class="flex sl_flex_content">
+      <div *ngIf="umTabSvc.user_data.HashedAPI" class="flex sl_flex_content">
         True
       </div>
-      <div *ngIf="!umTabSvc.user_data.HasAPIKey" class="flex sl_flex_content">
+      <div *ngIf="!umTabSvc.user_data.HashedAPI" class="flex sl_flex_content">
         False
       </div>
     </div>
