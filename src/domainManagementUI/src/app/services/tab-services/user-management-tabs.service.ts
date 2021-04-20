@@ -1,6 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
 
@@ -29,6 +31,8 @@ export class UserManagementTabService {
     new UserModel()
   );
   public user_form: FormGroup;
+  public userHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     public alertsSvc: AlertsService,
@@ -68,6 +72,8 @@ export class UserManagementTabService {
             this.user_data.Email = attribute['Value'];
           }
         });
+        this.userHistory = new MatTableDataSource(this.user_data.History)
+        this.userHistory.sort = this.sort
         this.user_data_behavior_subject.next(this.user_data);
         this.loading = false;
       },
