@@ -156,9 +156,9 @@ export class DomainDetailsTabService {
         Object.entries(attributes).forEach((key, value) => {
           const attribute = new TemplateAttribute();
 
-          if (key[0] == 'company name') {
+          if (key[0] == 'CompanyName') {
             key[1] = name;
-          } else if (key[0] == 'email') {
+          } else if (key[0] == 'Email') {
             key[1] = `info@${name}`;
           }
 
