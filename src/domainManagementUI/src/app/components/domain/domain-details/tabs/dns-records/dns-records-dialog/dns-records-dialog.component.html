@@ -20,7 +20,7 @@
 
   <!-- RECORD NAME -->
   <div class="flex flex-column">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <input
         matInput
         trim="blur"
@@ -32,12 +32,16 @@
       <span matSuffix style="position: relative; bottom: 3px"
         >.{{ ddTabSvc.domain_data.name }}</span
       >
+      <mat-hint
+        >To route traffic without a subdomain, such as example.com, then leave
+        this field blank.</mat-hint
+      >
     </mat-form-field>
   </div>
 
   <!-- RECORD TTL -->
   <div class="flex flex-column">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>TTL</mat-label>
       <input
         matInput
@@ -53,7 +57,7 @@
 
   <!-- A RECORD -->
   <div *ngIf="record.record_type === 'A'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>IPv4 Address</mat-label>
       <input
         matInput
@@ -64,6 +68,7 @@
         [(ngModel)]="record.config.value"
         placeholder="IPv4 Address"
       />
+      <mat-hint>111.222.333.444</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('aValue').invalid">
       This is a required field and must be a valid ipv4 address.
@@ -72,7 +77,7 @@
 
   <!-- AAAA -->
   <div *ngIf="record.record_type === 'AAAA'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>IPv6 Address</mat-label>
       <input
         matInput
@@ -83,6 +88,7 @@
         [(ngModel)]="record.config.value"
         placeholder="IPv6 Address"
       />
+      <mat-hint>2001:0db8:85a3:0000:0000:8a2e:0370:7334</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('aaaaValue').invalid">
       This is a required field and must be a valid ipv6 address.
@@ -91,7 +97,7 @@
 
   <!-- CNAME RECORD -->
   <div *ngIf="record.record_type === 'CNAME'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>Domain</mat-label>
       <input
         matInput
@@ -102,6 +108,7 @@
         [(ngModel)]="record.config.value"
         placeholder="Domain"
       />
+      <mat-hint>example.com</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('cnameValue').invalid">
       This is a required field and must be a valid domain.
@@ -110,7 +117,7 @@
 
   <!-- MX RECORD -->
   <div *ngIf="record.record_type === 'MX'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>Value</mat-label>
       <textarea
         matInput
@@ -121,6 +128,7 @@
         [(ngModel)]="record.config.value"
         placeholder="[priority] [hostname]"
       ></textarea>
+      <mat-hint>[priority] [hostname]</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('mxValue').invalid">
       This is a required field and must have a priority and hostname per line.
@@ -129,7 +137,7 @@
 
   <!-- NS RECORD -->
   <div *ngIf="record.record_type === 'NS'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>Value</mat-label>
       <textarea
         matInput
@@ -148,7 +156,7 @@
 
   <!-- PTR RECORD -->
   <div *ngIf="record.record_type === 'PTR'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>IPv4 Address</mat-label>
       <input
         matInput
@@ -159,6 +167,7 @@
         [(ngModel)]="record.config.value"
         placeholder="IPv4 Address"
       />
+      <mat-hint>111.222.333.444</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('ptrValue').invalid">
       This is a required field and must be a valid ipv4 address.
@@ -167,7 +176,7 @@
 
   <!-- SRV RECORD -->
   <div *ngIf="record.record_type === 'SRV'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>Value</mat-label>
       <textarea
         matInput
@@ -178,6 +187,7 @@
         [(ngModel)]="record.config.value"
         placeholder="[priority] [weight] [port] [hostname]"
       ></textarea>
+      <mat-hint>[priority] [weight] [port] [hostname]</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('srvValue').invalid">
       This is a required field and must have a priority, weight, port and
@@ -202,7 +212,7 @@
 
   <!-- TXT RECORD -->
   <div *ngIf="record.record_type === 'TXT'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>Value</mat-label>
       <textarea
         matInput
@@ -221,7 +231,7 @@
 
   <!-- REDIRECT RECORD -->
   <div *ngIf="record.record_type === 'REDIRECT'">
-    <mat-form-field style="width: 30em" appearance="outline">
+    <mat-form-field class="mat-field-padding" appearance="outline">
       <mat-label>Domain</mat-label>
       <input
         matInput
