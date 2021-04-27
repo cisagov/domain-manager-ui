@@ -68,6 +68,7 @@
         [(ngModel)]="record.config.value"
         placeholder="IPv4 Address"
       />
+      <mat-hint>111.222.333.444</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('aValue').invalid">
       This is a required field and must be a valid ipv4 address.
@@ -87,6 +88,7 @@
         [(ngModel)]="record.config.value"
         placeholder="IPv6 Address"
       />
+      <mat-hint>2001:0db8:85a3:0000:0000:8a2e:0370:7334</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('aaaaValue').invalid">
       This is a required field and must be a valid ipv6 address.
@@ -106,6 +108,7 @@
         [(ngModel)]="record.config.value"
         placeholder="Domain"
       />
+      <mat-hint>example.com</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('cnameValue').invalid">
       This is a required field and must be a valid domain.
@@ -125,6 +128,7 @@
         [(ngModel)]="record.config.value"
         placeholder="[priority] [hostname]"
       ></textarea>
+      <mat-hint>[priority] [hostname]</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('mxValue').invalid">
       This is a required field and must have a priority and hostname per line.
@@ -163,6 +167,7 @@
         [(ngModel)]="record.config.value"
         placeholder="IPv4 Address"
       />
+      <mat-hint>111.222.333.444</mat-hint>
     </mat-form-field>
     <mat-error *ngIf="recordForm.get('ptrValue').invalid">
       This is a required field and must be a valid ipv4 address.
