@@ -4,7 +4,7 @@
     A full history of the users actions
   </div>
 
-  <mat-table [dataSource]="this.umTabSvc.user_data.History" matSort>
+  <mat-table [dataSource]="this.userHistory" matSort>
     <ng-container matColumnDef="path">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Path</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.path }}</mat-cell>
@@ -17,7 +17,7 @@
       <mat-cell *matCellDef="let row">{{ row.method }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="statusCode">
+    <ng-container matColumnDef="status_code">
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Status Code</mat-header-cell
       >
@@ -25,12 +25,12 @@
     </ng-container>
 
     <ng-container matColumnDef="json">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>JSON</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>JSON</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ JSON.stringify(row.json) }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="error">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Error</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Error</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.error }}</mat-cell>
     </ng-container>
 
