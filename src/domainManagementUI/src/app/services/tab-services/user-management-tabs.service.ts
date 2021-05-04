@@ -72,8 +72,8 @@ export class UserManagementTabService {
             this.user_data.Email = attribute['Value'];
           }
         });
-        this.userHistory = new MatTableDataSource(this.user_data.History)
-        this.userHistory.sort = this.sort
+        this.userHistory = new MatTableDataSource(this.user_data.History);
+        this.userHistory.sort = this.sort;
         this.user_data_behavior_subject.next(this.user_data);
         this.loading = false;
       },

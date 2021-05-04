@@ -16,12 +16,7 @@ import { UserManagementTabService } from 'src/app/services/tab-services/user-man
   styleUrls: ['./user-managment-details-history.component.scss'],
 })
 export class UserManagementDetailsHistoryComponent implements OnInit {
-  displayedColumns = [
-    'path', 
-    'method', 
-    'status_code', 
-    'created'
-  ];
+  displayedColumns = ['path', 'method', 'status_code', 'created'];
   JSON = JSON;
   public userHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort;
@@ -34,12 +29,12 @@ export class UserManagementDetailsHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.umTabSvc.user_data_behavior_subject.subscribe((val) => {
-      console.log(val)
-      if(val.History){
+      console.log(val);
+      if (val.History) {
         this.userHistory = new MatTableDataSource<any>(val.History);
         this.userHistory.sort = this.sort;
       }
-    })
+    });
   }
 
   viewRecord(record: UserHistory) {

@@ -72,12 +72,18 @@ export class LayoutMainComponent implements OnInit {
         console.log(failure);
       }
     );
-  }  
+  }
   featureRequest() {
-    window.open('https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=issue.md','_blank')
+    window.open(
+      'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=issue.md',
+      '_blank'
+    );
   }
   bugReport() {
-    window.open('https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=bug.md','_blank')
+    window.open(
+      'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=bug.md',
+      '_blank'
+    );
   }
 
   downloadObject(filename, blob) {
