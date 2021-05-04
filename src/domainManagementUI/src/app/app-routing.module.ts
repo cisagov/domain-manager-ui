@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
 import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
+import { HelpMenuComponent } from 'src/app/components/help/help-menu/help-menu.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 import { LayoutBlankComponent } from 'src/app/components/layout/layout-blank/layout-blank.component';
 import { LoginComponent } from 'src/app/components/login/login.component';
@@ -13,6 +14,7 @@ import { TemplateDetailsComponent } from 'src/app/components/template/template-d
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
 import { UserManagementListComponent } from 'src/app/components/user-managment/user-management-list/user-management-list.component';
 import { UserManagementDetailsComponent } from 'src/app/components/user-managment/user-management-details/user-management-details.component';
+import { VideoTutorialsComponent } from 'src/app/components/help/video-tutorials/video-tutorials.component';
 
 // Guards
 import { AuthGuard } from 'src/app/guards/auth.guard';
@@ -41,6 +43,12 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: DomainDetailsComponent }],
+  },
+  {
+    path: 'help',
+    component: LayoutMainComponent,
+    canActivate: [AuthGuard],
+    children: [{ path: '', component: HelpMenuComponent }],
   },
   {
     path: 'login',
@@ -73,6 +81,12 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: UserManagementDetailsComponent }],
+  },
+  {
+    path: 'video-tutorials',
+    component: LayoutMainComponent,
+    canActivate: [AuthGuard],
+    children: [{ path: '', component: VideoTutorialsComponent }],
   },
 ];
 

@@ -22,4 +22,17 @@ export class HelpService {
       responseType: 'blob',
     });
   }
+
+  featureRequest() {
+    window.open(
+      'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=issue.md',
+      '_blank'
+    );
+  }
+  bugReport() {
+    window.open(
+      'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=bug.md',
+      '_blank'
+    );
+  }
 }
