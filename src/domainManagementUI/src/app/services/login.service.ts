@@ -52,7 +52,6 @@ export class LoginService {
   }
 
   public setSession(authResult, refreshed = false) {
-    console.log(authResult);
     localStorage.setItem('id_token', authResult.id_token);
     localStorage.setItem('expires_at', authResult.expires_at);
     localStorage.setItem('username', authResult.username);
