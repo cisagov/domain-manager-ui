@@ -19,7 +19,6 @@ export class ApplicationEditDialogComponent implements OnInit {
 
   applicationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    requesterName: new FormControl('', [Validators.required]),
     contactName: new FormControl(),
     contactEmail: new FormControl('', [Validators.email]),
     contactPhone: new FormControl(),

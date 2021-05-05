@@ -29,24 +29,6 @@
 
     <div class="flex flex-column">
       <mat-form-field style="width: 30em" appearance="outline">
-        <mat-label>Requester Name</mat-label>
-        <input
-          matInput
-          trim="blur"
-          type="text"
-          required
-          formControlName="requesterName"
-          [(ngModel)]="application.requester_name"
-          placeholder=" The name of the person requesting the new application"
-        />
-        <mat-error *ngIf="applicationForm.get('requesterName').invalid"
-          >This is a required field.</mat-error
-        >
-      </mat-form-field>
-    </div>
-
-    <div class="flex flex-column">
-      <mat-form-field style="width: 30em" appearance="outline">
         <mat-label>Contact Name</mat-label>
         <input
           matInput
