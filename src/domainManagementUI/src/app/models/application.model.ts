@@ -3,7 +3,6 @@ import { BaseModel } from './base.model';
 export class ApplicationModel extends BaseModel {
   name: string;
   nameLowerCase: string;
-  requester_name: string;
   contact_name: string;
   contact_email: string;
   contact_phone: string;
