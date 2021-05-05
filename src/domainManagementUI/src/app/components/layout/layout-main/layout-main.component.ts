@@ -73,17 +73,13 @@ export class LayoutMainComponent implements OnInit {
       }
     );
   }
+
   featureRequest() {
-    window.open(
-      'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=issue.md',
-      '_blank'
-    );
+    this.helpSvc.featureRequest();
   }
+
   bugReport() {
-    window.open(
-      'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=bug.md',
-      '_blank'
-    );
+    this.helpSvc.bugReport();
   }
 
   downloadObject(filename, blob) {

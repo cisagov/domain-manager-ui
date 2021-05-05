@@ -72,6 +72,8 @@ import { DomainService } from 'src/app/services/domain.service';
 import { AuthAppendInterceptor } from 'src/app/helpers/AuthAppendInterceptor';
 import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor';
 import { GenericViewComponent } from './components/dialog-windows/generic-view/generic-view.component';
+import { VideoTutorialsComponent } from './components/help/video-tutorials/video-tutorials.component';
+import { HelpMenuComponent } from './components/help/help-menu/help-menu.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -111,6 +113,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     UserManagementDetailsGroupsComponent,
     UserManagementDetailsHistoryComponent,
     GenericViewComponent,
+    VideoTutorialsComponent,
+    HelpMenuComponent,
   ],
   imports: [
     AppRoutingModule,
