@@ -47,8 +47,13 @@ export class LoginService {
     localStorage.removeItem('username');
     localStorage.removeItem('isAdmin');
     this.cookieSvc.delete('dm-auth-refresh-token');
-    this.router.navigateByUrl('/login');
-    this.stopRefreshTokenTimer();
+    if (
+      this.router.url !== '/login/registeruser' &&
+      this.router.url !== '/login'
+    ) {
+      this.router.navigateByUrl('/login');
+      this.stopRefreshTokenTimer();
+    }
   }
 
   public setSession(authResult, refreshed = false) {
