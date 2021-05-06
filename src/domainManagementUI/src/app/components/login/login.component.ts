@@ -43,9 +43,7 @@ export class LoginComponent implements OnInit {
   username = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required]);
 
-  @Input() error: string | null;
-
-  @Output() submitEM = new EventEmitter();
+  error: string;
 
   constructor(private loginService: LoginService) {}
 
@@ -60,32 +58,8 @@ export class LoginComponent implements OnInit {
       (data) => {
         this.loginService.setSession(data);
       },
-      (err) => {
-        if (err instanceof HttpErrorResponse) {
-          let httpError: HttpErrorResponse = err;
-          if (httpError.status === 403) {
-            // Username or password Failed
-            this.error =
-              'We were unable to log you in. Verify that you have the correct credentials';
-          } else if (httpError.status === 423) {
-            // Locked Out
-            this.error = 'We were unable to log you in. Locked out.';
-          } else if (httpError.status === 400) {
-            // Generic Error
-            this.error =
-              'We were unable to log you in. Error with login. Try again.';
-          } else if (httpError.status === 400) {
-            this.error =
-              'We were unable to log you in.  Error with login. Try again.';
-          } else {
-            // All other errors
-            this.error =
-              'We were unable to log you in.  Error with login. Try again.';
-          }
-        } else {
-          this.error =
-            'We were unable to log you in.  Error with login. Try again.';
-        }
+      (err: HttpErrorResponse) => {
+        this.error = err.error;
       }
     );
   }

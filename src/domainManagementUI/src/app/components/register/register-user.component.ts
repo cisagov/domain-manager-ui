@@ -19,6 +19,7 @@ import { faBan, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 // Local Service Imports
 import { UserManagementService } from 'src/app/services/user-management.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -65,9 +66,7 @@ export class RegisterUserComponent implements OnInit {
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
-  @Input() error: string | null;
-
-  @Output() submitEM = new EventEmitter();
+  error: string;
 
   constructor(
     public userSvc: UserManagementService,
@@ -92,8 +91,8 @@ export class RegisterUserComponent implements OnInit {
           );
           this.router.navigateByUrl('/login');
         },
-        () => {
-          this.error = 'We are unable to create user';
+        (error: HttpErrorResponse) => {
+          this.error = error.error;
         }
       );
     }
