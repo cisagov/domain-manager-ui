@@ -1,18 +1,106 @@
 <div class="flex flex-container">
+  <!-- Header -->
   <div>
     <h3>Video Tutorials</h3>
-
     <div class="text-muted video-tut-desc">
       Below is a list of video tutorials to help you with using the Domain
-      Manager application. If the information you are looking for is not found
-      in one of the videos below, please check the user guide by selecting the
-      help option in the settings menu located in the upper right portion of all
-      pages.
+      Manager application. Click one of the drop-down categories to view
+      tutorial videos within the section. If the information you are looking for
+      is not found in one of the videos below, please check the user guide by
+      selecting the help option in the settings menu located in the upper right
+      portion of all pages.
     </div>
   </div>
 
-  <h5 class="video-section">Domains</h5>
-  <h5 class="video-section">Templates</h5>
-  <h5 class="video-section">Applications</h5>
-  <h5 class="video-section">Users</h5>
+  <div class="flex-row">
+    <!-- Video List -->
+    <div class="flex-column video-list">
+      <mat-accordion>
+        <!-- Domains Section -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Domain Tutorials </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngFor="let video of domainPlaylist" class="flex-row">
+            <button
+              mat-raised-button
+              class="play-button"
+              color="primary"
+              (click)="selectVideo(video)"
+            >
+              {{ video.name }}
+            </button>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- Templates Section -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Template Tutorials </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngFor="let video of templatePlaylist" class="flex-row">
+            <button
+              mat-raised-button
+              class="play-button"
+              color="primary"
+              (click)="selectVideo(video)"
+            >
+              {{ video.name }}
+            </button>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- Application Section -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Application Tutorials </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngFor="let video of applicationPlaylist" class="flex-row">
+            <button
+              mat-raised-button
+              class="play-button"
+              color="primary"
+              (click)="selectVideo(video)"
+            >
+              {{ video.name }}
+            </button>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- User Section -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> User Tutorials </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngFor="let video of userPlaylist" class="flex-row">
+            <button
+              mat-raised-button
+              class="play-button"
+              color="primary"
+              (click)="selectVideo(video)"
+            >
+              {{ video.name }}
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <!-- Player -->
+    <div class="flex-column video-player">
+      <div class="player-wrapper">
+        <vg-player (onPlayerReady)="onPlayerReady($event)">
+          <video
+            [vgMedia]="media"
+            [src]="currentVid.src"
+            type="video/mp4"
+            #media
+            id="singleVideo"
+            preload="auto"
+            controls
+          ></video>
+        </vg-player>
+      </div>
+    </div>
+  </div>
 </div>
