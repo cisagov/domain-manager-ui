@@ -17,9 +17,55 @@ export class VideoTutorialsComponent implements OnInit {
     },
   ];
 
-  domainPlaylist = [];
+  domainPlaylist = [
+    {
+      name: 'Add a Domain',
+      src: 'assets/videos/domain_add.mp4',
+    },
+    {
+      name: 'Delete a Domain',
+      src: 'assets/videos/domain_delete.mp4',
+    },
+    {
+      name: "Set a Domain's Application",
+      src: 'assets/videos/domain_set_application.mp4',
+    },
+    {
+      name: "Approve a Domain's Content",
+      src: 'assets/videos/domain_approve.mp4',
+    },
+    {
+      name: "Download a Domain's Content",
+      src: 'assets/videos/domain_download.mp4',
+    },
+    {
+      name: 'Upload Content to Domain',
+      src: 'assets/videos/domain_upload.mp4',
+    },
+    {
+      name: 'Launch a Domain',
+      src: 'assets/videos/domain_launch.mp4',
+    },
+    {
+      name: 'Categorize a Domain',
+      src: 'assets/videos/domain_categorize.mp4',
+    },
+  ];
 
-  templatePlaylist = [];
+  templatePlaylist = [
+    {
+      name: 'Add a Template',
+      src: 'assets/videos/template_add.mp4',
+    },
+    {
+      name: 'Approve a Template',
+      src: 'assets/videos/template_approve.mp4',
+    },
+    {
+      name: 'Download a Template',
+      src: 'assets/videos/template_download.mp4',
+    },
+  ];
 
   userPlaylist = [
     {
