@@ -13,6 +13,7 @@
     "@fortawesome/angular-fontawesome": "^0.8.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@videogular/ngx-videogular": "3.0.1",
     "angular-file": "^3.5.3",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",

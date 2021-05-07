@@ -1,8 +1,30 @@
 .video-tut-desc {
   margin-bottom: 1em;
   padding-left: 0.5em;
+  max-width: 1200px;
 }
 
 .video-section {
   border-bottom: 1px solid gray;
+}
+
+.player-wrapper {
+  max-width: 900px;
+  margin-bottom: 2em;
+  video {
+    width: 100%;
+  }
+}
+
+.video-list {
+  margin-right: 2em;
+}
+
+.video-player {
+  width: 900px;
+}
+
+.play-button {
+  margin-bottom: 1em;
+  width: 100%;
 }

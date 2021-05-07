@@ -74,6 +74,10 @@ import { UnauthorizedInterceptor } from 'src/app/helpers/UnauthorizedInterceptor
 import { GenericViewComponent } from './components/dialog-windows/generic-view/generic-view.component';
 import { VideoTutorialsComponent } from './components/help/video-tutorials/video-tutorials.component';
 import { HelpMenuComponent } from './components/help/help-menu/help-menu.component';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -128,6 +132,10 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     MatTableModule,
     ngfModule,
     ReactiveFormsModule,
+    VgControlsModule,
+    VgCoreModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
   ],
   providers: [
     AlertsService,
