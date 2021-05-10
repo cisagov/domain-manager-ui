@@ -25,20 +25,18 @@ export class DomainDetailsTabService {
   summary_form: FormGroup;
   template_selection_form: FormGroup;
 
-  public attributeList: Array<TemplateAttribute> = new Array<TemplateAttribute>();
-  public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  public attributeList: Array<TemplateAttribute> =
+    new Array<TemplateAttribute>();
+  public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
   public loadingItems = [];
   public templateExists: boolean = false;
   public templateSelectinoMethod: string = null;
-  public templateSelectionBehaviorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(
-    null
-  );
+  public templateSelectionBehaviorSubject: BehaviorSubject<string> =
+    new BehaviorSubject<string>(null);
   public domain_data: DomainModel = new DomainModel();
-  public domain_data_behavior_subject: BehaviorSubject<DomainModel> = new BehaviorSubject<DomainModel>(
-    new DomainModel()
-  );
+  public domain_data_behavior_subject: BehaviorSubject<DomainModel> =
+    new BehaviorSubject<DomainModel>(new DomainModel());
   public userIsAdmin: boolean = false;
 
   constructor(
@@ -288,9 +286,8 @@ export class DomainDetailsTabService {
     let template_name = this.template_selection_form.controls.name.value;
     let attributeDictionary = {};
     this.attributeList.forEach((attribute) => {
-      attributeDictionary[attribute.key] = this.attributes_form.controls[
-        attribute.key
-      ].value;
+      attributeDictionary[attribute.key] =
+        this.attributes_form.controls[attribute.key].value;
     });
     return this.domainSvc.generateFromTemplate(
       domain_id,

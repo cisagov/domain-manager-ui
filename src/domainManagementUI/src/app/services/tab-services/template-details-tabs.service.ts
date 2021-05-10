@@ -25,12 +25,10 @@ const headers = {
 })
 export class TemplateDetailsTabService {
   public template_data: TemplateModel = new TemplateModel();
-  public template_data_behavior_subject: BehaviorSubject<TemplateModel> = new BehaviorSubject<TemplateModel>(
-    new TemplateModel()
-  );
-  public domains_used_behavior_subject: BehaviorSubject<
-    Array<DomainModel>
-  > = new BehaviorSubject<Array<DomainModel>>(new Array<DomainModel>());
+  public template_data_behavior_subject: BehaviorSubject<TemplateModel> =
+    new BehaviorSubject<TemplateModel>(new TemplateModel());
+  public domains_used_behavior_subject: BehaviorSubject<Array<DomainModel>> =
+    new BehaviorSubject<Array<DomainModel>>(new Array<DomainModel>());
   public domains_used_list: Array<DomainModel> = [];
 
   constructor(
