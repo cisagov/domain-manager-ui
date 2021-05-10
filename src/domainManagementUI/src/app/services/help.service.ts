@@ -29,7 +29,7 @@ export class HelpService {
     const url = window.location.href;
     const appDomain = url.replace(angularRoute, '');
 
-    let helpUrl = appDomain + '/assets/htmlhelp/index.htm';
+    let helpUrl = appDomain + '/assets/userguide/html/index.htm';
     console.log(helpUrl);
     window.open(helpUrl, '_blank');
   }
