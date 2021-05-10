@@ -23,13 +23,11 @@ export class UserManagementTabService {
   public loading = true;
   public isAdmin = false;
   public userEmail = '';
-  public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
   public user_data: UserModel = new UserModel();
-  public user_data_behavior_subject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(
-    new UserModel()
-  );
+  public user_data_behavior_subject: BehaviorSubject<UserModel> =
+    new BehaviorSubject<UserModel>(new UserModel());
   public user_form: FormGroup;
   public userHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort;

@@ -26,7 +26,8 @@ import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-ba
   styleUrls: ['./domain-details-template-selection.component.scss'],
 })
 export class DomainDetailsTemplateSelectionComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   displayedColumns = [
     'nameLowerCase',
     // 'created_by',
