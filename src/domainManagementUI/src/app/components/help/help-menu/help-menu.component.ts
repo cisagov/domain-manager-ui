@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelpService } from 'src/app/services/help.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-help-menu',
@@ -8,7 +9,11 @@ import { AlertsService } from 'src/app/services/alerts.service';
   styleUrls: ['./help-menu.component.scss'],
 })
 export class HelpMenuComponent implements OnInit {
-  constructor(private helpSvc: HelpService, public alertsSvc: AlertsService) {}
+  constructor(
+    private helpSvc: HelpService,
+    public alertsSvc: AlertsService,
+    public settingsService: SettingsService
+  ) {}
 
   ngOnInit(): void {}
   openUserManual() {
