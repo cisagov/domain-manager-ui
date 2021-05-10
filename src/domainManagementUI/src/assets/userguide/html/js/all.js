@@ -10,7 +10,7 @@
 
 function is_touch_device()
 {
-    return !!('ontouchstart' in window) // works on most browsers
+    return !!('ontouchstart' in window) // works on most browsers 
     //  || !!('onmsgesturechange' in window) // works on ie10, but not on desktop IE10
     ;
     // AT: this does not work in Opera mini
@@ -273,7 +273,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
             isVisible: true,
             isSelected: false
         },
-
+        
         hasParent: function() {
             if ( this.get( "parent" ) !== null ) {
                 return true;
@@ -315,7 +315,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 return false;
             }
         },
-
+        
         getChildsCollection: function() {
             return this.get( "childs" );
         }
@@ -421,14 +421,14 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 }
             }
             else {
-                $output = this.renderChilds();
+                $output = this.renderChilds(); 
             }
 
             return $output;
         },
 
 
-
+        
         renderFolder: function() {
             return this.renderFolderIcon();
         },
@@ -462,7 +462,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
 
 
     window.NavTree__ItemDecoration_Search_View = Backbone.View.extend({
-
+    
         tagName: "span",
         className: "b-tree__spacer",
         template: null,
@@ -470,7 +470,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
         html_root: '<span class="b-tree__spacer"></span>',
         html_folder_closed: '<span class="b-tree__i_folder_closed"><span class="b-tree__i_folder_closed_inner"></span></span>',
         html_article: '<span class="b-tree__i_article"><span class="b-tree__i_article_inner"></span></span>',
-
+    
         initialize: function( options ) {
             this.isRoot = options.isRoot;
             this.isFolder = this.model.hasChilds();
@@ -487,13 +487,13 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 }
             }
             else {
-                $output = this.renderChilds();
+                $output = this.renderChilds(); 
             }
 
             return $output;
         },
-
-
+    
+    
         renderFolder: function() {
             return this.renderFolderIcon();
         },
@@ -514,7 +514,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
         renderArticle: function() {
             var $output = $( this.html_root );
             $output = $output.append( $( this.html_article ) );
-
+            
             return $output;
         },
 
@@ -549,10 +549,10 @@ DR_EXPLAIN.namespace = function( ns_string ) {
             }
 
             $(this.el).html(this.template(this.model.toJSON()));
-
+            
             var decoration = this.getDecoration( );
             $( this.el ).children( ".b-tree__itemContent" ).prepend( decoration );
-
+            
             return this;
         }
     });
@@ -738,7 +738,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
 
 
     window.NavTree__Menu_Item_View = NavTree__Item_View.extend({
-
+    
         render: function( childsOutput ) {
             var bVisible = this.model.get( "isVisible" );
             var decoration = this.getDecoration(bVisible);
@@ -752,7 +752,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 div.title = title;
                 for (var i = 0; i < decoration.length; ++i)
                   div.appendChild(decoration[i]);
-
+                
                 var span = document.createElement("span");
                 span.className = "b-tree__itemText m-tree__itemText__selected";
                 span.appendChild(document.createTextNode(title));
@@ -778,12 +778,12 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 this.el.appendChild(div);
             }
 
-
+            
             if ( childsOutput !== null ) {
                 $( this.el ).append( $( childsOutput ) );
                 this.bindEvents();
             }
-
+            
             if ( !bVisible ) {
                 this.$el.children( "ul" ).hide();
                 this.model.set({ "isVisible": 0 });
@@ -1142,10 +1142,10 @@ InputSync.prototype ={
 DR_EXPLAIN.namespace( 'DR_EXPLAIN.data_menu' );
 DR_EXPLAIN.data_menu = {
     // menu
-    DREX_NODE_NAMES: ["Title","Introduction to Domain Manager","Command Line Interface","Domains","Templates","Applications","Users","Settings","Glossary","Domain Manager Revision History","Introduction","Overview","Domain Manager Workflow","Create Account/Login","Use Cases","Admin vs. User Roles","Best Practices","Mail Server Setup","CLI Requirements and Setup","Commands","Upload a New Domain","Domain Details","Upload a New Template","Template Details","Template Resources","Add a New Application","Manage Application","User Details","My Profile","Submit Issue","Request Feature","Help","Bugs and Missing Features","Access","Set up, Launch, and Categorize a Website","Set up a Domain with Email Records","Manage External Websites","Content Authorization","Domain Manager Categorization","Template/Demo","Hosted Zone","DNS Records","Proxy Category","History","Domains Using","Groups","History"],
-    DREX_NODE_LINKS: ["index.htm","introduction_to_domain_manager.htm","command_line_interface.htm","domains.htm","templates.htm","applications.htm","users.htm","settings.htm","glossary.htm","domain_manager_revision_history.htm","introduction.htm","overview.htm","domain_manager_workflow.htm","create_account_login.htm","use_cases.htm","admin_vs__user_roles.htm","best_practices.htm","mail_server_setup.htm","cli_requirements_and_setup.htm","commands.htm","upload_a_new_domain.htm","domain_details.htm","upload_a_new_template.htm","template_details.htm","template_resources.htm","add_a_new_application.htm","manage_application.htm","user_details.htm","my_profile.htm","submit_issue.htm","request_feature.htm","help.htm","bugs_and_missing_features.htm","access.htm","set_up__launch__and_categorize_a_website.htm","set_up_a_domain_with_email_records.htm","manage_external_websites.htm","content_authorization.htm","domain_manager_categorization.htm","template_demo.htm","hosted_zone.htm","dns_records.htm","proxy_category.htm","history_1.htm","domains_using.htm","groups.htm","history_2.htm"],
-    DREX_NODE_CHILD_START: [1,10,18,20,22,25,27,28,32,32,33,33,33,33,34,37,38,39,39,39,39,39,44,44,45,45,45,45,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47],
-    DREX_NODE_CHILD_END: [10,18,20,22,25,27,28,32,32,33,33,33,33,34,37,38,39,39,39,39,39,44,44,45,45,45,45,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47],
+    DREX_NODE_NAMES: ["Title","Introduction to Domain Manager","Command Line Interface","Domains","Templates","Applications","Users","Settings","Glossary","Domain Manager Revision History","Introduction","Overview","Domain Manager Workflow","Create Account/Login","Use Cases","Admin vs. User Roles","Best Practices","Mail Server Setup","CLI Requirements and Setup","Commands","Upload a New Domain","Domain Details","Upload a New Template","Template Details","Template Resources","Add a New Application","Manage Application","User Details","My Profile","Submit Issue","Request Feature","Help","Bugs and Missing Features","Access","Set up, Launch, and Categorize a Website","Set up a Domain with Email Records","Manage External Websites","Content Authorization","Domain Manager Categorization","Template/Demo","Hosted Zone","DNS Records","Proxy Category","History","Domains Using","Groups","History","Video Tutorials"],
+    DREX_NODE_LINKS: ["index.htm","introduction_to_domain_manager.htm","command_line_interface.htm","domains.htm","templates.htm","applications.htm","users.htm","settings.htm","glossary.htm","domain_manager_revision_history.htm","introduction.htm","overview.htm","domain_manager_workflow.htm","create_account_login.htm","use_cases.htm","admin_vs__user_roles.htm","best_practices.htm","mail_server_setup.htm","cli_requirements_and_setup.htm","commands.htm","upload_a_new_domain.htm","domain_details.htm","upload_a_new_template.htm","template_details.htm","template_resources.htm","add_a_new_application.htm","manage_application.htm","user_details.htm","my_profile.htm","submit_issue.htm","request_feature.htm","help.htm","bugs_and_missing_features.htm","access.htm","set_up__launch__and_categorize_a_website.htm","set_up_a_domain_with_email_records.htm","manage_external_websites.htm","content_authorization.htm","domain_manager_categorization.htm","template_demo.htm","hosted_zone.htm","dns_records.htm","proxy_category.htm","history_1.htm","domains_using.htm","groups.htm","history_2.htm","video_tutorials.htm"],
+    DREX_NODE_CHILD_START: [1,10,18,20,22,25,27,28,32,32,33,33,33,33,34,37,38,39,39,39,39,39,44,44,45,45,45,45,47,47,47,47,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48],
+    DREX_NODE_CHILD_END: [10,18,20,22,25,27,28,32,32,33,33,33,33,34,37,38,39,39,39,39,39,44,44,45,45,45,45,47,47,47,47,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48],
     DREX_MENU_TYPE: 2,
     DREX_HAS_ROOT_NODE: 0};
 
@@ -1172,3 +1172,6 @@ DR_EXPLAIN.data_resize = {
     DREX_INITIAL_MENU_WIDTH: "240px"
 
 };
+
+
+
