@@ -153,7 +153,8 @@ export class DnsRecordsDialogComponent implements OnInit {
       if (control.value === 'localhost') {
         return null;
       }
-      const regex = /^^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?$/;
+      const regex =
+        /^^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?$/;
       if (regex.test(control.value)) {
         return null;
       }

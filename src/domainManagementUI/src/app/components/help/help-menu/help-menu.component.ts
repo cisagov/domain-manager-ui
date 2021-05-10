@@ -23,29 +23,20 @@ export class HelpMenuComponent implements OnInit {
   }
 
   help() {
-    this.helpSvc.getUserGuide().subscribe(
-      (success) => {
-        console.log(success);
-        this.downloadObject('DomainManagerUserGuide.pdf', success);
-      },
-      (failure) => {
-        this.alertsSvc.alert(failure);
-        console.log(failure);
-      }
+    this.downloadObject(
+      'DomainManagerUserGuide.pdf',
+      'assets/userguide/pdf/DomainManager.pdf'
     );
   }
-  openHelp(){
-    console.log("TEST")
-    this.helpSvc.openUserGuide();
-  }
-  downloadObject(filename, blob) {
+
+  downloadObject(filename, filepath) {
     const a = document.createElement('a');
-    const objectUrl = URL.createObjectURL(blob);
-    a.href = objectUrl;
+    a.href = filepath;
     a.download = filename;
     a.click();
-    URL.revokeObjectURL(objectUrl);
+    a.remove();
   }
+
   featureRequest() {
     this.helpSvc.featureRequest();
   }

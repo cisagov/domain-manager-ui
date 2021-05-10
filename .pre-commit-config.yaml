@@ -5,9 +5,10 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v3.4.0
     hooks:
       - id: check-json
+        exclude: src/domainManagementUI/src/assets/userguide/
       - id: check-merge-conflict
       - id: check-xml
       - id: debug-statements
@@ -17,13 +18,14 @@ repos:
       - id: detect-private-key
         exclude: src/secrets/privkey.pem
       - id: end-of-file-fixer
-        exclude: files/(issue|motd)
+        exclude: files/(issue|motd)|src/domainManagementUI/src/assets/userguide/
       - id: mixed-line-ending
         args:
           - --fix=lf
       - id: requirements-txt-fixer
       - id: trailing-whitespace
+        exclude: src/domainManagementUI/src/assets/userguide/
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.2.1
+    rev: v2.3.0
     hooks:
       - id: prettier
