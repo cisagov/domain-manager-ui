@@ -25,13 +25,13 @@ export class HelpService {
     });
   }
   openUserGuide() {
-      const angularRoute = this.location.path();
-      const url = window.location.href;
-      const appDomain = url.replace(angularRoute, '');
-  
-      let helpUrl = appDomain + '/assets/htmlhelp/index.htm';
-      console.log(helpUrl)
-      window.open(helpUrl, '_blank');
+    const angularRoute = this.location.path();
+    const url = window.location.href;
+    const appDomain = url.replace(angularRoute, '');
+
+    let helpUrl = appDomain + '/assets/htmlhelp/index.htm';
+    console.log(helpUrl);
+    window.open(helpUrl, '_blank');
   }
 
   featureRequest() {

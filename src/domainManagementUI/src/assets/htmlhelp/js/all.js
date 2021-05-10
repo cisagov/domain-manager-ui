@@ -10,7 +10,7 @@
 
 function is_touch_device()
 {
-    return !!('ontouchstart' in window) // works on most browsers 
+    return !!('ontouchstart' in window) // works on most browsers
     //  || !!('onmsgesturechange' in window) // works on ie10, but not on desktop IE10
     ;
     // AT: this does not work in Opera mini
@@ -273,7 +273,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
             isVisible: true,
             isSelected: false
         },
-        
+
         hasParent: function() {
             if ( this.get( "parent" ) !== null ) {
                 return true;
@@ -315,7 +315,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 return false;
             }
         },
-        
+
         getChildsCollection: function() {
             return this.get( "childs" );
         }
@@ -421,14 +421,14 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 }
             }
             else {
-                $output = this.renderChilds(); 
+                $output = this.renderChilds();
             }
 
             return $output;
         },
 
 
-        
+
         renderFolder: function() {
             return this.renderFolderIcon();
         },
@@ -462,7 +462,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
 
 
     window.NavTree__ItemDecoration_Search_View = Backbone.View.extend({
-    
+
         tagName: "span",
         className: "b-tree__spacer",
         template: null,
@@ -470,7 +470,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
         html_root: '<span class="b-tree__spacer"></span>',
         html_folder_closed: '<span class="b-tree__i_folder_closed"><span class="b-tree__i_folder_closed_inner"></span></span>',
         html_article: '<span class="b-tree__i_article"><span class="b-tree__i_article_inner"></span></span>',
-    
+
         initialize: function( options ) {
             this.isRoot = options.isRoot;
             this.isFolder = this.model.hasChilds();
@@ -487,13 +487,13 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 }
             }
             else {
-                $output = this.renderChilds(); 
+                $output = this.renderChilds();
             }
 
             return $output;
         },
-    
-    
+
+
         renderFolder: function() {
             return this.renderFolderIcon();
         },
@@ -514,7 +514,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
         renderArticle: function() {
             var $output = $( this.html_root );
             $output = $output.append( $( this.html_article ) );
-            
+
             return $output;
         },
 
@@ -549,10 +549,10 @@ DR_EXPLAIN.namespace = function( ns_string ) {
             }
 
             $(this.el).html(this.template(this.model.toJSON()));
-            
+
             var decoration = this.getDecoration( );
             $( this.el ).children( ".b-tree__itemContent" ).prepend( decoration );
-            
+
             return this;
         }
     });
@@ -738,7 +738,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
 
 
     window.NavTree__Menu_Item_View = NavTree__Item_View.extend({
-    
+
         render: function( childsOutput ) {
             var bVisible = this.model.get( "isVisible" );
             var decoration = this.getDecoration(bVisible);
@@ -752,7 +752,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 div.title = title;
                 for (var i = 0; i < decoration.length; ++i)
                   div.appendChild(decoration[i]);
-                
+
                 var span = document.createElement("span");
                 span.className = "b-tree__itemText m-tree__itemText__selected";
                 span.appendChild(document.createTextNode(title));
@@ -778,12 +778,12 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 this.el.appendChild(div);
             }
 
-            
+
             if ( childsOutput !== null ) {
                 $( this.el ).append( $( childsOutput ) );
                 this.bindEvents();
             }
-            
+
             if ( !bVisible ) {
                 this.$el.children( "ul" ).hide();
                 this.model.set({ "isVisible": 0 });
@@ -1172,6 +1172,3 @@ DR_EXPLAIN.data_resize = {
     DREX_INITIAL_MENU_WIDTH: "240px"
 
 };
-
-
-

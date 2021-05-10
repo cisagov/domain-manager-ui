@@ -658,7 +658,7 @@ DR_EXPLAIN.wordSplitter = (function() {
     {
         if (!stPunctuation.filled)
         {
-            rangesToArray( 
+            rangesToArray(
                 "33-36,37-43,44-48,58-60,63-65,91-94,123-124,125-126,161-162,167-168,171-172,182-184,187-188,191-192,894-895,903-904,1370-1376,1417-1419,1470-1471," +
                 "1472-1473,1475-1476,1478-1479,1523-1525,1545-1547,1548-1550,1563-1564,1566-1568,1642-1646,1748-1749,1792-1806,2039-2042,2096-2111,2142-2143,2404-2406," +
                 "2416-2417,2800-2801,3572-3573,3663-3664,3674-3676,3844-3859,3860-3861,3898-3902,3973-3974,4048-4053,4057-4059,4170-4176,4347-4348,4960-4969,5120-5121," +
@@ -683,7 +683,7 @@ DR_EXPLAIN.wordSplitter = (function() {
     {
         if (!stWordSymbols.filled)
         {
-            rangesToArray( 
+            rangesToArray(
                 "33-36,37-43,44-60,63-94,95-96,97-124,125-126,161-162,167-168,170-172,178-180,181-184,185-215,216-247,248-706,710-722,736-741,748-749,750-751,768-885," +
                 "886-888,890-896,902-907,908-909,910-930,931-1014,1015-1154,1155-1328,1329-1367,1369-1376,1377-1416,1417-1419,1425-1480,1488-1515,1520-1525,1545-1547," +
                 "1548-1550,1552-1564,1566-1757,1759-1769,1770-1789,1791-1806,1808-1867,1869-1970,1984-2038,2039-2043,2048-2094,2096-2111,2112-2140,2142-2143,2208-2229," +
@@ -922,11 +922,11 @@ DR_EXPLAIN.searchEngine = (function() {
     HTTP.newRequest = function()
     {
         var xmlhttp=false;
-        /* running locally on IE5.5, IE6, IE7 */                                              
+        /* running locally on IE5.5, IE6, IE7 */
         if(location.protocol=="file:"){
             if(!xmlhttp)try{ xmlhttp=new ActiveXObject("MSXML2.XMLHTTP"); }catch(e){xmlhttp=false;}
             if(!xmlhttp)try{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }catch(e){xmlhttp=false;}
-        }                                                                                
+        }
         /* IE7, Firefox, Safari, Opera...  */
         if(!xmlhttp)try{ xmlhttp=new XMLHttpRequest(); }catch(e){xmlhttp=false;}
         /* IE6 */
@@ -3239,7 +3239,7 @@ DR_EXPLAIN.navTree_Menu = (function(){
             --emptySpacerCount;
         for (var i = 0; i < emptySpacerCount; ++i)
             div.appendChild(document.createElement("span")).className = "b-tree__spacer";
-              
+
         if (node.childs != null)
         {
             var bVisible = model.get("isVisible");
@@ -3248,10 +3248,10 @@ DR_EXPLAIN.navTree_Menu = (function(){
             spacer.className = "b-tree__spacer";
             var expanderSpan = spacer.appendChild(document.createElement("span"));
             expanderSpan.className = bVisible ? "b-tree__i_expander_doClose" : "b-tree__i_expander_doOpen";
-            
+
             var expanderImg = expanderSpan.appendChild(document.createElement("span"));
             expanderImg.className = bVisible ? "expander_img b-tree__i_expander_doClose_inner" : "expander_img b-tree__i_expander_doOpen_inner";
-            
+
             //Add folder icon
             spacer = div.appendChild(document.createElement("span"));
             spacer.className = "b-tree__spacer";
@@ -3259,7 +3259,7 @@ DR_EXPLAIN.navTree_Menu = (function(){
             folderSpan.className = bVisible ? "b-tree__i_folder_opened" : "b-tree__i_folder_closed";
             var folderSpanInner = folderSpan.appendChild(document.createElement("span"));
             folderSpanInner.className = bVisible ? "b-tree__i_folder_opened_inner" : "b-tree__i_folder_closed_inner";
-            
+
             //Create ul for inner elements
             var ul = li.appendChild(document.createElement("ul"));
             ul.className = "b-tree__items";
@@ -3312,9 +3312,9 @@ DR_EXPLAIN.navTree_Menu = (function(){
             articleSpan.className = "b-tree__i_article";
             var articleInnerSpan = articleSpan.appendChild(document.createElement("span"));
             articleInnerSpan.className = "b-tree__i_article_inner";
-        }        
+        }
         var itemTextSpan = div.appendChild(document.createElement("span"));
-        
+
         if (node.isSelected)
         {
             itemTextSpan.className = "b-tree__itemText m-tree__itemText__selected";
@@ -3821,7 +3821,7 @@ function onDocumentReady(app) {
             $(this).prop("src", $(this).prop("real_src"));
         });
     }
-    
+
     DR_EXPLAIN.disableTriggers = false;
 
     app.searchManager.doBindEvents();
@@ -3959,4 +3959,3 @@ if (!String.prototype.codePointAt) {
 		}
 	}());
 }
-
