@@ -1,5 +1,5 @@
 
-
+	
 	var DREXPLAIN_SOCIALSCRIPT =  [	 ];
 		 /*
 			"//apis.google.com/js/plusone.js"
@@ -11,12 +11,12 @@
 			,"https://platform.linkedin.com/in.js"
 			,,"http://delicious-button.googlecode.com/files/jquery.delicious-button-1.1.min.js"
 		*/
-
+		
 
 	(function (w, d, load) {
-		 var script,
-		 first = d.getElementsByTagName('SCRIPT')[0],
-		 n = load.length,
+		 var script, 
+		 first = d.getElementsByTagName('SCRIPT')[0],  
+		 n = load.length, 
 		 i = 0,
 		 go = function () {
 		   for (i = 0; i < n; i = i + 1) {

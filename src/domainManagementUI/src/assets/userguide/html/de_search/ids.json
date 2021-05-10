@@ -43,7 +43,8 @@
 	"42": ["Submit Issue", "submit_issue.htm", [7]],
 	"43": ["Request Feature", "request_feature.htm", [7]],
 	"44": ["Help", "help.htm", [7]],
-	"45": ["Glossary", "glossary.htm", []],
-	"46": ["Domain Manager Revision History", "domain_manager_revision_history.htm", []],
-	"47": ["Bugs and Missing Features", "bugs_and_missing_features.htm", [9]]
+	"45": ["Video Tutorials", "video_tutorials.htm", [7,31]],
+	"46": ["Glossary", "glossary.htm", []],
+	"47": ["Domain Manager Revision History", "domain_manager_revision_history.htm", []],
+	"48": ["Bugs and Missing Features", "bugs_and_missing_features.htm", [9]]
 }
