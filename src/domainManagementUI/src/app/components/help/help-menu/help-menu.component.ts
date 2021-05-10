@@ -10,7 +10,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class HelpMenuComponent implements OnInit {
   constructor(
-    private helpSvc: HelpService,
+    public helpSvc: HelpService,
     public alertsSvc: AlertsService,
     public settingsService: SettingsService
   ) {}
@@ -33,6 +33,10 @@ export class HelpMenuComponent implements OnInit {
         console.log(failure);
       }
     );
+  }
+  openHelp(){
+    console.log("TEST")
+    this.helpSvc.openUserGuide();
   }
   downloadObject(filename, blob) {
     const a = document.createElement('a');
