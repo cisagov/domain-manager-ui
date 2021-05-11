@@ -28,8 +28,20 @@ env:
   BUILDX_CACHE_DIR: ~/.cache/buildx
   IMAGE_NAME: cisagov/domain-manager-ui
   PIP_CACHE_DIR: ~/.cache/pip
-  PLATFORMS: "linux/amd64,linux/arm/v6,linux/arm/v7,\
-  linux/arm64,linux/ppc64le,linux/s390x"
+  # Disabled linux/arm/v6 due to the following error when installing npm.
+  # npm : Depends: nodejs (>= 6.11~) but it is not installable
+
+  # Disabled linux/arm/v7 due to the following error when running npm install.
+  # npm ERR! code ERR_SOCKET_TIMEOUT
+
+  # Disabled linux/s390x due to the following error when installing angular.
+  #   if (npm.config.get('json')) {
+  #                  ^
+  #
+  # TypeError: Cannot read property 'get' of undefined
+
+  # Disabled linux/ppc64le because it takes a long time.
+  PLATFORMS: "linux/amd64,linux/arm64"
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
 
 jobs:
