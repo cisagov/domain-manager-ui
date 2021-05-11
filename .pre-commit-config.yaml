@@ -9,7 +9,9 @@ repos:
     hooks:
       - id: check-case-conflict
       - id: check-executables-have-shebangs
+        exclude: src/domainManagementUI/src/assets/userguide/
       - id: check-json
+        exclude: src/domainManagementUI/src/assets/userguide/
       - id: check-merge-conflict
       - id: check-toml
       - id: check-xml
@@ -20,15 +22,17 @@ repos:
       - id: detect-private-key
         exclude: src/secrets/privkey.pem
       - id: end-of-file-fixer
-        exclude: files/(issue|motd)
+        exclude: files/(issue|motd)|src/domainManagementUI/src/assets/userguide/
       - id: mixed-line-ending
         args:
           - --fix=lf
       - id: pretty-format-json
+        exclude: src/domainManagementUI/src/assets/userguide/
         args:
           - --autofix
       - id: requirements-txt-fixer
       - id: trailing-whitespace
+        exclude: src/domainManagementUI/src/assets/userguide/
 
   # Text file hooks
   - repo: https://github.com/igorshubovych/markdownlint-cli
