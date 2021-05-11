@@ -7,6 +7,7 @@ services:
       context: .
       dockerfile: local.Dockerfile
     container_name: dm-ui
+    image: cisagov/dm-ui-local
     restart: unless-stopped
     ports:
       - "4200:4200"

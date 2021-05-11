@@ -1,4 +1,12 @@
+ARG VERSION=unspecified
+
 FROM nginx:1.19
+
+ARG VERSION
+ENV VERSION=${VERSION}
+
+LABEL org.opencontainers.image.vendor="Cybersecurity and Infrastructure Security Agency"
+LABEL org.opencontainers.image.version=${VERSION}
 
 # Set working directory
 WORKDIR /app

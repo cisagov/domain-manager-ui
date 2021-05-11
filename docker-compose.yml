@@ -1,10 +1,13 @@
 ---
 version: "3.7"
 services:
-  web:
+  ui:
     build:
+      args:
+        VERSION: "1.0.0"
       context: .
-    container_name: dm-ui-prod
+    container_name: dm-ui
+    image: cisagov/dm-ui
     restart: unless-stopped
     ports:
       - "4200:80"
