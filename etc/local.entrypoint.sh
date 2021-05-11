@@ -1,5 +1,5 @@
 #!/bin/sh
-cd /app
+cd /app || exit
 
 envsubst < src/assets/settings.template.json > src/assets/settings.json
 

@@ -37,8 +37,7 @@ export class DomainListComponent implements OnInit {
     'is_launched',
   ];
   search_input = '';
-  domainList: MatTableDataSource<DomainModel> =
-    new MatTableDataSource<DomainModel>();
+  domainList: MatTableDataSource<DomainModel> = new MatTableDataSource<DomainModel>();
   loading = true;
 
   userIsAdmin: boolean = false;
@@ -91,10 +90,12 @@ export class DomainListComponent implements OnInit {
           ? (domain['template_name'] as string)
           : '';
         domain['nameLowerCase'] = nameLowerCase.toLowerCase();
-        domain['application_name_lower_case'] =
-          applicationLowerCase.toLowerCase();
-        domain['template_base_name_lower_case'] =
-          templateLowerCase.toLowerCase();
+        domain[
+          'application_name_lower_case'
+        ] = applicationLowerCase.toLowerCase();
+        domain[
+          'template_base_name_lower_case'
+        ] = templateLowerCase.toLowerCase();
       });
 
       this.domainList = new MatTableDataSource<DomainModel>(domains);
