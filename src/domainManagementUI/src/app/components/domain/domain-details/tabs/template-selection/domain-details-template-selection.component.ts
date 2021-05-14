@@ -163,6 +163,7 @@ export class DomainDetailsTemplateSelectionComponent
     fileUploadSettings.uploadType = 'domain';
     fileUploadSettings.uploadFileType = 'application/zip';
     fileUploadSettings.multipleFileUpload = false;
+    fileUploadSettings.allowSingleFile = true;
     fileUploadSettings.uploadService = this.ddTabSvc.domainSvc;
     fileUploadSettings.ID = this.ddTabSvc.domain_data._id;
     fileUploadSettings.DomainDomain = this.ddTabSvc.domain_data.name;

@@ -90,7 +90,8 @@ someone has to deal with this
 
   <!-- File List -->
   <div style="margin-bottom: 40px; margin-top: 2em">
-    <h3>{{ files.length }} Queued Files</h3>
+    <h3 *ngIf="multipleFileUpload">{{ files.length }} Queued Files</h3>
+    <h3 *ngIf="!multipleFileUpload">Queued File</h3>
     <div>
       <table class="table">
         <thead>
@@ -156,7 +157,8 @@ someone has to deal with this
                 <mat-icon
                   style="font-size: 2.5em; color: red; cursor: initial"
                   [matTooltip]="item.errorMessage"
-                  >priority_high</mat-icon
+                >
+                  priority_high</mat-icon
                 >
               </div>
               <div *ngIf="item.uploadStatus == 'Canceled'">
