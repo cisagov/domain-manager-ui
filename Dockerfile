@@ -1,23 +1,28 @@
-FROM nginx:1.19
+# Stage 1 - Build
+FROM node:16-alpine as node
 
 # Set working directory
 WORKDIR /app
 
-# Install build requirements
-RUN apt update -y
-RUN apt install npm -y
+# Install dependencies
 RUN npm install -g npm@latest
 RUN npm install -g @angular/cli
 
-# Install packages
+# Install Packages
 COPY ./src/domainManagementUI/package*.json ./
 RUN npm install
 
 # Copy source code
 COPY ./src/domainManagementUI .
 
-# Build angular
-RUN ng build --configuration production --output-path=/usr/share/nginx/html/
+# Build project
+RUN ng build --configuration production --output-path /app/dist/angular-docker/
+
+# Stage 2 - Run
+FROM nginx:1.19
+
+# Copy distribution from build
+COPY --from=node /app/dist/angular-docker /usr/share/nginx/html
 
 # Copy nginx config
 COPY ./etc/default.conf /etc/nginx/conf.d/default.conf
