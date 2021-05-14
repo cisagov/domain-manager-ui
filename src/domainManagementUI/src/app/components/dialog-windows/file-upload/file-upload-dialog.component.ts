@@ -24,7 +24,7 @@ export class FileUploadDialogComponent implements OnInit {
   isMultipleDisplayText = 'one';
   uploadType = 'File';
   uploadFileType = '*';
-
+  allowSingleFile = false;
   uploadProcessed = false;
   filesCurrentlyUploading = 0;
 
@@ -56,6 +56,7 @@ export class FileUploadDialogComponent implements OnInit {
     dialogRef.disableClose = true;
     this.uploadFileType = this.getNativeMimeType(data.uploadFileType);
     this.multipleFileUpload = data.multipleFileUpload;
+    this.allowSingleFile = data.allowSingleFile;
   }
   ngOnInit(): void {
     this.data.uploadService.preloadValidationData();
@@ -165,9 +166,15 @@ export class FileUploadDialogComponent implements OnInit {
   }
 
   fileAdded() {
+    console.log(this.files);
+    if (this.allowSingleFile && this.files.length > 1) {
+      this.files.splice(0, 1);
+    }
+
     const invalidfiles = this.data.uploadService.validateBeforeUpload(
       this.files
     );
+
     if (invalidfiles.length > 0) {
       this.overwrite = true;
       for (const file of invalidfiles) {
