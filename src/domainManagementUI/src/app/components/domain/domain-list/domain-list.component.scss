@@ -28,6 +28,18 @@
 .mat-column-name {
   // background-color: blue;
 }
+.mat-column-is_approved {
+  flex: 0 0 10%;
+  min-width: 100px;
+  padding-right: 4px;
+  justify-content: center;
+}
+.mat-column-is_launched {
+  flex: 0 0 10%;
+  min-width: 100px;
+  padding-right: 4px;
+  justify-content: center;
+}
 
 .mat-column {
   border: 1px solid green;

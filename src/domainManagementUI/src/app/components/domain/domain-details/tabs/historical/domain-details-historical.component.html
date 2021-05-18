@@ -14,9 +14,9 @@
   <div *ngIf="ddTabSvc.hasHistory()" class="flex-row">
     <table class="display_table">
       <tr>
-        <th>Application</th>
-        <th>Start Date</th>
-        <th>Stop Date</th>
+        <th class="mat-header-cell-local">Application</th>
+        <th class="mat-header-cell-local">Start Date</th>
+        <th class="mat-header-cell-local">Stop Date</th>
       </tr>
       <tr *ngFor="let history of ddTabSvc.domain_data.history">
         <td>{{ history.application.name }}</td>

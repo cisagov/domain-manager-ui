@@ -10,11 +10,23 @@ someone has to deal with this
   <mat-icon>close</mat-icon>
 </button>
 <mat-dialog-content class="upload-dialog-content">
-  <div class="text-muted" style="margin-bottom: 1em">
+  <div *ngIf="multipleFileUpload" class="text-muted" style="margin-bottom: 1em">
+    Select files from your local file browser by clicking the 'Select Files'
+    button or drag and drop your {{ uploadObjectName }} files.
+  </div>
+  <div
+    *ngIf="!multipleFileUpload"
+    class="text-muted"
+    style="margin-bottom: 1em"
+  >
+    Select a file from your local file browser by clicking the 'Select File'
+    button or drag and drop your {{ uploadObjectName }} file.
+  </div>
+  <!-- <div class="text-muted" style="margin-bottom: 1em">
     Select {{ isMultipleDisplayText }} {{ uploadType | lowercase }}s to upload.
     Select the files through your local file browser by clicking the 'select
     file below' or drag and drop your files on to the drag and drop zone below.
-  </div>
+  </div> -->
   <ngfFormData [files]="files" postName="zip" [(FormData)]="sendableFormData">
   </ngfFormData>
   <!-- Drag and Drop Area -->

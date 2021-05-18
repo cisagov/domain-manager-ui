@@ -38,6 +38,7 @@ export class ApplicationEditDialogComponent implements OnInit {
       this.isNewApp = true;
       this.application = new ApplicationModel();
     }
+    console.log(this.isNewApp);
   }
 
   updateApplication() {

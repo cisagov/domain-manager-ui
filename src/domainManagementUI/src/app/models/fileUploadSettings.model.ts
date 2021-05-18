@@ -8,4 +8,5 @@ export class FileUploadSettings {
   uploadService: AbstractUploadService;
   ID: string;
   DomainDomain: string;
+  uploadObjectName: string; //Template or Domain, etc
 }
