@@ -28,7 +28,7 @@ export class ApplicationEditDialogComponent implements OnInit {
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<ApplicationEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ApplicationModel,
-    private applicationSvc: ApplicationService,
+    private applicationSvc: ApplicationService
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class ApplicationEditDialogComponent implements OnInit {
       this.isNewApp = true;
       this.application = new ApplicationModel();
     }
-    console.log(this.isNewApp)
+    console.log(this.isNewApp);
   }
 
   updateApplication() {

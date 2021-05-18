@@ -11,12 +11,16 @@ someone has to deal with this
 </button>
 <mat-dialog-content class="upload-dialog-content">
   <div *ngIf="multipleFileUpload" class="text-muted" style="margin-bottom: 1em">
-    Select files from your local file browser by clicking the 'Select Files' 
-    button or drag and drop your {{uploadObjectName}} files.
+    Select files from your local file browser by clicking the 'Select Files'
+    button or drag and drop your {{ uploadObjectName }} files.
   </div>
-  <div *ngIf="!multipleFileUpload" class="text-muted" style="margin-bottom: 1em">
-    Select a file from your local file browser by clicking the 'Select File' 
-    button or drag and drop your {{uploadObjectName}} file.
+  <div
+    *ngIf="!multipleFileUpload"
+    class="text-muted"
+    style="margin-bottom: 1em"
+  >
+    Select a file from your local file browser by clicking the 'Select File'
+    button or drag and drop your {{ uploadObjectName }} file.
   </div>
   <!-- <div class="text-muted" style="margin-bottom: 1em">
     Select {{ isMultipleDisplayText }} {{ uploadType | lowercase }}s to upload.

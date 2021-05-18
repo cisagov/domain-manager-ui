@@ -167,7 +167,7 @@ export class DomainDetailsTemplateSelectionComponent
     fileUploadSettings.uploadService = this.ddTabSvc.domainSvc;
     fileUploadSettings.ID = this.ddTabSvc.domain_data._id;
     fileUploadSettings.DomainDomain = this.ddTabSvc.domain_data.name;
-    fileUploadSettings.uploadObjectName = "website"
+    fileUploadSettings.uploadObjectName = 'website';
     let dialogRef = this.dialog.open(FileUploadDialogComponent, {
       data: fileUploadSettings,
     });

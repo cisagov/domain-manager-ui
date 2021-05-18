@@ -23,7 +23,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 export class FileUploadDialogComponent implements OnInit {
   isMultipleDisplayText = 'one';
   uploadType = 'File';
-  uploadObjectName : string;
+  uploadObjectName: string;
   uploadFileType = '*';
   allowSingleFile = false;
   uploadProcessed = false;
@@ -58,7 +58,7 @@ export class FileUploadDialogComponent implements OnInit {
     this.uploadFileType = this.getNativeMimeType(data.uploadFileType);
     this.multipleFileUpload = data.multipleFileUpload;
     this.allowSingleFile = data.allowSingleFile;
-    this.uploadObjectName = data.uploadObjectName ? data.uploadObjectName : "";
+    this.uploadObjectName = data.uploadObjectName ? data.uploadObjectName : '';
   }
   ngOnInit(): void {
     this.data.uploadService.preloadValidationData();
