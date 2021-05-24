@@ -27,7 +27,7 @@ import { DomainDetailsComponent } from 'src/app/components/domain/domain-details
 import { DomainDetailsAttrbutesComponent } from 'src/app/components/domain/domain-details/tabs/attributes/domain-details-attributes.component';
 import { DomainDetailsDemoComponent } from 'src/app/components/domain/domain-details/tabs/demo/domain-details-demo.component';
 import { DomainDetailsHistoricalComponent } from 'src/app/components/domain/domain-details/tabs/historical/domain-details-historical.component';
-import { DomainDetailsHostedZonesComponent } from 'src/app/components/domain/domain-details/tabs/hosted-zones/domain-details-hosted-zones.component';
+import { DomainDetailsHostedZoneComponent } from 'src/app/components/domain/domain-details/tabs/hosted-zone/domain-details-hosted-zone.component';
 import { DomainDetailsProxyCategorizaitonComponent } from 'src/app/components/domain/domain-details/tabs/proxy-categorization/domain-details-proxy-categorization.component';
 import { DomainDetailsSummaryComponent } from 'src/app/components/domain/domain-details/tabs/summary/domain-details-summary.component';
 import { DomainDetailsTemplateSelectionComponent } from 'src/app/components/domain/domain-details/tabs/template-selection/domain-details-template-selection.component';
@@ -95,7 +95,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DomainDetailsAttrbutesComponent,
     DomainDetailsDemoComponent,
     DomainDetailsHistoricalComponent,
-    DomainDetailsHostedZonesComponent,
+    DomainDetailsHostedZoneComponent,
     DomainDetailsProxyCategorizaitonComponent,
     DomainDetailsSummaryComponent,
     DomainDetailsTemplateSelectionComponent,
