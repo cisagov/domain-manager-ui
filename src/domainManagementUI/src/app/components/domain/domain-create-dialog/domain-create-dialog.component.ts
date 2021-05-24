@@ -1,16 +1,10 @@
-//Angular Imports
+// Angular Imports
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  AbstractControl,
-  ValidatorFn,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DomainService } from 'src/app/services/domain.service';
 
-//Local Service Imports
+// Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CSVHelper } from 'src/app/helpers/csvHelper';
 
@@ -36,11 +30,11 @@ export class DomainCreateDialogComponent implements OnInit {
 
   createDomain() {
     const input = this.domainForm.get('url').value;
-    let urls = input
-      .replace(/(\r\n|\n|\r)/gm, ',') //remove eol
-      .replace(/\s/g, '') //remove spaces
+    const urls = input
+      .replace(/(\r\n|\n|\r)/gm, ',') // remove eol
+      .replace(/\s/g, '') // remove spaces
       .split(',');
-    let vals = [];
+    const vals = [];
     urls.forEach((url) => {
       if (url) {
         vals.push(url);
@@ -78,22 +72,20 @@ export class DomainCreateDialogComponent implements OnInit {
   }
 }
 function validateURLs(control: FormControl) {
-  1;
-
-  let input = control.value as string;
-  let urls = input
-    .replace(/(\r\n|\n|\r)/gm, ',') //remove eol
-    .replace(/\s/g, '') //remove spaces
+  const input = control.value as string;
+  const urls = input
+    .replace(/(\r\n|\n|\r)/gm, ',') // remove eol
+    .replace(/\s/g, '') // remove spaces
     .split(',');
 
-  var expression =
-    /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-  var regex = new RegExp(expression);
+  const expression =
+    /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,24}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+  const regex = new RegExp(expression);
 
-  let errors = [];
+  const errors = [];
 
   urls.forEach((url) => {
-    if (url != '') {
+    if (url !== '') {
       if (url.match(regex)) {
         console.log(url);
       } else {
