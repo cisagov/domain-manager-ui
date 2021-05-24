@@ -78,7 +78,10 @@
                   formControlName="application_id"
                 >
                   <mat-option [value]="null">--Select--</mat-option>
-                  <mat-option *ngFor="let a of application_list" [value]="a._id">
+                  <mat-option
+                    *ngFor="let a of application_list"
+                    [value]="a._id"
+                  >
                     {{ a.name }}
                   </mat-option>
                 </mat-select>

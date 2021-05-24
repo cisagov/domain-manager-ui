@@ -27,8 +27,8 @@
         <div class="text-muted">
           User needs to be confirmed before the account can be used
         </div>
-        <div *ngIf=umTabSvc.appRequested class="text-muted">
-          Application requested - {{ umTabSvc.appRequested}}
+        <div *ngIf="umTabSvc.appRequested" class="text-muted">
+          Application requested - {{ umTabSvc.appRequested }}
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@ export class UserManagementTabService {
         this.userHistory = new MatTableDataSource(this.user_data.History);
         this.userHistory.sort = this.sort;
         this.user_data_behavior_subject.next(this.user_data);
-        this.setAppRequested()
+        this.setAppRequested();
         this.loading = false;
       },
       (failure) => {
@@ -84,10 +84,10 @@ export class UserManagementTabService {
     );
   }
 
-  setAppRequested(){
-    if(this.user_data.UserStatus == 'UNCONFIRMED' && this.user_data.Groups){
+  setAppRequested() {
+    if (this.user_data.UserStatus == 'UNCONFIRMED' && this.user_data.Groups) {
       //@ts-ignore
-      this.appRequested = this.user_data.Groups[0]["GroupName"]
+      this.appRequested = this.user_data.Groups[0]['GroupName'];
     } else {
       this.appRequested = null;
     }

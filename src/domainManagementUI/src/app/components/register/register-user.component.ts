@@ -47,7 +47,6 @@ export class RegisterUserComponent implements OnInit {
   faBan = faBan;
   faCheck = faCheck;
 
-
   application_list = [];
   minNumberOfChar = 8;
   matcherusername = new MyErrorStateMatcher();
@@ -77,7 +76,7 @@ export class RegisterUserComponent implements OnInit {
     public applicationSvc: ApplicationService,
     private router: Router,
     private snackBar: MatSnackBar,
-    public userSvc: UserManagementService,
+    public userSvc: UserManagementService
   ) {}
 
   ngOnInit() {
@@ -172,23 +171,24 @@ export class RegisterUserComponent implements OnInit {
   }
 
   getApplicationData() {
-      this.applicationSvc.getAllApplicationsNoAuth().subscribe(
-        (success) => {
-          this.application_list = success as [];
-        },
-        (failure) => {
-          this.alertsSvc.alert(failure);
-        }
-      );
+    this.applicationSvc.getAllApplicationsNoAuth().subscribe(
+      (success) => {
+        this.application_list = success as [];
+      },
+      (failure) => {
+        this.alertsSvc.alert(failure);
+      }
+    );
   }
-  changeApplication(value){
-    if(value){
-      this.model.ApplicationName = this.application_list.filter(app => app._id == value)[0]['name']
-      this.model.ApplicationUUID = value
+  changeApplication(value) {
+    if (value) {
+      this.model.ApplicationName = this.application_list.filter(
+        (app) => app._id == value
+      )[0]['name'];
+      this.model.ApplicationUUID = value;
     } else {
       this.model.ApplicationName = null;
       this.model.ApplicationUUID = null;
     }
   }
-
 }
