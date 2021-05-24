@@ -15,8 +15,8 @@
   </div>
 
   <div class="flex-column" [formGroup]="domainForm">
-    <div class="flex flex-column">
-      <mat-form-field style="width: 30em" appearance="outline">
+    <div class="flex flex-column" style="width: 30em">
+      <mat-form-field appearance="outline">
         <mat-label>Domain URL's</mat-label>
         <textarea
           matInput
@@ -26,21 +26,15 @@
           placeholder=" The url of the new domain"
           rows="10"
         ></textarea>
-        <mat-error
-          *ngIf="domainForm.get('url').invalid"
-          class="invalid-feedback"
-        >
-          <p *ngIf="domainForm.get('url').errors.required">
-            A url must be provided.
-          </p>
-          <div *ngIf="domainForm.get('url').errors.urlErrors">
-            URL errors
-            <p *ngFor="let error of domainForm.get('url').errors.urlErrors">
-              {{ error }}
-            </p>
-          </div>
-        </mat-error>
       </mat-form-field>
+      <mat-error *ngIf="domainForm.invalid" class="invalid-feedback">
+        <div *ngIf="domainForm.get('url').errors.urlErrors">
+          URL errors
+          <p *ngFor="let error of domainForm.get('url').errors.urlErrors">
+            {{ error }}
+          </p>
+        </div>
+      </mat-error>
     </div>
   </div>
 </form>

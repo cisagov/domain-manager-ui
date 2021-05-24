@@ -1,12 +1,22 @@
 // Angular Imports
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DomainService } from 'src/app/services/domain.service';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CSVHelper } from 'src/app/helpers/csvHelper';
+import { DomainModel } from 'src/app/models/domain.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-domain-create',
@@ -15,9 +25,11 @@ import { CSVHelper } from 'src/app/helpers/csvHelper';
 export class DomainCreateDialogComponent implements OnInit {
   domainForm = new FormGroup({
     url: new FormControl('', {
-      validators: [Validators.required, validateURLs],
+      validators: [Validators.required, this.domainValidator()],
     }),
   });
+
+  existingDomainNames: string[] = [];
 
   constructor(
     public alertsSvc: AlertsService,
@@ -26,7 +38,16 @@ export class DomainCreateDialogComponent implements OnInit {
     private domainSvc: DomainService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.getExistingDomains();
+  }
+
+  async getExistingDomains() {
+    const domains = await this.domainSvc.getDomains();
+    domains.forEach((domain: DomainModel) => {
+      this.existingDomainNames.push(domain.name);
+    });
+  }
 
   createDomain() {
     const input = this.domainForm.get('url').value;
@@ -70,36 +91,39 @@ export class DomainCreateDialogComponent implements OnInit {
     ) as HTMLElement;
     element.click();
   }
-}
-function validateURLs(control: FormControl) {
-  const input = control.value as string;
-  const urls = input
-    .replace(/(\r\n|\n|\r)/gm, ',') // remove eol
-    .replace(/\s/g, '') // remove spaces
-    .split(',');
 
-  const expression =
-    /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,24}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-  const regex = new RegExp(expression);
+  private domainValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const input = control.value as string;
+      const urls = input
+        .replace(/(\r\n|\n|\r)/gm, ',') // remove eol
+        .replace(/\s/g, '') // remove spaces
+        .split(',');
 
-  const errors = [];
+      const expression =
+        /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,24}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+      const regex = new RegExp(expression);
 
-  urls.forEach((url) => {
-    if (url !== '') {
-      if (url.match(regex)) {
-        console.log(url);
-      } else {
-        errors.push(`${url} is an invalid url`);
+      const errors = [];
+
+      urls.forEach((url) => {
+        if (url !== '' && !url.match(regex)) {
+          errors.push(`${url} is an invalid url`);
+        }
+        if (
+          this.existingDomainNames &&
+          this.existingDomainNames.includes(url)
+        ) {
+          errors.push(`${url} currently exists`);
+        }
+      });
+
+      if (errors.length) {
+        return {
+          urlErrors: errors,
+        };
       }
-    }
-  });
-
-  console.log(urls);
-
-  if (errors.length) {
-    return {
-      urlErrors: errors,
+      return null;
     };
   }
-  return null;
 }
