@@ -23,9 +23,12 @@
       <div class="flex" style="width: 52px">
         <mat-icon class="contrast-icon">warning</mat-icon>
       </div>
-      <div class="flex" style="padding-top: 1em">
+      <div class="flex flex-column" style="padding-top: 1em">
         <div class="text-muted">
           User needs to be confirmed before the account can be used
+        </div>
+        <div *ngIf=umTabSvc.appRequested class="text-muted">
+          Application requested - {{ umTabSvc.appRequested}}
         </div>
       </div>
     </div>

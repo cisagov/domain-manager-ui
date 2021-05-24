@@ -4,4 +4,6 @@ export class RegisterUser {
   LastName: string;
   Email: string;
   Password: string;
+  ApplicationUUID: string;
+  ApplicationName: string;
 }

@@ -72,6 +72,19 @@
               </mat-form-field>
             </p>
             <p>
+              <mat-form-field [formGroup]="userFormGroup" appearance="outline">
+                <mat-select
+                  (selectionChange)="changeApplication($event.value)"
+                  formControlName="application_id"
+                >
+                  <mat-option [value]="null">--Select--</mat-option>
+                  <mat-option *ngFor="let a of application_list" [value]="a._id">
+                    {{ a.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p>
               <mat-form-field appearance="outline" [formGroup]="userFormGroup">
                 <input
                   type="password"
