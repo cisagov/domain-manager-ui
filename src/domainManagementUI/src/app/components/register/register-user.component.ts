@@ -18,6 +18,7 @@ import { RegisterUser } from 'src/app/models/registered-user.model';
 import { faBan, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 // Local Service Imports
+import { ApplicationService } from 'src/app/services/applications.service';
 import { UserManagementService } from 'src/app/services/user-management.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 
@@ -46,6 +47,7 @@ export class RegisterUserComponent implements OnInit {
   faBan = faBan;
   faCheck = faCheck;
 
+  application_list = [];
   minNumberOfChar = 8;
   matcherusername = new MyErrorStateMatcher();
   matcherpassword = new MyErrorStateMatcher();
@@ -64,17 +66,22 @@ export class RegisterUserComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     confirmPassword: new FormControl('', [Validators.required]),
+    application_id: new FormControl('', [Validators.required]),
   });
 
   error: string;
 
   constructor(
-    public userSvc: UserManagementService,
+    public alertsSvc: AlertsService,
+    public applicationSvc: ApplicationService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public userSvc: UserManagementService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getApplicationData();
+  }
 
   submit() {
     if (this.userFormGroup.valid) {
@@ -161,5 +168,27 @@ export class RegisterUserComponent implements OnInit {
       return /[\d/]/.test(this.userFormGroup.controls.password.value);
     }
     return false;
+  }
+
+  getApplicationData() {
+    this.applicationSvc.getAllApplicationsNoAuth().subscribe(
+      (success) => {
+        this.application_list = success as [];
+      },
+      (failure) => {
+        this.alertsSvc.alert(failure);
+      }
+    );
+  }
+  changeApplication(value) {
+    if (value) {
+      this.model.ApplicationName = this.application_list.filter(
+        (app) => app._id == value
+      )[0]['name'];
+      this.model.ApplicationId = value;
+    } else {
+      this.model.ApplicationName = null;
+      this.model.ApplicationId = null;
+    }
   }
 }

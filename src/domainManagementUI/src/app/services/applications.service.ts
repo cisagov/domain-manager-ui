@@ -33,6 +33,11 @@ export class ApplicationService {
     return this.http.get(url);
   }
 
+  getAllApplicationsNoAuth() {
+    const url = `${this.settingsService.settings.apiUrl}/api/auth/applications/`;
+    return this.http.get(url);
+  }
+
   getApplication(id: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/application/${id}/`;
     return this.http.get(url);
