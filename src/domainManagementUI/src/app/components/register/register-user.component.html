@@ -73,9 +73,11 @@
             </p>
             <p>
               <mat-form-field [formGroup]="userFormGroup" appearance="outline">
+                <mat-icon matPrefix style="margin-right: 10px">group</mat-icon>
                 <mat-select
                   (selectionChange)="changeApplication($event.value)"
                   formControlName="application_id"
+                  placeholder="Group"
                 >
                   <mat-option [value]="null">--Select--</mat-option>
                   <mat-option

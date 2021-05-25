@@ -1,12 +1,18 @@
-<div class="flex flex-container tab">
+<div class="flex flex-container tab generic-view">
   <table class="display_table">
     <tr>
-      <th>Key</th>
-      <th>Value</th>
+      <th>{{ keyHeader }}</th>
+      <th>{{ valueHeader }}</th>
     </tr>
     <tr *ngFor="let item of displayData">
       <td>{{ item.key }}</td>
       <td>{{ item.value }}</td>
     </tr>
   </table>
+</div>
+
+<div class="flex w-100" style="flex-direction: row-reverse">
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">
+    Close
+  </button>
 </div>
