@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
+import { GenericDialogSettings } from 'src/app/models/genericDialogSettings.model';
 
 @Component({
   selector: 'app-user-managment-details-history',
@@ -38,6 +39,7 @@ export class UserManagementDetailsHistoryComponent implements OnInit {
   }
 
   viewRecord(record: UserHistory) {
-    this.dialog.open(GenericViewComponent, { data: record });
+    const genericSettings = new GenericDialogSettings(record);
+    this.dialog.open(GenericViewComponent, { data: genericSettings });
   }
 }

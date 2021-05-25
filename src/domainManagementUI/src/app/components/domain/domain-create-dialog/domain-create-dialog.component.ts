@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  AsyncValidatorFn,
   FormControl,
   FormGroup,
   ValidationErrors,
@@ -17,6 +16,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { CSVHelper } from 'src/app/helpers/csvHelper';
 import { DomainModel } from 'src/app/models/domain.model';
 import { GenericViewComponent } from '../../dialog-windows/generic-view/generic-view.component';
+import { GenericDialogSettings } from 'src/app/models/genericDialogSettings.model';
 
 @Component({
   selector: 'app-domain-create',
@@ -64,7 +64,12 @@ export class DomainCreateDialogComponent implements OnInit {
 
     this.domainSvc.createDomain(vals).subscribe(
       (resp: any) => {
-        this.dialog.open(GenericViewComponent, { data: resp });
+        const genericSettings = new GenericDialogSettings(
+          resp,
+          'Domain',
+          'Status'
+        );
+        this.dialog.open(GenericViewComponent, { data: genericSettings });
         this.dialogRef.close(true);
       },
       (failure) => {
