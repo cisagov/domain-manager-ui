@@ -185,10 +185,10 @@ export class RegisterUserComponent implements OnInit {
       this.model.ApplicationName = this.application_list.filter(
         (app) => app._id == value
       )[0]['name'];
-      this.model.ApplicationUUID = value;
+      this.model.ApplicationId = value;
     } else {
       this.model.ApplicationName = null;
-      this.model.ApplicationUUID = null;
+      this.model.ApplicationId = null;
     }
   }
 }
