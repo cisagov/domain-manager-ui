@@ -16,7 +16,7 @@ import { DomainService } from 'src/app/services/domain.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CSVHelper } from 'src/app/helpers/csvHelper';
 import { DomainModel } from 'src/app/models/domain.model';
-import { Observable } from 'rxjs';
+import { GenericViewComponent } from '../../dialog-windows/generic-view/generic-view.component';
 
 @Component({
   selector: 'app-domain-create',
@@ -63,7 +63,8 @@ export class DomainCreateDialogComponent implements OnInit {
     });
 
     this.domainSvc.createDomain(vals).subscribe(
-      () => {
+      (resp: any) => {
+        this.dialog.open(GenericViewComponent, { data: resp });
         this.dialogRef.close(true);
       },
       (failure) => {
