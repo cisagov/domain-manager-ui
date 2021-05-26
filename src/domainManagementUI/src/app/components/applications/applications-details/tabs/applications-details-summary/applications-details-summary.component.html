@@ -1,0 +1,131 @@
+<div *ngIf="appTabSvc.loading" class="flex flex-container tab">
+    <div style="text-align: center; padding-top: 2rem; padding-bottom: 2rem">
+        <mat-spinner
+        class="spinner"
+        style="margin-left: auto; margin-right: auto"
+        diameter="50"
+        ></mat-spinner>
+    </div>
+</div>
+  <div *ngIf="!appTabSvc.loading" class="flex flex-container tab">
+    <h4>Application Summary</h4>
+    <div class="text-muted" style="margin-bottom: 0.5em">
+      A summary of the {{appTabSvc.application_data.name}} application
+    </div>
+  
+    <div *ngIf="!editMode" class="edit-form">
+        <div class="flex-column flex-full summary_list_rows">
+            <div class="flex-row">
+              <div class="flex sl_flex_title">Application Name</div>
+              <div class="flex sl_flex_content">
+                {{ appTabSvc.application_data.name }}
+              </div>
+            </div>
+            <div class="flex-row">
+              <div class="flex sl_flex_title">Contact Name</div>
+              <div class="flex sl_flex_content">
+                {{ appTabSvc.application_data.contact_name }}
+              </div>
+            </div>
+            <div class="flex-row">
+              <div class="flex sl_flex_title">Contact Email</div>
+              <div class="flex sl_flex_content">
+                {{ appTabSvc.application_data.contact_email }}
+              </div>
+            </div>
+            <div class="flex-row">
+              <div class="flex sl_flex_title">Contact Phone</div>
+              <div class="flex sl_flex_content">
+                {{ appTabSvc.application_data.contact_phone }}
+              </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="editMode" class="edit-form">
+        <form
+        [formGroup]="applicationForm"
+        class="dialog text-muted"
+        mat-dialog-content
+        >
+            <div class="flex-column">
+                <div class="flex flex-column">
+                <mat-form-field style="width: 30em" appearance="outline">
+                    <mat-label>Application Name</mat-label>
+                    <input 
+                    style="color: black"
+                    matInput
+                    trim="blur"
+                    type="text"
+                    required
+                    formControlName="name"
+                    [(ngModel)]="appTabSvc.application_data.name"
+                    placeholder=" The name of the new application"
+                    />
+                    <mat-error *ngIf="applicationForm.get('name').invalid"
+                    >This is a required field.</mat-error
+                    >
+                </mat-form-field>
+                </div>
+
+                <div class="flex flex-column">
+                <mat-form-field style="width: 30em" appearance="outline">
+                    <mat-label>Contact Name</mat-label>
+                    <input
+                    style="color: black"
+                    matInput
+                    trim="blur"
+                    type="text"
+                    formControlName="contactName"
+                    [(ngModel)]="appTabSvc.application_data.contact_name"
+                    placeholder=" The name of the person requesting the new application"
+                    />
+                </mat-form-field>
+                </div>
+
+                <div class="flex flex-column">
+                <mat-form-field style="width: 30em" appearance="outline">
+                    <mat-label>Contact Email</mat-label>
+                    <input
+                    style="color: black"
+                    matInput
+                    trim="blur"
+                    type="email"
+                    formControlName="contactEmail"
+                    [(ngModel)]="appTabSvc.application_data.contact_email"
+                    placeholder=" The name of the person requesting the new application"
+                    />
+                    <mat-error *ngIf="applicationForm.get('contactEmail').invalid"
+                    >This needs to be a valid email.</mat-error
+                    >
+                </mat-form-field>
+                </div>
+
+                <div class="flex flex-column">
+                <mat-form-field style="width: 30em" appearance="outline">
+                    <mat-label>Contact Phone</mat-label>
+                    <input
+                    style="color: black"
+                    matInput
+                    trim="blur"
+                    type="text"
+                    formControlName="contactPhone"
+                    [(ngModel)]="appTabSvc.application_data.contact_phone"
+                    placeholder=" The name of the person requesting the new application"
+                    />
+                </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <button
+        class="all_tab_option_button"
+        mat-raised-button
+        color="primary"
+        (click)="changeEditMode()"
+        [disabled]="!applicationForm.valid"
+    >
+    {{ editButtonText }}
+    </button>
+  </div>
+  

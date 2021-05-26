@@ -1,0 +1,44 @@
+<h4>Application Domains</h4>
+<h5>Assigned Domains</h5>
+<mat-table 
+    [dataSource]="dataSourceOne" 
+    matSort
+    #TableOneSort="matSort"
+>
+    <!-- Domain Name -->
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Domain Name</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+      </ng-container>
+
+    <!-- Header Info -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row cursor-pointer"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+</mat-table>
+
+<h5>Available Domains</h5>
+<mat-table 
+    [dataSource]="dataSourceTwo" 
+    matSort
+    #TableTwoSort="matSort"
+>
+    <!-- Domain Name -->
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Domain Name</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+      </ng-container>
+
+    <!-- Header Info -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row cursor-pointer"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+</mat-table>
