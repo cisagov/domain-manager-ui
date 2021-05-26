@@ -49,6 +49,7 @@ export class ApplicationService {
   }
 
   updateApplication(id: string, data: ApplicationModel) {
+    console.log(data)
     const url = `${this.settingsService.settings.apiUrl}/api/application/${id}/`;
     return this.http.put(url, data);
   }

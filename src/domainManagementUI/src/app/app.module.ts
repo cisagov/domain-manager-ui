@@ -20,6 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 //Custom Components
 import { AppComponent } from './app.component';
+import { ApplicationsDetailsComponent } from './components/applications/applications-details/applications-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
@@ -54,6 +55,7 @@ import { UserManagementDetailsSummaryComponent } from './components/user-managme
 //Services
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
+import { ApplicationsTabService } from 'src/app/services/tab-services/applications-details-tab.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { HelpService } from 'src/app/services/help.service';
 import { LayoutService } from './services/layout.service';
@@ -78,6 +80,8 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+import { ApplicationsDetailsSummaryComponent } from './components/applications/applications-details/tabs/applications-details-summary/applications-details-summary.component';
+import { ApplicationsDetailsDomainsComponent } from './components/applications/applications-details/tabs/applications-details-domains/applications-details-domains.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -86,6 +90,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
 @NgModule({
   declarations: [
     AppComponent,
+    ApplicationsDetailsComponent,
     ApplicationEditDialogComponent,
     ApplicationListComponent,
     ConfirmDialogComponent,
@@ -119,6 +124,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     GenericViewComponent,
     VideoTutorialsComponent,
     HelpMenuComponent,
+    ApplicationsDetailsSummaryComponent,
+    ApplicationsDetailsDomainsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -140,6 +147,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   providers: [
     AlertsService,
     ApplicationService,
+    ApplicationsTabService,
     CategoryService,
     DomainDetailsTabService,
     DomainService,

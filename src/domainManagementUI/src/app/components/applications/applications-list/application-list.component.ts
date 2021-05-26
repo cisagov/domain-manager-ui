@@ -43,7 +43,8 @@ export class ApplicationListComponent
     public alertsSvc: AlertsService,
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
-    public layoutSvc: LayoutService
+    public layoutSvc: LayoutService,
+    private router: Router,
   ) {
     this.layoutSvc.setTitle('Applications');
   }
@@ -84,6 +85,10 @@ export class ApplicationListComponent
         this.loading = false;
       }
     );
+  }
+
+  openApplication(application: ApplicationModel) {
+    this.router.navigate([`/application/details/${application._id}`]);
   }
 
   editApplication(application: ApplicationModel) {

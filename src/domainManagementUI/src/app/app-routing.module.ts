@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
+import { ApplicationsDetailsComponent } from 'src/app/components/applications/applications-details/applications-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
 import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
@@ -31,6 +32,12 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: ApplicationListComponent }],
+  },
+  {
+    path: 'application/details/:_id',
+    component: LayoutMainComponent,
+    canActivate: [AuthGuard],
+    children: [{ path: '', component: ApplicationsDetailsComponent }],
   },
   {
     path: 'domain',
