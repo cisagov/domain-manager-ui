@@ -33,19 +33,47 @@ export class ApplicationsDetailsDomainsComponent implements OnInit {
     for(var i = 0; i < 10; i++){
       this.appTabSvc.getDomainsUpdateBehvaiorSubject().subscribe(
         (val) => {
-          let data = val as []
-          if(data.length > 0){
-            this.dataSourceOne.data = this.appTabSvc.domains_assigned
-            this.dataSourceTwo.data = this.appTabSvc.domains_not_assigned
+          if(val){
+            this.dataSourceTwo.data = this.appTabSvc.domains_assigned
+            this.dataSourceOne.data = this.appTabSvc.domains_not_assigned
           }
         }
       )
     }
+    this.setSorts()
+  }
+  setSorts(){
     this.dataSourceOne.sort = this.tableOneSort
     this.dataSourceTwo.sort = this.tableTwoSort
   }
-  // applyFilterOne(filterValue: string) {
-  //   this.dataSourceOne.filter = filterValue.trim().toLowerCase();
-  // }
 
+  assignDomain(row){
+    row = this.appTabSvc.updateDomainOwner(row)
+    this.transferItem(this.dataSourceOne,this.dataSourceTwo,row)
+    this.appTabSvc.updateDomain(row).subscribe(
+      (success) => { },
+      (failure) => {
+      this.transferItem(this.dataSourceTwo,this.dataSourceOne,row)
+    })
+      this.setSorts()  
+    }
+    
+  removeDomain(row){    
+    row = this.appTabSvc.updateDomainOwner(row)
+    this.transferItem(this.dataSourceTwo,this.dataSourceOne,row)
+    this.appTabSvc.updateDomain(row).subscribe(
+      (success) => { },
+      (failure) => {
+      this.transferItem(this.dataSourceOne,this.dataSourceTwo,row)
+    })
+    this.setSorts()
+  }
+
+  transferItem(fromSource,toSource,item){
+    let dataIndex = fromSource.data.map(item => item._id).indexOf(item._id)
+    fromSource.data.splice(dataIndex,1)
+    fromSource.data = [...fromSource.data] 
+    toSource.data.splice(0,0,item)
+    toSource.data = [...toSource.data]  
+  }
 }

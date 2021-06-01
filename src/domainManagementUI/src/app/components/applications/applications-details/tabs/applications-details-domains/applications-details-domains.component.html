@@ -1,44 +1,59 @@
 <h4>Application Domains</h4>
-<h5>Assigned Domains</h5>
-<mat-table 
-    [dataSource]="dataSourceOne" 
-    matSort
-    #TableOneSort="matSort"
->
-    <!-- Domain Name -->
-    <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Domain Name</mat-header-cell
+<div class="text-muted" style="margin-bottom: 0.5em">
+  A list of unassigned domains and domains assigned to the {{appTabSvc.application_data.name}} 
+  application. Click on a domain to assign/unassign it to the {{appTabSvc.application_data.name}}
+  application.
+</div>
+
+<div class="flex-row">
+    <div class="flex-column app-column">
+        <h5>Available Domains</h5>
+        <mat-table 
+            [dataSource]="dataSourceOne" 
+            matSort
+            #TableOneSort="matSort"
         >
-        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-      </ng-container>
+            <!-- Domain Name -->
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Domain Name</mat-header-cell
+                >
+                <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+            </ng-container>
 
-    <!-- Header Info -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row
-      class="table-row cursor-pointer"
-      *matRowDef="let row; columns: displayedColumns"
-    ></mat-row>
-</mat-table>
-
-<h5>Available Domains</h5>
-<mat-table 
-    [dataSource]="dataSourceTwo" 
-    matSort
-    #TableTwoSort="matSort"
->
-    <!-- Domain Name -->
-    <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Domain Name</mat-header-cell
+            <!-- Header Info -->
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row
+            (click)="assignDomain(row)"
+            class="table-row cursor-pointer"
+            *matRowDef="let row; columns: displayedColumns"
+            ></mat-row>
+        </mat-table>
+    </div>
+    <div class="flex-column" style="width:1em">
+    </div>
+    <div class="flex-column app-column">
+        <h5>Assigned Domains</h5>
+        <mat-table 
+            [dataSource]="dataSourceTwo" 
+            matSort
+            #TableTwoSort="matSort"
         >
-        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-      </ng-container>
+            <!-- Domain Name -->
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Domain Name</mat-header-cell
+                >
+                <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+            </ng-container>
 
-    <!-- Header Info -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row
-      class="table-row cursor-pointer"
-      *matRowDef="let row; columns: displayedColumns"
-    ></mat-row>
-</mat-table>
+            <!-- Header Info -->
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row
+            (click)="removeDomain(row)"
+            class="table-row cursor-pointer"
+            *matRowDef="let row; columns: displayedColumns"
+            ></mat-row>
+        </mat-table>        
+    </div>
+</div>
