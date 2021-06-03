@@ -44,7 +44,7 @@ export class ApplicationListComponent
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
-    private router: Router,
+    private router: Router
   ) {
     this.layoutSvc.setTitle('Applications');
   }
