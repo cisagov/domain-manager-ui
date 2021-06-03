@@ -133,7 +133,6 @@ export class DomainListComponent implements OnInit {
   }
 
   _setAdminView() {
-    console.log(this.userIsAdmin);
     if (this.userIsAdmin) {
       this.displayedColumns.unshift('checked');
     }
