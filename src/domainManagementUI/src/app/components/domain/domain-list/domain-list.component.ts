@@ -26,7 +26,6 @@ import { ApplicationService } from 'src/app/services/applications.service';
   styleUrls: ['./domain-list.component.scss'],
 })
 export class DomainListComponent implements OnInit {
-  allChecked = false;
   component_subscriptions = [];
   create_dialog: MatDialogRef<DomainCreateDialogComponent> = null;
   displayedColumns = [
@@ -60,7 +59,6 @@ export class DomainListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDomains();
-    this._setAdminView();
   }
 
   ngOnDestroy(): void {
@@ -123,69 +121,7 @@ export class DomainListComponent implements OnInit {
     });
   }
 
-  _formatDomainListData(data) {
-    if (this.userIsAdmin && data instanceof Array) {
-      data.forEach((domainItem) => {
-        domainItem['isChecked'] = false;
-      });
-    }
-    return data;
-  }
-
-  _setAdminView() {
-    if (this.userIsAdmin) {
-      this.displayedColumns.unshift('checked');
-    }
-  }
-
-  updateAllCheckboxComplete() {
-    let data = this.domainList['_data']['_value'];
-    this.allChecked = data != null && data.every((t) => t.isChecked);
-  }
-  setAllCheckboxes(checked: boolean) {
-    console.log(checked);
-    let data = this.domainList['_data']['_value'];
-    if (data == null || data == undefined) {
-      return false;
-    }
-    this.allChecked = checked;
-    data.forEach((t) => (t.isChecked = checked));
-    console.log('updateAll');
-  }
-  someChecked() {
-    let data = this.domainList['_data']['_value'];
-    if (data == null || data == undefined) {
-      return false;
-    }
-    return data.filter((t) => t.isChecked).length > 0 && !this.allChecked;
-  }
-  setAvailableDomains() {
-    let selectedItems = this.domainList['_data']['_value'].filter(
-      (t) => t.isChecked
-    );
-    let uuidsToSetActive = [];
-    selectedItems.forEach((t) => {
-      uuidsToSetActive.push(t._id);
-    });
-    this.domainSvc.setDomainsAsAvailable(uuidsToSetActive).subscribe(
-      (success) => {
-        console.log('set available service method called and completed');
-        this.domainList['_data']['_value']
-          .filter((t) => uuidsToSetActive.includes(t._id))
-          .forEach((e) => (e.isAvailable = true));
-        this.domainList['_data']['_value'].forEach(
-          (t) => (t.isChecked = false)
-        );
-        this.updateAllCheckboxComplete();
-      },
-      (failure) => {
-        this.alertsSvc.alert('Failed to set domains as available');
-        console.log(failure);
-      }
-    );
-  }
-
-  //Used by mat table for filtering with the search bar
+  // Used by mat table for filtering with the search bar
   public filterList = (value: string) => {
     this.domainList.filter = value.trim().toLocaleLowerCase();
   };

@@ -37,43 +37,7 @@
       ></mat-spinner>
     </div>
 
-    <div
-      *ngIf="userIsAdmin"
-      style="margin-bottom: 1em"
-      class="add-new-button-container flex"
-    >
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="setAvailableDomains()"
-        class="mb-2"
-      >
-        Make Selected Available
-      </button>
-    </div>
-
     <mat-table [hidden]="loading" [dataSource]="domainList" matSort>
-      <!-- ActionCheckbox -->
-      <ng-container matColumnDef="checked">
-        <mat-header-cell *matHeaderCellDef
-          ><mat-checkbox
-            [checked]="allChecked"
-            [indeterminate]="someChecked()"
-            color="warn"
-            (change)="setAllCheckboxes($event.checked)"
-          >
-          </mat-checkbox>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <mat-checkbox
-            [(ngModel)]="row.isChecked"
-            color="primary"
-            (ngModelChange)="updateAllCheckboxComplete()"
-          >
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container>
-
       <!-- Domain Name -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header
