@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { DomainService } from 'src/app/services/domain.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 
@@ -37,7 +38,8 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
     public layoutSvc: LayoutService,
     private router: Router,
     public ddTabSvc: DomainDetailsTabService,
-    public domainTemplateSvc: DomainService
+    public domainTemplateSvc: DomainService,
+    public userAuthSvc: UserAuthService
   ) {
     this.layoutSvc.setTitle('Domain Details');
   }
