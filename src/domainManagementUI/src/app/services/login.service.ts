@@ -61,7 +61,11 @@ export class LoginService {
     localStorage.setItem('expires_at', authResult.expires_at);
     localStorage.setItem('username', authResult.username);
     localStorage.setItem('isAdmin', 'false');
-    this.cookieSvc.set('dm-auth-refresh-token', authResult.refresh_token, {secure: true, expires: 30, sameSite: 'Strict'});
+    this.cookieSvc.set('dm-auth-refresh-token', authResult.refresh_token, {
+      secure: true,
+      expires: 30,
+      sameSite: 'Strict',
+    });
     this.startRefreshTokenTimer();
     try {
       const jwt = jwt_decode(authResult.id_token);
