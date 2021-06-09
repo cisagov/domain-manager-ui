@@ -82,6 +82,7 @@ import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ApplicationsDetailsSummaryComponent } from './components/applications/applications-details/tabs/applications-details-summary/applications-details-summary.component';
 import { ApplicationsDetailsDomainsComponent } from './components/applications/applications-details/tabs/applications-details-domains/applications-details-domains.component';
+import { ApplicationsDetailsUsersComponent } from './components/applications/applications-details/tabs/applications-details-users/applications-details-users.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -126,6 +127,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     HelpMenuComponent,
     ApplicationsDetailsSummaryComponent,
     ApplicationsDetailsDomainsComponent,
+    ApplicationsDetailsUsersComponent,
   ],
   imports: [
     AppRoutingModule,

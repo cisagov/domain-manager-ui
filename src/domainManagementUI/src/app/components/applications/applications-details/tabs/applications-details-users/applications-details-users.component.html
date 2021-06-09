@@ -1,0 +1,54 @@
+<h4>Application Users</h4>
+<div class="text-muted" style="margin-bottom: 1em">
+  A list of users assigned to the application. Click on a user to view it.
+</div>
+<mat-table [dataSource]="users">
+  <!-- Username -->
+  <ng-container matColumnDef="Username">
+    <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.Username }}</mat-cell>
+  </ng-container>
+
+  <!-- Template Base -->
+  <ng-container matColumnDef="UserStatus">
+    <mat-header-cell *matHeaderCellDef>User Status</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.UserStatus }}</mat-cell>
+  </ng-container>
+
+  <!-- User Created Date -->
+  <ng-container matColumnDef="UserCreateDate">
+    <mat-header-cell *matHeaderCellDef>Created Date </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{
+      row.UserCreateDate | date: "MM/dd/yy"
+    }}</mat-cell>
+  </ng-container>
+
+  <!-- Last Modified Date -->
+  <ng-container matColumnDef="UserLastModifiedDate">
+    <mat-header-cell *matHeaderCellDef>Last Modified Date </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{
+      row.UserLastModifiedDate | date: "MM/dd/yy"
+    }}</mat-cell>
+  </ng-container>
+
+  <!-- User Enabled -->
+  <ng-container matColumnDef="Enabled">
+    <mat-header-cell *matHeaderCellDef>Enabled</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-icon
+        *ngIf="row.Enabled"
+        aria-hidden="false"
+        aria-label="check_circle icon"
+        >check_circle</mat-icon
+      >
+    </mat-cell>
+  </ng-container>
+
+  <!-- Header Info -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    class="table-row cursor-pointer"
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="viewUser(row.Username)"
+  ></mat-row>
+</mat-table>

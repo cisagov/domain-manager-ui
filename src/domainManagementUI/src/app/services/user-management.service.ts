@@ -1,16 +1,14 @@
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 
-//Local Service Imports
-import { environment } from 'src/environments/environment';
+// Local Service Imports
 import { SettingsService } from 'src/app/services/settings.service';
 
-//Models
+// Models
 import { UserModel } from 'src/app/models/user.model';
 import { RegisterUser } from 'src/app/models/registered-user.model';
-import { group } from '@angular/animations';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -23,9 +21,14 @@ export class UserManagementService {
     private settingsService: SettingsService
   ) {}
 
-  getAllUsers() {
-    const url = `${this.settingsService.settings.apiUrl}/api/users/`;
-    return this.http.get(url, headers);
+  getAllUsers(applicationId: string = null) {
+    let url = `${this.settingsService.settings.apiUrl}/api/users/`;
+
+    if (applicationId) {
+      url += `?application=${applicationId}`;
+    }
+
+    return this.http.get<UserModel[]>(url, headers);
   }
 
   getAllGroups() {
