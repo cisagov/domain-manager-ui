@@ -106,8 +106,7 @@ export class DomainCreateDialogComponent implements OnInit {
         .replace(/\s/g, '') // remove spaces
         .split(',');
 
-      const expression =
-        /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,24}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+      const expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,24}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
       const regex = new RegExp(expression);
 
       const errors = [];

@@ -1,3 +1,5 @@
+ARG VERSION=unspecified
+
 # Stage 1 - Build
 FROM node:16-alpine as node
 
@@ -20,6 +22,14 @@ RUN ng build --configuration production --output-path /app/dist/angular-docker/
 
 # Stage 2 - Run
 FROM nginx:1.19
+
+# Set Env
+ARG VERSION
+ENV VERSION=${VERSION}
+
+# Set labels
+LABEL org.opencontainers.image.vendor="Cybersecurity and Infrastructure Security Agency"
+LABEL org.opencontainers.image.version=${VERSION}
 
 # Copy distribution from build
 COPY --from=node /app/dist/angular-docker /usr/share/nginx/html
