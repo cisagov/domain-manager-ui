@@ -1,15 +1,10 @@
 // Angular Imports
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { SettingsService } from 'src/app/services/settings.service';
-
-// Local Services
-import { environment } from 'src/environments/environment';
 
 // Models
 import { ApplicationModel } from 'src/app/models/application.model';
-import { DomainModel } from '../models/domain.model';
 
 @Injectable()
 export class ApplicationService {
@@ -40,7 +35,7 @@ export class ApplicationService {
 
   getApplication(id: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/application/${id}/`;
-    return this.http.get(url);
+    return this.http.get<ApplicationModel>(url);
   }
 
   deleteApplication(id: string) {

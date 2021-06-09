@@ -10,5 +10,11 @@
     <mat-tab label="Domains">
       <app-applications-details-domains> </app-applications-details-domains>
     </mat-tab>
+
+    <mat-tab label="Users">
+      <app-applications-details-users
+        [users]="users"
+      ></app-applications-details-users>
+    </mat-tab>
   </mat-tab-group>
 </div>
