@@ -18,8 +18,7 @@ import { UserAuthService } from 'src/app/services/user-auth.service';
 })
 export class UserManagementDetailsGroupsComponent implements OnInit {
   allChecked = false;
-  groupList: MatTableDataSource<ApplicationGroupModel> =
-    new MatTableDataSource<ApplicationGroupModel>();
+  groupList: MatTableDataSource<ApplicationGroupModel> = new MatTableDataSource<ApplicationGroupModel>();
   displayedColumns = ['name'];
   user_data_behvior_subject = null;
   search_input = '';

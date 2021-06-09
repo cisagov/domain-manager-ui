@@ -66,8 +66,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     if (this.ddTabSvc.proxy_categoriztion_tab_form.valid) {
       this.ddTabSvc.submitCategory().subscribe(
         (success) => {
-          this.ddTabSvc.domain_data.submitted_category =
-            this.ddTabSvc.proxy_categoriztion_tab_form.controls.category_one.value;
+          this.ddTabSvc.domain_data.submitted_category = this.ddTabSvc.proxy_categoriztion_tab_form.controls.category_one.value;
           this.alertsSvc.alert(
             'Category successfully submitted for review.',
             undefined,
