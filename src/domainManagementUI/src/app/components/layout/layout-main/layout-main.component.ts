@@ -74,6 +74,10 @@ export class LayoutMainComponent implements OnInit {
     );
   }
 
+  about() {
+    this.router.navigate([`/about/`]);
+  }
+
   featureRequest() {
     this.helpSvc.featureRequest();
   }

@@ -19,6 +19,7 @@ import { VideoTutorialsComponent } from 'src/app/components/help/video-tutorials
 
 // Guards
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,12 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: DomainListComponent }],
+  },
+  {
+    path: 'about',
+    component: LayoutMainComponent,
+    canActivate: [AuthGuard],
+    children: [{ path: '', component: AboutComponent }],
   },
   {
     path: 'application',

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelpService } from 'src/app/services/help.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-help-menu',
@@ -12,8 +13,11 @@ export class HelpMenuComponent implements OnInit {
   constructor(
     public helpSvc: HelpService,
     public alertsSvc: AlertsService,
+    public layoutSvc: LayoutService,
     public settingsService: SettingsService
-  ) {}
+  ) {
+    this.layoutSvc.setTitle('Help');
+  }
 
   ngOnInit(): void {}
   openUserManual() {
