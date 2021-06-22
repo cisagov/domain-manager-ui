@@ -53,6 +53,7 @@ import { UserManagementDetailsHistoryComponent } from './components/user-managme
 import { UserManagementDetailsSummaryComponent } from './components/user-managment/user-management-details/tabs/summary/user-management-details-summary.component';
 
 //Services
+import { AboutService } from './services/about.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { ApplicationsTabService } from 'src/app/services/tab-services/applications-details-tab.service';
@@ -147,6 +148,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     VgBufferingModule,
   ],
   providers: [
+    AboutService,
     AlertsService,
     ApplicationService,
     ApplicationsTabService,
