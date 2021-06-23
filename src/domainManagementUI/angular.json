@@ -36,22 +36,28 @@
               "vendorChunk": false
             }
           },
+          "defaultConfiguration": "",
           "options": {
-            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
+            "buildOptimizer": false,
+            "extractLicenses": false,
             "index": "src/index.html",
             "main": "src/main.ts",
+            "namedChunks": true,
+            "optimization": false,
             "outputPath": "dist/domainManagementUI",
             "polyfills": "src/polyfills.ts",
             "scripts": [],
+            "sourceMap": true,
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "tsConfig": "tsconfig.app.json"
+            "tsConfig": "tsconfig.app.json",
+            "vendorChunk": true
           }
         },
         "e2e": {
