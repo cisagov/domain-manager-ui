@@ -61,19 +61,6 @@ export class LayoutMainComponent implements OnInit {
     this.router.navigate([`/user/details/${this.currentUserName}/`]);
   }
 
-  help() {
-    console.log('HELP');
-    this.helpSvc.getUserGuide().subscribe(
-      (success) => {
-        console.log(success);
-        this.downloadObject('DomainManagerUserGuide.pdf', success);
-      },
-      (failure) => {
-        console.log(failure);
-      }
-    );
-  }
-
   about() {
     this.router.navigate([`/about/`]);
   }
