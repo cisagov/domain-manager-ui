@@ -12,18 +12,6 @@ export class HelpService {
     public location: Location
   ) {}
 
-  getUserGuide() {
-    console.log('getUserGuide');
-    const downloadHeaders = new HttpHeaders().set(
-      'content-type',
-      'application/zip'
-    );
-    const url = `${this.settingsService.settings.apiUrl}/api/help/`;
-    return this.http.get(url, {
-      headers: downloadHeaders,
-      responseType: 'blob',
-    });
-  }
   openUserGuide() {
     const angularRoute = this.location.path();
     const url = window.location.href;
