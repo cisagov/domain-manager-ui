@@ -1,6 +1,8 @@
-<div>
-  <h3 class="mb-5">Version Details</h3>
-  <div class="list-sub-section">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Version Details</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
     <h5>Current UI version</h5>
     <div class="text-muted desc-field">
       {{ aboutData.ui_commit_id }}
@@ -15,5 +17,28 @@
     <div class="text-muted desc-field">
       {{ aboutData.deployed_date }}
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="userAuthSvc.isAdmin">
+  <mat-card-header>
+    <mat-card-title>Application Settings</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mat-label>SES Forward Email</mat-label>
+      <input
+        matInput
+        type="test"
+        trim="blur"
+        [(ngModel)]="settingsData.SES_FORWARD_EMAIL"
+      />
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="saveSettings()">
+      Save Settings
+    </button>
+  </mat-card-actions>
+</mat-card>

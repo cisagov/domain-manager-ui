@@ -84,6 +84,7 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ApplicationsDetailsSummaryComponent } from './components/applications/applications-details/tabs/applications-details-summary/applications-details-summary.component';
 import { ApplicationsDetailsDomainsComponent } from './components/applications/applications-details/tabs/applications-details-domains/applications-details-domains.component';
 import { ApplicationsDetailsUsersComponent } from './components/applications/applications-details/tabs/applications-details-users/applications-details-users.component';
+import { AboutComponent } from './components/about/about.component';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -91,6 +92,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
 
 @NgModule({
   declarations: [
+    AboutComponent,
     AppComponent,
     ApplicationsDetailsComponent,
     ApplicationEditDialogComponent,
