@@ -73,6 +73,7 @@ import { UserManagementService } from 'src/app/services/user-management.service'
 import { UserManagementTabService } from 'src/app/services/tab-services/user-management-tabs.service';
 
 //Helpers
+import { AboutComponent } from './components/about/about.component';
 import { ApplicationsDetailsDomainsComponent } from './components/applications/applications-details/tabs/applications-details-domains/applications-details-domains.component';
 import { ApplicationsDetailsSummaryComponent } from './components/applications/applications-details/tabs/applications-details-summary/applications-details-summary.component';
 import { ApplicationsDetailsUsersComponent } from './components/applications/applications-details/tabs/applications-details-users/applications-details-users.component';
@@ -92,6 +93,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
 
 @NgModule({
   declarations: [
+    AboutComponent,
     AppComponent,
     ApplicationsDetailsComponent,
     ApplicationEditDialogComponent,
