@@ -1,0 +1,53 @@
+.mat-column-select {
+  flex: 0 0 5%;
+  min-width: 65px;
+}
+.email-tab-body {
+  // 31em ends up being the height of the header and footer components
+  height: calc(100vh - 31em);
+  width:100%;
+
+}
+
+.email-message-container, .email-list-container, .email-resize-bar {
+  display:inline-block;
+  vertical-align: top;
+  height:100%;
+}
+.email-list-container {
+  width: calc(50% - 6px);
+  // padding-right: 8px;
+  // border:solid 1px red;
+}
+
+.email-message-container {
+  width: calc(50% - 6px);
+  // padding-left: 8px;
+  // border:solid 1px green;
+}
+
+.email-resize-bar{
+  width: 12px;
+  // padding-left: 8px;
+  // border:solid 1px blue;  
+  background-image: linear-gradient(#000, #000);
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+}
+.email-resize-bar:after{
+  // width: 12px;
+  // padding-left: 8px;
+  // border:solid 1px blue;  
+  content:"";
+  background-image: linear-gradient(#000, #000);
+  background-size: 4px 10px;
+  background-repeat: no-repeat;
+  background-position: left center;
+
+}
+.email-resize-bar:hover{
+ cursor:ew-resize;
+ background-color: rgba(0,0,0,.05);
+}
