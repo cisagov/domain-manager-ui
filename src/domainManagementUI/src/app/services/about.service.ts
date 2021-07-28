@@ -13,4 +13,14 @@ export class AboutService {
     const url = `${this.settingsService.settings.apiUrl}/api/about/`;
     return this.http.get(url);
   }
+
+  getSettings() {
+    const url = `${this.settingsService.settings.apiUrl}/api/settings/`;
+    return this.http.get(url);
+  }
+
+  saveSettings(data: any) {
+    const url = `${this.settingsService.settings.apiUrl}/api/settings/`;
+    return this.http.put(url, data);
+  }
 }

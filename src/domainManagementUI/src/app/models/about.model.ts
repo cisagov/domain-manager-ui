@@ -5,3 +5,7 @@ export class AboutModel extends BaseModel {
   api_commit_id: string;
   deployed_date: string;
 }
+
+export class SettingsModel {
+  SES_FORWARD_EMAIL: string;
+}
