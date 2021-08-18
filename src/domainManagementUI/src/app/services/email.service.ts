@@ -13,24 +13,22 @@ export class EmailService {
     private settingsService: SettingsService
   ) {}
 
-  getDomainEmails(domainId){
+  getDomainEmails(domainId) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/emails/`;
-    return this.http.get(url);      
+    return this.http.get(url);
   }
 
-  getDomainEmail(emailId){
+  getDomainEmail(emailId) {
     const url = `${this.settingsService.settings.apiUrl}/api/email/${emailId}/`;
-    return this.http.get(url);      
+    return this.http.get(url);
   }
 
-  setDomainEmailsStatus(domainId,isActive){    
+  setDomainEmailsStatus(domainId, isActive) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/receive-emails/`;
-    if(isActive){
-        return this.http.get(url);      
+    if (isActive) {
+      return this.http.get(url);
     } else {
-        return this.http.delete(url);      
-    }    
+      return this.http.delete(url);
+    }
   }
-
-
 }

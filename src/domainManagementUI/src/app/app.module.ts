@@ -9,7 +9,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 //Angular Modules
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { MatSortModule } from '@angular/material/sort';
@@ -30,7 +30,7 @@ import { DomainCreateDialogComponent } from 'src/app/components/domain/domain-cr
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
 import { DomainDetailsAttrbutesComponent } from 'src/app/components/domain/domain-details/tabs/attributes/domain-details-attributes.component';
 import { DomainDetailsDemoComponent } from 'src/app/components/domain/domain-details/tabs/demo/domain-details-demo.component';
-import { DomainDetailsEmailsComponent } from 'src/app/components/domain/domain-details/tabs/domain-emails/domain-details-emails.component'
+import { DomainDetailsEmailsComponent } from 'src/app/components/domain/domain-details/tabs/domain-emails/domain-details-emails.component';
 import { DomainDetailsHistoricalComponent } from 'src/app/components/domain/domain-details/tabs/historical/domain-details-historical.component';
 import { DomainDetailsHostedZoneComponent } from 'src/app/components/domain/domain-details/tabs/hosted-zone/domain-details-hosted-zone.component';
 import { DomainDetailsProxyCategorizaitonComponent } from 'src/app/components/domain/domain-details/tabs/proxy-categorization/domain-details-proxy-categorization.component';

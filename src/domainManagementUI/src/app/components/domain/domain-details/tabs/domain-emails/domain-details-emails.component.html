@@ -1,23 +1,23 @@
 <div class="flex flex-container tab">
   <!-- <h5>Domain : {{tdTabSvc.template_data.name}}</h5> -->
   <div>
-    <div >
+    <div>
       <h5>Domain's Emails Received</h5>
     </div>
-    <div 
-      matTooltip="In Process" 
+    <div
+      matTooltip="In Process"
       [matTooltipPosition]="toggleTooltipPosition"
-      [matTooltipDisabled]="!toggleInProcess">
-
-          
+      [matTooltipDisabled]="!toggleInProcess"
+    >
       <button
         mat-button
-        mat-raised-button color="primary"
-        style="display: inline-block;"
-        [disabled]=toggleInProcess
+        mat-raised-button
+        color="primary"
+        style="display: inline-block"
+        [disabled]="toggleInProcess"
         (click)="toggleStatus()"
       >
-        <span >{{toggleText}}</span>
+        <span>{{ toggleText }}</span>
       </button>
     </div>
   </div>
@@ -29,66 +29,70 @@
   </div>
   <div #tabContainer class="email-tab-body">
     <div #listContainer [style.width]="listWidth" class="email-list-container">
-        
-        <mat-table [dataSource]="emailList" matSort>
-          <!-- Email Name -->
-          <ng-container matColumnDef="from_address">
-            <mat-header-cell *matHeaderCellDef mat-sort-header
+      <mat-table [dataSource]="emailList" matSort>
+        <!-- Email Name -->
+        <ng-container matColumnDef="from_address">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
             >From</mat-header-cell
-            >
-            <mat-cell style="display: block" *matCellDef="let row">
-              <div class="email-list-from">
-                <mat-icon class="unread-icon" *ngIf="!row.is_read" color="primary">circle</mat-icon> {{ row.from_address }}
-              </div>
-              <div class="email-list-subject">
-                {{ row.subject }}
-              </div>
-            </mat-cell>
-          </ng-container>
-          <!-- Email Date  -->
-          <ng-container matColumnDef="timestamp">
-            <mat-header-cell *matHeaderCellDef mat-sort-header
+          >
+          <mat-cell style="display: block" *matCellDef="let row">
+            <div class="email-list-from">
+              <mat-icon class="unread-icon" *ngIf="!row.is_read" color="primary"
+                >circle</mat-icon
+              >
+              {{ row.from_address }}
+            </div>
+            <div class="email-list-subject">
+              {{ row.subject }}
+            </div>
+          </mat-cell>
+        </ng-container>
+        <!-- Email Date  -->
+        <ng-container matColumnDef="timestamp">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
             >Date</mat-header-cell
-            >
-            <mat-cell *matCellDef="let row">
-              <span >{{row.readableDate}}</span>
-            </mat-cell>
-          </ng-container>
-          
-          <!-- Select/View Icon -->
-          <ng-container matColumnDef="select">
-            <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
-              <button
+          >
+          <mat-cell *matCellDef="let row">
+            <span>{{ row.readableDate }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Select/View Icon -->
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+          <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+            <button
               class="table-btn-icon"
               mat-flat-button
               color="primary"
               (click)="getEmail(row._id)"
-              >
+            >
               <mat-icon class="table-btn-icon-size">pageview</mat-icon>
-              
             </button>
           </mat-cell>
         </ng-container>
-        
+
         <!-- Header Info -->
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row
-        class="table-row cursor-pointer"
-        *matRowDef="let row; columns: displayedColumns"
-        (click)="getEmail(row._id)"
+          class="table-row cursor-pointer"
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="getEmail(row._id)"
         ></mat-row>
       </mat-table>
     </div>
     <div #resizeBar class="email-resize-bar">
       <!-- <mat-icon> vertical_align_center</mat-ico  n> -->
     </div>
-    <div #messageContainer [style.width]="messageWidth" class="email-message-container ">
-      <div *ngIf="this.email._id">Subject : {{this.email.subject}}</div>
-      <div *ngIf="this.email._id">From : {{this.email.from_address}}</div>
-      <hr *ngIf="this.email._id">
+    <div
+      #messageContainer
+      [style.width]="messageWidth"
+      class="email-message-container"
+    >
+      <div *ngIf="this.email._id">Subject : {{ this.email.subject }}</div>
+      <div *ngIf="this.email._id">From : {{ this.email.from_address }}</div>
+      <hr *ngIf="this.email._id" />
       <div [innerHTML]="bodyDisplay"></div>
     </div>
   </div>
-
 </div>
