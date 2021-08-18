@@ -9,6 +9,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 //Angular Modules
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { MatSortModule } from '@angular/material/sort';
@@ -61,6 +62,7 @@ import { ApplicationsTabService } from 'src/app/services/tab-services/applicatio
 import { CategoryService } from 'src/app/services/category.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 import { DomainService } from 'src/app/services/domain.service';
+import { EmailService } from 'src/app/services/email.service';
 import { HelpService } from 'src/app/services/help.service';
 import { LayoutService } from './services/layout.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -157,8 +159,10 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationService,
     ApplicationsTabService,
     CategoryService,
+    DatePipe,
     DomainDetailsTabService,
     DomainService,
+    EmailService,
     HelpService,
     HttpClient,
     LayoutService,

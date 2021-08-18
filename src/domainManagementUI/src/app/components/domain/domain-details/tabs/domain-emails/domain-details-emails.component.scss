@@ -2,11 +2,34 @@
   flex: 0 0 5%;
   min-width: 65px;
 }
+.mat-column-timestamp{
+  flex: 0 0 7em;
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+  margin-left: 2em;
+}
+.mat-column-from_address{
+  display: flex;
+  flex-grow: 1;
+}
 .email-tab-body {
   // 31em ends up being the height of the header and footer components
   height: calc(100vh - 31em);
   width:100%;
+}
 
+#listContainer mat-cell {
+  flex: none !important;
+}
+
+.unread-icon {
+  display: block;
+  height: 0px;
+  width: 0px;
+  font-size: 1em;
+  margin-left: -15px;
+  margin-right: 15px;
 }
 
 .email-message-container, .email-list-container, .email-resize-bar {
@@ -50,4 +73,15 @@
 .email-resize-bar:hover{
  cursor:ew-resize;
  background-color: rgba(0,0,0,.05);
+}
+.email-list-from, .email-subject-from{
+  display:block; 
+}
+.email-list-from{
+  padding-top:2px;
+
+}
+.email-list-subject{
+  
+  font-size:75%;
 }

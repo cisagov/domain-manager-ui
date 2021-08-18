@@ -1,16 +1,21 @@
 // Angular Imports
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit,HostListener, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DatePipe } from '@angular/common'
 
 // Local Service Imports
+import { AlertsService } from 'src/app/services/alerts.service';
 import { DomainService } from 'src/app/services/domain.service';
+import { EmailService } from 'src/app/services/email.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 
 //Models
 import { DomainEmailModel } from 'src/app/models/domainEmail.model';
+import { DomainEmailListModel } from 'src/app/models/domainEmail.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { EmailModel } from 'src/app/models/email.model';
 
 @Component({
   selector: 'dd-emails',
@@ -24,11 +29,17 @@ export class DomainDetailsEmailsComponent implements OnInit, OnDestroy, AfterVie
   data = [];
   
   //Mat Table Items
-  emailList = new MatTableDataSource<DomainEmailModel>();
-  displayedColumns = ['emailName', 'date','select'];
+  emailList = new MatTableDataSource<DomainEmailListModel>();
+  email : DomainEmailModel = new DomainEmailModel();
+  displayedColumns = ['from_address', 'timestamp'];
   searchInput = '';
   @ViewChild(MatSort) sort: MatSort;
-  
+  currDate = new Date();  
+  bodyDisplay = "<p>Not Set</p>"
+  toggleText = "Toggle On"
+  toggleInProcess = false
+  toggleTooltipPosition = "right"
+
   //resize
   resizing = false;
   currentXDelta = 6;
@@ -47,8 +58,10 @@ export class DomainDetailsEmailsComponent implements OnInit, OnDestroy, AfterVie
   @ViewChild('tabContainer') tabContainer: ElementRef
 
   constructor(
+    public alertsSvc: AlertsService,
+    public datepipe: DatePipe,
     public ddTabSvc: DomainDetailsTabService,
-    public sanitizer: DomSanitizer,
+    public emailSvc: EmailService,
     ) {}
 
   ngAfterViewInit(): void {
@@ -60,19 +73,80 @@ export class DomainDetailsEmailsComponent implements OnInit, OnDestroy, AfterVie
     this.component_subscriptions.push(
       this.ddTabSvc.getDomainDataBehaviorSubject().subscribe((data) => {
         if(data._id){
-          console.log("Domain loaded - grabbing email data from domain or second api call")
-          
-          //TEST DATA
-          this.data = [
-            { 'emailName': 'MyTestEmailOne', 'date': "2021-05-18T16:16:44.363000", 'otherData': 'my other data'},
-            { 'emailName': 'MyTestEmailTwo', 'date': "2021-05-14T16:16:44.363000", 'otherData': 'some other stuff'},
-            { 'emailName': 'MyTestEmailThree', 'date': "2021-05-15T16:16:44.363000", 'otherData': 'last'},
-          ]
-          this.emailList.data = this.data as Array<DomainEmailModel>;
-          this.emailList.sort = this.sort;
+          if(this.ddTabSvc.hasEmailActive()){
+            this.bodyDisplay = "<p>Select an Email to display.</p>"
+            this.toggleText = "Toggle Off"
+          } else {
+            this.bodyDisplay = "<p>This domain is not set to receive emails.</p>"
+          }
+          this.getEmailList()
         }
       })
     )
+  }
+  toggleStatus(){
+    if(this.ddTabSvc.domain_data.is_email_active){
+      this.bodyDisplay = "<p>No emails have been received.</p>"
+    } else {
+    }
+    this.toggleInProcess = true
+    this.emailSvc.setDomainEmailsStatus(
+      this.ddTabSvc.domain_data._id,
+      !this.ddTabSvc.domain_data.is_email_active).subscribe(
+        (success) => {
+          this.toggleInProcess = false
+          this.alertsSvc.alert('Email receiving state successfully changed');
+          this.changeToggleStatus();
+        },
+        (failure) => {
+          this.toggleInProcess = false
+          this.alertsSvc.alert('Failed to change status, please try again soon.');
+        }
+      )
+  }
+  changeToggleStatus(){
+    if(this.toggleText == "Toggle Off"){
+      this.toggleText = "Toggle On"
+    } else {
+      this.toggleText = "Toggle Off"
+    }
+  }
+
+  addReadableDate(data){
+    const dayInMilliseconds = 86400000;
+    const hourInMilliseconds = 3600000;
+    const minuteInMilliseconds = 60000;
+
+    data.forEach(item => {
+      let workingDate = new Date(item.timestamp)
+      let timeDeltaInMilliseconds = this.currDate.getTime() - workingDate.getTime()
+      let timeDeltaInDays = this.currDate.getDate() - workingDate.getDate()
+      //Take the millisecond time val and subtract 
+      //the current days time in milliseconds
+      let TimeOfStartOfDay = 
+        this.currDate.getTime() - 
+        (
+          (this.currDate.getHours() * hourInMilliseconds) + 
+          (this.currDate.getMinutes() * minuteInMilliseconds) + 
+          (this.currDate.getMilliseconds())
+        )
+      if(timeDeltaInMilliseconds < 0){
+        item['readableDate'] = "CHECK TIMEZONE ISSUE"
+      }
+      //Current day
+      else if(workingDate.getTime() > TimeOfStartOfDay){
+        if(workingDate.getHours() < 12){
+          item['readableDate'] = `${workingDate.getHours()}:${workingDate.getMinutes()} am`
+        } else {
+          item['readableDate'] = `${workingDate.getHours() - 12}:${workingDate.getMinutes()} pm`
+        }
+      }
+      else if(workingDate.getTime() < TimeOfStartOfDay && workingDate.getTime() > TimeOfStartOfDay - dayInMilliseconds){
+        item['readableDate'] = "Yesterday"
+      } else {
+        item['readableDate'] = this.datepipe.transform(workingDate, 'MM-dd-yyyy HH:MM');
+      }
+    });
   }
   
   ngOnDestroy(): void {
@@ -81,7 +155,6 @@ export class DomainDetailsEmailsComponent implements OnInit, OnDestroy, AfterVie
       sub.unsubscribe();
     });
   }
-
   //Resize Methods
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -200,8 +273,42 @@ export class DomainDetailsEmailsComponent implements OnInit, OnDestroy, AfterVie
       }
     )
   }
+  getEmail(emailId){
+    this.emailList.data.forEach((item) => {
+      if(item._id == emailId){
+        item.is_read = true;
+      }
+    })
+    this.emailSvc.getDomainEmail(emailId).subscribe(
+      (data) => {
+        this.email = data as DomainEmailModel
+        this.bodyDisplay = this.email.message;
+      },  
+      (failure) => {
+        this.alertsSvc.alert("Failed to get email")
+      }
+    )
+  }
 
-  test(e){
-    console.log(e)
+  getEmailList(){
+    this.emailSvc.getDomainEmails(this.ddTabSvc.domain_data._id).subscribe(
+      (success) => {
+        if(!success[0] && this.ddTabSvc.hasEmailActive()){
+          this.bodyDisplay = "<p>No emails have been received.</p>"
+        }
+        this.addReadableDate(success)
+        this.emailList.data = success as Array<DomainEmailListModel>;
+        this.emailList.sort = this.sort;
+
+        const sortState: Sort = {active: 'timestamp', direction: 'desc'};
+        this.sort.active = sortState.active;
+        this.sort.direction = sortState.direction;
+        this.sort.sortChange.emit(sortState);
+      },  
+      (failure) => {
+        console.log(failure)
+        this.alertsSvc.alert("Failed to get email list")
+      }
+    )
   }
 }
