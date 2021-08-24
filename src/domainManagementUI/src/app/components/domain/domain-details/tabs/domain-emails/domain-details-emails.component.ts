@@ -99,10 +99,12 @@ export class DomainDetailsEmailsComponent
     } else {
     }
     this.toggleInProcess = true;
+    this.ddTabSvc.domain_data.is_email_active = !this.ddTabSvc.domain_data
+      .is_email_active;
     this.emailSvc
       .setDomainEmailsStatus(
         this.ddTabSvc.domain_data._id,
-        !this.ddTabSvc.domain_data.is_email_active
+        this.ddTabSvc.domain_data.is_email_active
       )
       .subscribe(
         (success) => {
