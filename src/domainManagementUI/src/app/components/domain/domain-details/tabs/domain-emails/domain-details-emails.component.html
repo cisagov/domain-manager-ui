@@ -21,13 +21,22 @@
       </button>
     </div>
   </div>
-  <div *ngIf="ddTabSvc.hasEmailActive()" class="text-muted">
-    The emails the domain has received.
+  <div
+    *ngIf="toggleInProcess && !ddTabSvc.hasEmailActive(); else launched"
+    class="text-muted"
+  >
+    Email receiving for this domain is currently launching. Please be patient.
   </div>
-  <div *ngIf="!ddTabSvc.hasEmailActive()" class="text-muted">
-    This domain is not set to receive emails.
-  </div>
-  <div #tabContainer class="email-tab-body">
+  <ng-template #launched>
+    <div *ngIf="ddTabSvc.hasEmailActive()" class="text-muted">
+      Email receiving for this domain is currently active.
+    </div>
+    <div *ngIf="!ddTabSvc.hasEmailActive()" class="text-muted">
+      Email receiving for this domain is currently inactive.
+    </div>
+  </ng-template>
+
+  <div *ngIf="ddTabSvc.hasEmailActive()" #tabContainer class="email-tab-body">
     <div #listContainer [style.width]="listWidth" class="email-list-container">
       <mat-table [dataSource]="emailList" matSort>
         <!-- Email Name -->
