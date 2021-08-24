@@ -21,13 +21,22 @@
       </button>
     </div>
   </div>
-  <div *ngIf="ddTabSvc.hasEmailActive()" class="text-muted">
-    The emails the domain has received.
+  <div
+    *ngIf="toggleInProcess && !ddTabSvc.hasEmailActive(); else launched"
+    class="text-muted"
+  >
+    Email receiving for this domain is currently launching. Please be patient.
   </div>
-  <div *ngIf="!ddTabSvc.hasEmailActive()" class="text-muted">
-    This domain is not set to receive emails.
-  </div>
-  <div #tabContainer class="email-tab-body">
+  <ng-template #launched>
+    <div *ngIf="ddTabSvc.hasEmailActive()" class="text-muted">
+      Email receiving for this domain is currently active.
+    </div>
+    <div *ngIf="!ddTabSvc.hasEmailActive()" class="text-muted">
+      Email receiving for this domain is currently inactive.
+    </div>
+  </ng-template>
+
+  <div *ngIf="ddTabSvc.hasEmailActive()" #tabContainer class="email-tab-body">
     <div #listContainer [style.width]="listWidth" class="email-list-container">
       <mat-table [dataSource]="emailList" matSort>
         <!-- Email Name -->
@@ -91,6 +100,7 @@
     >
       <div *ngIf="this.email._id">Subject : {{ this.email.subject }}</div>
       <div *ngIf="this.email._id">From : {{ this.email.from_address }}</div>
+      <div *ngIf="this.email._id">To : {{ this.email.to_address }}</div>
       <hr *ngIf="this.email._id" />
       <div [innerHTML]="bodyDisplay"></div>
     </div>
