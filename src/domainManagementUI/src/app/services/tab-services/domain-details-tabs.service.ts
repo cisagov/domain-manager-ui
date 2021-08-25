@@ -212,6 +212,12 @@ export class DomainDetailsTabService {
     }
   }
 
+  hasEmailActive() {
+    if (this.domain_data.is_email_active) {
+      return true;
+    }
+  }
+
   isSiteLaunched() {
     if (this.domain_data.is_active) {
       return true;
