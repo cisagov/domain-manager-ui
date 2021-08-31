@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 import { CategoryResult } from 'src/app/models/domain.model';
@@ -35,6 +36,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
   constructor(
     public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
+    public dialog: MatDialog,
     public layoutSvc: LayoutService,
     public ddTabSvc: DomainDetailsTabService
   ) {}
@@ -125,6 +127,17 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
   }
 
   recategorize(categorize_url) {
+    const dialogSettings = {
+      categoryList: this.categories,
+    };
+    const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.closedStatus === 'confirmed') {
+        console.log(result);
+      }
+    });
     window.open(categorize_url, '_blank');
   }
 

@@ -24,6 +24,10 @@ import { AppComponent } from './app.component';
 import { ApplicationsDetailsComponent } from './components/applications/applications-details/applications-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
+import { CategorizationListComponent } from './components/categorization/categorization-list.component';
+import { CategorizationSubmitComponent } from './components/categorization/tabs/categorization-submit/categorization-submit.component';
+import { CategorizationVerifyComponent } from './components/categorization/tabs/categorization-verify/categorization-verify.component';
+import { ConfirmCategoryDialogComponent } from './components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { DnsRecordsDialogComponent } from './components/domain/domain-details/tabs/dns-records/dns-records-dialog/dns-records-dialog.component';
 import { DomainCreateDialogComponent } from 'src/app/components/domain/domain-create-dialog/domain-create-dialog.component';
@@ -59,6 +63,7 @@ import { AboutService } from './services/about.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { ApplicationsTabService } from 'src/app/services/tab-services/applications-details-tab.service';
+import { CategorizationTabService } from './services/tab-services/categorization-tabs.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 import { DomainService } from 'src/app/services/domain.service';
@@ -100,6 +105,10 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationsDetailsComponent,
     ApplicationEditDialogComponent,
     ApplicationListComponent,
+    CategorizationListComponent,
+    CategorizationSubmitComponent,
+    CategorizationVerifyComponent,
+    ConfirmCategoryDialogComponent,
     ConfirmDialogComponent,
     DnsRecordsDialogComponent,
     DomainCreateDialogComponent,
@@ -158,6 +167,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     AlertsService,
     ApplicationService,
     ApplicationsTabService,
+    CategorizationTabService,
     CategoryService,
     DatePipe,
     DomainDetailsTabService,
