@@ -41,9 +41,4 @@ export class CategoryService {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
     return this.http.get(url);
   }
-
-  manuallyCategorize(domainId: string, proxy: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
-    return this.http.put(url, { proxy });
-  }
 }

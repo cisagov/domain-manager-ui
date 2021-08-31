@@ -1,5 +1,8 @@
 // Angular Imports
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -13,6 +16,22 @@ import { CategoryResult } from 'src/app/models/domain.model';
   templateUrl: './domain-details-proxy-categorization.component.html',
 })
 export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
+  categoryData = [];
+  displayedColumns = [
+    // "_id",
+    // "categorize_url",
+    'proxy',
+    'category',
+    'created',
+    'status',
+    'recategorize',
+    // "check_url",
+    // "status"
+  ];
+  categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
+
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
@@ -20,7 +39,9 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     public ddTabSvc: DomainDetailsTabService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.checkCategory();
+  }
 
   get categorizedTable() {
     if (!this.ddTabSvc.domain_data.category_results) {
@@ -81,35 +102,24 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     }
   }
 
-  manuallyCategorize(result: CategoryResult) {
-    window.open(result.categorize_url, '_blank');
-    this.ddTabSvc.manuallyCategorize(result.proxy).subscribe(
-      (success) => {
-        this.alertsSvc.alert('Domain has been set as manually categorized');
-        result.manually_submitted = true;
-        result.is_submitted = true;
-      },
-      (failure) => {
-        console.log(failure);
-        this.alertsSvc.alert('Error setting as manually categorized');
-      }
-    );
-  }
-
   manuallyCheck(result: CategoryResult) {
     window.open(result.check_url, '_blank');
   }
 
   checkCategory() {
-    this.ddTabSvc.checkCategory().subscribe(
+    this.ddTabSvc.checkCategories().subscribe(
       (success) => {
-        this.alertsSvc.alert(
-          'Category is being checked at all proxies. Return later for status'
-        );
+        console.log(success);
+        if (Array.isArray(success)) {
+          this.categoryData = success as Array<any>;
+          this.categoryList = new MatTableDataSource<any>(success);
+          this.categoryList.sort = this.sort;
+        } else {
+          this.alertsSvc.alert('Domain does not have categorizations');
+        }
       },
       (failure) => {
         console.log(failure);
-        this.alertsSvc.alert('Error checking for category');
       }
     );
   }

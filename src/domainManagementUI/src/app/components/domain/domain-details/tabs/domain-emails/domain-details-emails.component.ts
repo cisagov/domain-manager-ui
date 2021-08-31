@@ -73,8 +73,10 @@ export class DomainDetailsEmailsComponent
   ) {}
 
   ngAfterViewInit(): void {
-    this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
-    this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
+    if (this.ddTabSvc.hasEmailActive()) {
+      this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
+      this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
+    }
     this.addEventListeners();
   }
   ngOnInit(): void {
@@ -123,6 +125,8 @@ export class DomainDetailsEmailsComponent
   changeToggleStatus() {
     if (this.toggleText == 'Toggle Off') {
       this.toggleText = 'Toggle On';
+      this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
+      this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
     } else {
       this.toggleText = 'Toggle Off';
     }
@@ -257,20 +261,22 @@ export class DomainDetailsEmailsComponent
     this.messageWidth = `${newMessageWidth}px`;
   }
   addEventListeners() {
-    this.resizeBar.nativeElement.addEventListener('mousedown', (e) => {
-      this.resizing = true;
-    });
-    this.tabContainer.nativeElement.addEventListener('mousemove', (e) => {
-      this.dragToResize(e);
-    });
-    this.tabContainer.nativeElement.addEventListener('mouseleave', (e) => {
-      this.resizing = false;
-      this.setRestingWidths();
-    });
-    this.tabContainer.nativeElement.addEventListener('mouseup', (e) => {
-      this.resizing = false;
-      this.setRestingWidths();
-    });
+    if (this.ddTabSvc.hasEmailActive()) {
+      this.resizeBar.nativeElement.addEventListener('mousedown', (e) => {
+        this.resizing = true;
+      });
+      this.tabContainer.nativeElement.addEventListener('mousemove', (e) => {
+        this.dragToResize(e);
+      });
+      this.tabContainer.nativeElement.addEventListener('mouseleave', (e) => {
+        this.resizing = false;
+        this.setRestingWidths();
+      });
+      this.tabContainer.nativeElement.addEventListener('mouseup', (e) => {
+        this.resizing = false;
+        this.setRestingWidths();
+      });
+    }
   }
   removeEventListeners() {
     this.resizeBar.nativeElement.removeEventListener('mousedown', (e) => {
@@ -315,10 +321,12 @@ export class DomainDetailsEmailsComponent
         this.emailList.data = success as Array<DomainEmailListModel>;
         this.emailList.sort = this.sort;
 
-        const sortState: Sort = { active: 'timestamp', direction: 'desc' };
-        this.sort.active = sortState.active;
-        this.sort.direction = sortState.direction;
-        this.sort.sortChange.emit(sortState);
+        if (success[0]) {
+          const sortState: Sort = { active: 'timestamp', direction: 'desc' };
+          this.sort.active = sortState.active;
+          this.sort.direction = sortState.direction;
+          this.sort.sortChange.emit(sortState);
+        }
       },
       (failure) => {
         console.log(failure);
