@@ -71,7 +71,13 @@
         >Recategorize</mat-header-cell
       >
       <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary">Recategorize</button>
+        <button
+          mat-raised-button
+          (click)="recategorize(row.categorize_url)"
+          color="primary"
+        >
+          Recategorize
+        </button>
       </mat-cell>
     </ng-container>
 

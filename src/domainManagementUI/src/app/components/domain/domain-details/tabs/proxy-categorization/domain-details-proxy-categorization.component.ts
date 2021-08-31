@@ -124,6 +124,10 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     );
   }
 
+  recategorize(categorize_url) {
+    window.open(categorize_url, '_blank');
+  }
+
   test() {
     console.log(this.f.category_two);
   }
