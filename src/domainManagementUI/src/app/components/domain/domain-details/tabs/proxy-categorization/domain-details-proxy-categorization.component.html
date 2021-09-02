@@ -73,7 +73,7 @@
       <mat-cell *matCellDef="let row">
         <button
           mat-raised-button
-          (click)="recategorize(row.categorize_url)"
+          (click)="recategorize(row._id, row.categorize_url)"
           color="primary"
         >
           Recategorize

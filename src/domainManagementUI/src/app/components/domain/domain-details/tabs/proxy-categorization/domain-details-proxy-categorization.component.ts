@@ -18,17 +18,7 @@ import { CategoryResult } from 'src/app/models/domain.model';
 })
 export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
   categoryData = [];
-  displayedColumns = [
-    // "_id",
-    // "categorize_url",
-    'proxy',
-    'category',
-    'created',
-    'status',
-    'recategorize',
-    // "check_url",
-    // "status"
-  ];
+  displayedColumns = ['proxy', 'category', 'created', 'status', 'recategorize'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -104,10 +94,6 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     }
   }
 
-  manuallyCheck(result: CategoryResult) {
-    window.open(result.check_url, '_blank');
-  }
-
   checkCategory() {
     this.ddTabSvc.checkCategories().subscribe(
       (success) => {
@@ -126,7 +112,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     );
   }
 
-  recategorize(categorize_url) {
+  recategorize(categorization_id, categorize_url) {
     const dialogSettings = {
       categoryList: this.categories,
     };
@@ -135,7 +121,22 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result.closedStatus === 'confirmed') {
-        console.log(result);
+        console.log(
+          'categorization id: ',
+          categorization_id,
+          'closed status ',
+          result.closedStatus
+        );
+        this.ddTabSvc
+          .updateCategory(categorization_id, result.selectedCategory)
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert('Category has been updated.');
+            },
+            (failure) => {
+              this.alertsSvc.alert('Error updating category.');
+            }
+          );
       }
     });
     window.open(categorize_url, '_blank');
