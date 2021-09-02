@@ -68,6 +68,12 @@
           routerLink="/application"
           >Applications</a
         >
+        <a
+          *ngIf="userAuthSvc.userIsAdmin()"
+          mat-list-item
+          routerLink="/categorization"
+          >Categorization</a
+        >
         <a *ngIf="userAuthSvc.userIsAdmin()" mat-list-item routerLink="/users"
           >Users</a
         >

@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 import { CategoryResult } from 'src/app/models/domain.model';
@@ -17,17 +18,7 @@ import { CategoryResult } from 'src/app/models/domain.model';
 })
 export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
   categoryData = [];
-  displayedColumns = [
-    // "_id",
-    // "categorize_url",
-    'proxy',
-    'category',
-    'created',
-    'status',
-    'recategorize',
-    // "check_url",
-    // "status"
-  ];
+  displayedColumns = ['proxy', 'category', 'created', 'status', 'recategorize'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -35,6 +26,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
   constructor(
     public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
+    public dialog: MatDialog,
     public layoutSvc: LayoutService,
     public ddTabSvc: DomainDetailsTabService
   ) {}
@@ -102,10 +94,6 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     }
   }
 
-  manuallyCheck(result: CategoryResult) {
-    window.open(result.check_url, '_blank');
-  }
-
   checkCategory() {
     this.ddTabSvc.checkCategories().subscribe(
       (success) => {
@@ -122,6 +110,36 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
         console.log(failure);
       }
     );
+  }
+
+  recategorize(categorization_id, categorize_url) {
+    const dialogSettings = {
+      categoryList: this.categories,
+    };
+    const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.closedStatus === 'confirmed') {
+        console.log(
+          'categorization id: ',
+          categorization_id,
+          'closed status ',
+          result.closedStatus
+        );
+        this.ddTabSvc
+          .updateCategory(categorization_id, result.selectedCategory)
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert('Category has been updated.');
+            },
+            (failure) => {
+              this.alertsSvc.alert('Error updating category.');
+            }
+          );
+      }
+    });
+    window.open(categorize_url, '_blank');
   }
 
   test() {

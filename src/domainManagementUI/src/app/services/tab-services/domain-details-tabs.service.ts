@@ -323,6 +323,10 @@ export class DomainDetailsTabService {
     return this.categorySvc.checkCategory(this.domain_data._id);
   }
 
+  updateCategory(id: string, category: string) {
+    return this.categorySvc.updateCategorization(id, { category: category });
+  }
+
   isValid(form: FormGroup) {
     if (form.valid) {
       return true;
