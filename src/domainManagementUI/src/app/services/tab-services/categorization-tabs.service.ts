@@ -48,4 +48,8 @@ export class CategorizationTabService {
   ) {
     this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }
+
+  getCategorizations(status) {
+    return this.categorySvc.getCategorizations(status);
+  }
 }

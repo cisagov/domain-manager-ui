@@ -34,7 +34,7 @@ export class CategoryService {
   }
 
   getCategorizations(status: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/categorizations/?status=${status}}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/categorizations/?status=${status}`;
     return this.http.get(url);
   }
 
