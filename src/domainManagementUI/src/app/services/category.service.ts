@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { CategorizationModel } from '../models/categorization.model';
 
 const headers = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -45,5 +46,10 @@ export class CategoryService {
   checkCategory(domainId: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
     return this.http.get(url);
+  }
+
+  updateCategorization(id: string, data: CategorizationModel) {
+    const url = `${this.settingsService.settings.apiUrl}/api/categorization/${id}`;
+    return this.http.put(url, data);
   }
 }
