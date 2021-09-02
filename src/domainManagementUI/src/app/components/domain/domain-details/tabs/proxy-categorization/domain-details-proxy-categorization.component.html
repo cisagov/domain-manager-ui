@@ -1,6 +1,6 @@
 <div class="flex flex-container tab">
   <h5>Proxy Categorization</h5>
-  <div *ngIf="!categoryList" [formGroup]="tabForm">
+  <div *ngIf="categoryList.filteredData.length === 0" [formGroup]="tabForm">
     <div class="text-muted mb-3">A proxy category must be selected.</div>
     <mat-form-field style="width: 20em" appearance="outline">
       <mat-select formControlName="category_one">
@@ -17,7 +17,10 @@
       </mat-error>
     </mat-form-field>
   </div>
-  <div *ngIf="!categoryList" class="flex-row flex-end mt-4">
+  <div
+    *ngIf="categoryList.filteredData.length === 0"
+    class="flex-row flex-end mt-4"
+  >
     <button
       [disabled]="!this.ddTabSvc.proxy_categoriztion_tab_form.valid"
       mat-raised-button
@@ -29,7 +32,7 @@
     </button>
   </div>
 </div>
-<div>
+<div *ngIf="categoryList.filteredData.length > 0">
   <mat-table [dataSource]="categoryList" matSort>
     <!-- Proxy Name -->
     <ng-container matColumnDef="proxy">
