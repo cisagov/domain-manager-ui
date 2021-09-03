@@ -54,7 +54,13 @@
         >Categorize</mat-header-cell
       >
       <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary">Categorize</button>
+        <button
+          mat-raised-button
+          (click)="categorize(row._id, row.categorize_url)"
+          color="primary"
+        >
+          Categorize
+        </button>
       </mat-cell>
     </ng-container>
 

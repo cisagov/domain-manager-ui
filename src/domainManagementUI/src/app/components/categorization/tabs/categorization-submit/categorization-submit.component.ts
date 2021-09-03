@@ -1,10 +1,13 @@
 // Angular Imports
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
 
@@ -28,6 +31,8 @@ export class CategorizationSubmitComponent {
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     public alertsSvc: AlertsService,
+    public categorySvc: CategoryService,
+    public dialog: MatDialog,
     public layoutSvc: LayoutService,
     public categorizationTabSvc: CategorizationTabService
   ) {
@@ -38,6 +43,9 @@ export class CategorizationSubmitComponent {
     this.getSubmitDomainProxies();
   }
 
+  get categories() {
+    return Object.keys(this.categorySvc.categories);
+  }
   getSubmitDomainProxies() {
     this.categorizationTabSvc.getCategorizations('new').subscribe(
       (success) => {
@@ -53,5 +61,32 @@ export class CategorizationSubmitComponent {
         console.log(failure);
       }
     );
+  }
+
+  categorize(categorization_id, categorize_url) {
+    const dialogSettings = {
+      categoryList: this.categories,
+    };
+    const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.closedStatus === 'confirmed') {
+        this.categorizationTabSvc
+          .updateCategory(categorization_id, {
+            category: result.selectedCategory,
+            status: 'submitted',
+          })
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert('Category has been updated.');
+            },
+            (failure) => {
+              this.alertsSvc.alert('Error updating category.');
+            }
+          );
+      }
+    });
+    window.open(categorize_url, '_blank');
   }
 }
