@@ -24,7 +24,7 @@ import { AppComponent } from './app.component';
 import { ApplicationsDetailsComponent } from './components/applications/applications-details/applications-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
-import { CategorizationListComponent } from './components/categorization/categorization.component';
+import { CategorizationComponent } from './components/categorization/categorization.component';
 import { CategorizationSubmitComponent } from './components/categorization/tabs/categorization-submit/categorization-submit.component';
 import { CategorizationVerifyComponent } from './components/categorization/tabs/categorization-verify/categorization-verify.component';
 import { ConfirmCategoryDialogComponent } from './components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
@@ -105,7 +105,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationsDetailsComponent,
     ApplicationEditDialogComponent,
     ApplicationListComponent,
-    CategorizationListComponent,
+    CategorizationComponent,
     CategorizationSubmitComponent,
     CategorizationVerifyComponent,
     ConfirmCategoryDialogComponent,

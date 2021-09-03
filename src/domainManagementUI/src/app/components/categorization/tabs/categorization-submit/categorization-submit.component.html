@@ -11,7 +11,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Domain</mat-header-cell
       >
-      <mat-cell *matCellDef="let row">{{ row.domain }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.domain_name }}</mat-cell>
     </ng-container>
 
     <!-- Proxy Name -->
@@ -33,7 +33,7 @@
     <!-- Category Name -->
     <ng-container matColumnDef="category">
       <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Category</mat-header-cell
+        >Preferred Category</mat-header-cell
       >
       <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
     </ng-container>

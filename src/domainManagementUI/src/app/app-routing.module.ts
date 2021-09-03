@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Components
 import { ApplicationsDetailsComponent } from 'src/app/components/applications/applications-details/applications-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
-import { CategorizationListComponent } from './components/categorization/categorization.component';
+import { CategorizationComponent } from './components/categorization/categorization.component';
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
 import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
 import { HelpMenuComponent } from 'src/app/components/help/help-menu/help-menu.component';
@@ -51,7 +51,7 @@ const routes: Routes = [
     path: 'categorization',
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
-    children: [{ path: '', component: CategorizationListComponent }],
+    children: [{ path: '', component: CategorizationComponent }],
   },
   {
     path: 'domain',

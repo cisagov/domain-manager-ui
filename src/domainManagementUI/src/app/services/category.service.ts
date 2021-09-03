@@ -48,7 +48,7 @@ export class CategoryService {
     return this.http.get(url);
   }
 
-  updateCategorization(id: string, data: any) {
+  updateCategorization(id: string, data: CategorizationModel) {
     const url = `${this.settingsService.settings.apiUrl}/api/categorization/${id}/`;
     return this.http.put(url, data);
   }
