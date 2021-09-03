@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>{{ itemConfirming | titlecase }}</h2>
+<button
+  mat-button
+  style="display: inline-block; float: right; top: -4em; margin-bottom: -4em"
+  [mat-dialog-close]="true"
+></button>
+<mat-form-field [formGroup]="categorizationFormGroup" appearance="outline">
+  <mat-icon matPrefix style="margin-right: 10px">schedule</mat-icon>
+  <mat-select formControlName="categorization_id" placeholder="Select">
+    <mat-option [value]="null">--Select--</mat-option>
+    <mat-option *ngFor="let a of data.statusList" [value]="a">
+      {{ a }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="actionConfirming" class="dialog" mat-dialog-content>
+  {{ actionConfirming }}?
+</div>
+<div *ngIf="!actionConfirming" class="dialog" mat-dialog-content>
+  Please check and verify the status for this proxy
+</div>
+<div *ngIf="inProgress">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<mat-dialog-actions align="end">
+  <button (click)="confirm()" mat-raised-button color="warn">Confirm</button>
+  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">
+    Cancel
+  </button>
+</mat-dialog-actions>

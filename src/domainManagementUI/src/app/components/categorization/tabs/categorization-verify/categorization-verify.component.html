@@ -55,7 +55,13 @@
         >Verify</mat-header-cell
       >
       <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary">Verify</button>
+        <button
+          mat-raised-button
+          (click)="verify(row._id, row.check_url)"
+          color="primary"
+        >
+          Verify
+        </button>
       </mat-cell>
     </ng-container>
 

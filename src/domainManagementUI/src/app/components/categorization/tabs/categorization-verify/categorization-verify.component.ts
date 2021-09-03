@@ -1,5 +1,6 @@
 // Angular Imports
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -7,6 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
+import { VerifyCategoryDialogComponent } from 'src/app/components/dialog-windows/verify-category/verify-category-dialog.component';
+
 @Component({
   selector: 'app-categorization-verify',
   templateUrl: './categorization-verify.component.html',
@@ -28,6 +31,7 @@ export class CategorizationVerifyComponent {
   constructor(
     public alertsSvc: AlertsService,
     public layoutSvc: LayoutService,
+    public dialog: MatDialog,
     public categorizationTabSvc: CategorizationTabService
   ) {
     this.layoutSvc.setTitle('Categorizations');
@@ -52,5 +56,35 @@ export class CategorizationVerifyComponent {
         console.log(failure);
       }
     );
+  }
+
+  get statuses() {
+    return ['verified', 'rejected'];
+  }
+
+  verify(categorization_id, check_url) {
+    const dialogSettings = {
+      statusList: this.statuses,
+    };
+    const dialogRef = this.dialog.open(VerifyCategoryDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.closedStatus === 'confirmed') {
+        this.categorizationTabSvc
+          .updateCategory(categorization_id, {
+            status: result.selectedStatus,
+          })
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert('Proxy status has been updated.');
+            },
+            (failure) => {
+              this.alertsSvc.alert('Error updating proxy status.');
+            }
+          );
+      }
+    });
+    window.open(check_url, '_blank');
   }
 }
