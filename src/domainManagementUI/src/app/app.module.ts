@@ -24,7 +24,7 @@ import { AppComponent } from './app.component';
 import { ApplicationsDetailsComponent } from './components/applications/applications-details/applications-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { ApplicationEditDialogComponent } from './components/applications/application-edit-dialog/application-edit-dialog.component';
-import { CategorizationListComponent } from './components/categorization/categorization.component';
+import { CategorizationComponent } from './components/categorization/categorization.component';
 import { CategorizationSubmitComponent } from './components/categorization/tabs/categorization-submit/categorization-submit.component';
 import { CategorizationVerifyComponent } from './components/categorization/tabs/categorization-verify/categorization-verify.component';
 import { ConfirmCategoryDialogComponent } from './components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
@@ -57,13 +57,14 @@ import { UserManagementDetailsComponent } from './components/user-managment/user
 import { UserManagementDetailsGroupsComponent } from './components/user-managment/user-management-details/tabs/groups/user-management-details-groups.component';
 import { UserManagementDetailsHistoryComponent } from './components/user-managment/user-management-details/tabs/history/user-managment-details-history.component';
 import { UserManagementDetailsSummaryComponent } from './components/user-managment/user-management-details/tabs/summary/user-management-details-summary.component';
+import { VerifyCategoryDialogComponent } from './components/dialog-windows/verify-category/verify-category-dialog.component';
 
 //Services
 import { AboutService } from './services/about.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 import { ApplicationsTabService } from 'src/app/services/tab-services/applications-details-tab.service';
-import { CategorizationTabService } from './services/tab-services/categorization-tabs.service';
+import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 import { DomainService } from 'src/app/services/domain.service';
@@ -105,7 +106,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationsDetailsComponent,
     ApplicationEditDialogComponent,
     ApplicationListComponent,
-    CategorizationListComponent,
+    CategorizationComponent,
     CategorizationSubmitComponent,
     CategorizationVerifyComponent,
     ConfirmCategoryDialogComponent,
@@ -138,6 +139,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     UserManagementDetailsSummaryComponent,
     UserManagementDetailsGroupsComponent,
     UserManagementDetailsHistoryComponent,
+    VerifyCategoryDialogComponent,
     GenericViewComponent,
     VideoTutorialsComponent,
     HelpMenuComponent,

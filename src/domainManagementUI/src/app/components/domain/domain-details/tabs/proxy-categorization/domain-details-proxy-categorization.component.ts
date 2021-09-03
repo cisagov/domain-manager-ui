@@ -1,6 +1,6 @@
 // Angular Imports
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -81,7 +81,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
         (success) => {
           this.ddTabSvc.domain_data.submitted_category = this.ddTabSvc.proxy_categoriztion_tab_form.controls.category_one.value;
           this.alertsSvc.alert(
-            'Category successfully submitted for review.',
+            'Categorization request has been successfully submitted.',
             undefined,
             10000
           );
@@ -121,14 +121,11 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result.closedStatus === 'confirmed') {
-        console.log(
-          'categorization id: ',
-          categorization_id,
-          'closed status ',
-          result.closedStatus
-        );
         this.ddTabSvc
-          .updateCategory(categorization_id, result.selectedCategory)
+          .updateCategory(categorization_id, {
+            category: result.selectedCategory,
+            status: 'submitted',
+          })
           .subscribe(
             (success) => {
               this.alertsSvc.alert('Category has been updated.');

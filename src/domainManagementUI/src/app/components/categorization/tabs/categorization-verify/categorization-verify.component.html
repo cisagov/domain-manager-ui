@@ -12,7 +12,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Domain</mat-header-cell
       >
-      <mat-cell *matCellDef="let row">{{ row.domain }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.domain_name }}</mat-cell>
     </ng-container>
 
     <!-- Proxy Name -->
@@ -44,9 +44,14 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Last Updated</mat-header-cell
       >
-      <mat-cell *matCellDef="let row">{{
-        row.created | date: "MM/dd/yy"
-      }}</mat-cell>
+      <mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row['updated']; else elseCreated">{{
+          row.updated | date: "MM/dd/yy"
+        }}</ng-container>
+        <ng-template #elseCreated>{{
+          row.created | date: "MM/dd/yy"
+        }}</ng-template>
+      </mat-cell>
     </ng-container>
 
     <!-- Verify -->
@@ -55,7 +60,13 @@
         >Verify</mat-header-cell
       >
       <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary">Verify</button>
+        <button
+          mat-raised-button
+          (click)="verify(row._id, row.check_url)"
+          color="primary"
+        >
+          Verify
+        </button>
       </mat-cell>
     </ng-container>
 

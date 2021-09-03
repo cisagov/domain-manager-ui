@@ -6,7 +6,7 @@ import { CategorizationTabService } from 'src/app/services/tab-services/categori
   templateUrl: './categorization.component.html',
   styleUrls: ['./categorization.component.scss'],
 })
-export class CategorizationListComponent {
+export class CategorizationComponent {
   constructor(
     public layoutSvc: LayoutService,
     public categorizationTabSvc: CategorizationTabService
