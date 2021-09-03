@@ -63,24 +63,40 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Last Updated</mat-header-cell
       >
-      <mat-cell *matCellDef="let row">{{
-        row.created | date: "MM/dd/yy"
-      }}</mat-cell>
+      <mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row['updated']; else elseCreated">{{
+          row.updated | date: "MM/dd/yy"
+        }}</ng-container>
+        <ng-template #elseCreated>{{
+          row.created | date: "MM/dd/yy"
+        }}</ng-template>
+      </mat-cell>
     </ng-container>
 
     <!-- Recategorize -->
     <ng-container matColumnDef="recategorize">
       <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Recategorize</mat-header-cell
+        >Action</mat-header-cell
       >
       <mat-cell *matCellDef="let row">
-        <button
-          mat-raised-button
-          (click)="recategorize(row._id, row.categorize_url)"
-          color="primary"
-        >
-          Recategorize
-        </button>
+        <div *ngIf="row.status === 'new'; else elseRecategorize">
+          <button
+            mat-raised-button
+            (click)="recategorize(row._id, row.categorize_url)"
+            color="primary"
+          >
+            Categorize
+          </button>
+        </div>
+        <ng-template #elseRecategorize>
+          <button
+            mat-raised-button
+            (click)="recategorize(row._id, row.categorize_url)"
+            color="primary"
+          >
+            Recategorize
+          </button>
+        </ng-template>
       </mat-cell>
     </ng-container>
 

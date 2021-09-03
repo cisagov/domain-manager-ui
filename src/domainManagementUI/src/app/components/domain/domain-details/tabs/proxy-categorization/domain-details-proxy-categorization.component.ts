@@ -122,7 +122,10 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result.closedStatus === 'confirmed') {
         this.ddTabSvc
-          .updateCategory(categorization_id, result.selectedCategory)
+          .updateCategory(categorization_id, {
+            category: result.selectedCategory,
+            status: 'submitted',
+          })
           .subscribe(
             (success) => {
               this.alertsSvc.alert('Category has been updated.');
