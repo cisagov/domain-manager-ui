@@ -1,0 +1,80 @@
+<h4>Proxy Categorization - Domains To Verify</h4>
+<div class="text-muted" style="margin-bottom: 1em">
+  Below is a list of all domains that needs to be verified with the proxy
+  categorization service and have their status confirmed. Select the Verify
+  button to link to the proxy website to allow you to verify the category for a
+  domain.
+</div>
+<div>
+  <mat-table [dataSource]="categoryList" matSort>
+    <!-- Domain Name -->
+    <ng-container matColumnDef="domain">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Domain</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.domain_name }}</mat-cell>
+    </ng-container>
+
+    <!-- Proxy Name -->
+    <ng-container matColumnDef="proxy">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Proxy Source</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.proxy }}</mat-cell>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Status</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+    </ng-container>
+
+    <!-- Category Name -->
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Category</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
+    </ng-container>
+
+    <!-- Date Updated -->
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Last Updated</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row['updated']; else elseCreated">{{
+          row.updated | date: "MM/dd/yy"
+        }}</ng-container>
+        <ng-template #elseCreated>{{
+          row.created | date: "MM/dd/yy"
+        }}</ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Verify -->
+    <ng-container matColumnDef="verify">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Verify</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <button
+          mat-raised-button
+          (click)="verify(row._id, row.check_url)"
+          color="primary"
+        >
+          Verify
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Header Info -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row cursor-pointer"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+  </mat-table>
+</div>

@@ -1,9 +1,6 @@
 <div class="flex flex-container tab">
   <h5>Proxy Categorization</h5>
-  <div
-    *ngIf="!this.ddTabSvc.domain_data.submitted_category"
-    [formGroup]="tabForm"
-  >
+  <div *ngIf="categoryList.filteredData.length === 0" [formGroup]="tabForm">
     <div class="text-muted mb-3">A proxy category must be selected.</div>
     <mat-form-field style="width: 20em" appearance="outline">
       <mat-select formControlName="category_one">
@@ -20,16 +17,8 @@
       </mat-error>
     </mat-form-field>
   </div>
-  <div *ngIf="this.ddTabSvc.domain_data.submitted_category">
-    <div class="text-muted mb-3">Domain categorization in process.</div>
-    <div>
-      The domain has had a category submitted and is in the process of applying
-      the category to the multiple proxies. Please allow for 2-3 days for this
-      process to complete. Check back on this page for any status updates.
-    </div>
-  </div>
   <div
-    *ngIf="!this.ddTabSvc.domain_data.submitted_category"
+    *ngIf="categoryList.filteredData.length === 0"
     class="flex-row flex-end mt-4"
   >
     <button
@@ -43,79 +32,79 @@
     </button>
   </div>
 </div>
+<div *ngIf="categoryList.filteredData.length > 0">
+  <mat-table [dataSource]="categoryList" matSort>
+    <!-- Proxy Name -->
+    <ng-container matColumnDef="proxy">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Proxy Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.proxy }}</mat-cell>
+    </ng-container>
 
-<div
-  class="flex flex-container tab"
-  *ngIf="this.ddTabSvc.domain_data.submitted_category"
->
-  <h5>Categorization Status</h5>
+    <!-- Category Name -->
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Category</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
+    </ng-container>
 
-  <div *ngIf="categorizedTable" class="flex-row">
-    <table class="display_table">
-      <tr>
-        <th>Proxy</th>
-        <th>Submitted Category</th>
-        <th>Status</th>
-        <th>Manually Categorize</th>
-      </tr>
-      <tr *ngFor="let result of categorizedTable">
-        <td>{{ result.proxy }}</td>
-        <td>{{ result.submitted_category }}</td>
-        <td>
-          <div *ngIf="result.is_submitted && !result.manually_submitted">
-            Success
-          </div>
-          <div *ngIf="result.is_submitted && result.manually_submitted">
-            Manually Submitted
-          </div>
-          <div *ngIf="!result.is_submitted && result.submitted_category">
-            Error
-          </div>
-          <div *ngIf="!result.is_submitted && !result.submitted_category">
-            Auto Categorization Not Supported
-          </div>
-        </td>
-        <td>
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Status</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+    </ng-container>
+
+    <!-- Date Updated -->
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Last Updated</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row['updated']; else elseCreated">{{
+          row.updated | date: "MM/dd/yy"
+        }}</ng-container>
+        <ng-template #elseCreated>{{
+          row.created | date: "MM/dd/yy"
+        }}</ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Recategorize -->
+    <ng-container matColumnDef="recategorize">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Action</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <div *ngIf="row.status === 'new'; else elseRecategorize">
           <button
-            [disabled]="result.is_submitted"
-            class="proxy_button"
             mat-raised-button
-            color="accent"
-            (click)="manuallyCategorize(result)"
-          >
-            Manually Categorize
-          </button>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="text-right" style="margin-top: 2em; margin-bottom: -2em">
-    <button mat-raised-button color="primary" (click)="checkCategory()">
-      Check Categories
-    </button>
-  </div>
-  <h5>Check Results</h5>
-  <div *ngIf="checkedTable" class="flex-row">
-    <table class="display_table">
-      <tr>
-        <th>Proxy</th>
-        <th>Category</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let result of checkedTable">
-        <td>{{ result.proxy }}</td>
-        <td>{{ result.category }}</td>
-        <td>
-          <button
-            class="proxy_button"
-            mat-raised-button
+            (click)="recategorize(row._id, row.categorize_url)"
             color="primary"
-            (click)="manuallyCheck(result)"
           >
-            Manually Check
+            Categorize
           </button>
-        </td>
-      </tr>
-    </table>
-  </div>
+        </div>
+        <ng-template #elseRecategorize>
+          <button
+            mat-raised-button
+            (click)="recategorize(row._id, row.categorize_url)"
+            color="primary"
+          >
+            Recategorize
+          </button>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Header Info -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      class="table-row cursor-pointer"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+  </mat-table>
 </div>

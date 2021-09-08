@@ -1,9 +1,13 @@
 // Angular Imports
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
 import { CategoryResult } from 'src/app/models/domain.model';
@@ -13,14 +17,23 @@ import { CategoryResult } from 'src/app/models/domain.model';
   templateUrl: './domain-details-proxy-categorization.component.html',
 })
 export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
+  categoryData = [];
+  displayedColumns = ['proxy', 'category', 'created', 'status', 'recategorize'];
+  categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
+
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
+    public dialog: MatDialog,
     public layoutSvc: LayoutService,
     public ddTabSvc: DomainDetailsTabService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.checkCategory();
+  }
 
   get categorizedTable() {
     if (!this.ddTabSvc.domain_data.category_results) {
@@ -68,7 +81,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
         (success) => {
           this.ddTabSvc.domain_data.submitted_category = this.ddTabSvc.proxy_categoriztion_tab_form.controls.category_one.value;
           this.alertsSvc.alert(
-            'Category successfully submitted for review.',
+            'Categorization request has been successfully submitted.',
             undefined,
             10000
           );
@@ -81,37 +94,49 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     }
   }
 
-  manuallyCategorize(result: CategoryResult) {
-    window.open(result.categorize_url, '_blank');
-    this.ddTabSvc.manuallyCategorize(result.proxy).subscribe(
-      (success) => {
-        this.alertsSvc.alert('Domain has been set as manually categorized');
-        result.manually_submitted = true;
-        result.is_submitted = true;
-      },
-      (failure) => {
-        console.log(failure);
-        this.alertsSvc.alert('Error setting as manually categorized');
-      }
-    );
-  }
-
-  manuallyCheck(result: CategoryResult) {
-    window.open(result.check_url, '_blank');
-  }
-
   checkCategory() {
-    this.ddTabSvc.checkCategory().subscribe(
+    this.ddTabSvc.checkCategories().subscribe(
       (success) => {
-        this.alertsSvc.alert(
-          'Category is being checked at all proxies. Return later for status'
-        );
+        console.log(success);
+        if (Array.isArray(success)) {
+          this.categoryData = success as Array<any>;
+          this.categoryList = new MatTableDataSource<any>(success);
+          this.categoryList.sort = this.sort;
+        } else {
+          this.alertsSvc.alert('Domain does not have categorizations');
+        }
       },
       (failure) => {
         console.log(failure);
-        this.alertsSvc.alert('Error checking for category');
       }
     );
+  }
+
+  recategorize(categorization_id, categorize_url) {
+    const dialogSettings = {
+      categoryList: this.categories,
+    };
+    const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.closedStatus === 'confirmed') {
+        this.ddTabSvc
+          .updateCategory(categorization_id, {
+            category: result.selectedCategory,
+            status: 'submitted',
+          })
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert('Category has been updated.');
+            },
+            (failure) => {
+              this.alertsSvc.alert('Error updating category.');
+            }
+          );
+      }
+    });
+    window.open(categorize_url, '_blank');
   }
 
   test() {
