@@ -95,11 +95,29 @@ margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;}
 img.de_D457E58A2E
 {
 margin-top: 0px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px;}
+span.de_0745CBEA63
+{
+	font-family: "-apple-system";
+	font-size: 12pt;
+	color:#24292f;
+}
 span.de_0F609BFBFC
 {
 	color:#0000ff;
 	font-style:italic;
 	text-decoration:underline;
+}
+span.de_11CC8A510B
+{
+	font-family: "Arial";
+	font-size: 11pt;
+	color:#0066cc;
+}
+span.de_196CAF198A
+{
+	font-family: "Arial";
+	font-size: 11pt;
+	color:#24292f;
 }
 span.de_2B94C39861
 {
@@ -1019,7 +1037,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-46, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-46, disc) '\00a0';
 	counter-increment: list-counter-46;
 }
 .list-counter-46 > div > div[class='list-marker-chm'] {
@@ -1037,7 +1055,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-47, lower-roman) '.\00a0';
+	content: '' counter(list-counter-47, disc) '\00a0';
 	counter-increment: list-counter-47;
 }
 .list-counter-47 > div > div[class='list-marker-chm'] {
@@ -1055,7 +1073,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-48, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-48, disc) '\00a0';
 	counter-increment: list-counter-48;
 }
 .list-counter-48 > div > div[class='list-marker-chm'] {
@@ -1073,7 +1091,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-49, lower-roman) '.\00a0';
+	content: '' counter(list-counter-49, lower-alpha) '.\00a0';
 	counter-increment: list-counter-49;
 }
 .list-counter-49 > div > div[class='list-marker-chm'] {
@@ -1091,7 +1109,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-50, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-50, lower-roman) '.\00a0';
 	counter-increment: list-counter-50;
 }
 .list-counter-50 > div > div[class='list-marker-chm'] {
@@ -1109,7 +1127,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-51, disc) '\00a0';
+	content: '' counter(list-counter-51, lower-alpha) '.\00a0';
 	counter-increment: list-counter-51;
 }
 .list-counter-51 > div > div[class='list-marker-chm'] {
@@ -1127,7 +1145,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-52, disc) '\00a0';
+	content: '' counter(list-counter-52, lower-roman) '.\00a0';
 	counter-increment: list-counter-52;
 }
 .list-counter-52 > div > div[class='list-marker-chm'] {
@@ -1163,7 +1181,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-54, disc) '\00a0';
+	content: '' counter(list-counter-54, lower-alpha) '.\00a0';
 	counter-increment: list-counter-54;
 }
 .list-counter-54 > div > div[class='list-marker-chm'] {
@@ -1181,7 +1199,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-55, disc) '\00a0';
+	content: '' counter(list-counter-55, lower-roman) '.\00a0';
 	counter-increment: list-counter-55;
 }
 .list-counter-55 > div > div[class='list-marker-chm'] {
@@ -1199,7 +1217,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-56, disc) '\00a0';
+	content: '' counter(list-counter-56, decimal) '.\00a0';
 	counter-increment: list-counter-56;
 }
 .list-counter-56 > div > div[class='list-marker-chm'] {
@@ -1217,7 +1235,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-57, disc) '\00a0';
+	content: '' counter(list-counter-57, lower-alpha) '.\00a0';
 	counter-increment: list-counter-57;
 }
 .list-counter-57 > div > div[class='list-marker-chm'] {
@@ -1235,7 +1253,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-58, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-58, lower-roman) '.\00a0';
 	counter-increment: list-counter-58;
 }
 .list-counter-58 > div > div[class='list-marker-chm'] {
@@ -1271,7 +1289,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-60, disc) '\00a0';
+	content: '' counter(list-counter-60, lower-alpha) '.\00a0';
 	counter-increment: list-counter-60;
 }
 .list-counter-60 > div > div[class='list-marker-chm'] {
@@ -1289,7 +1307,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-61, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-61, lower-roman) '.\00a0';
 	counter-increment: list-counter-61;
 }
 .list-counter-61 > div > div[class='list-marker-chm'] {
@@ -1307,7 +1325,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-62, disc) '\00a0';
+	content: '' counter(list-counter-62, lower-roman) '.\00a0';
 	counter-increment: list-counter-62;
 }
 .list-counter-62 > div > div[class='list-marker-chm'] {
@@ -1325,7 +1343,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-63, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-63, disc) '\00a0';
 	counter-increment: list-counter-63;
 }
 .list-counter-63 > div > div[class='list-marker-chm'] {
@@ -1343,7 +1361,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-64, disc) '\00a0';
+	content: '' counter(list-counter-64, lower-alpha) '.\00a0';
 	counter-increment: list-counter-64;
 }
 .list-counter-64 > div > div[class='list-marker-chm'] {
@@ -1361,7 +1379,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-65, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-65, lower-roman) '.\00a0';
 	counter-increment: list-counter-65;
 }
 .list-counter-65 > div > div[class='list-marker-chm'] {
@@ -1379,7 +1397,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-66, lower-alpha) '.\00a0';
+	content: '' counter(list-counter-66, decimal) '.\00a0';
 	counter-increment: list-counter-66;
 }
 .list-counter-66 > div > div[class='list-marker-chm'] {
@@ -1415,7 +1433,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-68, disc) '\00a0';
+	content: '' counter(list-counter-68, lower-alpha) '.\00a0';
 	counter-increment: list-counter-68;
 }
 .list-counter-68 > div > div[class='list-marker-chm'] {
@@ -1433,7 +1451,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-69, disc) '\00a0';
+	content: '' counter(list-counter-69, lower-roman) '.\00a0';
 	counter-increment: list-counter-69;
 }
 .list-counter-69 > div > div[class='list-marker-chm'] {
@@ -1451,7 +1469,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-70, disc) '\00a0';
+	content: '' counter(list-counter-70, lower-roman) '.\00a0';
 	counter-increment: list-counter-70;
 }
 .list-counter-70 > div > div[class='list-marker-chm'] {
@@ -1487,7 +1505,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-72, disc) '\00a0';
+	content: '' counter(list-counter-72, lower-alpha) '.\00a0';
 	counter-increment: list-counter-72;
 }
 .list-counter-72 > div > div[class='list-marker-chm'] {
@@ -1505,7 +1523,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-73, disc) '\00a0';
+	content: '' counter(list-counter-73, lower-roman) '.\00a0';
 	counter-increment: list-counter-73;
 }
 .list-counter-73 > div > div[class='list-marker-chm'] {
@@ -1523,7 +1541,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-74, disc) '\00a0';
+	content: '' counter(list-counter-74, lower-roman) '.\00a0';
 	counter-increment: list-counter-74;
 }
 .list-counter-74 > div > div[class='list-marker-chm'] {
@@ -1541,10 +1559,604 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-75, disc) '\00a0';
+	content: '' counter(list-counter-75, lower-alpha) '.\00a0';
 	counter-increment: list-counter-75;
 }
 .list-counter-75 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-76 > div > * {
+	text-indent: 0px;}
+.list-counter-76 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-76, lower-roman) '.\00a0';
+	counter-increment: list-counter-76;
+}
+.list-counter-76 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-77 > div > * {
+	text-indent: 0px;}
+.list-counter-77 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-77, disc) '\00a0';
+	counter-increment: list-counter-77;
+}
+.list-counter-77 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-78 > div > * {
+	text-indent: 0px;}
+.list-counter-78 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-78, lower-alpha) '.\00a0';
+	counter-increment: list-counter-78;
+}
+.list-counter-78 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-79 > div > * {
+	text-indent: 0px;}
+.list-counter-79 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-79, lower-roman) '.\00a0';
+	counter-increment: list-counter-79;
+}
+.list-counter-79 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-80 > div > * {
+	text-indent: 0px;}
+.list-counter-80 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-80, lower-alpha) '.\00a0';
+	counter-increment: list-counter-80;
+}
+.list-counter-80 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-81 > div > * {
+	text-indent: 0px;}
+.list-counter-81 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-81, lower-roman) '.\00a0';
+	counter-increment: list-counter-81;
+}
+.list-counter-81 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-82 > div > * {
+	text-indent: 0px;}
+.list-counter-82 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-82, lower-alpha) '.\00a0';
+	counter-increment: list-counter-82;
+}
+.list-counter-82 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-83 > div > * {
+	text-indent: 0px;}
+.list-counter-83 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-83, disc) '\00a0';
+	counter-increment: list-counter-83;
+}
+.list-counter-83 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-84 > div > * {
+	text-indent: 0px;}
+.list-counter-84 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-84, disc) '\00a0';
+	counter-increment: list-counter-84;
+}
+.list-counter-84 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-85 > div > * {
+	text-indent: 0px;}
+.list-counter-85 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-85, disc) '\00a0';
+	counter-increment: list-counter-85;
+}
+.list-counter-85 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-86 > div > * {
+	text-indent: 0px;}
+.list-counter-86 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-86, disc) '\00a0';
+	counter-increment: list-counter-86;
+}
+.list-counter-86 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-87 > div > * {
+	text-indent: 0px;}
+.list-counter-87 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-87, disc) '\00a0';
+	counter-increment: list-counter-87;
+}
+.list-counter-87 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-88 > div > * {
+	text-indent: 0px;}
+.list-counter-88 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-88, disc) '\00a0';
+	counter-increment: list-counter-88;
+}
+.list-counter-88 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-89 > div > * {
+	text-indent: 0px;}
+.list-counter-89 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-89, disc) '\00a0';
+	counter-increment: list-counter-89;
+}
+.list-counter-89 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-90 > div > * {
+	text-indent: 0px;}
+.list-counter-90 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-90, lower-alpha) '.\00a0';
+	counter-increment: list-counter-90;
+}
+.list-counter-90 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-91 > div > * {
+	text-indent: 0px;}
+.list-counter-91 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-91, disc) '\00a0';
+	counter-increment: list-counter-91;
+}
+.list-counter-91 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-92 > div > * {
+	text-indent: 0px;}
+.list-counter-92 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-92, disc) '\00a0';
+	counter-increment: list-counter-92;
+}
+.list-counter-92 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-93 > div > * {
+	text-indent: 0px;}
+.list-counter-93 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-93, lower-alpha) '.\00a0';
+	counter-increment: list-counter-93;
+}
+.list-counter-93 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-94 > div > * {
+	text-indent: 0px;}
+.list-counter-94 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-94, disc) '\00a0';
+	counter-increment: list-counter-94;
+}
+.list-counter-94 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-95 > div > * {
+	text-indent: 0px;}
+.list-counter-95 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-95, lower-alpha) '.\00a0';
+	counter-increment: list-counter-95;
+}
+.list-counter-95 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-96 > div > * {
+	text-indent: 0px;}
+.list-counter-96 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-96, disc) '\00a0';
+	counter-increment: list-counter-96;
+}
+.list-counter-96 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-97 > div > * {
+	text-indent: 0px;}
+.list-counter-97 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-97, lower-alpha) '.\00a0';
+	counter-increment: list-counter-97;
+}
+.list-counter-97 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-98 > div > * {
+	text-indent: 0px;}
+.list-counter-98 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-98, lower-alpha) '.\00a0';
+	counter-increment: list-counter-98;
+}
+.list-counter-98 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-99 > div > * {
+	text-indent: 0px;}
+.list-counter-99 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-99, disc) '\00a0';
+	counter-increment: list-counter-99;
+}
+.list-counter-99 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-100 > div > * {
+	text-indent: 0px;}
+.list-counter-100 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-100, disc) '\00a0';
+	counter-increment: list-counter-100;
+}
+.list-counter-100 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-101 > div > * {
+	text-indent: 0px;}
+.list-counter-101 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-101, disc) '\00a0';
+	counter-increment: list-counter-101;
+}
+.list-counter-101 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-102 > div > * {
+	text-indent: 0px;}
+.list-counter-102 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-102, disc) '\00a0';
+	counter-increment: list-counter-102;
+}
+.list-counter-102 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-103 > div > * {
+	text-indent: 0px;}
+.list-counter-103 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-103, disc) '\00a0';
+	counter-increment: list-counter-103;
+}
+.list-counter-103 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-104 > div > * {
+	text-indent: 0px;}
+.list-counter-104 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-104, disc) '\00a0';
+	counter-increment: list-counter-104;
+}
+.list-counter-104 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-105 > div > * {
+	text-indent: 0px;}
+.list-counter-105 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-105, disc) '\00a0';
+	counter-increment: list-counter-105;
+}
+.list-counter-105 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-106 > div > * {
+	text-indent: 0px;}
+.list-counter-106 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-106, disc) '\00a0';
+	counter-increment: list-counter-106;
+}
+.list-counter-106 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-107 > div > * {
+	text-indent: 0px;}
+.list-counter-107 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-107, disc) '\00a0';
+	counter-increment: list-counter-107;
+}
+.list-counter-107 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-108 > div > * {
+	text-indent: 0px;}
+.list-counter-108 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-108, disc) '\00a0';
+	counter-increment: list-counter-108;
+}
+.list-counter-108 > div > div[class='list-marker-chm'] {
 	display: inline-block;
 	text-align: left;
 	zoom: 1;
