@@ -26,15 +26,28 @@
   </mat-card-header>
 
   <mat-card-content>
-    <mat-form-field appearance="outline">
-      <mat-label>SES Forward Email</mat-label>
-      <input
-        matInput
-        type="test"
-        trim="blur"
-        [(ngModel)]="settingsData.SES_FORWARD_EMAIL"
-      />
-    </mat-form-field>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Forward Domain Emails To</mat-label>
+        <input
+          matInput
+          type="test"
+          trim="blur"
+          [(ngModel)]="settingsData.SES_FORWARD_EMAIL"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Send User Notifications Email To</mat-label>
+        <input
+          matInput
+          type="test"
+          trim="blur"
+          [(ngModel)]="settingsData.USER_NOTIFICATION_EMAIL"
+        />
+      </mat-form-field>
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="saveSettings()">
