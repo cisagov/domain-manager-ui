@@ -67,6 +67,23 @@
           </div>
         </mat-expansion-panel>
 
+        <!-- Categorization Section -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Categorization Tutorials </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngFor="let video of categorizePlaylist" class="flex-row">
+            <button
+              mat-raised-button
+              class="play-button"
+              color="primary"
+              (click)="selectVideo(video)"
+            >
+              {{ video.name }}
+            </button>
+          </div>
+        </mat-expansion-panel>
+
         <!-- User Section -->
         <mat-expansion-panel>
           <mat-expansion-panel-header>
