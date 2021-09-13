@@ -35,6 +35,7 @@ de_search\0xu0033.json
 de_search\0xu0032.json
 de_search\0xu0031.json
 de_search\0xu0030.json
+de_search
 js\drexplain.data.index.js
 de_style.css
 css\printed.css
@@ -54,6 +55,13 @@ i\blocks\search\loading.gif
 i\blocks\interface-icons\interface-icons-sprite.png
 i\blocks\interface-icons\interface-icons-sprite-8.png
 i\null.gif
+i\blocks\work-zone
+i\blocks\tree
+i\blocks\splitter
+i\blocks\search
+i\blocks\interface-icons
+i\blocks
+i
 bugs_and_missing_features.htm
 domain_manager_revision_history.htm
 glossary.htm
@@ -106,6 +114,9 @@ upload_a_new_template.htm
 drex_templates_custom_2.png
 drex_templates_custom.png
 templates.htm
+drex_domain_emails_custom_2.png
+drex_domain_emails_custom.png
+domain_emails.htm
 drex_history_1_custom_2.png
 drex_history_1_custom.png
 history_1.htm
@@ -152,6 +163,7 @@ drex_cli_requirements_and_setup_custom_2.png
 drex_cli_requirements_and_setup_custom.png
 cli_requirements_and_setup.htm
 command_line_interface.htm
+api_documentation.htm
 drex_mail_server_setup_custom_4.png
 drex_mail_server_setup_custom_3.png
 drex_mail_server_setup_custom_2.png
@@ -228,4 +240,6 @@ drex_header_custom.png
 drex_index_custom_2.png
 drex_index_custom.png
 index.htm
+css
+js
 drex_file_list

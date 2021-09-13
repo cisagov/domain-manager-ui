@@ -16,7 +16,16 @@ export class VideoTutorialsComponent implements OnInit {
       src: 'assets/videos/application_delete.mp4',
     },
   ];
-
+  categorizePlaylist = [
+    {
+      name: 'Categorize a Domain',
+      src: 'assets/videos/categorize_domain.mp4',
+    },
+    {
+      name: 'Domain Categorization Manager',
+      src: 'assets/videos/domain_categorizations_and_verifications.mp4',
+    },
+  ];
   domainPlaylist = [
     {
       name: 'Add a Domain',
