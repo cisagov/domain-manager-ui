@@ -8,4 +8,5 @@ export class AboutModel extends BaseModel {
 
 export class SettingsModel {
   SES_FORWARD_EMAIL: string;
+  USER_NOTIFICATION_EMAIL: string;
 }
