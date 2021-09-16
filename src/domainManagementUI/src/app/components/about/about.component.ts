@@ -15,7 +15,7 @@ import { ConfirmDialogComponent } from '../dialog-windows/confirm/confirm-dialog
 })
 export class AboutComponent implements OnInit {
   aboutData = new AboutModel();
-  settingsData: SettingsModel;
+  settingsData = new SettingsModel();
   constructor(
     public aboutSvc: AboutService,
     public layoutSvc: LayoutService,
