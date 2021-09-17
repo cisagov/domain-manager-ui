@@ -43,9 +43,11 @@ import { DomainDetailsTemplateSelectionComponent } from 'src/app/components/doma
 import { DominDetailsDnsRecordsComponent } from './components/domain/domain-details/tabs/dns-records/domain-details-dns-records.component';
 import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
 import { FileUploadDialogComponent } from 'src/app/components/dialog-windows/file-upload/file-upload-dialog.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LayoutBlankComponent } from 'src/app/components/layout/layout-blank/layout-blank.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 import { LoginComponent } from 'src/app/components/login/login.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { ProgressBarDialog } from 'src/app/components/dialog-windows/progress-bar/progress-bar-dialog.component';
 import { RegisterUserComponent } from 'src/app/components/register/register-user.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
@@ -125,9 +127,11 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DominDetailsDnsRecordsComponent,
     DomainListComponent,
     FileUploadDialogComponent,
+    ForgotPasswordComponent,
     LayoutBlankComponent,
     LayoutMainComponent,
     LoginComponent,
+    PasswordResetComponent,
     ProgressBarDialog,
     RegisterUserComponent,
     TemplateDetailsComponent,

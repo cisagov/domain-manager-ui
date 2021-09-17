@@ -15,6 +15,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 // Models
 import { Login } from 'src/app/models/login.model';
+import { ResetPassword } from '../models/reset-password.model';
 
 @Injectable()
 export class LoginService {
@@ -35,10 +36,24 @@ export class LoginService {
 
   public refreshToken() {
     const url = `${this.settingsService.settings.apiUrl}/api/auth/refreshtoken/`;
+
     return this.http.post(url, {
       refeshToken: this.cookieSvc.get('dm-auth-refresh-token'),
       username: localStorage.getItem('username'),
     });
+  }
+
+  public triggerPasswordReset(username: string): Observable<any> {
+    const url = `${this.settingsService.settings.apiUrl}/api/auth/resetpassword/${username}/`;
+    return this.http.get(url);
+  }
+
+  public resetPassword(
+    username: string,
+    resetPassword: ResetPassword
+  ): Observable<any> {
+    const url = `${this.settingsService.settings.apiUrl}/api/auth/resetpassword/${username}/`;
+    return this.http.post(url, resetPassword);
   }
 
   public logout() {
@@ -134,19 +149,26 @@ export class LoginService {
     if (timeout <= 0) {
       timeout = 5000; //if timeout is negative, set to five seconds
     }
-    this.refreshTokenTimeout = setTimeout(
-      () =>
-        this.refreshToken().subscribe(
-          (success) => {
-            this.setSession(success, true);
-          },
-          (failure) => {
-            console.log('Failed to refresh authorization using refresh token');
-            console.log(failure);
-          }
-        ),
-      timeout
-    );
+
+    if (this.cookieSvc.get('dm-auth-refresh-token').length !== 0) {
+      this.refreshTokenTimeout = setTimeout(
+        () =>
+          this.refreshToken().subscribe(
+            (success) => {
+              this.setSession(success, true);
+            },
+            (failure) => {
+              console.log(
+                'Failed to refresh authorization using refresh token'
+              );
+              console.log(failure);
+            }
+          ),
+        timeout
+      );
+    } else {
+      this.refreshTokenTimeout = setTimeout(() => {}, timeout);
+    }
   }
 
   private stopRefreshTokenTimer() {
