@@ -1,5 +1,6 @@
 // Angular Imports
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormControl,
   NgForm,
@@ -45,13 +46,14 @@ export class ForgotPasswordComponent {
   error: string;
 
   constructor(
+    private router: Router,
     private snackBar: MatSnackBar,
-    private LoginService: LoginService
+    private loginService: LoginService
   ) {}
 
   submit() {
     this.model.Username = this.username.value;
-    this.LoginService.triggerPasswordReset(this.model.Username).subscribe(
+    this.loginService.triggerPasswordReset(this.model.Username).subscribe(
       () => {
         this.snackBar.open(
           `Email has been sent for user ${this.model.Username}, please check your inbox`,
@@ -61,6 +63,7 @@ export class ForgotPasswordComponent {
             verticalPosition: 'top',
           }
         );
+        this.router.navigate([`/login/resetpassword/${this.model.Username}`]);
       },
       (err: HttpErrorResponse) => {
         this.error = err.error;

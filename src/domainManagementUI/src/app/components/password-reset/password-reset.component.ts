@@ -1,5 +1,6 @@
 // Angular Imports
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormControl,
   NgForm,
@@ -36,34 +37,46 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './password-reset.component.html',
   styleUrls: ['./password-reset.component.scss'],
 })
-export class PasswordResetComponent {
+export class PasswordResetComponent implements OnInit {
   model = new ResetPassword();
   matcherusername = new MyErrorStateMatcher();
   matchercode = new MyErrorStateMatcher();
   matcherpassword = new MyErrorStateMatcher();
   matcherconfirmpassword = new MyErrorStateMatcher();
+  minNumberOfChar = 8;
 
-  username = new FormControl('', [Validators.required]);
+  username = null;
+  code = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required]);
+  confirmPassword = new FormControl('', [Validators.required]);
 
   error: string;
 
   constructor(
+    public activeRoute: ActivatedRoute,
+    private router: Router,
     private snackBar: MatSnackBar,
-    private LoginService: LoginService
+    private loginService: LoginService
   ) {}
 
-  submit() {
-    const username = this.username.value;
-    this.LoginService.resetPassword(username, this.model).subscribe(
+  ngOnInit(): void {
+    this.activeRoute.params.subscribe((params) => {
+      this.username = params['username'];
+    });
+  }
+
+  resend() {
+    this.loginService.resendEmailConfirm(this.username).subscribe(
       () => {
         this.snackBar.open(
-          `Password for user ${username} has been reset. You can now login.`,
+          `Email for user ${this.username} has been resent. Please check your email.`,
           'close',
           {
             duration: 0,
             verticalPosition: 'top',
           }
         );
+        this.router.navigate(['/login/resetpassword']);
       },
       (err: HttpErrorResponse) => {
         this.error = err.error;
@@ -73,5 +86,81 @@ export class PasswordResetComponent {
         });
       }
     );
+  }
+
+  submit() {
+    this.model.confirmation_code = this.code.value;
+    this.model.password = this.password.value;
+
+    this.loginService.resetPassword(this.username, this.model).subscribe(
+      () => {
+        this.snackBar.open(
+          `Password for user ${this.username} has been reset. You can now login.`,
+          'close',
+          {
+            duration: 0,
+            verticalPosition: 'top',
+          }
+        );
+        this.router.navigateByUrl('/login');
+      },
+      (err: HttpErrorResponse) => {
+        this.error = err.error;
+        this.snackBar.open(`${this.error}`, 'close', {
+          duration: 0,
+          verticalPosition: 'top',
+        });
+      }
+    );
+  }
+
+  checkPasswordRules() {
+    const pass: boolean =
+      this.checkPasswordLength() &&
+      this.checkPasswordUpperChar() &&
+      this.checkPasswordLowerChar() &&
+      this.checkPasswordSpecialChar() &&
+      this.checkPasswordNumber() &&
+      this.checkPasswordEquality();
+    return pass;
+  }
+
+  checkPasswordEquality() {
+    return this.password.value === this.confirmPassword.value;
+  }
+
+  checkPasswordLength() {
+    if (this.password.value) {
+      return this.password.value.length >= this.minNumberOfChar;
+    }
+    return false;
+  }
+
+  checkPasswordUpperChar() {
+    if (this.password.value) {
+      return /[A-Z]/.test(this.password.value);
+    }
+    return false;
+  }
+
+  checkPasswordLowerChar() {
+    if (this.password.value) {
+      return /[a-z]/.test(this.password.value);
+    }
+    return false;
+  }
+
+  checkPasswordSpecialChar() {
+    if (this.password.value) {
+      return /[~`@!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(this.password.value);
+    }
+    return false;
+  }
+
+  checkPasswordNumber() {
+    if (this.password.value) {
+      return /[\d/]/.test(this.password.value);
+    }
+    return false;
   }
 }
