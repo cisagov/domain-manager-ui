@@ -12,6 +12,7 @@ import { HelpMenuComponent } from 'src/app/components/help/help-menu/help-menu.c
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 import { LayoutBlankComponent } from 'src/app/components/layout/layout-blank/layout-blank.component';
 import { LoginComponent } from 'src/app/components/login/login.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { RegisterUserComponent } from 'src/app/components/register/register-user.component';
 import { TemplateDetailsComponent } from 'src/app/components/template/template-details/template-details.component';
 import { TemplateListComponent } from 'src/app/components/template/template-list/template-list.component';
@@ -79,6 +80,7 @@ const routes: Routes = [
       { path: '', component: LoginComponent },
       { path: 'registeruser', component: RegisterUserComponent },
       { path: 'forgotpassword', component: ForgotPasswordComponent },
+      { path: 'resetpassword', component: PasswordResetComponent },
     ],
   },
   {

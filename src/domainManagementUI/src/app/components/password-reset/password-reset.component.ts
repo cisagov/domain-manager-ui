@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/services/login.service';
 
 // Models
-import { ForgotPassword } from 'src/app/models/forgot-password.model';
+import { ResetPassword } from 'src/app/models/reset-password.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -37,8 +37,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./password-reset.component.scss'],
 })
 export class PasswordResetComponent {
-  model = new ForgotPassword();
+  model = new ResetPassword();
   matcherusername = new MyErrorStateMatcher();
+  matchercode = new MyErrorStateMatcher();
+  matcherpassword = new MyErrorStateMatcher();
+  matcherconfirmpassword = new MyErrorStateMatcher();
 
   username = new FormControl('', [Validators.required]);
 
@@ -50,11 +53,11 @@ export class PasswordResetComponent {
   ) {}
 
   submit() {
-    this.model.Username = this.username.value;
-    this.LoginService.triggerPasswordReset(this.model.Username).subscribe(
+    const username = this.username.value;
+    this.LoginService.resetPassword(username, this.model).subscribe(
       () => {
         this.snackBar.open(
-          `Email has been sent for user ${this.model.Username}, please check your inbox`,
+          `Password for user ${username} has been reset. You can now login.`,
           'close',
           {
             duration: 0,

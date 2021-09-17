@@ -15,6 +15,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 
 // Models
 import { Login } from 'src/app/models/login.model';
+import { ResetPassword } from '../models/reset-password.model';
 
 @Injectable()
 export class LoginService {
@@ -45,6 +46,14 @@ export class LoginService {
   public triggerPasswordReset(username: string): Observable<any> {
     const url = `${this.settingsService.settings.apiUrl}/api/auth/resetpassword/${username}/`;
     return this.http.get(url);
+  }
+
+  public resetPassword(
+    username: string,
+    resetPassword: ResetPassword
+  ): Observable<any> {
+    const url = `${this.settingsService.settings.apiUrl}/api/auth/resetpassword/${username}/`;
+    return this.http.post(url, resetPassword);
   }
 
   public logout() {
