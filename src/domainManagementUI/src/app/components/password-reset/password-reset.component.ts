@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormControl,
+  FormGroup,
   NgForm,
   FormGroupDirective,
   Validators,
@@ -16,6 +17,7 @@ import { LoginService } from 'src/app/services/login.service';
 
 // Models
 import { ResetPassword } from 'src/app/models/reset-password.model';
+import { faBan, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -39,16 +41,21 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class PasswordResetComponent implements OnInit {
   model = new ResetPassword();
+  faBan = faBan;
+  faCheck = faCheck;
+
   matcherusername = new MyErrorStateMatcher();
   matchercode = new MyErrorStateMatcher();
   matcherpassword = new MyErrorStateMatcher();
   matcherconfirmpassword = new MyErrorStateMatcher();
   minNumberOfChar = 8;
-
   username = null;
-  code = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required]);
-  confirmPassword = new FormControl('', [Validators.required]);
+
+  userFormGroup = new FormGroup({
+    code: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required]),
+  });
 
   error: string;
 
@@ -65,53 +72,32 @@ export class PasswordResetComponent implements OnInit {
     });
   }
 
-  resend() {
-    this.loginService.resendEmailConfirm(this.username).subscribe(
-      () => {
-        this.snackBar.open(
-          `Email for user ${this.username} has been resent. Please check your email.`,
-          'close',
-          {
-            duration: 0,
-            verticalPosition: 'top',
-          }
-        );
-        this.router.navigate(['/login/resetpassword']);
-      },
-      (err: HttpErrorResponse) => {
-        this.error = err.error;
-        this.snackBar.open(`${this.error}`, 'close', {
-          duration: 0,
-          verticalPosition: 'top',
-        });
-      }
-    );
-  }
-
   submit() {
-    this.model.confirmation_code = this.code.value;
-    this.model.password = this.password.value;
+    if (this.userFormGroup.valid) {
+      this.model.confirmation_code = this.userFormGroup.controls.code.value;
+      this.model.password = this.userFormGroup.controls.password.value;
 
-    this.loginService.resetPassword(this.username, this.model).subscribe(
-      () => {
-        this.snackBar.open(
-          `Password for user ${this.username} has been reset. You can now login.`,
-          'close',
-          {
+      this.loginService.resetPassword(this.username, this.model).subscribe(
+        () => {
+          this.snackBar.open(
+            `Password for user ${this.username} has been reset. You can now login.`,
+            'close',
+            {
+              duration: 0,
+              verticalPosition: 'top',
+            }
+          );
+          this.router.navigateByUrl('/login');
+        },
+        (err: HttpErrorResponse) => {
+          this.error = err.error;
+          this.snackBar.open(`${this.error}`, 'close', {
             duration: 0,
             verticalPosition: 'top',
-          }
-        );
-        this.router.navigateByUrl('/login');
-      },
-      (err: HttpErrorResponse) => {
-        this.error = err.error;
-        this.snackBar.open(`${this.error}`, 'close', {
-          duration: 0,
-          verticalPosition: 'top',
-        });
-      }
-    );
+          });
+        }
+      );
+    }
   }
 
   checkPasswordRules() {
@@ -126,40 +112,48 @@ export class PasswordResetComponent implements OnInit {
   }
 
   checkPasswordEquality() {
-    return this.password.value === this.confirmPassword.value;
+    return (
+      this.userFormGroup.controls.password.value ===
+      this.userFormGroup.controls.confirmPassword.value
+    );
   }
 
   checkPasswordLength() {
-    if (this.password.value) {
-      return this.password.value.length >= this.minNumberOfChar;
+    if (this.userFormGroup.controls.password.value) {
+      return (
+        this.userFormGroup.controls.password.value.length >=
+        this.minNumberOfChar
+      );
     }
     return false;
   }
 
   checkPasswordUpperChar() {
-    if (this.password.value) {
-      return /[A-Z]/.test(this.password.value);
+    if (this.userFormGroup.controls.password.value) {
+      return /[A-Z]/.test(this.userFormGroup.controls.password.value);
     }
     return false;
   }
 
   checkPasswordLowerChar() {
-    if (this.password.value) {
-      return /[a-z]/.test(this.password.value);
+    if (this.userFormGroup.controls.password.value) {
+      return /[a-z]/.test(this.userFormGroup.controls.password.value);
     }
     return false;
   }
 
   checkPasswordSpecialChar() {
-    if (this.password.value) {
-      return /[~`@!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(this.password.value);
+    if (this.userFormGroup.controls.password.value) {
+      return /[~`@!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(
+        this.userFormGroup.controls.password.value
+      );
     }
     return false;
   }
 
   checkPasswordNumber() {
-    if (this.password.value) {
-      return /[\d/]/.test(this.password.value);
+    if (this.userFormGroup.controls.password.value) {
+      return /[\d/]/.test(this.userFormGroup.controls.password.value);
     }
     return false;
   }

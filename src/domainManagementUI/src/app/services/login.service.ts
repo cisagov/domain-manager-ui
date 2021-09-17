@@ -56,11 +56,6 @@ export class LoginService {
     return this.http.post(url, resetPassword);
   }
 
-  public resendEmailConfirm(username: string): Observable<any> {
-    const url = `${this.settingsService.settings.apiUrl}/api/auth/confirm/${username}/`;
-    return this.http.get(url);
-  }
-
   public logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
