@@ -50,17 +50,27 @@
 
       <div class="button">
         <button
+          class="button-left"
+          [routerLink]="['/login/registeruser']"
+          mat-flat-button
+          color="link"
+        >
+          Forgot Password?
+        </button>
+        <button
+          class="button-right"
           type="submit"
           [disabled]="password.hasError('required')"
           mat-raised-button
-          color="accent"
+          color="primary"
           (click)="submit()"
         >
           Login
         </button>
         <button
+          class="button-right"
           [routerLink]="['/login/registeruser']"
-          mat-button
+          mat-flat-button
           color="accent"
         >
           Register User
