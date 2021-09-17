@@ -7,6 +7,7 @@ import { ApplicationListComponent } from 'src/app/components/applications/applic
 import { CategorizationComponent } from './components/categorization/categorization.component';
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
 import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { HelpMenuComponent } from 'src/app/components/help/help-menu/help-menu.component';
 import { LayoutMainComponent } from 'src/app/components/layout/layout-main/layout-main.component';
 import { LayoutBlankComponent } from 'src/app/components/layout/layout-blank/layout-blank.component';
@@ -77,6 +78,7 @@ const routes: Routes = [
     children: [
       { path: '', component: LoginComponent },
       { path: 'registeruser', component: RegisterUserComponent },
+      { path: 'forgotpassword', component: ForgotPasswordComponent },
     ],
   },
   {
