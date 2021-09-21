@@ -134,6 +134,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
               );
               this.categoryList.data[proxy].category = result.selectedCategory;
               this.categoryList.data[proxy].status = status;
+              this.categoryList.data[proxy].updated = new Date();
             },
             (failure) => {
               this.alertsSvc.alert('Error updating category.');
