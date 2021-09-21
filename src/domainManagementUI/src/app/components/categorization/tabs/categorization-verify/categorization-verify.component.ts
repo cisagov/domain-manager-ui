@@ -78,6 +78,11 @@ export class CategorizationVerifyComponent {
           .subscribe(
             (success) => {
               this.alertsSvc.alert('Proxy status has been updated.');
+              const proxy = this.categoryList.data.findIndex(
+                (obj) => obj._id === categorization_id
+              );
+              this.categoryList.data.splice(proxy, 1);
+              this.categoryList.data = this.categoryList.data;
             },
             (failure) => {
               this.alertsSvc.alert('Error updating proxy status.');

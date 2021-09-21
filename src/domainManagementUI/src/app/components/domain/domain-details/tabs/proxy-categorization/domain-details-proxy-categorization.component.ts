@@ -97,7 +97,6 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
   checkCategory() {
     this.ddTabSvc.checkCategories().subscribe(
       (success) => {
-        console.log(success);
         if (Array.isArray(success)) {
           this.categoryData = success as Array<any>;
           this.categoryList = new MatTableDataSource<any>(success);
@@ -119,16 +118,23 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
       data: dialogSettings,
     });
+    const status = 'submitted';
     dialogRef.afterClosed().subscribe((result) => {
       if (result.closedStatus === 'confirmed') {
         this.ddTabSvc
           .updateCategory(categorization_id, {
             category: result.selectedCategory,
-            status: 'submitted',
+            status: status,
           })
           .subscribe(
             (success) => {
               this.alertsSvc.alert('Category has been updated.');
+              const proxy = this.categoryList.data.findIndex(
+                (obj) => obj._id === categorization_id
+              );
+              this.categoryList.data[proxy].category = result.selectedCategory;
+              this.categoryList.data[proxy].status = status;
+              this.categoryList.data[proxy].updated = new Date();
             },
             (failure) => {
               this.alertsSvc.alert('Error updating category.');

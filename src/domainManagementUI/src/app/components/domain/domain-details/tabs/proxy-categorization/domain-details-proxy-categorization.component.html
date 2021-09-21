@@ -1,7 +1,22 @@
 <div class="flex flex-container tab">
   <h5>Proxy Categorization</h5>
+  <div *ngIf="categoryList.filteredData.length > 0">
+    <p>
+      A Category Manager will have this domain categorized within 24 business
+      hours.
+    </p>
+    <p>
+      However, if you'd like to have this domain categorized sooner, you can
+      categorize this domain for each proxy below.
+    </p>
+  </div>
   <div *ngIf="categoryList.filteredData.length === 0" [formGroup]="tabForm">
-    <div class="text-muted mb-3">A proxy category must be selected.</div>
+    <p>Please submit a preferred category below.</p>
+    <p>
+      Once submitted, A Category Manager will have this domain categorized
+      within 24 business hours.
+    </p>
+    <div class="text-muted mt-3 mb-3">A proxy category must be selected.</div>
     <mat-form-field style="width: 20em" appearance="outline">
       <mat-select formControlName="category_one">
         <mat-option [value]="null">--Select--</mat-option>
