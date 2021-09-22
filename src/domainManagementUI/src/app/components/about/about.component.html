@@ -48,6 +48,17 @@
         />
       </mat-form-field>
     </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Send Categorization Request Emails To</mat-label>
+        <input
+          matInput
+          type="test"
+          trim="blur"
+          [(ngModel)]="settingsData.CATEGORIZATION_EMAIL"
+        />
+      </mat-form-field>
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="saveSettings()">
