@@ -23,7 +23,7 @@ export class CategorizationSubmitComponent {
     'proxy',
     'status',
     'category',
-    'created',
+    'updated',
     'categorize',
   ];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
@@ -47,7 +47,7 @@ export class CategorizationSubmitComponent {
     return Object.keys(this.categorySvc.categories);
   }
   getSubmitDomainProxies() {
-    this.categorizationTabSvc.getCategorizations('new').subscribe(
+    this.categorizationTabSvc.getCategorizations('new,recategorize').subscribe(
       (success) => {
         if (Array.isArray(success)) {
           this.categoryData = success as Array<any>;

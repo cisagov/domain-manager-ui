@@ -37,7 +37,7 @@ import { DomainDetailsDemoComponent } from 'src/app/components/domain/domain-det
 import { DomainDetailsEmailsComponent } from 'src/app/components/domain/domain-details/tabs/domain-emails/domain-details-emails.component';
 import { DomainDetailsHistoricalComponent } from 'src/app/components/domain/domain-details/tabs/historical/domain-details-historical.component';
 import { DomainDetailsHostedZoneComponent } from 'src/app/components/domain/domain-details/tabs/hosted-zone/domain-details-hosted-zone.component';
-import { DomainDetailsProxyCategorizaitonComponent } from 'src/app/components/domain/domain-details/tabs/proxy-categorization/domain-details-proxy-categorization.component';
+import { DomainDetailsProxyCategorizationComponent } from 'src/app/components/domain/domain-details/tabs/proxy-categorization/domain-details-proxy-categorization.component';
 import { DomainDetailsSummaryComponent } from 'src/app/components/domain/domain-details/tabs/summary/domain-details-summary.component';
 import { DomainDetailsTemplateSelectionComponent } from 'src/app/components/domain/domain-details/tabs/template-selection/domain-details-template-selection.component';
 import { DominDetailsDnsRecordsComponent } from './components/domain/domain-details/tabs/dns-records/domain-details-dns-records.component';
@@ -121,7 +121,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     DomainDetailsEmailsComponent,
     DomainDetailsHistoricalComponent,
     DomainDetailsHostedZoneComponent,
-    DomainDetailsProxyCategorizaitonComponent,
+    DomainDetailsProxyCategorizationComponent,
     DomainDetailsSummaryComponent,
     DomainDetailsTemplateSelectionComponent,
     DominDetailsDnsRecordsComponent,

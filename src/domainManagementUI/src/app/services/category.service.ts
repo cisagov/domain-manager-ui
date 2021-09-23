@@ -48,6 +48,11 @@ export class CategoryService {
     return this.http.get(url);
   }
 
+  updateDomainCategories(domainId: string, status: string, category: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
+    return this.http.put(url, { status: status, category: category });
+  }
+
   updateCategorization(id: string, data: CategorizationModel) {
     const url = `${this.settingsService.settings.apiUrl}/api/categorization/${id}/`;
     return this.http.put(url, data);
