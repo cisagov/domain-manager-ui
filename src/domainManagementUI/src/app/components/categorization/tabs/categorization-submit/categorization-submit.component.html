@@ -38,10 +38,10 @@
       <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
     </ng-container>
 
-    <!-- Date Updated -->
-    <ng-container matColumnDef="created">
+    <!-- Date Requested -->
+    <ng-container matColumnDef="updated">
       <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Last Updated</mat-header-cell
+        >Date Requested</mat-header-cell
       >
       <mat-cell *matCellDef="let row">
         <ng-container *ngIf="row['updated']; else elseCreated">{{
