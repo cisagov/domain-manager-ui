@@ -327,6 +327,14 @@ export class DomainDetailsTabService {
     return this.categorySvc.updateCategorization(id, data);
   }
 
+  recategorizeDomainProxies(id: string, category: string) {
+    return this.categorySvc.updateDomainCategories(
+      id,
+      'recategorize',
+      category
+    );
+  }
+
   isValid(form: FormGroup) {
     if (form.valid) {
       return true;

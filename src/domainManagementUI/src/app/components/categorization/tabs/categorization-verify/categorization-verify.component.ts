@@ -59,7 +59,7 @@ export class CategorizationVerifyComponent {
   }
 
   get statuses() {
-    return ['verified', 'rejected'];
+    return ['verified', 'burned'];
   }
 
   verify(categorization_id, check_url) {

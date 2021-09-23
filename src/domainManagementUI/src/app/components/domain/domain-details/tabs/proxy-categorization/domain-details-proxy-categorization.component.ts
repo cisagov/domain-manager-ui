@@ -10,13 +10,12 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
-import { CategoryResult } from 'src/app/models/domain.model';
 
 @Component({
-  selector: 'dd-proxy-categorizaiton',
+  selector: 'dd-proxy-categorization',
   templateUrl: './domain-details-proxy-categorization.component.html',
 })
-export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
+export class DomainDetailsProxyCategorizationComponent implements OnInit {
   categoryData = [];
   displayedColumns = ['proxy', 'category', 'created', 'status', 'recategorize'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
@@ -111,7 +110,7 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
     );
   }
 
-  recategorize(categorization_id, categorize_url) {
+  categorize(categorization_id, categorize_url) {
     const dialogSettings = {
       categoryList: this.categories,
     };
@@ -143,6 +142,38 @@ export class DomainDetailsProxyCategorizaitonComponent implements OnInit {
       }
     });
     window.open(categorize_url, '_blank');
+  }
+
+  validateRecategorize() {
+    return !this.categoryList.data.find((proxy) => proxy.status === 'new');
+  }
+
+  recategorize() {
+    const dialogSettings = {
+      categoryList: this.categories,
+    };
+    const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
+      data: dialogSettings,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.closedStatus === 'confirmed') {
+        this.ddTabSvc
+          .recategorizeDomainProxies(
+            this.ddTabSvc.domain_data._id,
+            result.selectedCategory
+          )
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert(
+                'Domain recategorization request has been submitted.'
+              );
+            },
+            (failure) => {
+              this.alertsSvc.alert('Error recategorizing domain.');
+            }
+          );
+      }
+    });
   }
 
   test() {
