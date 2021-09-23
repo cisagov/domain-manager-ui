@@ -105,7 +105,7 @@
         <div *ngIf="row.status === 'new'; else elseRecategorize">
           <button
             mat-raised-button
-            (click)="categorize(row._id, row.categorize_url)"
+            (click)="categorize(row._id, row.categorize_url, row.category)"
             color="primary"
           >
             Categorize
@@ -114,7 +114,7 @@
         <ng-template #elseRecategorize>
           <button
             mat-raised-button
-            (click)="categorize(row._id, row.categorize_url)"
+            (click)="categorize(row._id, row.categorize_url, row.category)"
             color="primary"
           >
             Recategorize
