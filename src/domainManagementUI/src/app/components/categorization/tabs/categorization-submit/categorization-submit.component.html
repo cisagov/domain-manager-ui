@@ -61,7 +61,7 @@
       <mat-cell *matCellDef="let row">
         <button
           mat-raised-button
-          (click)="categorize(row._id, row.categorize_url)"
+          (click)="categorize(row._id, row.categorize_url, row.category)"
           color="primary"
         >
           Categorize
