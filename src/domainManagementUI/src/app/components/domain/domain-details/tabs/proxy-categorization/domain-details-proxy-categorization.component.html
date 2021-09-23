@@ -102,7 +102,7 @@
         >Action</mat-header-cell
       >
       <mat-cell *matCellDef="let row">
-        <div *ngIf="row.status === 'new'; else elseRecategorize">
+        <div *ngIf="row.status === 'new'; else Recheck">
           <button
             mat-raised-button
             (click)="categorize(row._id, row.categorize_url, row.category)"
@@ -111,10 +111,20 @@
             Categorize
           </button>
         </div>
-        <ng-template #elseRecategorize>
+        <ng-template #Recheck>
           <button
+            *ngIf="row.status === 'verified'; else Recategorize"
             mat-raised-button
             (click)="categorize(row._id, row.categorize_url, row.category)"
+            color="primary"
+          >
+            Recheck
+          </button>
+        </ng-template>
+        <ng-template #Recategorize>
+          <button
+            mat-raised-button
+            (click)="categorize(row._id, row.check_url, row.category)"
             color="primary"
           >
             Recategorize
