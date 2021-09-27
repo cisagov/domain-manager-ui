@@ -18,6 +18,7 @@ export class ConfirmCategoryDialogComponent {
   functionOnConfirm: any;
   selectedCategory: string;
   categorizationFormGroup: FormGroup;
+  defaultValue: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,7 +28,7 @@ export class ConfirmCategoryDialogComponent {
     this.functionOnConfirm = data.functionOnConfirm;
     this.itemConfirming = data.itemConfirming;
     this.actionConfirming = data.actionConfirming;
-
+    this.defaultValue = data.preferredCategory;
     this.categorizationFormGroup = new FormGroup({
       categorization_id: new FormControl('', [Validators.required]),
     });

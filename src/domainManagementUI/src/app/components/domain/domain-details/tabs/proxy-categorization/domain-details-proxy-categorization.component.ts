@@ -110,9 +110,10 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
     );
   }
 
-  categorize(categorization_id, categorize_url) {
+  categorize(categorization_id, categorize_url, preferred_category) {
     const dialogSettings = {
       categoryList: this.categories,
+      preferredCategory: preferred_category,
     };
     const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
       data: dialogSettings,
