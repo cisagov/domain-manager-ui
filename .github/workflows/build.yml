@@ -28,6 +28,7 @@ on:
 env:
   BUILDX_CACHE_DIR: ~/.cache/buildx
   IMAGE_NAME: cisagov/domain-manager-ui
+  CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   # Disabled linux/arm/v6 due to the following error when installing npm.
   # npm : Depends: nodejs (>= 6.11~) but it is not installable
