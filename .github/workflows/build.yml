@@ -4,12 +4,13 @@ name: build
 on:
   push:
     branches:
-      - '**'
+      - "**"
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
   pull_request:
   schedule:
-    - cron: '0 10 * * *'  # everyday at 10am
+    # everyday at 10am
+    - cron: "0 10 * * *"
   repository_dispatch:
     # Respond to rebuild requests. See: https://github.com/cisagov/action-apb/
     types: [apb]
@@ -43,6 +44,7 @@ env:
   # Disabled linux/ppc64le because it takes a long time.
   PLATFORMS: "linux/amd64,linux/arm64"
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
+  RUN_TMATE: ${{ secrets.RUN_TMATE }}
 
 jobs:
   lint:
@@ -51,19 +53,45 @@ jobs:
     name: "Lint sources"
     runs-on: ubuntu-latest
     steps:
+      - uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v2
       - id: setup-python
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
+      # GO_VERSION and GOCACHE are used by the cache task, so the Go
+      # installation must happen before that.
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "1.16"
+      - name: Store installed Go version
+        run: |
+          echo "GO_VERSION="\
+          "$(go version | sed 's/^go version go\([0-9.]\+\) .*/\1/')" \
+          >> $GITHUB_ENV
+      - name: Lookup Go cache directory
+        id: go-cache
+        run: |
+          echo "::set-output name=dir::$(go env GOCACHE)"
       - uses: actions/cache@v2
         env:
           BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-"
+            py${{ steps.setup-python.outputs.python-version }}-\
+            go${{ env.GO_VERSION }}-\
+            packer${{ env.PACKER_VERSION }}-\
+            tf${{ env.TERRAFORM_VERSION }}-"
         with:
+          # Note that the .terraform directory IS NOT included in the
+          # cache because if we were caching, then we would need to use
+          # the `-upgrade=true` option. This option blindly pulls down the
+          # latest modules and providers instead of checking to see if an
+          # update is required. That behavior defeats the benefits of caching.
+          # so there is no point in doing it for the .terraform directory.
           path: |
             ${{ env.PIP_CACHE_DIR }}
             ${{ env.PRE_COMMIT_CACHE_DIR }}
+            ${{ env.CURL_CACHE_DIR }}
+            ${{ steps.go-cache.outputs.dir }}
           key: "${{ env.BASE_CACHE_KEY }}\
             ${{ hashFiles('**/requirements-test.txt') }}-\
             ${{ hashFiles('**/requirements.txt') }}-\
@@ -72,6 +100,28 @@ jobs:
             ${{ env.BASE_CACHE_KEY }}
       - name: Copy env.dist
         run: cp etc/env.dist .env
+      - name: Setup curl cache
+        run: mkdir -p ${{ env.CURL_CACHE_DIR }}
+      - name: Install Packer
+        run: |
+          PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --location \
+            "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
+          sudo unzip -d /opt/packer \
+            ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
+          sudo mv /usr/local/bin/packer /usr/local/bin/packer-default
+          sudo ln -s /opt/packer/packer /usr/local/bin/packer
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+      - name: Install shfmt
+        run: go install mvdan.cc/sh/v3/cmd/shfmt@${SHFMT_VERSION}
+      - name: Install Terraform-docs
+        run: |
+          go install \
+            github.com/terraform-docs/terraform-docs@${TERRAFORM_DOCS_VERSION}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -217,32 +267,33 @@ jobs:
           context: .
           file: ./Dockerfile
           outputs: type=docker,dest=dist/image.tar
-          tags: ${{ env.IMAGE_NAME }}:latest  # not to be pushed
+          # not to be pushed
+          tags: ${{ env.IMAGE_NAME }}:latest
           # For a list of pre-defined annotation keys and value types see:
           # https://github.com/opencontainers/image-spec/blob/master/annotations.md
           labels: "\
             org.opencontainers.image.created=${{
-              needs.prepare.outputs.created }}
+            needs.prepare.outputs.created }}
 
             org.opencontainers.image.description=${{
-              fromJson(needs.prepare.outputs.repometa).description }}
+            fromJson(needs.prepare.outputs.repometa).description }}
 
             org.opencontainers.image.licenses=${{
-              fromJson(needs.prepare.outputs.repometa).license.spdx_id }}
+            fromJson(needs.prepare.outputs.repometa).license.spdx_id }}
 
             org.opencontainers.image.revision=${{ github.sha }}
 
             org.opencontainers.image.source=${{
-              fromJson(needs.prepare.outputs.repometa).clone_url }}
+            fromJson(needs.prepare.outputs.repometa).clone_url }}
 
             org.opencontainers.image.title=${{
-              fromJson(needs.prepare.outputs.repometa).name }}
+            fromJson(needs.prepare.outputs.repometa).name }}
 
             org.opencontainers.image.url=${{
-              fromJson(needs.prepare.outputs.repometa).html_url }}
+            fromJson(needs.prepare.outputs.repometa).html_url }}
 
             org.opencontainers.image.version=${{
-              needs.prepare.outputs.source_version }}"
+            needs.prepare.outputs.source_version }}"
       - name: Compress image
         run: gzip dist/image.tar
       - name: Upload artifacts
@@ -349,29 +400,32 @@ jobs:
           # https://github.com/opencontainers/image-spec/blob/master/annotations.md
           labels: "\
             org.opencontainers.image.created=${{
-              needs.prepare.outputs.created }}
+            needs.prepare.outputs.created }}
 
             org.opencontainers.image.description=${{
-              fromJson(needs.prepare.outputs.repometa).description }}
+            fromJson(needs.prepare.outputs.repometa).description }}
 
             org.opencontainers.image.licenses=${{
-              fromJson(needs.prepare.outputs.repometa).license.spdx_id }}
+            fromJson(needs.prepare.outputs.repometa).license.spdx_id }}
 
             org.opencontainers.image.revision=${{ github.sha }}
 
             org.opencontainers.image.source=${{
-              fromJson(needs.prepare.outputs.repometa).clone_url }}
+            fromJson(needs.prepare.outputs.repometa).clone_url }}
 
             org.opencontainers.image.title=${{
-              fromJson(needs.prepare.outputs.repometa).name }}
+            fromJson(needs.prepare.outputs.repometa).name }}
 
             org.opencontainers.image.url=${{
-              fromJson(needs.prepare.outputs.repometa).html_url }}
+            fromJson(needs.prepare.outputs.repometa).html_url }}
 
             org.opencontainers.image.version=${{
-              needs.prepare.outputs.source_version }}"
+            needs.prepare.outputs.source_version }}"
       - name: Publish README.md to Docker Hub
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: ./push_readme.sh
+      - name: Setup tmate debug session
+        uses: mxschmitt/action-tmate@v3
+        if: env.RUN_TMATE
