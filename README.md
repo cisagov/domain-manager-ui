@@ -1,8 +1,8 @@
-# Con-PCA Client
+# Con-PCA Client #
 
-## Angular frontend application
+## Angular frontend application ##
 
-### Requirements
+### Requirements ##
 
 For local setup, Get the right flavor of Docker for your OS...
 
@@ -18,7 +18,7 @@ following these steps:
 Open Docker > Preferences > Advanced tab,
 then set memory to 4.0 GiB
 
-## Additional Suggestions
+## Additional Suggestions ##
 
 Here are some additional software to use along with develpment.
 These items are not required for development.
@@ -26,12 +26,12 @@ These items are not required for development.
 - [VS Code](https://code.visualstudio.com/ "VS Code")
 - [MongoDB Compass](https://www.mongodb.com/products/compass "MongoDB Compass")
 
-## Local Install and Deployment
+## Local Install and Deployment ##
 
 Use `Makefile` located in the client directory to
 install and run all services.
 
-### Setup and Build
+### Setup and Build ###
 
 Create your .env files
 
@@ -66,10 +66,10 @@ Remove containers:
 
 - `make down`
 
-### To access the Angular app
+### To access the Angular app ###
 
 Angular app located at [localhost:4200](http://localhost:4200)
 
-### Run pre-commit
+### Run pre-commit ###
 
 - `pre-commit run --all-files`
