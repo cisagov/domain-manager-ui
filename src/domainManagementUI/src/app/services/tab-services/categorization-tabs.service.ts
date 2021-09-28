@@ -19,10 +19,10 @@ export class CategorizationTabService {
   summary_form: FormGroup;
   template_selection_form: FormGroup;
 
-  public attributeList: Array<TemplateAttribute> = new Array<TemplateAttribute>();
-  public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  public attributeList: Array<TemplateAttribute> =
+    new Array<TemplateAttribute>();
+  public tabCompleteBehvaiorSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
   public userIsAdmin: boolean = false;
 
   constructor(

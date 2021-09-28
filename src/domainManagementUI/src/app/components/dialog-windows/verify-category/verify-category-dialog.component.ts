@@ -38,7 +38,8 @@ export class VerifyCategoryDialogComponent {
   }
 
   confirm() {
-    this.selectedStatus = this.categorizationFormGroup.controls.categorization_id.value;
+    this.selectedStatus =
+      this.categorizationFormGroup.controls.categorization_id.value;
     this.dialogRef.close({
       closedStatus: 'confirmed',
       selectedStatus: this.selectedStatus,

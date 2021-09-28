@@ -19,13 +19,15 @@ import { DomainModel } from 'src/app/models/domain.model';
   styleUrls: ['./template-details-connected-domains.component.scss'],
 })
 export class TemplateDetailsConnectedDomainsComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   component_subscriptions = [];
   dataSub = null;
   displayedColumns = ['name', 'application_name', 'download'];
   template_data: TemplateModel = new TemplateModel();
   @ViewChild(MatSort) sort: MatSort;
-  domainsUsedList: MatTableDataSource<DomainModel> = new MatTableDataSource<DomainModel>();
+  domainsUsedList: MatTableDataSource<DomainModel> =
+    new MatTableDataSource<DomainModel>();
 
   constructor(public tdTabSvc: TemplateDetailsTabService) {}
 
