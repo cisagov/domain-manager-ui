@@ -31,7 +31,8 @@ import { EmailModel } from 'src/app/models/email.model';
   styleUrls: ['./domain-details-emails.component.scss'],
 })
 export class DomainDetailsEmailsComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit
+{
   component_subscriptions = [];
   loading = true;
   data = [];
@@ -101,8 +102,8 @@ export class DomainDetailsEmailsComponent
     } else {
     }
     this.toggleInProcess = true;
-    this.ddTabSvc.domain_data.is_email_active = !this.ddTabSvc.domain_data
-      .is_email_active;
+    this.ddTabSvc.domain_data.is_email_active =
+      !this.ddTabSvc.domain_data.is_email_active;
     this.emailSvc
       .setDomainEmailsStatus(
         this.ddTabSvc.domain_data._id,

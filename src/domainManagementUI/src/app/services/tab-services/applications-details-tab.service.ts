@@ -16,12 +16,10 @@ import { DomainModel } from 'src/app/models/domain.model';
 export class ApplicationsTabService {
   public loading = true;
   public application_data: ApplicationModel = new ApplicationModel();
-  public application_data_behavior_subject: BehaviorSubject<ApplicationModel> = new BehaviorSubject<ApplicationModel>(
-    new ApplicationModel()
-  );
-  public domains_data_behavior_subject: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(
-    false
-  );
+  public application_data_behavior_subject: BehaviorSubject<ApplicationModel> =
+    new BehaviorSubject<ApplicationModel>(new ApplicationModel());
+  public domains_data_behavior_subject: BehaviorSubject<Boolean> =
+    new BehaviorSubject<Boolean>(false);
   public domains_assigned: Array<DomainModel>;
   public domains_not_assigned: Array<DomainModel>;
 

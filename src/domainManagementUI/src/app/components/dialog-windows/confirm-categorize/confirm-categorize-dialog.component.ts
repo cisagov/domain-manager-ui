@@ -39,7 +39,8 @@ export class ConfirmCategoryDialogComponent {
   }
 
   confirm() {
-    this.selectedCategory = this.categorizationFormGroup.controls.categorization_id.value;
+    this.selectedCategory =
+      this.categorizationFormGroup.controls.categorization_id.value;
     this.dialogRef.close({
       closedStatus: 'confirmed',
       selectedCategory: this.selectedCategory,

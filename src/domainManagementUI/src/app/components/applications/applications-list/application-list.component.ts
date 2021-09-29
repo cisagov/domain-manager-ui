@@ -30,7 +30,8 @@ import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.mode
   styleUrls: ['./application-list.component.scss'],
 })
 export class ApplicationListComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit
+{
   componentSubscriptions = [];
   displayedColumns = ['nameLowerCase', 'domains_used_count', 'select'];
   applicationList = new MatTableDataSource<ApplicationModel>();
