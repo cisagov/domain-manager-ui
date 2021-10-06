@@ -18,14 +18,8 @@ import { CategorizationTabService } from 'src/app/services/tab-services/categori
 })
 export class CategorizationSubmitComponent {
   categoryData = [];
-  displayedColumns = [
-    'domain',
-    'proxy',
-    'status',
-    'category',
-    'updated',
-    'categorize',
-  ];
+  domainData = [];
+  displayedColumns = ['proxy', 'status', 'category', 'updated', 'categorize'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -51,8 +45,22 @@ export class CategorizationSubmitComponent {
       (success) => {
         if (Array.isArray(success)) {
           this.categoryData = success as Array<any>;
-          this.categoryList = new MatTableDataSource<any>(success);
-          this.categoryList.sort = this.sort;
+          this.categoryData.forEach((i) => {
+            let found = this.domainData.some(
+              (el) => el.domain_name === i.domain_name
+            );
+            if (!found) {
+              this.domainData.push({
+                domain_name: i.domain_name,
+                domain_id: i.domain_id,
+                categories: new MatTableDataSource<any>(
+                  this.categoryData.filter(
+                    (x) => x.domain_name == i.domain_name
+                  )
+                ),
+              });
+            }
+          });
         } else {
           this.alertsSvc.alert('No domains for proxy submission.');
         }
