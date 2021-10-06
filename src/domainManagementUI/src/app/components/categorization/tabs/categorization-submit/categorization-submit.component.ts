@@ -10,6 +10,8 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
+import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 
 @Component({
   selector: 'app-categorization-submit',
@@ -18,15 +20,10 @@ import { CategorizationTabService } from 'src/app/services/tab-services/categori
 })
 export class CategorizationSubmitComponent {
   categoryData = [];
-  displayedColumns = [
-    'domain',
-    'proxy',
-    'status',
-    'category',
-    'updated',
-    'categorize',
-  ];
+  domainData = [];
+  displayedColumns = ['proxy', 'status', 'category', 'updated', 'categorize'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
+  domainDetails = {};
 
   @ViewChild(MatSort) sort: MatSort;
   constructor(
@@ -51,8 +48,39 @@ export class CategorizationSubmitComponent {
       (success) => {
         if (Array.isArray(success)) {
           this.categoryData = success as Array<any>;
-          this.categoryList = new MatTableDataSource<any>(success);
-          this.categoryList.sort = this.sort;
+          let uniqueVals = [
+            ...new Set(this.categoryData.map((item) => item.domain_id)),
+          ];
+          uniqueVals.forEach((val) => {
+            this.categorizationTabSvc.domainDetails(val).subscribe(
+              (success: any) => {
+                this.domainDetails = success as Object;
+                this.categoryData
+                  .filter((x) => x.domain_id == val)
+                  .forEach((cd) => {
+                    let found = this.domainData.some(
+                      (el) => el.domain_name === cd.domain_name
+                    );
+                    if (!found) {
+                      this.domainData.push({
+                        domain_name: cd.domain_name,
+                        domain_id: cd.domain_id,
+                        email_active: success.is_email_active,
+                        categories: new MatTableDataSource<any>(
+                          this.categoryData.filter(
+                            (x) => x.domain_name == cd.domain_name
+                          )
+                        ),
+                      });
+                    }
+                  });
+              },
+              (failure) => {
+                console.log(failure);
+                return;
+              }
+            );
+          });
         } else {
           this.alertsSvc.alert('No domains for proxy submission.');
         }
@@ -61,6 +89,22 @@ export class CategorizationSubmitComponent {
         console.log(failure);
       }
     );
+  }
+
+  canEmail(domainId) {
+    this.categorizationTabSvc.domainDetails(domainId).subscribe(
+      (success) => {
+        this.domainDetails = success as Object;
+      },
+      (failure) => {
+        console.log(failure);
+        return;
+      }
+    );
+  }
+
+  canReject(categories) {
+    return categories.length === 8;
   }
 
   categorize(categorization_id, categorize_url, preferred_category) {
@@ -94,5 +138,64 @@ export class CategorizationSubmitComponent {
       }
     });
     window.open(categorize_url, '_blank');
+  }
+
+  reject(domain_id) {
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Confirm Proxy Requests Delete';
+    dialogSettings.actionConfirming = `Are you sure you want to delete all proxies for this domain?`;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.categorizationTabSvc.deleteProxies(domain_id).subscribe(
+          (success) => {
+            this.alertsSvc.alert(
+              'Proxy requests for this domain have been deleted.'
+            );
+            const proxies = this.domainData.findIndex(
+              (obj) => obj.domain_id === domain_id
+            );
+            this.domainData.splice(proxies, 1);
+            this.domainData = this.domainData;
+          },
+          (failure) => {
+            console.log(failure);
+            this.alertsSvc.alert(`${failure.error.error}`);
+          }
+        );
+      } else {
+        dialogRef.close();
+      }
+    });
+  }
+
+  toggleEmail(domain_id) {
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Enable Email Receiving';
+    dialogSettings.actionConfirming = `Are you sure you want to receive emails to this domain?`;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.categorizationTabSvc.enableEmailReceiving(domain_id).subscribe(
+          (success) => {
+            this.alertsSvc.alert(
+              'Email receiving for this domain has been enabled.'
+            );
+          },
+          (failure) => {
+            console.log(failure);
+            this.alertsSvc.alert(`${failure.error.error}`);
+          }
+        );
+      } else {
+        dialogRef.close();
+      }
+    });
   }
 }
