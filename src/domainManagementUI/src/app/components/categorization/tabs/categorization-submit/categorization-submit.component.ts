@@ -23,6 +23,7 @@ export class CategorizationSubmitComponent {
   domainData = [];
   displayedColumns = ['proxy', 'status', 'category', 'updated', 'categorize'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
+  domainDetails = {};
 
   @ViewChild(MatSort) sort: MatSort;
   constructor(
@@ -47,21 +48,38 @@ export class CategorizationSubmitComponent {
       (success) => {
         if (Array.isArray(success)) {
           this.categoryData = success as Array<any>;
-          this.categoryData.forEach((i) => {
-            let found = this.domainData.some(
-              (el) => el.domain_name === i.domain_name
+          let uniqueVals = [
+            ...new Set(this.categoryData.map((item) => item.domain_id)),
+          ];
+          uniqueVals.forEach((val) => {
+            this.categorizationTabSvc.domainDetails(val).subscribe(
+              (success: any) => {
+                this.domainDetails = success as Object;
+                this.categoryData
+                  .filter((x) => x.domain_id == val)
+                  .forEach((cd) => {
+                    let found = this.domainData.some(
+                      (el) => el.domain_name === cd.domain_name
+                    );
+                    if (!found) {
+                      this.domainData.push({
+                        domain_name: cd.domain_name,
+                        domain_id: cd.domain_id,
+                        email_active: success.is_email_active,
+                        categories: new MatTableDataSource<any>(
+                          this.categoryData.filter(
+                            (x) => x.domain_name == cd.domain_name
+                          )
+                        ),
+                      });
+                    }
+                  });
+              },
+              (failure) => {
+                console.log(failure);
+                return;
+              }
             );
-            if (!found) {
-              this.domainData.push({
-                domain_name: i.domain_name,
-                domain_id: i.domain_id,
-                categories: new MatTableDataSource<any>(
-                  this.categoryData.filter(
-                    (x) => x.domain_name == i.domain_name
-                  )
-                ),
-              });
-            }
           });
         } else {
           this.alertsSvc.alert('No domains for proxy submission.');
@@ -69,6 +87,18 @@ export class CategorizationSubmitComponent {
       },
       (failure) => {
         console.log(failure);
+      }
+    );
+  }
+
+  canEmail(domainId) {
+    this.categorizationTabSvc.domainDetails(domainId).subscribe(
+      (success) => {
+        this.domainDetails = success as Object;
+      },
+      (failure) => {
+        console.log(failure);
+        return;
       }
     );
   }

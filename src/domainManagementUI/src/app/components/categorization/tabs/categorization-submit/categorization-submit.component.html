@@ -11,6 +11,7 @@
         {{ domain.domain_name }}
       </mat-panel-title>
       <button
+        *ngIf="!domain.email_active"
         mat-raised-button
         class="domain-button"
         color="primary"

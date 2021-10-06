@@ -38,6 +38,11 @@ export class CategoryService {
     return this.http.get(url);
   }
 
+  domainDetails(domainId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}`;
+    return this.http.get(url);
+  }
+
   submitCategory(domainId: string, categoryName: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
     return this.http.post(url, { category: categoryName });
