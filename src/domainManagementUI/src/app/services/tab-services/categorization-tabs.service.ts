@@ -5,6 +5,7 @@ import { Injectable, OnInit } from '@angular/core';
 // Local Servie Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { EmailService } from '../email.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 // Models
@@ -27,6 +28,7 @@ export class CategorizationTabService {
 
   constructor(
     public alertsSvc: AlertsService,
+    public emailSvc: EmailService,
     public categorySvc: CategoryService,
     private userAuthSvc: UserAuthService
   ) {
@@ -43,5 +45,9 @@ export class CategorizationTabService {
 
   deleteProxies(domainId: string) {
     return this.categorySvc.deleteProxyRequests(domainId);
+  }
+
+  enableEmailReceiving(domainId: string) {
+    return this.emailSvc.setDomainEmailsStatus(domainId, true);
   }
 }

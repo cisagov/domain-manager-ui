@@ -10,7 +10,12 @@
       <mat-panel-title>
         {{ domain.domain_name }}
       </mat-panel-title>
-      <button mat-raised-button class="domain-button" color="primary">
+      <button
+        mat-raised-button
+        class="domain-button"
+        color="primary"
+        (click)="toggleEmail(domain.domain_id)"
+      >
         Enable Email
       </button>
       <button

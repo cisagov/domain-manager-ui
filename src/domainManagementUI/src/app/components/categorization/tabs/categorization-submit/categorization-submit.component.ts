@@ -115,22 +115,53 @@ export class CategorizationSubmitComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.categorizationTabSvc.deleteProxies(domain_id).subscribe(
-        (success) => {
-          this.alertsSvc.alert(
-            'Proxy requests for this domain have been deleted.'
-          );
-          const proxies = this.domainData.findIndex(
-            (obj) => obj.domain_id === domain_id
-          );
-          this.domainData.splice(proxies, 1);
-          this.domainData = this.domainData;
-        },
-        (failure) => {
-          console.log(failure);
-          this.alertsSvc.alert(`${failure.error.error}`);
-        }
-      );
+      if (result === 'confirmed') {
+        this.categorizationTabSvc.deleteProxies(domain_id).subscribe(
+          (success) => {
+            this.alertsSvc.alert(
+              'Proxy requests for this domain have been deleted.'
+            );
+            const proxies = this.domainData.findIndex(
+              (obj) => obj.domain_id === domain_id
+            );
+            this.domainData.splice(proxies, 1);
+            this.domainData = this.domainData;
+          },
+          (failure) => {
+            console.log(failure);
+            this.alertsSvc.alert(`${failure.error.error}`);
+          }
+        );
+      } else {
+        dialogRef.close();
+      }
+    });
+  }
+
+  toggleEmail(domain_id) {
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Enable Email Receiving';
+    dialogSettings.actionConfirming = `Are you sure you want to receive emails to this domain?`;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+        this.categorizationTabSvc.enableEmailReceiving(domain_id).subscribe(
+          (success) => {
+            this.alertsSvc.alert(
+              'Email receiving for this domain has been enabled.'
+            );
+          },
+          (failure) => {
+            console.log(failure);
+            this.alertsSvc.alert(`${failure.error.error}`);
+          }
+        );
+      } else {
+        dialogRef.close();
+      }
     });
   }
 }
