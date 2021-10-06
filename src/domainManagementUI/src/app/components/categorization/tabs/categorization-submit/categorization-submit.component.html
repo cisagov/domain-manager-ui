@@ -19,6 +19,7 @@
         Enable Email
       </button>
       <button
+        *ngIf="canReject(domain.categories.data)"
         mat-stroked-button
         class="domain-button"
         color="warn"
