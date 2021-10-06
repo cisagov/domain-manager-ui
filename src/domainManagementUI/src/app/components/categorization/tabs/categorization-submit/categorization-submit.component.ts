@@ -10,6 +10,8 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
+import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 
 @Component({
   selector: 'app-categorization-submit',
@@ -102,5 +104,33 @@ export class CategorizationSubmitComponent {
       }
     });
     window.open(categorize_url, '_blank');
+  }
+
+  reject(domain_id) {
+    const dialogSettings = new ConfirmDialogSettings();
+    dialogSettings.itemConfirming = 'Confirm Proxy Requests Delete';
+    dialogSettings.actionConfirming = `Are you sure you want to delete all proxies for this domain?`;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogSettings,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.categorizationTabSvc.deleteProxies(domain_id).subscribe(
+        (success) => {
+          this.alertsSvc.alert(
+            'Proxy requests for this domain have been deleted.'
+          );
+          const proxies = this.domainData.findIndex(
+            (obj) => obj.domain_id === domain_id
+          );
+          this.domainData.splice(proxies, 1);
+          this.domainData = this.domainData;
+        },
+        (failure) => {
+          console.log(failure);
+          this.alertsSvc.alert(`${failure.error.error}`);
+        }
+      );
+    });
   }
 }

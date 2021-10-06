@@ -13,7 +13,12 @@
       <button mat-raised-button class="domain-button" color="primary">
         Enable Email
       </button>
-      <button mat-stroked-button class="domain-button" color="warn">
+      <button
+        mat-stroked-button
+        class="domain-button"
+        color="warn"
+        (click)="reject(domain.domain_id)"
+      >
         Reject
       </button>
     </mat-expansion-panel-header>

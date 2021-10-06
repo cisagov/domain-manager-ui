@@ -40,4 +40,8 @@ export class CategorizationTabService {
   updateCategory(id: string, data: object) {
     return this.categorySvc.updateCategorization(id, data);
   }
+
+  deleteProxies(domainId: string) {
+    return this.categorySvc.deleteProxyRequests(domainId);
+  }
 }
