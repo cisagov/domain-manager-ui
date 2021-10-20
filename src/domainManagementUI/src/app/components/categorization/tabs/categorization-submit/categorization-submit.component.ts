@@ -66,6 +66,7 @@ export class CategorizationSubmitComponent {
                         domain_name: cd.domain_name,
                         domain_id: cd.domain_id,
                         email_active: success.is_email_active,
+                        is_active: success.is_active,
                         categories: new MatTableDataSource<any>(
                           this.categoryData.filter(
                             (x) => x.domain_name == cd.domain_name

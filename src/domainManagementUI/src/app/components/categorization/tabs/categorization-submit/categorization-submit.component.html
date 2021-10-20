@@ -10,6 +10,14 @@
       <mat-panel-title>
         {{ domain.domain_name }}
       </mat-panel-title>
+      <mat-icon
+        *ngIf="domain.is_active"
+        aria-hidden="false"
+        aria-label="check_circle icon"
+        class="domain-icon"
+      >
+        check_circle</mat-icon
+      >
       <button
         *ngIf="!domain.email_active"
         mat-raised-button
