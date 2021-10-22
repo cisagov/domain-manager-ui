@@ -23,6 +23,7 @@ export class CategorizationSubmitComponent {
   domainData = [];
   displayedColumns = ['proxy', 'status', 'category', 'updated', 'categorize'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
+  proxyData: MatTableDataSource<any> = new MatTableDataSource<any>();
   domainDetails = {};
 
   @ViewChild(MatSort) sort: MatSort;
@@ -61,17 +62,19 @@ export class CategorizationSubmitComponent {
                     let found = this.domainData.some(
                       (el) => el.domain_name === cd.domain_name
                     );
+                    this.proxyData = new MatTableDataSource<any>(
+                      this.categoryData.filter(
+                        (x) => x.domain_name == cd.domain_name
+                      )
+                    );
+                    this.proxyData.sort = this.sort;
                     if (!found) {
                       this.domainData.push({
                         domain_name: cd.domain_name,
                         domain_id: cd.domain_id,
                         email_active: success.is_email_active,
                         is_active: success.is_active,
-                        categories: new MatTableDataSource<any>(
-                          this.categoryData.filter(
-                            (x) => x.domain_name == cd.domain_name
-                          )
-                        ),
+                        categories: this.proxyData,
                       });
                     }
                   });
