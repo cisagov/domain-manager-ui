@@ -33,6 +33,7 @@ export class DomainModel extends BaseModel {
   // Categorization
   category_results: CategoryResult[];
   submitted_category: string;
+  rejected_msg: string;
 }
 
 export class CategoryResult {

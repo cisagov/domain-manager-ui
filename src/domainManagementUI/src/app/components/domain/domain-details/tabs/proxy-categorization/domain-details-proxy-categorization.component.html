@@ -9,6 +9,18 @@
       However, if you'd like to have this domain categorized sooner, you can
       categorize this domain for each proxy below.
     </p>
+    <div *ngIf="ddTabSvc.domain_data.rejected_msg">
+      <p>
+        <mat-icon aria-hidden="false" aria-label="warning icon"
+          >warning</mat-icon
+        >
+        <strong>Categorization Request has been Rejected:</strong>
+      </p>
+      <p>
+        {{ ddTabSvc.domain_data.rejected_msg }}
+      </p>
+    </div>
+
     <button
       mat-raised-button
       *ngIf="validateRecategorize()"
