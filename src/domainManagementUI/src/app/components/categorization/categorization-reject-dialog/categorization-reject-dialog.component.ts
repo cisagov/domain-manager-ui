@@ -22,9 +22,9 @@ import { GenericDialogSettings } from 'src/app/models/genericDialogSettings.mode
   templateUrl: 'categorization-reject-dialog.component.html',
 })
 export class CategorizationRejectDialogComponent implements OnInit {
-  domainForm = new FormGroup({
-    url: new FormControl('', {
-      validators: [Validators.required, this.domainValidator()],
+  rejectForm = new FormGroup({
+    rejectReason: new FormControl('', {
+      validators: [Validators.required],
     }),
   });
 
@@ -37,89 +37,12 @@ export class CategorizationRejectDialogComponent implements OnInit {
     private domainSvc: DomainService
   ) {}
 
-  ngOnInit() {
-    this.getExistingDomains();
-  }
+  ngOnInit() {}
 
-  async getExistingDomains() {
-    const domains = await this.domainSvc.getDomains();
-    domains.forEach((domain: DomainModel) => {
-      this.existingDomainNames.push(domain.name);
-    });
-  }
-
-  createDomain() {
-    const input = this.domainForm.get('url').value;
-    const urls = input
-      .replace(/(\r\n|\n|\r)/gm, ',') // remove eol
-      .replace(/\s/g, '') // remove spaces
-      .split(',');
-    const vals = [];
-    urls.forEach((url) => {
-      if (url) {
-        vals.push(url);
-      }
-    });
-
-    this.domainSvc.createDomain(vals).subscribe(
-      (resp: any) => {
-        const genericSettings = new GenericDialogSettings(
-          resp,
-          'Domain',
-          'Status'
-        );
-        this.dialog.open(GenericViewComponent, { data: genericSettings });
-        this.dialogRef.close(true);
-      },
-      (failure) => {
-        this.alertsSvc.alert('Failed to create domains.');
-        console.log(failure);
-      }
-    );
-  }
-  /**
-   * Programatically clicks the corresponding file upload element.
-   */
-  openFileBrowser(event: any) {
-    event.preventDefault();
-    const element: HTMLElement = document.getElementById(
-      'csvUpload'
-    ) as HTMLElement;
-    element.click();
-  }
-
-  private domainValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const input = control.value as string;
-      const urls = input
-        .replace(/(\r\n|\n|\r)/gm, ',') // remove eol
-        .replace(/\s/g, '') // remove spaces
-        .split(',');
-
-      const expression =
-        /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,24}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-      const regex = new RegExp(expression);
-
-      const errors = [];
-
-      urls.forEach((url) => {
-        if (url !== '' && !url.match(regex)) {
-          errors.push(`${url} is an invalid url`);
-        }
-        if (
-          this.existingDomainNames &&
-          this.existingDomainNames.includes(url)
-        ) {
-          errors.push(`${url} currently exists`);
-        }
-      });
-
-      if (errors.length) {
-        return {
-          urlErrors: errors,
-        };
-      }
-      return null;
-    };
+  confirm() {
+    console.log(this.rejectForm.controls['rejectReason'].value);
+    if (this.rejectForm.valid) {
+      this.dialogRef.close(this.rejectForm.controls['rejectReason'].value);
+    }
   }
 }
