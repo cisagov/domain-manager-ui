@@ -9,6 +9,7 @@
       However, if you'd like to have this domain categorized sooner, you can
       categorize this domain for each proxy below.
     </p>
+
     <button
       mat-raised-button
       *ngIf="validateRecategorize()"
@@ -24,6 +25,13 @@
       Once submitted, A Category Manager will have this domain categorized
       within 24 business hours.
     </p>
+    <div *ngIf="ddTabSvc.domain_data.rejected_msg">
+      <div class="icon-text">
+        <mat-icon aria-hidden="false" aria-label="error icon">error</mat-icon>
+        <strong>Categorization Request has been previously Rejected</strong>
+      </div>
+      <p><strong>Reason:</strong> {{ ddTabSvc.domain_data.rejected_msg }}</p>
+    </div>
     <div class="text-muted mt-3 mb-3">A proxy category must be selected.</div>
     <mat-form-field style="width: 20em" appearance="outline">
       <mat-select formControlName="category_one">

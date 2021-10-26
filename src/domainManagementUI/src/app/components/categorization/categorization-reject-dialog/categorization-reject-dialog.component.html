@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Reject Request</h2>
+<button
+  mat-button
+  style="display: inline-block; top: -4em; margin-bottom: -4em"
+  [mat-dialog-close]="false"
+></button>
+<form
+  [formGroup]="rejectForm"
+  class="dialog text-muted"
+  style="height: 10em"
+  mat-dialog-content
+>
+  <div class="text-muted mb-4">
+    Are you sure you want to reject this categorization request?
+  </div>
+
+  <div class="flex-column" [formGroup]="rejectForm">
+    <div class="flex flex-column" style="width: 30em">
+      <mat-form-field appearance="outline">
+        <mat-label>Reason for Rejection</mat-label>
+        <textarea
+          matInput
+          trim="blur"
+          type="text"
+          formControlName="rejectReason"
+          placeholder="Reason for rejecting the categorization request"
+          rows="5"
+        ></textarea>
+      </mat-form-field>
+      <mat-error *ngIf="rejectForm.hasError('required')">
+        Input <strong>required</strong>
+      </mat-error>
+    </div>
+  </div>
+</form>
+
+<mat-dialog-actions align="end">
+  <button
+    [disabled]="!rejectForm.valid"
+    (click)="confirm()"
+    mat-raised-button
+    color="primary"
+  >
+    Submit
+  </button>
+  <button [mat-dialog-close]="false" cdkFocusInitial mat-button color="primary">
+    Cancel
+  </button>
+</mat-dialog-actions>

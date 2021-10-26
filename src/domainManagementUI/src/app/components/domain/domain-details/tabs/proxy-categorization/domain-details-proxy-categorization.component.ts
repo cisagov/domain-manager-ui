@@ -14,6 +14,7 @@ import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-de
 @Component({
   selector: 'dd-proxy-categorization',
   templateUrl: './domain-details-proxy-categorization.component.html',
+  styleUrls: ['./domain-details-proxy-categorization.component.scss'],
 })
 export class DomainDetailsProxyCategorizationComponent implements OnInit {
   categoryData = [];
@@ -95,6 +96,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
   }
 
   checkCategory() {
+    console.log(this.ddTabSvc.domain_data.rejected_msg);
     this.ddTabSvc.checkCategories().subscribe(
       (success) => {
         if (Array.isArray(success)) {

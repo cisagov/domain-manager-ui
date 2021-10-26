@@ -63,8 +63,8 @@ export class CategoryService {
     return this.http.put(url, data);
   }
 
-  deleteProxyRequests(domainId: string) {
+  deleteProxyRequests(domainId: string, data: object) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
-    return this.http.delete(url);
+    return this.http.request('delete', url, { body: data });
   }
 }

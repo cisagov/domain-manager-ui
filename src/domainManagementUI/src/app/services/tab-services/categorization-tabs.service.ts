@@ -49,8 +49,8 @@ export class CategorizationTabService {
     return this.categorySvc.updateCategorization(id, data);
   }
 
-  deleteProxies(domainId: string) {
-    return this.categorySvc.deleteProxyRequests(domainId);
+  deleteProxies(domainId: string, data: object) {
+    return this.categorySvc.deleteProxyRequests(domainId, data);
   }
 
   enableEmailReceiving(domainId: string) {

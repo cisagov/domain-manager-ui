@@ -10,6 +10,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
+import { CategorizationRejectDialogComponent } from '../../categorization-reject-dialog/categorization-reject-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
 
@@ -145,16 +146,12 @@ export class CategorizationSubmitComponent {
   }
 
   reject(domain_id) {
-    const dialogSettings = new ConfirmDialogSettings();
-    dialogSettings.itemConfirming = 'Confirm Proxy Requests Delete';
-    dialogSettings.actionConfirming = `Are you sure you want to delete all proxies for this domain?`;
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: dialogSettings,
-    });
+    const dialogRef = this.dialog.open(CategorizationRejectDialogComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'confirmed') {
-        this.categorizationTabSvc.deleteProxies(domain_id).subscribe(
+      this.categorizationTabSvc
+        .deleteProxies(domain_id, { message: result })
+        .subscribe(
           (success) => {
             this.alertsSvc.alert(
               'Proxy requests for this domain have been deleted.'
@@ -170,9 +167,6 @@ export class CategorizationSubmitComponent {
             this.alertsSvc.alert(`${failure.error.error}`);
           }
         );
-      } else {
-        dialogRef.close();
-      }
     });
   }
 
