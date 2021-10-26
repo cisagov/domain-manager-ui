@@ -4,7 +4,20 @@
 [![CodeQL](https://github.com/cisagov/domain-manager-ui/workflows/CodeQL/badge.svg)](https://github.com/cisagov/domain-manager-ui/actions/workflows/codeql-analysis.yml)
 [![Known Vulnerabilities](https://snyk.io/test/github/cisagov/domain-manager-ui/badge.svg)](https://snyk.io/test/github/cisagov/domain-manager-ui)
 
-## Setup and Build ##
+## Docker Image ##
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/cisagov/example)](https://hub.docker.com/r/cisagov/example)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/cisagov/example)](https://hub.docker.com/r/cisagov/example)
+[![Platforms](https://img.shields.io/badge/platforms-amd64%20%7C%20arm%2Fv6%20%7C%20arm%2Fv7%20%7C%20arm64%20%7C%20ppc64le%20%7C%20s390x-blue)](https://hub.docker.com/r/cisagov/skeleton-docker/tags)
+
+This is a Docker skeleton project that can be used to quickly get a
+new [cisagov](https://github.com/cisagov) GitHub Docker project
+started.  This skeleton project contains [licensing
+information](LICENSE), as well as [pre-commit hooks](https://pre-commit.com)
+and [GitHub Actions](https://github.com/features/actions) configurations
+appropriate for Docker containers and the major languages that we use.
+
+## Running ##
 
 ### Running with Docker ###
 
