@@ -1,4 +1,4 @@
-# Domain Manager Client #
+# domain-manager-ui #
 
 [![GitHub Build Status](https://github.com/cisagov/domain-manager-ui/workflows/build/badge.svg)](https://github.com/cisagov/domain-manager-ui/actions/workflows/build.yml)
 [![CodeQL](https://github.com/cisagov/domain-manager-ui/workflows/CodeQL/badge.svg)](https://github.com/cisagov/domain-manager-ui/actions/workflows/codeql-analysis.yml)
@@ -10,12 +10,11 @@
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/cisagov/domain-manager-ui)](https://hub.docker.com/r/cisagov/domain-manager-ui)
 [![Platforms](https://img.shields.io/badge/platforms-amd64%20%7C%20arm%2Fv6%20%7C%20arm%2Fv7%20%7C%20arm64%20%7C%20ppc64le%20%7C%20s390x-blue)](https://hub.docker.com/r/cisagov/domain-manager-ui/tags)
 
-This is a Docker skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) GitHub Docker project
-started.  This skeleton project contains [licensing
-information](LICENSE), as well as [pre-commit hooks](https://pre-commit.com)
-and [GitHub Actions](https://github.com/features/actions) configurations
-appropriate for Docker containers and the major languages that we use.
+This is a docker project to interact with the
+[Domain Manager API](https://github.com/cisagov/domain-manager-api)
+via a graphical web interface. Domain Manager is a means to managing
+domains such as managing the DNS records, launching a website and
+making categorization requests.
 
 ## Running ##
 
