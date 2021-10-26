@@ -24,7 +24,7 @@ appropriate for Docker containers and the major languages that we use.
 To run the `cisagov/domain-manager-ui` image via Docker:
 
 ```console
-docker run cisagov/domain-manager-ui:0.0.1
+docker run cisagov/domain-manager-ui:1.0.0
 ```
 
 ### Running with Docker Compose ###
@@ -37,7 +37,7 @@ docker run cisagov/domain-manager-ui:0.0.1
 
     services:
       ui:
-        image: cisagov/domain-manager-ui:0.0.1
+        image: cisagov/domain-manager-ui:1.0.0
         volumes:
           - type: bind
             source: <your_log_dir>
@@ -54,48 +54,6 @@ docker run cisagov/domain-manager-ui:0.0.1
 
     ```console
     docker-compose up --detach
-    ```
-
-## Using secrets with your container ##
-
-This container also supports passing sensitive values via [Docker
-secrets](https://docs.docker.com/engine/swarm/secrets/).  Passing sensitive
-values like your credentials can be more secure using secrets than using
-environment variables.  See the
-[secrets](#secrets) section below for a table of all supported secret files.
-
-1. To use secrets, create a `quote.txt` file containing the values you want set:
-
-    ```text
-    Better lock it in your pocket.
-    ```
-
-1. Then add the secret to your `docker-compose.yml` file:
-
-    ```yaml
-    ---
-    version: "3.7"
-
-    secrets:
-      quote_txt:
-        file: quote.txt
-
-    services:
-      ui:
-        image: cisagov/domain-manager-ui:0.0.1
-        volumes:
-          - type: bind
-            source: <your_log_dir>
-            target: /var/log
-        environment:
-          - ECHO_MESSAGE="Hello from docker-compose"
-        ports:
-          - target: 80
-            published: 4200
-            protocol: tcp
-        secrets:
-          - source: quote_txt
-            target: quote.txt
     ```
 
 ## Updating your container ##
@@ -125,7 +83,7 @@ environment variables.  See the
 1. Pull the new image:
 
     ```console
-    docker pull cisagov/domain-manager-ui:0.0.1
+    docker pull cisagov/domain-manager-ui:1.0.0
     ```
 
 1. Recreate and run the container by following the [previous instructions](#running-with-docker).
@@ -135,7 +93,7 @@ environment variables.  See the
 The images of this container are tagged with [semantic
 versions](https://semver.org) of the underlying domain-manager-ui project that they
 containerize.  It is recommended that most users use a version tag (e.g.
-`:0.0.1`).
+`:1.0.0`).
 
 | Image:tag | Description |
 |-----------|-------------|
@@ -176,8 +134,8 @@ Build the image locally using this git repository as the [build context](https:/
 
 ```console
 docker build \
-  --build-arg VERSION=0.0.1 \
-  --tag cisagov/domain-manager-ui:0.0.1 \
+  --build-arg VERSION=1.0.0 \
+  --tag cisagov/domain-manager-ui:1.0.0 \
   https://github.com/cisagov/domain-manager-ui.git#develop
 ```
 
@@ -207,7 +165,7 @@ Docker:
     docker buildx build \
       --file Dockerfile-x \
       --platform linux/amd64 \
-      --build-arg VERSION=0.0.1 \
+      --build-arg VERSION=1.0.0 \
       --output type=docker \
-      --tag cisagov/domain-manager-ui:0.0.1 .
+      --tag cisagov/domain-manager-ui:1.0.0 .
     ```
