@@ -97,8 +97,8 @@ containerize.  It is recommended that most users use a version tag (e.g.
 
 | Image:tag | Description |
 |-----------|-------------|
-|`cisagov/domain-manager-ui:1.2.3`| An exact release version. |
-|`cisagov/domain-manager-ui:1.2`| The most recent release matching the major and minor version numbers. |
+|`cisagov/domain-manager-ui:1.0.0`| An exact release version. |
+|`cisagov/domain-manager-ui:1.0`| The most recent release matching the major and minor version numbers. |
 |`cisagov/domain-manager-ui:1`| The most recent release matching the major version number. |
 |`cisagov/domain-manager-ui:edge` | The most recent image built from a merge into the `develop` branch of this repository. |
 |`cisagov/domain-manager-ui:nightly` | A nightly build of the `develop` branch of this repository. |

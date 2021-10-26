@@ -87,20 +87,8 @@ repos:
         files: tests
         args:
           - --config=.bandit.yml
-<<<<<<< HEAD
-  # Run bandit everything but tests directory
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.0
-    hooks:
-      - id: bandit
-        name: bandit (everything else)
-        exclude: tests
-  - repo: https://github.com/python/black
-    rev: 21.7b0
-=======
   - repo: https://github.com/psf/black
     rev: 21.9b0
->>>>>>> ee39ac57e39767bfb26252126c993c97c0624eec
     hooks:
       - id: black
   - repo: https://gitlab.com/pycqa/flake8
@@ -131,11 +119,7 @@ repos:
 
   # Terraform hooks
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-<<<<<<< HEAD
-    rev: v1.45.0
-=======
     rev: v1.52.0
->>>>>>> ee39ac57e39767bfb26252126c993c97c0624eec
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
