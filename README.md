@@ -1,17 +1,29 @@
-# Domain Manager Client #
+# domain-manager-ui #
 
 [![GitHub Build Status](https://github.com/cisagov/domain-manager-ui/workflows/build/badge.svg)](https://github.com/cisagov/domain-manager-ui/actions/workflows/build.yml)
 [![CodeQL](https://github.com/cisagov/domain-manager-ui/workflows/CodeQL/badge.svg)](https://github.com/cisagov/domain-manager-ui/actions/workflows/codeql-analysis.yml)
 [![Known Vulnerabilities](https://snyk.io/test/github/cisagov/domain-manager-ui/badge.svg)](https://snyk.io/test/github/cisagov/domain-manager-ui)
 
-## Setup and Build ##
+## Docker Image ##
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/cisagov/domain-manager-ui)](https://hub.docker.com/r/cisagov/domain-manager-ui)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/cisagov/domain-manager-ui)](https://hub.docker.com/r/cisagov/domain-manager-ui)
+[![Platforms](https://img.shields.io/badge/platforms-amd64%20%7C%20arm%2Fv6%20%7C%20arm%2Fv7%20%7C%20arm64%20%7C%20ppc64le%20%7C%20s390x-blue)](https://hub.docker.com/r/cisagov/domain-manager-ui/tags)
+
+This is a Docker project to interact with the
+[Domain Manager API](https://github.com/cisagov/domain-manager-api)
+via a graphical web interface. Domain Manager is a means to managing
+domains such as managing the DNS records, launching a website and
+making categorization requests.
+
+## Running ##
 
 ### Running with Docker ###
 
 To run the `cisagov/domain-manager-ui` image via Docker:
 
 ```console
-docker run cisagov/domain-manager-ui:0.0.1
+docker run cisagov/domain-manager-ui:1.0.0
 ```
 
 ### Running with Docker Compose ###
@@ -24,7 +36,7 @@ docker run cisagov/domain-manager-ui:0.0.1
 
     services:
       ui:
-        image: cisagov/domain-manager-ui:0.0.1
+        image: cisagov/domain-manager-ui:1.0.0
         volumes:
           - type: bind
             source: <your_log_dir>
@@ -41,48 +53,6 @@ docker run cisagov/domain-manager-ui:0.0.1
 
     ```console
     docker-compose up --detach
-    ```
-
-## Using secrets with your container ##
-
-This container also supports passing sensitive values via [Docker
-secrets](https://docs.docker.com/engine/swarm/secrets/).  Passing sensitive
-values like your credentials can be more secure using secrets than using
-environment variables.  See the
-[secrets](#secrets) section below for a table of all supported secret files.
-
-1. To use secrets, create a `quote.txt` file containing the values you want set:
-
-    ```text
-    Better lock it in your pocket.
-    ```
-
-1. Then add the secret to your `docker-compose.yml` file:
-
-    ```yaml
-    ---
-    version: "3.7"
-
-    secrets:
-      quote_txt:
-        file: quote.txt
-
-    services:
-      ui:
-        image: cisagov/domain-manager-ui:0.0.1
-        volumes:
-          - type: bind
-            source: <your_log_dir>
-            target: /var/log
-        environment:
-          - ECHO_MESSAGE="Hello from docker-compose"
-        ports:
-          - target: 80
-            published: 4200
-            protocol: tcp
-        secrets:
-          - source: quote_txt
-            target: quote.txt
     ```
 
 ## Updating your container ##
@@ -112,7 +82,7 @@ environment variables.  See the
 1. Pull the new image:
 
     ```console
-    docker pull cisagov/domain-manager-ui:0.0.1
+    docker pull cisagov/domain-manager-ui:1.0.0
     ```
 
 1. Recreate and run the container by following the [previous instructions](#running-with-docker).
@@ -122,12 +92,12 @@ environment variables.  See the
 The images of this container are tagged with [semantic
 versions](https://semver.org) of the underlying domain-manager-ui project that they
 containerize.  It is recommended that most users use a version tag (e.g.
-`:0.0.1`).
+`:1.0.0`).
 
 | Image:tag | Description |
 |-----------|-------------|
-|`cisagov/domain-manager-ui:1.2.3`| An exact release version. |
-|`cisagov/domain-manager-ui:1.2`| The most recent release matching the major and minor version numbers. |
+|`cisagov/domain-manager-ui:1.0.0`| An exact release version. |
+|`cisagov/domain-manager-ui:1.0`| The most recent release matching the major and minor version numbers. |
 |`cisagov/domain-manager-ui:1`| The most recent release matching the major version number. |
 |`cisagov/domain-manager-ui:edge` | The most recent image built from a merge into the `develop` branch of this repository. |
 |`cisagov/domain-manager-ui:nightly` | A nightly build of the `develop` branch of this repository. |
@@ -163,8 +133,8 @@ Build the image locally using this git repository as the [build context](https:/
 
 ```console
 docker build \
-  --build-arg VERSION=0.0.1 \
-  --tag cisagov/domain-manager-ui:0.0.1 \
+  --build-arg VERSION=1.0.0 \
+  --tag cisagov/domain-manager-ui:1.0.0 \
   https://github.com/cisagov/domain-manager-ui.git#develop
 ```
 
@@ -194,7 +164,7 @@ Docker:
     docker buildx build \
       --file Dockerfile-x \
       --platform linux/amd64 \
-      --build-arg VERSION=0.0.1 \
+      --build-arg VERSION=1.0.0 \
       --output type=docker \
-      --tag cisagov/domain-manager-ui:0.0.1 .
+      --tag cisagov/domain-manager-ui:1.0.0 .
     ```
