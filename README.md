@@ -10,7 +10,7 @@
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/cisagov/domain-manager-ui)](https://hub.docker.com/r/cisagov/domain-manager-ui)
 [![Platforms](https://img.shields.io/badge/platforms-amd64%20%7C%20arm%2Fv6%20%7C%20arm%2Fv7%20%7C%20arm64%20%7C%20ppc64le%20%7C%20s390x-blue)](https://hub.docker.com/r/cisagov/domain-manager-ui/tags)
 
-This is a docker project to interact with the
+This is a Docker project to interact with the
 [Domain Manager API](https://github.com/cisagov/domain-manager-api)
 via a graphical web interface. Domain Manager is a means to managing
 domains such as managing the DNS records, launching a website and
