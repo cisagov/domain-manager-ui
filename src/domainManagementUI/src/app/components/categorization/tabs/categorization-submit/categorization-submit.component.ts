@@ -112,7 +112,7 @@ export class CategorizationSubmitComponent {
     return categories.length === 8;
   }
 
-  categorize(categorization_id, categorize_url, preferred_category) {
+  categorize(categorization_id, categorize_url, preferred_category, domain_id) {
     const dialogSettings = {
       categoryList: this.categories,
       preferredCategory: preferred_category,
@@ -125,6 +125,7 @@ export class CategorizationSubmitComponent {
         this.categorizationTabSvc
           .updateCategory(categorization_id, {
             category: result.selectedCategory,
+            domain_id: domain_id,
             status: 'submitted',
           })
           .subscribe(

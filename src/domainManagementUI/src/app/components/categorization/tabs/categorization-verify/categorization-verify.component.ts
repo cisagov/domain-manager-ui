@@ -62,7 +62,7 @@ export class CategorizationVerifyComponent {
     return ['verified', 'burned'];
   }
 
-  verify(categorization_id, check_url) {
+  verify(categorization_id, check_url, domain_id) {
     const dialogSettings = {
       statusList: this.statuses,
     };
@@ -74,6 +74,7 @@ export class CategorizationVerifyComponent {
         this.categorizationTabSvc
           .updateCategory(categorization_id, {
             status: result.selectedStatus,
+            domain_id: domain_id,
           })
           .subscribe(
             (success) => {
