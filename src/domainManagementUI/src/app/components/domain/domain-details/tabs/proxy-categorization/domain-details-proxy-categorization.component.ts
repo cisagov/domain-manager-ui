@@ -128,6 +128,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
           .updateCategory(categorization_id, {
             category: result.selectedCategory,
             status: status,
+            domain_id: this.ddTabSvc.domain_data._id,
           })
           .subscribe(
             (success) => {
