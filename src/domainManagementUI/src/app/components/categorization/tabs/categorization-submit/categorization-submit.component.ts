@@ -1,7 +1,6 @@
 // Angular Imports
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 // Local Service Imports
@@ -26,7 +25,6 @@ export class CategorizationSubmitComponent {
   proxyData: MatTableDataSource<any> = new MatTableDataSource<any>();
   domainDetails = {};
 
-  @ViewChild(MatSort) sort: MatSort;
   constructor(
     public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
@@ -64,7 +62,6 @@ export class CategorizationSubmitComponent {
                         (x) => x.domain_name == cd.domain_name
                       )
                     );
-                    this.proxyData.sort = this.sort;
 
                     console.log(this.proxyData);
                     if (!found) {
