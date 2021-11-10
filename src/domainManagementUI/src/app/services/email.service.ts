@@ -23,6 +23,11 @@ export class EmailService {
     return this.http.get(url);
   }
 
+  deleteDomainEmail(emailId) {
+    const url = `${this.settingsService.settings.apiUrl}/api/email/${emailId}/`;
+    return this.http.delete(url);
+  }
+
   setDomainEmailsStatus(domainId, isActive) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/receive-emails/`;
     if (isActive) {
