@@ -8,7 +8,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
-import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
 import { CategorizationRejectDialogComponent } from '../../categorization-reject-dialog/categorization-reject-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
@@ -32,11 +31,8 @@ export class CategorizationSubmitComponent {
     public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
     public dialog: MatDialog,
-    public layoutSvc: LayoutService,
     public categorizationTabSvc: CategorizationTabService
-  ) {
-    this.layoutSvc.setTitle('Categorizations');
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getSubmitDomainProxies();
