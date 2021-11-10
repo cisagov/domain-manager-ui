@@ -96,7 +96,6 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
   }
 
   checkCategory() {
-    console.log(this.ddTabSvc.domain_data.rejected_msg);
     this.ddTabSvc.checkCategories().subscribe(
       (success) => {
         if (Array.isArray(success)) {
