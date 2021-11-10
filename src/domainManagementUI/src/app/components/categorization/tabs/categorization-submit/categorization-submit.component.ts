@@ -169,7 +169,7 @@ export class CategorizationSubmitComponent {
   toggleEmail(domain_id) {
     const dialogSettings = new ConfirmDialogSettings();
     dialogSettings.itemConfirming = 'Enable Email Receiving';
-    dialogSettings.actionConfirming = `Are you sure you want to receive emails to this domain?`;
+    dialogSettings.actionConfirming = `Are you sure you want to receive emails to this domain`;
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: dialogSettings,
     });
