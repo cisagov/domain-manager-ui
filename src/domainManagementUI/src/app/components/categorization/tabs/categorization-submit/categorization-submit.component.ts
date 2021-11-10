@@ -65,6 +65,8 @@ export class CategorizationSubmitComponent {
                       )
                     );
                     this.proxyData.sort = this.sort;
+
+                    console.log(this.proxyData);
                     if (!found) {
                       this.domainData.push({
                         domain_name: cd.domain_name,

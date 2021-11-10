@@ -16,7 +16,7 @@ import { VerifyCategoryDialogComponent } from 'src/app/components/dialog-windows
 })
 export class CategorizationVerifyComponent {
   categoryData = [];
-  displayedColumns = ['domain', 'proxy', 'category', 'created', 'verify'];
+  displayedColumns = ['domain_name', 'proxy', 'category', 'created', 'verify'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @ViewChild(MatSort) sort: MatSort;

@@ -126,8 +126,8 @@ export class DomainDetailsEmailsComponent
   changeToggleStatus() {
     if (this.toggleText == 'Toggle Off') {
       this.toggleText = 'Toggle On';
-      this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
-      this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
+      // this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
+      // this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
     } else {
       this.toggleText = 'Toggle Off';
     }

@@ -37,36 +37,28 @@
         Reject
       </button>
     </mat-expansion-panel-header>
-    <mat-table [dataSource]="domain.categories" matSort>
+    <mat-table [dataSource]="domain.categories">
       <!-- Proxy Name -->
       <ng-container matColumnDef="proxy">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Proxy Source</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>Proxy Source</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.proxy }}</mat-cell>
       </ng-container>
 
       <!-- Status -->
       <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Status</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
       </ng-container>
 
       <!-- Category Name -->
       <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Preferred Category</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>Preferred Category</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
       </ng-container>
 
       <!-- Date Requested -->
       <ng-container matColumnDef="updated">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Date Requested</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>Date Requested</mat-header-cell>
         <mat-cell *matCellDef="let row">
           <ng-container *ngIf="row['updated']; else elseCreated">{{
             row.updated | date: "MM/dd/yy"
@@ -79,9 +71,7 @@
 
       <!-- Categorize -->
       <ng-container matColumnDef="categorize">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Categorize</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>Categorize</mat-header-cell>
         <mat-cell *matCellDef="let row">
           <button
             mat-raised-button
