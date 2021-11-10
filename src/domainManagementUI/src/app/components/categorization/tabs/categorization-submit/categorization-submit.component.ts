@@ -1,14 +1,12 @@
 // Angular Imports
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
-import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
 import { CategorizationRejectDialogComponent } from '../../categorization-reject-dialog/categorization-reject-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
@@ -27,16 +25,12 @@ export class CategorizationSubmitComponent {
   proxyData: MatTableDataSource<any> = new MatTableDataSource<any>();
   domainDetails = {};
 
-  @ViewChild(MatSort) sort: MatSort;
   constructor(
     public alertsSvc: AlertsService,
     public categorySvc: CategoryService,
     public dialog: MatDialog,
-    public layoutSvc: LayoutService,
     public categorizationTabSvc: CategorizationTabService
-  ) {
-    this.layoutSvc.setTitle('Categorizations');
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getSubmitDomainProxies();
@@ -68,7 +62,8 @@ export class CategorizationSubmitComponent {
                         (x) => x.domain_name == cd.domain_name
                       )
                     );
-                    this.proxyData.sort = this.sort;
+
+                    console.log(this.proxyData);
                     if (!found) {
                       this.domainData.push({
                         domain_name: cd.domain_name,

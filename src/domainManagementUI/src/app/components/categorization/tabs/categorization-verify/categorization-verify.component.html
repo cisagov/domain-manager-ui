@@ -8,7 +8,7 @@
 <div>
   <mat-table [dataSource]="categoryList" matSort>
     <!-- Domain Name -->
-    <ng-container matColumnDef="domain">
+    <ng-container matColumnDef="domain_name">
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Domain</mat-header-cell
       >
@@ -21,14 +21,6 @@
         >Proxy Source</mat-header-cell
       >
       <mat-cell *matCellDef="let row">{{ row.proxy }}</mat-cell>
-    </ng-container>
-
-    <!-- Status -->
-    <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Status</mat-header-cell
-      >
-      <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
     </ng-container>
 
     <!-- Category Name -->

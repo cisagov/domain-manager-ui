@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
-import { LayoutService } from 'src/app/services/layout.service';
 import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
 import { VerifyCategoryDialogComponent } from 'src/app/components/dialog-windows/verify-category/verify-category-dialog.component';
 
@@ -17,25 +16,15 @@ import { VerifyCategoryDialogComponent } from 'src/app/components/dialog-windows
 })
 export class CategorizationVerifyComponent {
   categoryData = [];
-  displayedColumns = [
-    'domain',
-    'proxy',
-    'status',
-    'category',
-    'created',
-    'verify',
-  ];
+  displayedColumns = ['domain_name', 'proxy', 'category', 'created', 'verify'];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     public alertsSvc: AlertsService,
-    public layoutSvc: LayoutService,
     public dialog: MatDialog,
     public categorizationTabSvc: CategorizationTabService
-  ) {
-    this.layoutSvc.setTitle('Categorizations');
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getVerifyDomainProxies();

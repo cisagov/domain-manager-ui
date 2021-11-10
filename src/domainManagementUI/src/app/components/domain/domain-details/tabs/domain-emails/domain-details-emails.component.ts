@@ -126,8 +126,8 @@ export class DomainDetailsEmailsComponent
   changeToggleStatus() {
     if (this.toggleText == 'Toggle Off') {
       this.toggleText = 'Toggle On';
-      this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
-      this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
+      // this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
+      // this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
     } else {
       this.toggleText = 'Toggle Off';
     }
@@ -280,20 +280,22 @@ export class DomainDetailsEmailsComponent
     }
   }
   removeEventListeners() {
-    this.resizeBar.nativeElement.removeEventListener('mousedown', (e) => {
-      this.resizing = true;
-    });
-    this.tabContainer.nativeElement.removeEventListener('mousemove', (e) => {
-      this.dragToResize(e);
-    });
-    this.tabContainer.nativeElement.removeEventListener('mouseleave', (e) => {
-      this.resizing = false;
-      this.setRestingWidths();
-    });
-    this.tabContainer.nativeElement.removeEventListener('mouseup', (e) => {
-      this.resizing = false;
-      this.setRestingWidths();
-    });
+    if (this.resizeBar) {
+      this.resizeBar.nativeElement.removeEventListener('mousedown', (e) => {
+        this.resizing = true;
+      });
+      this.tabContainer.nativeElement.removeEventListener('mousemove', (e) => {
+        this.dragToResize(e);
+      });
+      this.tabContainer.nativeElement.removeEventListener('mouseleave', (e) => {
+        this.resizing = false;
+        this.setRestingWidths();
+      });
+      this.tabContainer.nativeElement.removeEventListener('mouseup', (e) => {
+        this.resizing = false;
+        this.setRestingWidths();
+      });
+    }
   }
   getEmail(emailId) {
     this.emailList.data.forEach((item) => {
@@ -322,7 +324,7 @@ export class DomainDetailsEmailsComponent
         this.emailList.data = success as Array<DomainEmailListModel>;
         this.emailList.sort = this.sort;
 
-        if (success[0]) {
+        if (this.ddTabSvc.domain_data.is_email_active) {
           const sortState: Sort = { active: 'timestamp', direction: 'desc' };
           this.sort.active = sortState.active;
           this.sort.direction = sortState.direction;

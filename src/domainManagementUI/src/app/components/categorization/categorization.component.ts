@@ -11,6 +11,6 @@ export class CategorizationComponent {
     public layoutSvc: LayoutService,
     public categorizationTabSvc: CategorizationTabService
   ) {
-    this.layoutSvc.setTitle('Categorizations');
+    this.layoutSvc.setTitle('Categorization');
   }
 }
