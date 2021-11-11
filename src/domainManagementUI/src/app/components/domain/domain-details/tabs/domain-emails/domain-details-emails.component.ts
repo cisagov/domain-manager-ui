@@ -337,4 +337,19 @@ export class DomainDetailsEmailsComponent
       }
     );
   }
+
+  deleteEmail(emailId) {
+    this.emailSvc.deleteDomainEmail(emailId).subscribe(
+      (success) => {
+        this.emailList.data = this.emailList.data.filter(
+          (email) => email._id !== emailId
+        );
+        this.bodyDisplay = '';
+        this.email._id = null;
+      },
+      (failure) => {
+        this.alertsSvc.alert(failure);
+      }
+    );
+  }
 }
