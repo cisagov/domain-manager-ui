@@ -63,7 +63,6 @@ export class CategorizationSubmitComponent {
                       )
                     );
 
-                    console.log(this.proxyData);
                     if (!found) {
                       this.domainData.push({
                         domain_name: cd.domain_name,
@@ -131,6 +130,14 @@ export class CategorizationSubmitComponent {
               );
               this.categoryList.data.splice(proxy, 1);
               this.categoryList.data = this.categoryList.data;
+              let domainIndex = this.domainData.findIndex(
+                (domain) => domain.domain_id === domain_id
+              );
+              this.domainData[domainIndex].categories.data = this.domainData[
+                domainIndex
+              ].categories.data.filter(
+                (category) => category._id !== categorization_id
+              );
             },
             (failure) => {
               this.alertsSvc.alert('Error updating category.');
