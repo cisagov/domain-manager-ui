@@ -151,7 +151,7 @@ export class DomainDetailsEmailsComponent
           this.currDate.getMinutes() * minuteInMilliseconds +
           this.currDate.getMilliseconds());
       if (timeDeltaInMilliseconds < 0) {
-        item['readableDate'] = 'CHECK TIMEZONE ISSUE';
+        item['readableDate'] = 'now';
       }
       //Current day
       else if (workingDate.getTime() > TimeOfStartOfDay) {
@@ -315,6 +315,30 @@ export class DomainDetailsEmailsComponent
   }
 
   getEmailList() {
+    this.emailSvc.getDomainEmails(this.ddTabSvc.domain_data._id).subscribe(
+      (success) => {
+        if (!success[0] && this.ddTabSvc.hasEmailActive()) {
+          this.bodyDisplay = '<p>No emails have been received.</p>';
+        }
+        this.addReadableDate(success);
+        this.emailList.data = success as Array<DomainEmailListModel>;
+        this.emailList.sort = this.sort;
+
+        if (this.ddTabSvc.domain_data.is_email_active) {
+          const sortState: Sort = { active: 'timestamp', direction: 'desc' };
+          this.sort.active = sortState.active;
+          this.sort.direction = sortState.direction;
+          this.sort.sortChange.emit(sortState);
+        }
+      },
+      (failure) => {
+        console.log(failure);
+        this.alertsSvc.alert('Failed to get email list');
+      }
+    );
+  }
+
+  refreshEmailList() {
     this.emailSvc.getDomainEmails(this.ddTabSvc.domain_data._id).subscribe(
       (success) => {
         if (!success[0] && this.ddTabSvc.hasEmailActive()) {
