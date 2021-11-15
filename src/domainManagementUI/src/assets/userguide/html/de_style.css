@@ -156,11 +156,23 @@ span.de_68B99ACC5C
 {
 	font-family: "Arial";
 }
+span.de_69904EC84B
+{
+	font-family: "Helvetica";
+	font-size: 12pt;
+	color:#000000;
+}
 span.de_69BCD6A297
 {
 	font-family: "-apple-system";
 	font-size: 12pt;
 	color:#24292e;
+}
+span.de_6B7F0857AE
+{
+	font-family: "Calibri";
+	font-size: 14pt;
+	color:#000000;
 }
 span.de_7058AFCED6
 {
@@ -172,6 +184,12 @@ span.de_8C403700ED
 {
 	font-family: "Arial";
 	font-size: 11pt;
+}
+span.de_95A4C450B6
+{
+	font-family: "Arial";
+	font-size: 11pt;
+	color:#4f87fd;
 }
 span.de_96CE7C6ACD
 {
@@ -190,6 +208,18 @@ span.de_AF96D43452
 {
 	font-family: "Helvetica";
 	font-size: 10pt;
+	color:#000000;
+}
+span.de_B6AAC1FF4B
+{
+	font-family: "Helvetica";
+	font-size: 10pt;
+	color:#c9ae75;
+}
+span.de_D8BCB2AC4C
+{
+	font-family: "Calibri";
+	font-size: 12pt;
 	color:#000000;
 }
 span.de_FE04B87F3C

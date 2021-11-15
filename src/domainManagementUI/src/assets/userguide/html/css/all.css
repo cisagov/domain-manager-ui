@@ -310,15 +310,15 @@ html {
 /*@import url( 'work-zone.css' );*/
 .m-pageContent__side__header
 {
-    background: #3c6f8e;
+    background: rgb(68, 84, 165);
 }
 .m-pageContent__side__footer
 {
-    background: #3c6f8e;
+    background: rgb(68, 84, 165);
 }
 .b-workZone {
     width: 100%;
-    background: #3c6f8e url( '../i/blocks/work-zone/header-bg.png') 0 0px repeat-x;
+    background: rgb(68, 84, 165);
     overflow: hidden;
 }
 
@@ -372,7 +372,7 @@ html[dir="rtl"] .m-workZone__side__article {
 
 .b-workZone__content {
     position: relative;
-    //zoom: 1;
+    zoom: 1;
     z-index: 10;
     width: 100%;
     padding-top: 2.1em;
@@ -414,12 +414,12 @@ html[dir="rtl"] .m-workZone_seeAlso_itemContent {
     padding: 10px;
 
     position: relative;
-    //zoom: 1;
+    zoom: 1;
 }
 
 .b-article__preWrapper {
     position: relative;
-    //zoom: 1;
+    zoom: 1;
 }
 
 .m-pageView__state__frame .b-article__preWrapper {
@@ -490,7 +490,7 @@ html[dir="rtl"] .m-article__headerSide__buttons {
 
 .b-article__wrapper {
     position: relative;
-    //zoom: 1;
+    zoom: 1;
 
     background-color: #FFF;
 
@@ -590,8 +590,8 @@ html[dir="rtl"] .b-controlButtons {
 .b-controlButtons__item {
     display: -moz-inline-stack;
     display: inline-block;
-    //display: inline;
-    //zoom: 1;
+    /* display: inline;
+    zoom: 1; */
     vertical-align: top;
 
     margin: 0 8px 0 0;
@@ -660,8 +660,8 @@ html[dir="rtl"] .b-breadCrumbs {
 .b-breadCrumbs__item {
     display: -moz-inline-stack;
     display: inline-block;
-    //display: inline;
-    //zoom: 1;
+    /* //display: inline; */
+    /* //zoom: 1; */
     vertical-align: top;
 
     margin: 0;
@@ -1019,7 +1019,7 @@ html[dir="rtl"] .m-tree__contextMenu {
     margin-left: -26px;
     height: 12px;
 
-    1background: url( '../i/blocks/search/loading.gif' ) 0 0 no-repeat;
+    background: url( '../i/blocks/search/loading.gif' ) 0 0 no-repeat;
     z-index: 999;
 
     display: none;
@@ -2370,7 +2370,7 @@ div.index_page_title {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 20pt;
     text-decoration: none;
-    color: #3c6f8e;
+    color: rgb(68, 84, 165);
     text-align: center;
     font-weight: bold;
     white-space: pre;
@@ -2391,7 +2391,7 @@ div.index_page {
     border-right: 0px;
     border-left: 0px;
     border-style: solid;
-    border-color: #3c6f8e;
+    border-color: rgb(68, 84, 165);
     white-space: pre;
 }
 
@@ -2425,7 +2425,7 @@ div.de_ctrl > table {
 
 
 .b-workZone.m-workZone__withoutSideNav {
-    background: #3c6f8e 0 0px repeat-x;
+    background: rgb(68, 84, 165) 0 0px repeat-x;
 }
 
 .b-workZone.m-workZone__withoutSideNav .m-workZone__side__nav,
