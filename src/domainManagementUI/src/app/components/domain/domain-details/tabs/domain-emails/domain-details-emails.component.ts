@@ -92,6 +92,11 @@ export class DomainDetailsEmailsComponent
               '<p>This domain is not set to receive emails.</p>';
           }
           this.getEmailList();
+          if (this.ddTabSvc.isEmailPending()) {
+            this.toggleInProcess = true;
+          } else {
+            this.toggleInProcess = false;
+          }
         }
       })
     );
@@ -111,7 +116,7 @@ export class DomainDetailsEmailsComponent
       )
       .subscribe(
         (success: any) => {
-          this.toggleInProcess = false;
+          this.toggleInProcess = true;
           console.log(success);
           this.alertsSvc.alert(success.success);
           this.changeToggleStatus();
