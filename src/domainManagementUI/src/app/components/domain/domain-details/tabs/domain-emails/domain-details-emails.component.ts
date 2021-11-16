@@ -110,9 +110,10 @@ export class DomainDetailsEmailsComponent
         this.ddTabSvc.domain_data.is_email_active
       )
       .subscribe(
-        (success) => {
+        (success: any) => {
           this.toggleInProcess = false;
-          this.alertsSvc.alert('Email receiving state successfully changed');
+          console.log(success);
+          this.alertsSvc.alert(success.success);
           this.changeToggleStatus();
         },
         (failure) => {
