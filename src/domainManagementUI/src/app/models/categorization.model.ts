@@ -6,6 +6,7 @@ export interface CategorizationModel {
   updated_by?: string;
   domain_id?: string;
   domain_name?: string;
+  is_external?: boolean;
   proxy?: string;
   status?: string;
   category?: string;
