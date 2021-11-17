@@ -27,6 +27,7 @@ export class DomainModel extends BaseModel {
   is_launching: boolean;
   is_delaunching: boolean;
   is_email_active: boolean;
+  is_email_pending: boolean;
   is_generating_template: boolean;
   cloudfront_status: any;
 

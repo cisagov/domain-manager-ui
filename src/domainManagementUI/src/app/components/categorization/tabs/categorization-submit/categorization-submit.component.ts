@@ -102,10 +102,6 @@ export class CategorizationSubmitComponent {
     );
   }
 
-  canReject(categories) {
-    return categories.length === 8;
-  }
-
   categorize(categorization_id, categorize_url, preferred_category, domain_id) {
     const dialogSettings = {
       categoryList: this.categories,

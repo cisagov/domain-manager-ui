@@ -8,7 +8,6 @@ import {
   HostListener,
   ElementRef,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
@@ -22,8 +21,6 @@ import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-de
 //Models
 import { DomainEmailModel } from 'src/app/models/domainEmail.model';
 import { DomainEmailListModel } from 'src/app/models/domainEmail.model';
-import { DomSanitizer } from '@angular/platform-browser';
-import { EmailModel } from 'src/app/models/email.model';
 
 @Component({
   selector: 'dd-emails',
@@ -92,6 +89,11 @@ export class DomainDetailsEmailsComponent
               '<p>This domain is not set to receive emails.</p>';
           }
           this.getEmailList();
+          if (this.ddTabSvc.isEmailPending()) {
+            this.toggleInProcess = true;
+          } else {
+            this.toggleInProcess = false;
+          }
         }
       })
     );
@@ -111,15 +113,14 @@ export class DomainDetailsEmailsComponent
       )
       .subscribe(
         (success: any) => {
-          this.toggleInProcess = false;
-          console.log(success);
-          this.alertsSvc.alert(success.success);
+          this.toggleInProcess = true;
+          this.alertsSvc.alert(success.message);
           this.changeToggleStatus();
         },
         (failure) => {
           this.toggleInProcess = false;
           this.alertsSvc.alert(
-            'Failed to change status, please try again soon.'
+            'Failed to change status, please try again later.'
           );
         }
       );

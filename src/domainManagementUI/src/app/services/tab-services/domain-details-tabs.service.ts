@@ -216,6 +216,12 @@ export class DomainDetailsTabService {
     }
   }
 
+  isEmailPending() {
+    if (this.domain_data.is_email_pending) {
+      return true;
+    }
+  }
+
   isSiteLaunched() {
     if (this.domain_data.is_active) {
       return true;
