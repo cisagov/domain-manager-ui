@@ -43,6 +43,11 @@ export class CategoryService {
     return this.http.get(url);
   }
 
+  externalDomainDetails(externalId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/external-domain/${externalId}`;
+    return this.http.get(url);
+  }
+
   submitCategory(domainId: string, categoryName: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
     return this.http.post(url, { category: categoryName });
@@ -65,6 +70,11 @@ export class CategoryService {
 
   deleteProxyRequests(domainId: string, data: object) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
+    return this.http.request('delete', url, { body: data });
+  }
+
+  deleteExternalProxyRequests(externalId: string, data: object) {
+    const url = `${this.settingsService.settings.apiUrl}/api/external-domain/${externalId}/categorize/`;
     return this.http.request('delete', url, { body: data });
   }
 }

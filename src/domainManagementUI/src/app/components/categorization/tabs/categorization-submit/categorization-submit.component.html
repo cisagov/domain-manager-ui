@@ -18,6 +18,9 @@
       >
         check_circle</mat-icon
       >
+      <p *ngIf="domain.is_external" class="domain-icon text-muted">
+        {{ domain.proxy_email }}
+      </p>
       <button
         *ngIf="!domain.email_active"
         mat-raised-button
@@ -31,7 +34,7 @@
         mat-stroked-button
         class="domain-button"
         color="warn"
-        (click)="reject(domain.domain_id)"
+        (click)="reject(domain.domain_id, domain.is_external)"
       >
         Reject
       </button>
