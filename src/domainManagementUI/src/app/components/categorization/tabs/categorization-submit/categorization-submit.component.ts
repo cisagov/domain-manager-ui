@@ -45,40 +45,82 @@ export class CategorizationSubmitComponent {
         if (Array.isArray(success)) {
           this.categoryData = success as Array<any>;
           let uniqueVals = [
-            ...new Set(this.categoryData.map((item) => item.domain_id)),
+            ...new Set(
+              this.categoryData.map((item) => ({
+                _id: item.domain_id,
+                is_external: item.is_external,
+              }))
+            ),
           ];
           uniqueVals.forEach((val) => {
-            this.categorizationTabSvc.domainDetails(val).subscribe(
-              (success: any) => {
-                this.domainDetails = success as Object;
-                this.categoryData
-                  .filter((x) => x.domain_id == val)
-                  .forEach((cd) => {
-                    let found = this.domainData.some(
-                      (el) => el.domain_name === cd.domain_name
-                    );
-                    this.proxyData = new MatTableDataSource<any>(
-                      this.categoryData.filter(
-                        (x) => x.domain_name == cd.domain_name
-                      )
-                    );
+            if (val.is_external) {
+              this.categorizationTabSvc
+                .externalDomainDetails(val._id)
+                .subscribe(
+                  (success: any) => {
+                    this.domainDetails = success as Object;
+                    this.categoryData
+                      .filter((x) => x.domain_id == val._id)
+                      .forEach((cd) => {
+                        let found = this.domainData.some(
+                          (el) => el.domain_name === cd.domain_name
+                        );
+                        this.proxyData = new MatTableDataSource<any>(
+                          this.categoryData.filter(
+                            (x) => x.domain_name == cd.domain_name
+                          )
+                        );
 
-                    if (!found) {
-                      this.domainData.push({
-                        domain_name: cd.domain_name,
-                        domain_id: cd.domain_id,
-                        email_active: success.is_email_active,
-                        is_active: success.is_active,
-                        categories: this.proxyData,
+                        if (!found) {
+                          this.domainData.push({
+                            domain_name: cd.domain_name,
+                            domain_id: cd.domain_id,
+                            email_active: true,
+                            is_external: cd.is_external,
+                            proxy_email: success.proxy_email,
+                            categories: this.proxyData,
+                          });
+                        }
                       });
-                    }
-                  });
-              },
-              (failure) => {
-                console.log(failure);
-                return;
-              }
-            );
+                  },
+                  (failure) => {
+                    console.log(failure);
+                    return;
+                  }
+                );
+            } else {
+              this.categorizationTabSvc.domainDetails(val._id).subscribe(
+                (success: any) => {
+                  this.domainDetails = success as Object;
+                  this.categoryData
+                    .filter((x) => x.domain_id == val._id)
+                    .forEach((cd) => {
+                      let found = this.domainData.some(
+                        (el) => el.domain_name === cd.domain_name
+                      );
+                      this.proxyData = new MatTableDataSource<any>(
+                        this.categoryData.filter(
+                          (x) => x.domain_name == cd.domain_name
+                        )
+                      );
+
+                      if (!found) {
+                        this.domainData.push({
+                          domain_name: cd.domain_name,
+                          domain_id: cd.domain_id,
+                          email_active: success.is_email_active,
+                          is_active: success.is_active,
+                          categories: this.proxyData,
+                        });
+                      }
+                    });
+                },
+                (failure) => {
+                  console.log(failure);
+                  return;
+                }
+              );
+            }
           });
         } else {
           this.alertsSvc.alert('No domains for proxy submission.');
@@ -144,28 +186,49 @@ export class CategorizationSubmitComponent {
     window.open(categorize_url, '_blank');
   }
 
-  reject(domain_id) {
+  reject(domain_id, is_external) {
     const dialogRef = this.dialog.open(CategorizationRejectDialogComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.categorizationTabSvc
-        .deleteProxies(domain_id, { message: result })
-        .subscribe(
-          (success) => {
-            this.alertsSvc.alert(
-              'Proxy requests for this domain have been deleted.'
-            );
-            const proxies = this.domainData.findIndex(
-              (obj) => obj.domain_id === domain_id
-            );
-            this.domainData.splice(proxies, 1);
-            this.domainData = this.domainData;
-          },
-          (failure) => {
-            console.log(failure);
-            this.alertsSvc.alert(`${failure.error.error}`);
-          }
-        );
+      if (!is_external) {
+        this.categorizationTabSvc
+          .deleteProxies(domain_id, { message: result })
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert(
+                'Proxy requests for this domain have been deleted.'
+              );
+              const proxies = this.domainData.findIndex(
+                (obj) => obj.domain_id === domain_id
+              );
+              this.domainData.splice(proxies, 1);
+              this.domainData = this.domainData;
+            },
+            (failure) => {
+              console.log(failure);
+              this.alertsSvc.alert(`${failure.error.error}`);
+            }
+          );
+      } else {
+        this.categorizationTabSvc
+          .deleteExternalProxies(domain_id, { message: result })
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert(
+                'Proxy requests for this external domain have been deleted.'
+              );
+              const proxies = this.domainData.findIndex(
+                (obj) => obj.domain_id === domain_id
+              );
+              this.domainData.splice(proxies, 1);
+              this.domainData = this.domainData;
+            },
+            (failure) => {
+              console.log(failure);
+              this.alertsSvc.alert(`${failure.error.error}`);
+            }
+          );
+      }
     });
   }
 

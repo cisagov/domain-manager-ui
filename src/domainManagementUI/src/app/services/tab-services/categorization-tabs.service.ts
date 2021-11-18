@@ -45,12 +45,20 @@ export class CategorizationTabService {
     return this.categorySvc.domainDetails(domainId);
   }
 
+  externalDomainDetails(domainId: string) {
+    return this.categorySvc.externalDomainDetails(domainId);
+  }
+
   updateCategory(id: string, data: object) {
     return this.categorySvc.updateCategorization(id, data);
   }
 
   deleteProxies(domainId: string, data: object) {
     return this.categorySvc.deleteProxyRequests(domainId, data);
+  }
+
+  deleteExternalProxies(domainId: string, data: object) {
+    return this.categorySvc.deleteExternalProxyRequests(domainId, data);
   }
 
   enableEmailReceiving(domainId: string) {
