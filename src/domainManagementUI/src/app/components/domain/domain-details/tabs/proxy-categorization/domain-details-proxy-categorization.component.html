@@ -141,6 +141,25 @@
       </mat-cell>
     </ng-container>
 
+    <!-- Check Category -->
+    <ng-container matColumnDef="check">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Action</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <div>
+          <button
+            mat-raised-button
+            [disabled]="row.status === 'verified'"
+            (click)="check(row._id, row.check_url)"
+            color="primary"
+          >
+            Check Category
+          </button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
     <!-- Header Info -->
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row
