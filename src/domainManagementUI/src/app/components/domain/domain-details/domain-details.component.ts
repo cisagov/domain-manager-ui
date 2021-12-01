@@ -148,7 +148,6 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
         this.ddTabSvc.deleteDomain(this.ddTabSvc.domain_data._id).subscribe(
           (success) => {
             this.router.navigate([`/domain`]);
-            console.log('test');
           },
           (failed) => {
             this.alertsSvc.alert(
