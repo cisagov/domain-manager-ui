@@ -136,7 +136,6 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
   }
 
   deleteDomain() {
-    console.log('trying to delte');
     const confirmDialogSettings = new ConfirmDialogSettings();
     confirmDialogSettings.itemConfirming = 'confirm domain delete';
     confirmDialogSettings.actionConfirming = `Are you sure you want to delete ${this.ddTabSvc.domain_data.name}, this action is permanent`;
@@ -149,14 +148,17 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
         this.ddTabSvc.deleteDomain(this.ddTabSvc.domain_data._id).subscribe(
           (success) => {
             this.router.navigate([`/domain`]);
+            console.log('test');
           },
           (failed) => {
-            this.alertsSvc.alert('Failed to delete domain');
+            this.alertsSvc.alert(
+              'Failed to delete domain. Deleting domains that are active or have redirects is not allowed.'
+            );
             console.log(failed);
           }
         );
       } else {
-        console.log('delete cancled');
+        this.alertsSvc.alert('Failed to delete domain.');
       }
     });
   }
