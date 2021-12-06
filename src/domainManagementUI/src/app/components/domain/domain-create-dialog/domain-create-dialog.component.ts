@@ -61,14 +61,19 @@ export class DomainCreateDialogComponent implements OnInit {
         vals.push(url);
       }
     });
-
     this.domainSvc.createDomain(vals).subscribe(
       (resp: any) => {
+        if (typeof resp == 'object') {
+          const respKey = Object.keys(resp)[0];
+          resp[respKey] = resp[respKey].join('\n');
+        }
         const genericSettings = new GenericDialogSettings(
           resp,
           'Domain',
           'Status'
         );
+        console.log(typeof resp);
+        console.log(resp);
         this.dialog.open(GenericViewComponent, { data: genericSettings });
         this.dialogRef.close(true);
       },
