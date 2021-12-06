@@ -63,8 +63,8 @@ export class DomainCreateDialogComponent implements OnInit {
     });
     this.domainSvc.createDomain(vals).subscribe(
       (resp: any) => {
-        if (typeof resp == 'object') {
-          const respKey = Object.keys(resp)[0];
+        const respKey = Object.keys(resp)[0];
+        if (typeof resp[respKey] == 'object') {
           resp[respKey] = resp[respKey].join('\n');
         }
         const genericSettings = new GenericDialogSettings(
