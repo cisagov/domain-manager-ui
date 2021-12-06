@@ -72,8 +72,6 @@ export class DomainCreateDialogComponent implements OnInit {
           'Domain',
           'Status'
         );
-        console.log(typeof resp);
-        console.log(resp);
         this.dialog.open(GenericViewComponent, { data: genericSettings });
         this.dialogRef.close(true);
       },
