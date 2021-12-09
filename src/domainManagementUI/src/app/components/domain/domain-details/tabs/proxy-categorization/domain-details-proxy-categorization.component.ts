@@ -98,6 +98,64 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
             undefined,
             10000
           );
+          let filteredData = [
+            {
+              categorize_url: 'https://trustedsource.org/',
+              check_url: 'https://trustedsource.org/',
+              proxy: 'Trusted Source',
+            },
+            {
+              categorize_url: 'https://sitereview.bluecoat.com/#/',
+              check_url: 'https://sitereview.bluecoat.com/#/',
+              proxy: 'Blue Coat',
+            },
+            {
+              categorize_url: 'https://www.fortiguard.com/faq/wfratingsubmit',
+              check_url: 'https://www.fortiguard.com/webfilter',
+              proxy: 'Fortiguard',
+            },
+            {
+              categorize_url: 'https://urlfiltering.paloaltonetworks.com/',
+              check_url: 'https://urlfiltering.paloaltonetworks.com/',
+              proxy: 'Palo Alto Networks',
+            },
+            {
+              categorize_url: 'https://global.sitesafety.trendmicro.com/',
+              check_url: 'https://global.sitesafety.trendmicro.com/',
+              proxy: 'Trend Micro',
+            },
+            {
+              categorize_url: 'http://csi.websense.com',
+              check_url: 'http://csi.websense.com',
+              proxy: 'Websense',
+            },
+            {
+              categorize_url: 'https://talosintelligence.com/reputation_center',
+              check_url: 'https://talosintelligence.com/reputation_center',
+              proxy: 'Cisco Talos',
+            },
+            {
+              categorize_url: 'https://exchange.xforce.ibmcloud.com/',
+              check_url: 'https://exchange.xforce.ibmcloud.com/',
+              proxy: 'IBM X Force',
+            },
+          ];
+          const now = new Date().toJSON().slice(0, 10);
+          const results = filteredData.map((obj) => ({
+            ...obj,
+            created: now,
+            status: 'new',
+            domain_name: this.ddTabSvc.domain_data.name,
+            domain_id: this.ddTabSvc.domain_data._id,
+            category:
+              this.ddTabSvc.proxy_categoriztion_tab_form.controls.category_one
+                .value,
+          }));
+          this.categoryData = success as Array<any>;
+          this.categoryList = new MatTableDataSource<any>(
+            results as Array<any>
+          );
+          this.categoryList.sort = this.sort;
         },
         (failure) => {
           console.log(failure);
