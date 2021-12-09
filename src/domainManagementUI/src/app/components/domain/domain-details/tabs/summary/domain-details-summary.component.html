@@ -5,24 +5,31 @@
   </div>
 
   <div *ngIf="!ddTabSvc.isLoading()">
-    <h5>Domain: {{ ddTabSvc.domain_data.name }}</h5>
-
-    <div class="text-muted mb-4">Detailed information for the domain</div>
+    <h5>General Information for: {{ ddTabSvc.domain_data.name }}</h5>
 
     <div class="flex-column flex-full summary_list_rows" [formGroup]="tabForm">
       <div class="flex-row">
-        <div class="flex sl_flex_title">Domain Name</div>
+        <div class="flex sl_flex_title">Domain is Live</div>
         <div class="flex sl_flex_content">
-          {{ ddTabSvc.domain_data.name }}
+          <mat-icon
+            *ngIf="ddTabSvc.domain_data.is_active; else notLive"
+            aria-hidden="false"
+            aria-label="check_circle icon"
+          >
+            check_circle</mat-icon
+          >
+          <ng-template #notLive>
+            <mat-icon aria-label="cancel icon">cancel</mat-icon>
+          </ng-template>
         </div>
       </div>
-      <div class="flex-row">
-        <div class="flex sl_flex_title">Domain Is Launched</div>
-        <div class="flex sl_flex_content">
-          {{ ddTabSvc.domain_data.is_active }}
-        </div>
-      </div>
-      <div *ngIf="ddTabSvc.domain_data.cloudfront_status" class="flex-row">
+      <div
+        *ngIf="
+          ddTabSvc.domain_data.cloudfront_status &&
+          ddTabSvc.domain_data.cloudfront_status.Status !== 'Deployed'
+        "
+        class="flex-row"
+      >
         <div class="flex sl_flex_title">Domain Deployment Status</div>
         <div class="flex sl_flex_content">
           {{ ddTabSvc.domain_data.cloudfront_status.Status }}
