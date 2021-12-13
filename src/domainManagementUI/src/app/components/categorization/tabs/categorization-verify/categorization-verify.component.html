@@ -6,7 +6,7 @@
   domain.
 </div>
 <div>
-  <mat-table [dataSource]="categoryList" matSort>
+  <mat-table [dataSource]="verifyCategoryList" matSort>
     <!-- Domain Name -->
     <ng-container matColumnDef="domain_name">
       <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -63,10 +63,10 @@
     </ng-container>
 
     <!-- Header Info -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="verifyDisplayedColumns"></mat-header-row>
     <mat-row
       class="table-row cursor-pointer"
-      *matRowDef="let row; columns: displayedColumns"
+      *matRowDef="let row; columns: verifyDisplayedColumns"
     ></mat-row>
   </mat-table>
 </div>
