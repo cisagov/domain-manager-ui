@@ -32,9 +32,6 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
     this.getSubmitDomainProxies();
   }
 
-  get categories() {
-    return Object.keys(this.categorySvc.categories);
-  }
   getSubmitDomainProxies() {
     this.categorizationTabSvc.getCategorizations('new,recategorize').subscribe(
       (success) => {
@@ -142,7 +139,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
 
   categorize(categorization_id, categorize_url, preferred_category, domain_id) {
     const dialogSettings = {
-      submitCategoryList: this.categories,
+      categoryList: this.categories,
       preferredCategory: preferred_category,
     };
     const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
@@ -167,6 +164,17 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
               let domainIndex = this.domainData.findIndex(
                 (domain) => domain.domain_id === domain_id
               );
+
+              // dynamically update verify list
+              const toVerifyProxy = this.domainData[
+                domainIndex
+              ].categories.data.find(
+                (category) => category._id === categorization_id
+              );
+              this.verifyCategoryList.data.push(toVerifyProxy);
+              this.verifyCategoryList.data = this.verifyCategoryList.data;
+              console.log(this.verifyCategoryList.data);
+              // dynamically update submit list
               this.domainData[domainIndex].categories.data = this.domainData[
                 domainIndex
               ].categories.data.filter(

@@ -1,5 +1,6 @@
 // Angular Imports
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { CategorizationComponent } from '../../categorization.component';
 
 @Component({

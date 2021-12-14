@@ -13,7 +13,6 @@ import { VerifyCategoryDialogComponent } from '../dialog-windows/verify-category
   styleUrls: ['./categorization.component.scss'],
 })
 export class CategorizationComponent {
-  verifyCategoryData = [];
   verifyDisplayedColumns = [
     'domain_name',
     'proxy',
@@ -42,7 +41,6 @@ export class CategorizationComponent {
     this.categorizationTabSvc.getCategorizations('submitted').subscribe(
       (success) => {
         if (Array.isArray(success)) {
-          this.verifyCategoryData = success as Array<any>;
           this.verifyCategoryList = new MatTableDataSource<any>(success);
           this.verifyCategoryList.sort = this.sort;
         } else {
@@ -55,6 +53,9 @@ export class CategorizationComponent {
     );
   }
 
+  get categories() {
+    return Object.keys(this.categorySvc.categories);
+  }
   get statuses() {
     return ['verified', 'burned'];
   }
