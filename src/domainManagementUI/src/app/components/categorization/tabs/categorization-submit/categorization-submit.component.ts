@@ -173,7 +173,6 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
               );
               this.verifyCategoryList.data.push(toVerifyProxy);
               this.verifyCategoryList.data = this.verifyCategoryList.data;
-              console.log(this.verifyCategoryList.data);
               // dynamically update submit list
               this.domainData[domainIndex].categories.data = this.domainData[
                 domainIndex
