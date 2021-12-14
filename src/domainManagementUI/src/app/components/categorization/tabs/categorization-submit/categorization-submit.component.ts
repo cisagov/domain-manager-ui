@@ -1,52 +1,45 @@
 // Angular Imports
-import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 // Local Service Imports
-import { AlertsService } from 'src/app/services/alerts.service';
-import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
-import { CategorizationTabService } from 'src/app/services/tab-services/categorization-tabs.service';
 import { CategorizationRejectDialogComponent } from '../../categorization-reject-dialog/categorization-reject-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
+import { CategorizationComponent } from '../../categorization.component';
 
 @Component({
   selector: 'app-categorization-submit',
   templateUrl: './categorization-submit.component.html',
   styleUrls: ['./categorization-submit.component.scss'],
 })
-export class CategorizationSubmitComponent {
-  categoryData = [];
+export class CategorizationSubmitComponent extends CategorizationComponent {
+  submitCategoryData = [];
   domainData = [];
-  displayedColumns = ['proxy', 'status', 'category', 'updated', 'categorize'];
-  categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
+  submitDisplayedColumns = [
+    'proxy',
+    'status',
+    'category',
+    'updated',
+    'categorize',
+  ];
+  submitCategoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
   proxyData: MatTableDataSource<any> = new MatTableDataSource<any>();
   domainDetails = {};
-
-  constructor(
-    public alertsSvc: AlertsService,
-    public categorySvc: CategoryService,
-    public dialog: MatDialog,
-    public categorizationTabSvc: CategorizationTabService
-  ) {}
 
   ngOnInit(): void {
     this.getSubmitDomainProxies();
   }
 
-  get categories() {
-    return Object.keys(this.categorySvc.categories);
-  }
   getSubmitDomainProxies() {
     this.categorizationTabSvc.getCategorizations('new,recategorize').subscribe(
       (success) => {
         if (Array.isArray(success)) {
-          this.categoryData = success as Array<any>;
+          this.submitCategoryData = success as Array<any>;
           let uniqueVals = [
             ...new Set(
-              this.categoryData.map((item) => ({
+              this.submitCategoryData.map((item) => ({
                 _id: item.domain_id,
                 is_external: item.is_external,
               }))
@@ -59,14 +52,14 @@ export class CategorizationSubmitComponent {
                 .subscribe(
                   (success: any) => {
                     this.domainDetails = success as Object;
-                    this.categoryData
+                    this.submitCategoryData
                       .filter((x) => x.domain_id == val._id)
                       .forEach((cd) => {
                         let found = this.domainData.some(
                           (el) => el.domain_name === cd.domain_name
                         );
                         this.proxyData = new MatTableDataSource<any>(
-                          this.categoryData.filter(
+                          this.submitCategoryData.filter(
                             (x) => x.domain_name == cd.domain_name
                           )
                         );
@@ -92,14 +85,14 @@ export class CategorizationSubmitComponent {
               this.categorizationTabSvc.domainDetails(val._id).subscribe(
                 (success: any) => {
                   this.domainDetails = success as Object;
-                  this.categoryData
+                  this.submitCategoryData
                     .filter((x) => x.domain_id == val._id)
                     .forEach((cd) => {
                       let found = this.domainData.some(
                         (el) => el.domain_name === cd.domain_name
                       );
                       this.proxyData = new MatTableDataSource<any>(
-                        this.categoryData.filter(
+                        this.submitCategoryData.filter(
                           (x) => x.domain_name == cd.domain_name
                         )
                       );
@@ -163,14 +156,24 @@ export class CategorizationSubmitComponent {
           .subscribe(
             (success) => {
               this.alertsSvc.alert('Category has been updated.');
-              const proxy = this.categoryList.data.findIndex(
+              const proxy = this.submitCategoryList.data.findIndex(
                 (obj) => obj._id === categorization_id
               );
-              this.categoryList.data.splice(proxy, 1);
-              this.categoryList.data = this.categoryList.data;
+              this.submitCategoryList.data.splice(proxy, 1);
+              this.submitCategoryList.data = this.submitCategoryList.data;
               let domainIndex = this.domainData.findIndex(
                 (domain) => domain.domain_id === domain_id
               );
+
+              // dynamically update verify list
+              const toVerifyProxy = this.domainData[
+                domainIndex
+              ].categories.data.find(
+                (category) => category._id === categorization_id
+              );
+              this.verifyCategoryList.data.push(toVerifyProxy);
+              this.verifyCategoryList.data = this.verifyCategoryList.data;
+              // dynamically update submit list
               this.domainData[domainIndex].categories.data = this.domainData[
                 domainIndex
               ].categories.data.filter(

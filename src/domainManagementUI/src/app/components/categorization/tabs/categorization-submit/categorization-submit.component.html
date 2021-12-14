@@ -93,10 +93,12 @@
       </ng-container>
 
       <!-- Header Info -->
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-header-row
+        *matHeaderRowDef="submitDisplayedColumns"
+      ></mat-header-row>
       <mat-row
         class="table-row cursor-pointer"
-        *matRowDef="let row; columns: displayedColumns"
+        *matRowDef="let row; columns: submitDisplayedColumns"
       ></mat-row>
     </mat-table>
   </mat-expansion-panel>
