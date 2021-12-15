@@ -137,8 +137,15 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
     );
   }
 
-  categorize(categorization_id, categorize_url, preferred_category, domain_id) {
+  categorize(
+    categorization_id,
+    categorize_url,
+    preferred_category,
+    domain_id,
+    domain_name
+  ) {
     const dialogSettings = {
+      domainName: domain_name,
       categoryList: this.categories,
       preferredCategory: preferred_category,
     };
