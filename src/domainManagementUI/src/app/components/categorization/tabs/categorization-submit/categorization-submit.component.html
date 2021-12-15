@@ -8,7 +8,9 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ domain.domain_name }}
+        <a class="primary" href="domain/details/{{ domain.domain_id }}">{{
+          domain.domain_name
+        }}</a>
       </mat-panel-title>
       <mat-icon
         *ngIf="domain.is_active"
