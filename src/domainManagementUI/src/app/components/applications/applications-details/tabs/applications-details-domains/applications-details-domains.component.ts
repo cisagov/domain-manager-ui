@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ApplicationsTabService } from 'src/app/services/tab-services/applications-details-tab.service';
 
 // Models
-import { ApplicationModel } from 'src/app/models/application.model';
 import { DomainModel } from 'src/app/models/domain.model';
 
 @Component({

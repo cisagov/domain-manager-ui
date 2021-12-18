@@ -41,7 +41,7 @@
           {{ ddTabSvc.domain_data.template_name }}
         </div>
       </div>
-      <h5>Point of Contact</h5>
+      <h5 *ngIf="application_details?.contact_name">Point of Contact</h5>
       <div class="flex-row" *ngIf="application_details?.contact_name">
         <div class="flex sl_flex_title">Contact Name</div>
         <div class="flex sl_flex_content">
