@@ -36,9 +36,15 @@
         </div>
       </div>
       <div class="flex-row" *ngIf="ddTabSvc.domain_data?.template_name">
-        <div class="flex sl_flex_title">Template Base Name</div>
+        <div class="flex sl_flex_title">Template Name</div>
         <div class="flex sl_flex_content">
           {{ ddTabSvc.domain_data.template_name }}
+        </div>
+      </div>
+      <div class="flex-row" *ngIf="application_details?.contact_name">
+        <div class="flex sl_flex_title">Point of Contact</div>
+        <div class="flex sl_flex_content">
+          {{ application_details?.contact_name }}
         </div>
       </div>
 

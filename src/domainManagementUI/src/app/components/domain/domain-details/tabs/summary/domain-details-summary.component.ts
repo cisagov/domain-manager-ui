@@ -16,6 +16,7 @@ import { DomainModel } from 'src/app/models/domain.model';
 
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
+import { ApplicationModel } from 'src/app/models/application.model';
 
 @Component({
   selector: 'dd-summary',
@@ -24,6 +25,7 @@ import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confir
 })
 export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
   application_list = [];
+  application_details: ApplicationModel;
   component_subscriptions = [];
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
   public userIsAdmin: boolean = null;
@@ -43,7 +45,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
     this.ddTabSvc.getDomainDataBehaviorSubject().subscribe((data) => {
       if (data._id) {
         this.domainDataExists = true;
-        this.getApplicationData();
+        this.getApplicationsData();
       }
     });
   }
@@ -53,11 +55,17 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
-  getApplicationData() {
+
+  getApplicationsData() {
     if (this.userIsAdmin && this.domainDataExists) {
       this.applicationSvc.getAllApplications().subscribe(
         (success) => {
           this.application_list = success as [];
+          if (this.ddTabSvc.domain_data.application_id) {
+            this.application_details = this.application_list.find(
+              (app) => app._id === this.ddTabSvc.domain_data.application_id
+            ) as ApplicationModel;
+          }
         },
         (failure) => {
           this.alertsSvc.alert(failure);
@@ -66,22 +74,8 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  // getApplicationName() {
-  //   if (
-  //     this.ddTabSvc.domain_data.application_id &&
-  //     this.applicationSvc.application_list.length
-  //   ) {
-  //     return this.applicationSvc.getApplicationNameByUUID(
-  //       this.ddTabSvc.domain_data.application_id
-  //     );
-  //   } else {
-  //     return 'Loading Application List';
-  //   }
-  // }
-
   changeApplication(application_id) {
     this.ddTabSvc.domain_data.application_id = application_id;
-    console.log(this.ddTabSvc.domain_data);
     this.ddTabSvc.updateDomain().subscribe(
       (success) => {
         this.alertsSvc.alert('Domain Application Updated');
