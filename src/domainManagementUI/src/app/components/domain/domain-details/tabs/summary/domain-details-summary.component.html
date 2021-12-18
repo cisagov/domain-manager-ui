@@ -35,6 +35,18 @@
           {{ ddTabSvc.domain_data.cloudfront_status.Status }}
         </div>
       </div>
+      <div class="flex-row" *ngIf="ddTabSvc.domain_data?.whois.registrar">
+        <div class="flex sl_flex_title">Registrar</div>
+        <div class="flex sl_flex_content">
+          {{ ddTabSvc.domain_data.whois.registrar }}
+        </div>
+      </div>
+      <div class="flex-row" *ngIf="ddTabSvc.domain_data?.whois.expiration_date">
+        <div class="flex sl_flex_title">Expires On</div>
+        <div class="flex sl_flex_content">
+          {{ ddTabSvc.domain_data.whois.expiration_date | date: "MM/dd/yy" }}
+        </div>
+      </div>
       <div class="flex-row" *ngIf="ddTabSvc.domain_data?.template_name">
         <div class="flex sl_flex_title">Template Name</div>
         <div class="flex sl_flex_content">

@@ -12,7 +12,6 @@ import { DomainService } from 'src/app/services/domain.service';
 
 //Models
 import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.model';
-import { DomainModel } from 'src/app/models/domain.model';
 
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
