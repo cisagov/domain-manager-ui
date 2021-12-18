@@ -5,7 +5,7 @@
   </div>
 
   <div *ngIf="!ddTabSvc.isLoading()">
-    <h5>General Information for: {{ ddTabSvc.domain_data.name }}</h5>
+    <h4>General Information for: {{ ddTabSvc.domain_data.name }}</h4>
 
     <div class="flex-column flex-full summary_list_rows" [formGroup]="tabForm">
       <div class="flex-row">
@@ -41,16 +41,23 @@
           {{ ddTabSvc.domain_data.template_name }}
         </div>
       </div>
+      <h5>Point of Contact</h5>
       <div class="flex-row" *ngIf="application_details?.contact_name">
-        <div class="flex sl_flex_title">Point of Contact</div>
+        <div class="flex sl_flex_title">Contact Name</div>
         <div class="flex sl_flex_content">
           {{ application_details?.contact_name }}
+        </div>
+      </div>
+      <div class="flex-row" *ngIf="application_details?.contact_email">
+        <div class="flex sl_flex_title">Contact Email</div>
+        <div class="flex sl_flex_content">
+          {{ application_details?.contact_email }}
         </div>
       </div>
 
       <!-- Application If ADMIN -->
       <div class="flex-row" *ngIf="ddTabSvc.userIsAdmin">
-        <div class="flex sl_flex_title">Applications Using</div>
+        <div class="flex sl_flex_title">Team or Application</div>
         <div class="flex sl_flex_content">
           <mat-form-field style="width: 20em" appearance="outline">
             <mat-select
@@ -68,7 +75,7 @@
 
       <!-- Application If base user -->
       <div class="flex-row" *ngIf="!ddTabSvc.userIsAdmin">
-        <div class="flex sl_flex_title">Applications Assigned To</div>
+        <div class="flex sl_flex_title">Team or Application</div>
         <div
           *ngIf="ddTabSvc.domain_data.application_name"
           class="flex sl_flex_content"
