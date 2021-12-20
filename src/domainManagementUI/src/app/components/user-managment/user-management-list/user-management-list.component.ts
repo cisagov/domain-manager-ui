@@ -6,7 +6,6 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -14,7 +13,6 @@ import { Router } from '@angular/router';
 //Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
 import { LayoutService } from 'src/app/services/layout.service';
-import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserManagementService } from 'src/app/services/user-management.service';
 
 //Models

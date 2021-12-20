@@ -14,10 +14,6 @@ export class ApplicationService {
     private settingsService: SettingsService
   ) {}
 
-  getApplicationNameByUUID(uuid: string) {
-    console.log('This method needs to go.');
-  }
-
   async getApplications() {
     const url = `${this.settingsService.settings.apiUrl}/api/applications/`;
     return this.http.get<ApplicationModel[]>(url).toPromise();

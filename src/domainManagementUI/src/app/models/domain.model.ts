@@ -35,6 +35,9 @@ export class DomainModel extends BaseModel {
   category_results: CategoryResult[];
   submitted_category: string;
   rejected_msg: string;
+
+  // Whois
+  whois: Whois;
 }
 
 export class CategoryResult {
@@ -83,4 +86,9 @@ export class RecordModel {
   ttl = 60;
   name: string;
   config: any = {};
+}
+
+class Whois {
+  registrar: string;
+  expiration_date: Date;
 }

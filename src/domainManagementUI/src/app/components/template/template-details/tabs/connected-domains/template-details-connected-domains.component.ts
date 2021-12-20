@@ -34,7 +34,6 @@ export class TemplateDetailsConnectedDomainsComponent
   ngOnInit(): void {
     this.dataSub = this.tdTabSvc.domains_used_behavior_subject.subscribe(
       (val) => {
-        console.log(val);
         if (val.length) {
           this.domainsUsedList = new MatTableDataSource<DomainModel>(
             val as DomainModel[]
