@@ -124,11 +124,11 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
               check_url: 'https://global.sitesafety.trendmicro.com/',
               proxy: 'Trend Micro',
             },
-            {
-              categorize_url: 'http://csi.websense.com',
-              check_url: 'http://csi.websense.com',
-              proxy: 'Websense',
-            },
+            // {
+            //   categorize_url: 'http://csi.websense.com',
+            //   check_url: 'http://csi.websense.com',
+            //   proxy: 'Websense',
+            // },
             {
               categorize_url: 'https://talosintelligence.com/reputation_center',
               check_url: 'https://talosintelligence.com/reputation_center',
