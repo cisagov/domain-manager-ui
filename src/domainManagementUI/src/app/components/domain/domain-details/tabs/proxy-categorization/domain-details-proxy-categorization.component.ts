@@ -119,11 +119,11 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
               check_url: 'https://urlfiltering.paloaltonetworks.com/',
               proxy: 'Palo Alto Networks',
             },
-            {
-              categorize_url: 'https://global.sitesafety.trendmicro.com/',
-              check_url: 'https://global.sitesafety.trendmicro.com/',
-              proxy: 'Trend Micro',
-            },
+            // {
+            //   categorize_url: 'https://global.sitesafety.trendmicro.com/',
+            //   check_url: 'https://global.sitesafety.trendmicro.com/',
+            //   proxy: 'Trend Micro',
+            // },
             {
               categorize_url: 'http://csi.websense.com',
               check_url: 'http://csi.websense.com',
