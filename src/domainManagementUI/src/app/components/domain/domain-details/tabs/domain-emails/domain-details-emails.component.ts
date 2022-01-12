@@ -8,7 +8,6 @@ import {
   HostListener,
   ElementRef,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
@@ -22,8 +21,6 @@ import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-de
 //Models
 import { DomainEmailModel } from 'src/app/models/domainEmail.model';
 import { DomainEmailListModel } from 'src/app/models/domainEmail.model';
-import { DomSanitizer } from '@angular/platform-browser';
-import { EmailModel } from 'src/app/models/email.model';
 
 @Component({
   selector: 'dd-emails',
@@ -92,6 +89,11 @@ export class DomainDetailsEmailsComponent
               '<p>This domain is not set to receive emails.</p>';
           }
           this.getEmailList();
+          if (this.ddTabSvc.isEmailPending()) {
+            this.toggleInProcess = true;
+          } else {
+            this.toggleInProcess = false;
+          }
         }
       })
     );
@@ -110,15 +112,15 @@ export class DomainDetailsEmailsComponent
         this.ddTabSvc.domain_data.is_email_active
       )
       .subscribe(
-        (success) => {
-          this.toggleInProcess = false;
-          this.alertsSvc.alert('Email receiving state successfully changed');
+        (success: any) => {
+          this.toggleInProcess = true;
+          this.alertsSvc.alert(success.message);
           this.changeToggleStatus();
         },
         (failure) => {
           this.toggleInProcess = false;
           this.alertsSvc.alert(
-            'Failed to change status, please try again soon.'
+            'Failed to change status, please try again later.'
           );
         }
       );
@@ -126,8 +128,8 @@ export class DomainDetailsEmailsComponent
   changeToggleStatus() {
     if (this.toggleText == 'Toggle Off') {
       this.toggleText = 'Toggle On';
-      this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
-      this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
+      // this.lastFullWidth = this.tabContainer.nativeElement.offsetWidth;
+      // this.lastListWidth = this.listContainer.nativeElement.offsetWidth;
     } else {
       this.toggleText = 'Toggle Off';
     }
@@ -151,7 +153,7 @@ export class DomainDetailsEmailsComponent
           this.currDate.getMinutes() * minuteInMilliseconds +
           this.currDate.getMilliseconds());
       if (timeDeltaInMilliseconds < 0) {
-        item['readableDate'] = 'CHECK TIMEZONE ISSUE';
+        item['readableDate'] = 'now';
       }
       //Current day
       else if (workingDate.getTime() > TimeOfStartOfDay) {
@@ -280,20 +282,22 @@ export class DomainDetailsEmailsComponent
     }
   }
   removeEventListeners() {
-    this.resizeBar.nativeElement.removeEventListener('mousedown', (e) => {
-      this.resizing = true;
-    });
-    this.tabContainer.nativeElement.removeEventListener('mousemove', (e) => {
-      this.dragToResize(e);
-    });
-    this.tabContainer.nativeElement.removeEventListener('mouseleave', (e) => {
-      this.resizing = false;
-      this.setRestingWidths();
-    });
-    this.tabContainer.nativeElement.removeEventListener('mouseup', (e) => {
-      this.resizing = false;
-      this.setRestingWidths();
-    });
+    if (this.resizeBar) {
+      this.resizeBar.nativeElement.removeEventListener('mousedown', (e) => {
+        this.resizing = true;
+      });
+      this.tabContainer.nativeElement.removeEventListener('mousemove', (e) => {
+        this.dragToResize(e);
+      });
+      this.tabContainer.nativeElement.removeEventListener('mouseleave', (e) => {
+        this.resizing = false;
+        this.setRestingWidths();
+      });
+      this.tabContainer.nativeElement.removeEventListener('mouseup', (e) => {
+        this.resizing = false;
+        this.setRestingWidths();
+      });
+    }
   }
   getEmail(emailId) {
     this.emailList.data.forEach((item) => {
@@ -322,7 +326,7 @@ export class DomainDetailsEmailsComponent
         this.emailList.data = success as Array<DomainEmailListModel>;
         this.emailList.sort = this.sort;
 
-        if (success[0]) {
+        if (this.ddTabSvc.domain_data.is_email_active) {
           const sortState: Sort = { active: 'timestamp', direction: 'desc' };
           this.sort.active = sortState.active;
           this.sort.direction = sortState.direction;
@@ -332,6 +336,45 @@ export class DomainDetailsEmailsComponent
       (failure) => {
         console.log(failure);
         this.alertsSvc.alert('Failed to get email list');
+      }
+    );
+  }
+
+  refreshEmailList() {
+    this.emailSvc.getDomainEmails(this.ddTabSvc.domain_data._id).subscribe(
+      (success) => {
+        if (!success[0] && this.ddTabSvc.hasEmailActive()) {
+          this.bodyDisplay = '<p>No emails have been received.</p>';
+        }
+        this.addReadableDate(success);
+        this.emailList.data = success as Array<DomainEmailListModel>;
+        this.emailList.sort = this.sort;
+
+        if (this.ddTabSvc.domain_data.is_email_active) {
+          const sortState: Sort = { active: 'timestamp', direction: 'desc' };
+          this.sort.active = sortState.active;
+          this.sort.direction = sortState.direction;
+          this.sort.sortChange.emit(sortState);
+        }
+      },
+      (failure) => {
+        console.log(failure);
+        this.alertsSvc.alert('Failed to get email list');
+      }
+    );
+  }
+
+  deleteEmail(emailId) {
+    this.emailSvc.deleteDomainEmail(emailId).subscribe(
+      (success) => {
+        this.emailList.data = this.emailList.data.filter(
+          (email) => email._id !== emailId
+        );
+        this.bodyDisplay = '';
+        this.email._id = null;
+      },
+      (failure) => {
+        this.alertsSvc.alert(failure);
       }
     );
   }

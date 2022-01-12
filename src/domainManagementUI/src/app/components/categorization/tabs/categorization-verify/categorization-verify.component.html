@@ -6,9 +6,9 @@
   domain.
 </div>
 <div>
-  <mat-table [dataSource]="categoryList" matSort>
+  <mat-table [dataSource]="verifyCategoryList" matSort>
     <!-- Domain Name -->
-    <ng-container matColumnDef="domain">
+    <ng-container matColumnDef="domain_name">
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >Domain</mat-header-cell
       >
@@ -21,14 +21,6 @@
         >Proxy Source</mat-header-cell
       >
       <mat-cell *matCellDef="let row">{{ row.proxy }}</mat-cell>
-    </ng-container>
-
-    <!-- Status -->
-    <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Status</mat-header-cell
-      >
-      <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
     </ng-container>
 
     <!-- Category Name -->
@@ -62,7 +54,7 @@
       <mat-cell *matCellDef="let row">
         <button
           mat-raised-button
-          (click)="verify(row._id, row.check_url)"
+          (click)="verify(row._id, row.check_url, row.domain_id)"
           color="primary"
         >
           Verify
@@ -71,10 +63,10 @@
     </ng-container>
 
     <!-- Header Info -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="verifyDisplayedColumns"></mat-header-row>
     <mat-row
       class="table-row cursor-pointer"
-      *matRowDef="let row; columns: displayedColumns"
+      *matRowDef="let row; columns: verifyDisplayedColumns"
     ></mat-row>
   </mat-table>
 </div>

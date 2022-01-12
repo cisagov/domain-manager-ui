@@ -19,6 +19,14 @@
       >
         <span>{{ toggleText }}</span>
       </button>
+      <button
+        mat-stroked-button
+        class="email-delete-button"
+        color="basic"
+        (click)="refreshEmailList()"
+      >
+        Refresh
+      </button>
     </div>
   </div>
   <div
@@ -102,6 +110,15 @@
       [style.width]="messageWidth"
       class="email-message-container"
     >
+      <button
+        *ngIf="this.email._id"
+        mat-flat-button
+        class="email-delete-button"
+        color="primary"
+        (click)="deleteEmail(this.email._id)"
+      >
+        Delete
+      </button>
       <div *ngIf="this.email._id">Subject : {{ this.email.subject }}</div>
       <div *ngIf="this.email._id">From : {{ this.email.from_address }}</div>
       <div *ngIf="this.email._id">To : {{ this.email.to_address }}</div>

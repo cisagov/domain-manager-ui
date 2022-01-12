@@ -27,12 +27,17 @@ export class DomainModel extends BaseModel {
   is_launching: boolean;
   is_delaunching: boolean;
   is_email_active: boolean;
+  is_email_pending: boolean;
   is_generating_template: boolean;
   cloudfront_status: any;
 
   // Categorization
   category_results: CategoryResult[];
   submitted_category: string;
+  rejected_msg: string;
+
+  // Whois
+  whois: Whois;
 }
 
 export class CategoryResult {
@@ -81,4 +86,9 @@ export class RecordModel {
   ttl = 60;
   name: string;
   config: any = {};
+}
+
+class Whois {
+  registrar: string;
+  expiration_date: Date;
 }

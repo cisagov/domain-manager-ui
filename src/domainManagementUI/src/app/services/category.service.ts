@@ -38,6 +38,16 @@ export class CategoryService {
     return this.http.get(url);
   }
 
+  domainDetails(domainId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}`;
+    return this.http.get(url);
+  }
+
+  externalDomainDetails(externalId: string) {
+    const url = `${this.settingsService.settings.apiUrl}/api/external-domain/${externalId}`;
+    return this.http.get(url);
+  }
+
   submitCategory(domainId: string, categoryName: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
     return this.http.post(url, { category: categoryName });
@@ -56,5 +66,15 @@ export class CategoryService {
   updateCategorization(id: string, data: CategorizationModel) {
     const url = `${this.settingsService.settings.apiUrl}/api/categorization/${id}/`;
     return this.http.put(url, data);
+  }
+
+  deleteProxyRequests(domainId: string, data: object) {
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/categorize/`;
+    return this.http.request('delete', url, { body: data });
+  }
+
+  deleteExternalProxyRequests(externalId: string, data: object) {
+    const url = `${this.settingsService.settings.apiUrl}/api/external-domain/${externalId}/categorize/`;
+    return this.http.request('delete', url, { body: data });
   }
 }

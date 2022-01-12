@@ -4,76 +4,105 @@
   categorization service(s). Select the categorize button to link to the proxy
   categorization website to allow you to select a category for a domain.
 </div>
-<div>
-  <mat-table [dataSource]="categoryList" matSort>
-    <!-- Domain Name -->
-    <ng-container matColumnDef="domain">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Domain</mat-header-cell
+<div *ngFor="let domain of domainData">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <a class="primary" href="domain/details/{{ domain.domain_id }}">{{
+          domain.domain_name
+        }}</a>
+      </mat-panel-title>
+      <mat-icon
+        *ngIf="domain.is_active"
+        aria-hidden="false"
+        aria-label="check_circle icon"
+        class="domain-icon"
       >
-      <mat-cell *matCellDef="let row">{{ row.domain_name }}</mat-cell>
-    </ng-container>
-
-    <!-- Proxy Name -->
-    <ng-container matColumnDef="proxy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Proxy Source</mat-header-cell
+        check_circle</mat-icon
       >
-      <mat-cell *matCellDef="let row">{{ row.proxy }}</mat-cell>
-    </ng-container>
-
-    <!-- Status -->
-    <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Status</mat-header-cell
+      <p *ngIf="domain.is_external" class="domain-icon text-muted">
+        {{ domain.proxy_email }}
+      </p>
+      <button
+        *ngIf="!domain.email_active"
+        mat-raised-button
+        class="domain-button"
+        color="primary"
+        (click)="toggleEmail(domain.domain_id)"
       >
-      <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
-    </ng-container>
-
-    <!-- Category Name -->
-    <ng-container matColumnDef="category">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Preferred Category</mat-header-cell
+        Enable Email
+      </button>
+      <button
+        mat-stroked-button
+        class="domain-button"
+        color="warn"
+        (click)="reject(domain.domain_id, domain.is_external)"
       >
-      <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
-    </ng-container>
+        Reject
+      </button>
+    </mat-expansion-panel-header>
+    <mat-table [dataSource]="domain.categories">
+      <!-- Proxy Name -->
+      <ng-container matColumnDef="proxy">
+        <mat-header-cell *matHeaderCellDef>Proxy Source</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.proxy }}</mat-cell>
+      </ng-container>
 
-    <!-- Date Requested -->
-    <ng-container matColumnDef="updated">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Date Requested</mat-header-cell
-      >
-      <mat-cell *matCellDef="let row">
-        <ng-container *ngIf="row['updated']; else elseCreated">{{
-          row.updated | date: "MM/dd/yy"
-        }}</ng-container>
-        <ng-template #elseCreated>{{
-          row.created | date: "MM/dd/yy"
-        }}</ng-template>
-      </mat-cell>
-    </ng-container>
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+      </ng-container>
 
-    <!-- Categorize -->
-    <ng-container matColumnDef="categorize">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Categorize</mat-header-cell
-      >
-      <mat-cell *matCellDef="let row">
-        <button
-          mat-raised-button
-          (click)="categorize(row._id, row.categorize_url, row.category)"
-          color="primary"
-        >
-          Categorize
-        </button>
-      </mat-cell>
-    </ng-container>
+      <!-- Category Name -->
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Preferred Category</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
+      </ng-container>
 
-    <!-- Header Info -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row
-      class="table-row cursor-pointer"
-      *matRowDef="let row; columns: displayedColumns"
-    ></mat-row>
-  </mat-table>
+      <!-- Date Requested -->
+      <ng-container matColumnDef="updated">
+        <mat-header-cell *matHeaderCellDef>Date Requested</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row['updated']; else elseCreated">{{
+            row.updated | date: "MM/dd/yy"
+          }}</ng-container>
+          <ng-template #elseCreated>{{
+            row.created | date: "MM/dd/yy"
+          }}</ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Categorize -->
+      <ng-container matColumnDef="categorize">
+        <mat-header-cell *matHeaderCellDef>Categorize</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button
+            mat-raised-button
+            (click)="
+              categorize(
+                row._id,
+                row.categorize_url,
+                row.category,
+                domain.domain_id,
+                domain.domain_name
+              )
+            "
+            color="primary"
+          >
+            Categorize
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Header Info -->
+      <mat-header-row
+        *matHeaderRowDef="submitDisplayedColumns"
+      ></mat-header-row>
+      <mat-row
+        class="table-row cursor-pointer"
+        *matRowDef="let row; columns: submitDisplayedColumns"
+      ></mat-row>
+    </mat-table>
+  </mat-expansion-panel>
 </div>

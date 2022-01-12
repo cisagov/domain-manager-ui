@@ -5,39 +5,71 @@
   </div>
 
   <div *ngIf="!ddTabSvc.isLoading()">
-    <h5>Domain: {{ ddTabSvc.domain_data.name }}</h5>
-
-    <div class="text-muted mb-4">Detailed information for the domain</div>
+    <h4>General Information for: {{ ddTabSvc.domain_data.name }}</h4>
 
     <div class="flex-column flex-full summary_list_rows" [formGroup]="tabForm">
       <div class="flex-row">
-        <div class="flex sl_flex_title">Domain Name</div>
+        <div class="flex sl_flex_title">Domain is Live</div>
         <div class="flex sl_flex_content">
-          {{ ddTabSvc.domain_data.name }}
+          <mat-icon
+            *ngIf="ddTabSvc.domain_data.is_active; else notLive"
+            aria-hidden="false"
+            aria-label="check_circle icon"
+          >
+            check_circle</mat-icon
+          >
+          <ng-template #notLive>
+            <mat-icon aria-label="cancel icon">cancel</mat-icon>
+          </ng-template>
         </div>
       </div>
-      <div class="flex-row">
-        <div class="flex sl_flex_title">Domain Is Launched</div>
-        <div class="flex sl_flex_content">
-          {{ ddTabSvc.domain_data.is_active }}
-        </div>
-      </div>
-      <div *ngIf="ddTabSvc.domain_data.cloudfront_status" class="flex-row">
+      <div
+        *ngIf="
+          ddTabSvc.domain_data.cloudfront_status &&
+          ddTabSvc.domain_data.cloudfront_status.Status !== 'Deployed'
+        "
+        class="flex-row"
+      >
         <div class="flex sl_flex_title">Domain Deployment Status</div>
         <div class="flex sl_flex_content">
           {{ ddTabSvc.domain_data.cloudfront_status.Status }}
         </div>
       </div>
+      <div class="flex-row" *ngIf="ddTabSvc.domain_data?.whois.registrar">
+        <div class="flex sl_flex_title">Registrar</div>
+        <div class="flex sl_flex_content">
+          {{ ddTabSvc.domain_data.whois.registrar }}
+        </div>
+      </div>
+      <div class="flex-row" *ngIf="ddTabSvc.domain_data?.whois.expiration_date">
+        <div class="flex sl_flex_title">Expires On</div>
+        <div class="flex sl_flex_content">
+          {{ ddTabSvc.domain_data.whois.expiration_date | date: "MM/dd/yy" }}
+        </div>
+      </div>
       <div class="flex-row" *ngIf="ddTabSvc.domain_data?.template_name">
-        <div class="flex sl_flex_title">Template Base Name</div>
+        <div class="flex sl_flex_title">Template Name</div>
         <div class="flex sl_flex_content">
           {{ ddTabSvc.domain_data.template_name }}
+        </div>
+      </div>
+      <h5 *ngIf="application_details?.contact_name">Point of Contact</h5>
+      <div class="flex-row" *ngIf="application_details?.contact_name">
+        <div class="flex sl_flex_title">Contact Name</div>
+        <div class="flex sl_flex_content">
+          {{ application_details?.contact_name }}
+        </div>
+      </div>
+      <div class="flex-row" *ngIf="application_details?.contact_email">
+        <div class="flex sl_flex_title">Contact Email</div>
+        <div class="flex sl_flex_content">
+          {{ application_details?.contact_email }}
         </div>
       </div>
 
       <!-- Application If ADMIN -->
       <div class="flex-row" *ngIf="ddTabSvc.userIsAdmin">
-        <div class="flex sl_flex_title">Applications Using</div>
+        <div class="flex sl_flex_title">Team or Application</div>
         <div class="flex sl_flex_content">
           <mat-form-field style="width: 20em" appearance="outline">
             <mat-select
@@ -55,7 +87,7 @@
 
       <!-- Application If base user -->
       <div class="flex-row" *ngIf="!ddTabSvc.userIsAdmin">
-        <div class="flex sl_flex_title">Applications Assigned To</div>
+        <div class="flex sl_flex_title">Team or Application</div>
         <div
           *ngIf="ddTabSvc.domain_data.application_name"
           class="flex sl_flex_content"

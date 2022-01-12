@@ -10,14 +10,23 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmCategoryDialogComponent } from 'src/app/components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { DomainDetailsTabService } from 'src/app/services/tab-services/domain-details-tabs.service';
+import { VerifyCategoryDialogComponent } from 'src/app/components/dialog-windows/verify-category/verify-category-dialog.component';
 
 @Component({
   selector: 'dd-proxy-categorization',
   templateUrl: './domain-details-proxy-categorization.component.html',
+  styleUrls: ['./domain-details-proxy-categorization.component.scss'],
 })
 export class DomainDetailsProxyCategorizationComponent implements OnInit {
   categoryData = [];
-  displayedColumns = ['proxy', 'category', 'created', 'status', 'recategorize'];
+  displayedColumns = [
+    'proxy',
+    'category',
+    'created',
+    'status',
+    'recategorize',
+    'check',
+  ];
   categoryList: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -72,6 +81,10 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
     return Object.keys(this.categorySvc.categories);
   }
 
+  get statuses() {
+    return ['verified', 'burned'];
+  }
+
   // Only pushing one category at this time, original plan was for three,
   // existing code for three will remain but not be used untill needed.
   submitCategory() {
@@ -85,6 +98,64 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
             undefined,
             10000
           );
+          let filteredData = [
+            {
+              categorize_url: 'https://trustedsource.org/',
+              check_url: 'https://trustedsource.org/',
+              proxy: 'Trusted Source',
+            },
+            {
+              categorize_url: 'https://sitereview.bluecoat.com/#/',
+              check_url: 'https://sitereview.bluecoat.com/#/',
+              proxy: 'Blue Coat',
+            },
+            {
+              categorize_url: 'https://www.fortiguard.com/faq/wfratingsubmit',
+              check_url: 'https://www.fortiguard.com/webfilter',
+              proxy: 'Fortiguard',
+            },
+            {
+              categorize_url: 'https://urlfiltering.paloaltonetworks.com/',
+              check_url: 'https://urlfiltering.paloaltonetworks.com/',
+              proxy: 'Palo Alto Networks',
+            },
+            {
+              categorize_url: 'https://global.sitesafety.trendmicro.com/',
+              check_url: 'https://global.sitesafety.trendmicro.com/',
+              proxy: 'Trend Micro',
+            },
+            // {
+            //   categorize_url: 'http://csi.websense.com',
+            //   check_url: 'http://csi.websense.com',
+            //   proxy: 'Websense',
+            // },
+            {
+              categorize_url: 'https://talosintelligence.com/reputation_center',
+              check_url: 'https://talosintelligence.com/reputation_center',
+              proxy: 'Cisco Talos',
+            },
+            {
+              categorize_url: 'https://exchange.xforce.ibmcloud.com/',
+              check_url: 'https://exchange.xforce.ibmcloud.com/',
+              proxy: 'IBM X Force',
+            },
+          ];
+          const now = new Date().toJSON().slice(0, 10);
+          const results = filteredData.map((obj) => ({
+            ...obj,
+            created: now,
+            status: 'new',
+            domain_name: this.ddTabSvc.domain_data.name,
+            domain_id: this.ddTabSvc.domain_data._id,
+            category:
+              this.ddTabSvc.proxy_categoriztion_tab_form.controls.category_one
+                .value,
+          }));
+          this.categoryData = success as Array<any>;
+          this.categoryList = new MatTableDataSource<any>(
+            results as Array<any>
+          );
+          this.categoryList.sort = this.sort;
         },
         (failure) => {
           console.log(failure);
@@ -126,6 +197,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
           .updateCategory(categorization_id, {
             category: result.selectedCategory,
             status: status,
+            domain_id: this.ddTabSvc.domain_data._id,
           })
           .subscribe(
             (success) => {
@@ -144,6 +216,39 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
       }
     });
     window.open(categorize_url, '_blank');
+  }
+
+  check(categorization_id, check_url) {
+    const dialogSettings = {
+      statusList: this.statuses,
+    };
+    const dialogRef = this.dialog.open(VerifyCategoryDialogComponent, {
+      data: dialogSettings,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.closedStatus === 'confirmed') {
+        this.ddTabSvc
+          .updateCategory(categorization_id, {
+            status: result.selectedStatus,
+            domain_id: this.ddTabSvc.domain_data._id,
+          })
+          .subscribe(
+            (success) => {
+              this.alertsSvc.alert('Proxy status has been updated.');
+              const proxy = this.categoryList.data.findIndex(
+                (obj) => obj._id === categorization_id
+              );
+              this.categoryList.data[proxy].status = result.selectedStatus;
+              this.categoryList.data[proxy].updated = new Date();
+            },
+            (failure) => {
+              this.alertsSvc.alert('Error updating status.');
+            }
+          );
+      }
+    });
+    window.open(check_url, '_blank');
   }
 
   validateRecategorize() {
