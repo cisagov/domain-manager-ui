@@ -193,7 +193,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
           );
       }
     });
-    window.open(categorize_url, '_blank');
+    window.open(categorize_url, '_blank', 'width=800, height=800');
   }
 
   reject(domain_id, is_external) {
