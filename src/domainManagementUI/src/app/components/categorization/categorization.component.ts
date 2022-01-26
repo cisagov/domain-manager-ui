@@ -89,6 +89,6 @@ export class CategorizationComponent {
           );
       }
     });
-    window.open(check_url, '_blank');
+    window.open(check_url, '_blank', 'width=800, height=800');
   }
 }
