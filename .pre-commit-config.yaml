@@ -27,9 +27,7 @@ repos:
         args:
           - --fix=lf
       - id: pretty-format-json
-        exclude: |
-         src/domainManagementUI/src/assets/userguide/|
-         src/domainManagementUI/package-lock.json
+        exclude: src/domainManagementUI/src/assets/userguide/|src/domainManagementUI/package-lock.json
         args:
           - --autofix
       - id: requirements-txt-fixer
@@ -118,13 +116,6 @@ repos:
     rev: v2.31.0
     hooks:
       - id: pyupgrade
-
-  # Ansible hooks
-  - repo: https://github.com/ansible-community/ansible-lint
-    rev: v5.3.2
-    hooks:
-      - id: ansible-lint
-      # files: molecule/default/playbook.yml
 
   # Terraform hooks
   - repo: https://github.com/antonbabenko/pre-commit-terraform
