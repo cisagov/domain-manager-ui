@@ -60,8 +60,9 @@ export class CategorizationComponent {
     return ['verified', 'burned'];
   }
 
-  verify(categorization_id, check_url, domain_id) {
+  verify(categorization_id, check_url, domain_id, domain_name) {
     const dialogSettings = {
+      itemConfirming: domain_name,
       statusList: this.statuses,
     };
     const dialogRef = this.dialog.open(VerifyCategoryDialogComponent, {
