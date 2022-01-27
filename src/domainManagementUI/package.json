@@ -15,7 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@videogular/ngx-videogular": "5.0.1",
     "angular-file": "^3.5.3",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^4.6.1",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
