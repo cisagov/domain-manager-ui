@@ -6,6 +6,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { ApplicationModel } from 'src/app/models/application.model';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ApplicationService } from 'src/app/services/applications.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class ApplicationEditDialogComponent implements OnInit {
   });
 
   constructor(
+    public alertsSvc: AlertsService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<ApplicationEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ApplicationModel,
@@ -50,8 +52,14 @@ export class ApplicationEditDialogComponent implements OnInit {
   }
 
   createApplication() {
-    this.applicationSvc.createApplication(this.application).subscribe(() => {
-      this.dialogRef.close(true);
-    });
+    this.applicationSvc.createApplication(this.application).subscribe(
+      () => {
+        this.dialogRef.close(true);
+      },
+      (error) => {
+        console.log(error);
+        this.alertsSvc.alert(error.error.error);
+      }
+    );
   }
 }
