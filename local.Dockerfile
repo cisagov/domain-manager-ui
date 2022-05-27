@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:stable
 
 # Set working directory
 WORKDIR /app
