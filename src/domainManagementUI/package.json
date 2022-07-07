@@ -18,7 +18,7 @@
     "bootstrap": "^4.6.1",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^3.1.2",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "ngx-cookie-service": "^11.0.2",
     "rxjs": "^6.6.7",
     "tslib": "^2.3.1",
