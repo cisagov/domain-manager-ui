@@ -55,6 +55,24 @@
         </mat-cell>
       </ng-container>
 
+      <!-- Updated Date -->
+      <ng-container matColumnDef="updated_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Updated Date</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">{{
+          row.updated | date: "MM/dd/yy"
+        }}</mat-cell>
+      </ng-container>
+
+      <!-- Updated By -->
+      <ng-container matColumnDef="updatedByLowerCase">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >UpdatedBy</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">{{ row.updated_by }}</mat-cell>
+      </ng-container>
+
       <!-- Create Date -->
       <ng-container matColumnDef="created_date">
         <mat-header-cell *matHeaderCellDef mat-sort-header

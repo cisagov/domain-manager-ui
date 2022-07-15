@@ -54,7 +54,9 @@
       <mat-cell *matCellDef="let row">
         <button
           mat-raised-button
-          (click)="verify(row._id, row.check_url, row.domain_id)"
+          (click)="
+            verify(row._id, row.check_url, row.domain_id, row.domain_name)
+          "
           color="primary"
         >
           Verify

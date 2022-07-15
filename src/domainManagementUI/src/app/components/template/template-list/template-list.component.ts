@@ -34,7 +34,9 @@ export class TemplateListComponent implements OnInit {
     'nameLowerCase',
     'is_approved',
     'created_date',
+    'updated_date',
     'createdByLowerCase',
+    'updatedByLowerCase',
   ];
   search_input = '';
   templateList: MatTableDataSource<TemplateModel>;
@@ -74,8 +76,12 @@ export class TemplateListComponent implements OnInit {
           let lowerCaseCreatedBy = element['created_by']
             ? (element['created_by'] as string)
             : '';
+          let lowerCaseUpdatedBy = element['updated_by']
+            ? (element['updated_by'] as string)
+            : '';
           element['nameLowerCase'] = lowerCaseName.toLowerCase();
           element['createdByLowerCase'] = lowerCaseCreatedBy.toLowerCase();
+          element['updatedByLowerCase'] = lowerCaseUpdatedBy.toLowerCase();
         });
         this.templateList = new MatTableDataSource<TemplateModel>(
           success as TemplateModel[]

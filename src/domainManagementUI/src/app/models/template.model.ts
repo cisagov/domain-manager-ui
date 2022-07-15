@@ -6,6 +6,7 @@ export class TemplateModel extends BaseModel {
   s3_url: string;
   is_approved: boolean;
   createdByLowerCase: string;
+  updatedByLowerCase: string;
   template_attributes: Array<TemplateAttribute>;
   selected: boolean;
   is_go_template = true;

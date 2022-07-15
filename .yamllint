@@ -1,6 +1,8 @@
 ---
 extends: default
 
+ignore: .pre-commit-config.yaml
+
 rules:
   # yamllint does not like it when you comment out different parts of
   # dictionaries in a list. You can see

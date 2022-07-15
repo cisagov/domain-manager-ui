@@ -8,9 +8,18 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <a class="primary" href="domain/details/{{ domain.domain_id }}">{{
-          domain.domain_name
-        }}</a>
+        <a
+          *ngIf="domain.is_external; else notExternal"
+          class="primary"
+          href="//{{ domain.domain_name }}"
+          target="_blank"
+          >{{ domain.domain_name }}</a
+        >
+        <ng-template #notExternal>
+          <a class="primary" href="domain/details/{{ domain.domain_id }}">{{
+            domain.domain_name
+          }}</a>
+        </ng-template>
       </mat-panel-title>
       <mat-icon
         *ngIf="domain.is_active"
