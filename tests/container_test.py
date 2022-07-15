@@ -5,7 +5,19 @@
 import os
 import time
 
+<<<<<<< HEAD
 READY_MESSAGE = "Starting nginx"
+=======
+# Third-Party Libraries
+import pytest
+
+ENV_VAR = "ECHO_MESSAGE"
+ENV_VAR_VAL = "Hello World from docker compose!"
+READY_MESSAGE = "This is a debug message"
+SECRET_QUOTE = (
+    "There are no secrets better kept than the secrets everybody guesses."  # nosec
+)
+>>>>>>> 9cea64da4a1379cdde3c509a09fc548f0da8b034
 RELEASE_TAG = os.getenv("RELEASE_TAG")
 VERSION_FILE = "src/version.txt"
 

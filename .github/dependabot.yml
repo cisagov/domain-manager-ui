@@ -16,10 +16,18 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    # ignore:
-    #   - dependency-name: actions/cache
-    #   - dependency-name: actions/checkout
-    #   - dependency-name: actions/setup-python
+    ignore:
+      - dependency-name: actions/cache
+      - dependency-name: actions/checkout
+      - dependency-name: actions/setup-python
+      # Managed by cisagov/skeleton-docker
+      # - dependency-name: actions/download-artifact
+      # - dependency-name: actions/github-script
+      # - dependency-name: actions/upload-artifact
+      # - dependency-name: docker/build-push-action
+      # - dependency-name: docker/login-action
+      # - dependency-name: docker/setup-buildx-action
+      # - dependency-name: docker/setup-qemu-action
 
   - package-ecosystem: "pip"
     directory: "/"
