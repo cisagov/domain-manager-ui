@@ -9,12 +9,8 @@ on:
       - "v*.*.*"
   pull_request:
   schedule:
-<<<<<<< HEAD
     # everyday at 10am
     - cron: "0 10 * * *"
-=======
-    - cron: "0 10 * * *"  # everyday at 10am
->>>>>>> 9cea64da4a1379cdde3c509a09fc548f0da8b034
   repository_dispatch:
     # Respond to rebuild requests. See: https://github.com/cisagov/action-apb/
     types: [apb]

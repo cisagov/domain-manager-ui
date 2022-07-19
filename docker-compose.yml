@@ -1,33 +1,14 @@
 ---
 version: "3.7"
-<<<<<<< HEAD
-=======
-
-# This Docker composition file is used to build and test the container
-
-secrets:
-  quote_txt:
-    file: ./src/secrets/quote.txt
-
->>>>>>> 9cea64da4a1379cdde3c509a09fc548f0da8b034
 services:
   ui:
     build:
       args:
         VERSION: "1.0.0"
       context: .
-<<<<<<< HEAD
     container_name: dm-ui
     image: cisagov/dm-ui
     restart: unless-stopped
-=======
-      dockerfile: Dockerfile
-    image: cisagov/example
-    init: true
-    restart: "no"
-    environment:
-      - ECHO_MESSAGE=Hello World from docker compose!
->>>>>>> 9cea64da4a1379cdde3c509a09fc548f0da8b034
     ports:
       - "4200:80"
     networks:
