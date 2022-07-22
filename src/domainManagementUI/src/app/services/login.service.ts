@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
-import { share } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 
 //Third party imports

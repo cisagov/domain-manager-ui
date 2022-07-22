@@ -1,12 +1,11 @@
 // Angular Imports
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   NgForm,
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 // Local Service Imports
@@ -54,13 +53,10 @@ export class LoginComponent implements OnInit {
   submit() {
     this.model.username = this.username.value;
     this.model.password = this.password.value;
-    this.loginService.postLogin(this.model).subscribe(
-      (data) => {
-        this.loginService.setSession(data);
-      },
-      (err: HttpErrorResponse) => {
-        this.error = err.error;
-      }
-    );
+    this.loginService.postLogin(this.model).subscribe({
+      next: (data) => this.loginService.setSession(data),
+      error: (error) => console.log(error),
+      complete: () => console.info('successfully logged in'),
+    });
   }
 }
