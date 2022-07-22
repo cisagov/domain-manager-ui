@@ -118,8 +118,7 @@ export class RegisterUserComponent implements OnInit {
       this.checkPasswordLowerChar() &&
       this.checkPasswordSpecialChar() &&
       this.checkPasswordNumber() &&
-      this.checkPasswordEquality() &&
-      this.userFormGroup.controls.username.value;
+      this.checkPasswordEquality();
     return pass;
   }
 
