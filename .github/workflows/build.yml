@@ -278,8 +278,7 @@ jobs:
           context: .
           file: ./Dockerfile
           outputs: type=docker,dest=dist/image.tar
-          # not to be pushed
-          tags: ${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest   # not to be pushed
           # For a list of pre-defined annotation keys and value types see:
           # https://github.com/opencontainers/image-spec/blob/master/annotations.md
           labels: "\
