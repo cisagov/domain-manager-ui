@@ -1,19 +1,16 @@
-FROM nginx:latest
+# Stage 1 - Build
+FROM node:18-alpine as node
 
 # Set working directory
 WORKDIR /app
 
-# Install build requirements
-RUN apt update -y
-RUN apt install npm -y
+# Install dependencies
 RUN npm install -g npm@latest
 RUN npm install -g @angular/cli
 
 # Install Packages
 COPY ./src/domainManagementUI/package*.json ./
-ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN npm install --loglevel=error
-ENV PATH /app/node_modules/.bin:$PATH
+RUN npm install
 
 # Copy source code
 COPY ./src/domainManagementUI .
@@ -21,9 +18,5 @@ COPY ./src/domainManagementUI .
 # Build angular
 RUN ng build
 
-# Copy entrypoint
-COPY ./etc/local.entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
-
-# Define entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+# Serve project
+CMD ng serve --host 0.0.0.0 --port 4200
