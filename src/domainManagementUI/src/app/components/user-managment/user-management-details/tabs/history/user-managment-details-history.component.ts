@@ -38,6 +38,11 @@ export class UserManagementDetailsHistoryComponent implements OnInit {
   }
 
   viewRecord(record: UserHistory) {
+    // remove redundant fields
+    delete record['_id'];
+    delete record['created_by'];
+    delete record['username'];
+
     const genericSettings = new GenericDialogSettings(record);
     this.dialog.open(GenericViewComponent, { data: genericSettings });
   }
