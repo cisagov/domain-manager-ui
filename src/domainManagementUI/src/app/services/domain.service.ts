@@ -40,12 +40,12 @@ export class DomainService extends AbstractUploadService {
   }
 
   async getDomainDetails(domainId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/`;
     return this.http.get<DomainModel>(url, headers).toPromise();
   }
 
   updateDomain(domain: DomainModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domain._id}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domain._id}/`;
     return this.http.put(url, domain);
   }
 
@@ -106,7 +106,7 @@ export class DomainService extends AbstractUploadService {
       'application/zip'
     );
     let salt = new Date().getTime();
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/content/?${salt}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/content/?${salt}/`;
     return this.http.get(url, {
       headers: downloadHeaders,
       responseType: 'blob',
@@ -187,12 +187,12 @@ export class DomainService extends AbstractUploadService {
   }
 
   deleteRecord(domainId: string, recordId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/?record_id=${recordId}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/?record_id=${recordId}/`;
     return this.http.delete(url);
   }
 
   updateRecord(domainId: string, record: RecordModel) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/?record_id=${record.record_id}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/records/?record_id=${record.record_id}/`;
     return this.http.put(url, record);
   }
 

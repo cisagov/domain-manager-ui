@@ -51,7 +51,7 @@ export class ApplicationService {
   }
 
   getDomainsByApplication(id: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domains/?application_id=${id}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domains/?application_id=${id}/`;
     return this.http.get(url);
   }
 }

@@ -56,7 +56,7 @@ export class TemplateService extends AbstractUploadService {
   }
 
   getTemplateDetails(templateId) {
-    let url = `${this.settingsService.settings.apiUrl}/api/template/${templateId}`;
+    let url = `${this.settingsService.settings.apiUrl}/api/template/${templateId}/`;
     return this.http.get(url, headers);
   }
 
@@ -81,7 +81,7 @@ export class TemplateService extends AbstractUploadService {
       'application/*zip*'
     );
     let salt = new Date().getTime();
-    const url = `${this.settingsService.settings.apiUrl}/api/template/${uuid}/content/?${salt}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/template/${uuid}/content/?${salt}/`;
     return this.http.get(url, {
       headers: downloadHeaders,
       responseType: 'blob',
@@ -110,7 +110,7 @@ export class TemplateService extends AbstractUploadService {
 
   uploadTemplate(formData: FormData, overwrite: boolean) {
     //Double check settings, as this function is passed directly to upload modal
-    const url = `${this.settingsService.settings.apiUrl}/api/templates/?overwrite=${overwrite}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/templates/?overwrite=${overwrite}/`;
     const config = new HttpRequest('POST', url, formData, {
       reportProgress: true,
     });
