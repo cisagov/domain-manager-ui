@@ -10,6 +10,9 @@ export class UserHistory {
   json: any;
   created: Date;
   error: string;
+  application_name?: string;
+  domain_name?: string;
+  template_name?: string;
 }
 
 export class UserModel extends BaseModel {

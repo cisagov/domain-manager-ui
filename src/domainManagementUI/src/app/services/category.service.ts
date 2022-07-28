@@ -34,17 +34,17 @@ export class CategoryService {
   }
 
   getCategorizations(status: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/categorizations/?status=${status}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/categorizations/?status=${status}/`;
     return this.http.get(url);
   }
 
   domainDetails(domainId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/`;
     return this.http.get(url);
   }
 
   externalDomainDetails(externalId: string) {
-    const url = `${this.settingsService.settings.apiUrl}/api/external-domain/${externalId}`;
+    const url = `${this.settingsService.settings.apiUrl}/api/external-domain/${externalId}/`;
     return this.http.get(url);
   }
 
