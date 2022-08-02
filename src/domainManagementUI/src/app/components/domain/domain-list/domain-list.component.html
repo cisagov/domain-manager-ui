@@ -68,6 +68,26 @@
         }}</mat-cell>
       </ng-container>
 
+      <!-- Registrar Name -->
+      <ng-container matColumnDef="registrar">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Registrar</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">{{
+          row.whois?.registrar
+        }}</mat-cell>
+      </ng-container>
+
+      <!-- Domain Expiration Date -->
+      <ng-container matColumnDef="expiration_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Expiration Date</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">
+          {{ row.whois?.expiration_date | date: "MM/dd/yy" }}
+        </mat-cell>
+      </ng-container>
+
       <!-- Is Approved -->
       <ng-container matColumnDef="is_approved">
         <mat-header-cell *matHeaderCellDef mat-sort-header

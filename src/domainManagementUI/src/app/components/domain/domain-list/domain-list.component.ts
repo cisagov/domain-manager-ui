@@ -32,6 +32,8 @@ export class DomainListComponent implements OnInit {
     'name',
     'application_name_lower_case',
     'template_base_name_lower_case',
+    'registrar',
+    'expiration_date',
     'is_approved',
     'is_launched',
   ];
@@ -97,6 +99,7 @@ export class DomainListComponent implements OnInit {
 
       this.domainList = new MatTableDataSource<DomainModel>(domains);
       this.loading = false;
+      this.sortingDataAccessor(this.domainList);
       this.domainList.sort = this.sort;
     } catch (error) {
       console.log('Error getting domain list');
@@ -135,5 +138,16 @@ export class DomainListComponent implements OnInit {
     });
   }
 
-  test() {}
+  private sortingDataAccessor(callBack: any) {
+    callBack.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'expiration_date':
+          return new Date(item.whois.expiration_date);
+        case 'registrar':
+          return item.whois.registrar;
+        default:
+          return item[property];
+      }
+    };
+  }
 }
