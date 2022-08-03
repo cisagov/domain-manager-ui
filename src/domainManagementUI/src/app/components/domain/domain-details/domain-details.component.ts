@@ -145,7 +145,6 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
     });
     this.deleteDialog.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
-        console.log('domain-details component delete domain');
         this.ddTabSvc.deleteDomain(this.ddTabSvc.domain_data._id).subscribe({
           next: (success) => {
             this.alertsSvc.alert('Domain Deleted.');

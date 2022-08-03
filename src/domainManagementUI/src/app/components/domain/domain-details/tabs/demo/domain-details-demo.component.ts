@@ -77,7 +77,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
         this.ddTabSvc.templateExists = false;
         this.ddTabSvc.removeTemplate();
       } else {
-        console.log('delete cancled');
+        console.log('delete cancelled');
       }
     });
   }

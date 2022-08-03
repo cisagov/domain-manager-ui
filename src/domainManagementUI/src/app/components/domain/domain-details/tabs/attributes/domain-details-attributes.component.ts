@@ -27,7 +27,7 @@ export class DomainDetailsAttrbutesComponent implements OnInit, OnDestroy {
     if (this.ddTabSvc.isValid(this.tabForm)) {
       //this.ddTabSvc.createDomain();
     } else {
-      console.log('invlaid');
+      console.log('invalid');
     }
   }
 
