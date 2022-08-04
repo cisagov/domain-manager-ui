@@ -51,7 +51,7 @@ export class DomainService extends AbstractUploadService {
 
   deleteDomain(domainId: string) {
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/`;
-    return this.http.delete(url, headers);
+    return this.http.delete(url);
   }
 
   uploadDomain(formData, domainId, templateName) {

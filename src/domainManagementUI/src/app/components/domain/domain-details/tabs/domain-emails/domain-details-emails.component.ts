@@ -335,7 +335,6 @@ export class DomainDetailsEmailsComponent
       },
       (failure) => {
         console.log(failure);
-        this.alertsSvc.alert('Failed to get email list');
       }
     );
   }

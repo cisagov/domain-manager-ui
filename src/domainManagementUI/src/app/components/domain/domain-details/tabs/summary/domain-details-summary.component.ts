@@ -107,14 +107,21 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
     });
     this.deleteDialog.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
-        this.ddTabSvc.deleteDomain(this.ddTabSvc.domain_data._id).subscribe(
-          (success) => {
-            this.router.navigate([`/domain`]);
+        this.ddTabSvc.deleteDomain(this.ddTabSvc.domain_data._id).subscribe({
+          next: (success) => {
+            this.alertsSvc.alert('Domain Deleted.');
+            this.router.navigate(['/domains']);
           },
-          (failed) => {
-            this.alertsSvc.alert('Failed to Delete Domain');
-          }
-        );
+          error: (failure) => {
+            this.alertsSvc.alert(
+              'Failed to delete domain. Deleting domains that are active or have redirects is not allowed.'
+            );
+            console.log(failure);
+          },
+          complete: () => {
+            this.deleteDialog.close();
+          },
+        });
       } else {
         console.log('delete canceled');
       }

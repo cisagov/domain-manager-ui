@@ -56,7 +56,7 @@ const routes: Routes = [
     children: [{ path: '', component: CategorizationComponent }],
   },
   {
-    path: 'domain',
+    path: 'domains',
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: DomainListComponent }],

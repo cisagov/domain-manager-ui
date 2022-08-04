@@ -98,7 +98,6 @@ export class TemplateListComponent implements OnInit {
   }
 
   viewTemplate(_id) {
-    console.log(_id);
     this.router.navigate([`/template/details/${_id}`]);
   }
 
