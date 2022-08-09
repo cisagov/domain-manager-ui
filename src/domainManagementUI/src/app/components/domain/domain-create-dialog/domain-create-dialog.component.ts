@@ -55,32 +55,36 @@ export class DomainCreateDialogComponent implements OnInit {
       .replace(/(\r\n|\n|\r)/gm, ',') // remove eol
       .replace(/\s/g, '') // remove spaces
       .split(',');
-    const vals = [];
+    const values = [];
     urls.forEach((url) => {
       if (url) {
-        vals.push(url);
+        values.push(url);
       }
     });
-    this.domainSvc.createDomain(vals).subscribe(
-      (resp: any) => {
-        const respKey = Object.keys(resp)[0];
-        if (typeof resp[respKey] == 'object') {
-          resp[respKey] = resp[respKey].join('\n');
-        }
+    this.domainSvc.createDomain(values).subscribe({
+      next: (data) => {
+        Object.keys(data).forEach((key) => {
+          if (typeof data[key] == 'object') {
+            data[key] = data[key].join('\n');
+          }
+        });
         const genericSettings = new GenericDialogSettings(
-          resp,
+          data,
           'Domain',
           'Status'
         );
         this.dialog.open(GenericViewComponent, { data: genericSettings });
+      },
+      error: (err) => {
+        this.alertsSvc.alert('Failed to create domains.');
+        console.log(err);
+      },
+      complete: () => {
         this.dialogRef.close(true);
       },
-      (failure) => {
-        this.alertsSvc.alert('Failed to create domains.');
-        console.log(failure);
-      }
-    );
+    });
   }
+
   fileSelect(e: any) {
     const file: any = e.target.files[0];
 
