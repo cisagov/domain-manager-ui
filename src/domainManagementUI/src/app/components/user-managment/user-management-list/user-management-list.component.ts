@@ -27,7 +27,7 @@ import { UserModel } from 'src/app/models/user.model';
 })
 export class UserManagementListComponent implements OnInit {
   displayedColumns = [
-    'UsernameLowereCase',
+    'UsernameLowerCase',
     'UserStatus',
     'UserCreateDate',
     'UserLastModifiedDate',
@@ -58,24 +58,22 @@ export class UserManagementListComponent implements OnInit {
 
   getUsers() {
     this.loading = true;
-    this.userManageSVC.getAllUsers().subscribe(
-      (success) => {
-        let userData = success as UserModel[];
+    this.userManageSVC.getAllUsers().subscribe({
+      next: (data) => {
+        let userData = data as UserModel[];
         userData.forEach((element) => {
           let lowerCase = element['Username'] as string;
-          element['UsernameLowereCase'] = lowerCase.toLowerCase();
+          element['UsernameLowerCase'] = lowerCase.toLowerCase();
         });
-        this.userList = new MatTableDataSource<UserModel>(
-          success as UserModel[]
-        );
+        this.userList = new MatTableDataSource<UserModel>(data as UserModel[]);
         this.userList.sort = this.sort;
         this.loading = false;
       },
-      (failure) => {
+      error: (err) => {
         this.alerts.alert('Failed to load user list');
         this.loading = false;
-      }
-    );
+      },
+    });
   }
 
   addUser() {

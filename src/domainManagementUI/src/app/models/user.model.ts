@@ -20,7 +20,7 @@ export class UserModel extends BaseModel {
   APIKey: string;
   Email: string;
   History: Array<UserHistory>;
-  UsernameLowereCase: string;
+  UsernameLowerCase: string;
 
   // API
   Attributes: [];
