@@ -55,7 +55,6 @@ export class DomainService extends AbstractUploadService {
   }
 
   uploadDomain(formData, domainId, templateName) {
-    console.log(formData);
     let url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/content/?template_name=${templateName}`;
 
     if (!environment.localData) {
@@ -114,7 +113,6 @@ export class DomainService extends AbstractUploadService {
   }
 
   setDomainsAsAvailable(domainIDArray) {
-    console.log(domainIDArray);
     //NOT IMPLEMENTED YET
     let url = `${this.settingsService.settings.apiUrl}/api/domain/`;
 
@@ -135,11 +133,8 @@ export class DomainService extends AbstractUploadService {
   }
 
   createDomain(domainUrls: string[]) {
-    console.log(domainUrls);
-    let body = domainUrls;
-
     let url = `${this.settingsService.settings.apiUrl}/api/domains/`;
-    return this.http.post(url, body);
+    return this.http.post(url, domainUrls);
   }
 
   launchDomain(domainId: string) {
@@ -154,7 +149,6 @@ export class DomainService extends AbstractUploadService {
 
   generateFromTemplate(domain_id, template_name, attributes: {}) {
     let url = `${this.settingsService.settings.apiUrl}/api/domain/${domain_id}/generate/?template_name=${template_name}`;
-    console.log(url);
 
     if (!environment.localData) {
       return this.http.post(url, attributes);
