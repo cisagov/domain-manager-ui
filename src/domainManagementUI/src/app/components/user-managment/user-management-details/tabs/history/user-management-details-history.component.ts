@@ -12,9 +12,9 @@ import { UserManagementTabService } from 'src/app/services/tab-services/user-man
 import { GenericDialogSettings } from 'src/app/models/genericDialogSettings.model';
 
 @Component({
-  selector: 'app-user-managment-details-history',
-  templateUrl: './user-managment-details-history.component.html',
-  styleUrls: ['./user-managment-details-history.component.scss'],
+  selector: 'app-user-management-details-history',
+  templateUrl: './user-management-details-history.component.html',
+  styleUrls: ['./user-management-details-history.component.scss'],
 })
 export class UserManagementDetailsHistoryComponent implements OnInit {
   displayedColumns = ['path', 'method', 'status_code', 'created'];
