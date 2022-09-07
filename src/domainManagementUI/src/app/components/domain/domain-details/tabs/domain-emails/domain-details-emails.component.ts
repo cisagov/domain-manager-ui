@@ -317,13 +317,13 @@ export class DomainDetailsEmailsComponent
   }
 
   getEmailList() {
-    this.emailSvc.getDomainEmails(this.ddTabSvc.domain_data._id).subscribe(
-      (success) => {
-        if (!success[0] && this.ddTabSvc.hasEmailActive()) {
+    this.emailSvc.getDomainEmails(this.ddTabSvc.domain_data._id).subscribe({
+      next: (data) => {
+        if (!data[0] && this.ddTabSvc.hasEmailActive()) {
           this.bodyDisplay = '<p>No emails have been received.</p>';
         }
-        this.addReadableDate(success);
-        this.emailList.data = success as Array<DomainEmailListModel>;
+        this.addReadableDate(data);
+        this.emailList.data = data as Array<DomainEmailListModel>;
         this.emailList.sort = this.sort;
 
         if (this.ddTabSvc.domain_data.is_email_active) {
@@ -333,10 +333,10 @@ export class DomainDetailsEmailsComponent
           this.sort.sortChange.emit(sortState);
         }
       },
-      (failure) => {
-        console.log(failure);
-      }
-    );
+      error: (failure) => {
+        this.alertsSvc.alert(failure);
+      },
+    });
   }
 
   refreshEmailList() {

@@ -2,6 +2,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 // Local Service Imports
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -16,6 +19,7 @@ import { ConfirmDialogSettings } from 'src/app/models/confirmDialogSettings.mode
 //Dialogs
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
 import { ApplicationModel } from 'src/app/models/application.model';
+import { DomainModel } from 'src/app/models/domain.model';
 
 @Component({
   selector: 'dd-summary',
@@ -26,7 +30,9 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
   application_list = [];
   application_details: ApplicationModel;
   component_subscriptions = [];
+  domainData: DomainModel;
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
+  pocForm: FormGroup;
   public userIsAdmin: boolean = null;
   private domainDataExists = false;
 
@@ -36,17 +42,44 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private userAuthSvc: UserAuthService,
+    private formBuilder: FormBuilder,
     public ddTabSvc: DomainDetailsTabService,
     public domainSvc: DomainService
   ) {}
-  ngOnInit(): void {
+
+  async initializeData() {
     this.userIsAdmin = this.userAuthSvc.userIsAdmin();
-    this.ddTabSvc.getDomainDataBehaviorSubject().subscribe((data) => {
-      if (data._id) {
-        this.domainDataExists = true;
-        this.getApplicationsData();
-      }
+    await this.ddTabSvc.getDomainDataBehaviorSubject().subscribe((data) => {
+      this.domainData = data;
+      this.domainDataExists = true;
+      this.getApplicationsData();
+      this.pocForm = this.formBuilder.group({
+        _id: [this.domainData._id],
+        contact_name: [this.domainData.contact_name],
+        contact_email: [this.domainData.contact_email],
+        contact_phone: [this.domainData.contact_phone],
+      });
+      this.pocForm.valueChanges
+        .pipe(
+          debounceTime(1500),
+          switchMap((value) => of(value))
+        )
+        .subscribe((value: any) => {
+          value = this.cleanObject(value);
+          this.domainSvc.updateDomain(value).subscribe({
+            next: () => {
+              this.alertsSvc.alert('Point of Contact has been updated');
+            },
+            error: () => {
+              this.alertsSvc.alert('Point of Contact failed to update');
+            },
+          });
+        });
     });
+  }
+
+  async ngOnInit() {
+    await this.initializeData();
   }
 
   ngOnDestroy(): void {
@@ -129,5 +162,14 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
   }
   get tabForm() {
     return this.ddTabSvc.summary_form;
+  }
+
+  private cleanObject(obj: object) {
+    for (var propName in obj) {
+      if (obj[propName] === null || obj[propName] === undefined) {
+        delete obj[propName];
+      }
+    }
+    return obj;
   }
 }
