@@ -74,14 +74,12 @@
       </div>
       <h5>Point of Contact</h5>
       <h5 class="text-muted">
-        Please fill out the PoC below. Changes will automatically be updated.
+        Please fill out below. Changes will automatically be updated.
       </h5>
       <form [formGroup]="pocForm">
         <mat-form-field class="flex-row">
-          <div class="flex sl_flex_title">Name</div>
-          <div class="flex sl_flex_content">
-            <input matInput formControlName="contact_name" />
-          </div>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="contact_name" />
         </mat-form-field>
         <br />
         <mat-form-field>
