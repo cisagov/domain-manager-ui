@@ -33,6 +33,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
   domainData: DomainModel;
   deleteDialog: MatDialogRef<ConfirmDialogComponent> = null;
   pocForm: FormGroup;
+  assessmentIdForm: FormGroup;
   public userIsAdmin: boolean = null;
   private domainDataExists = false;
 
@@ -61,7 +62,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
       });
       this.pocForm.valueChanges
         .pipe(
-          debounceTime(1500),
+          debounceTime(2000),
           switchMap((value) => of(value))
         )
         .subscribe((value: any) => {
@@ -72,6 +73,26 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
             },
             error: () => {
               this.alertsSvc.alert('Point of Contact failed to update');
+            },
+          });
+        });
+      this.assessmentIdForm = this.formBuilder.group({
+        _id: [this.domainData._id],
+        assessment_id: [this.domainData.assessment_id],
+      });
+      this.assessmentIdForm.valueChanges
+        .pipe(
+          debounceTime(1500),
+          switchMap((value) => of(value))
+        )
+        .subscribe((value: any) => {
+          value = this.cleanObject(value);
+          this.domainSvc.updateDomain(value).subscribe({
+            next: () => {
+              this.alertsSvc.alert('Assessment ID has been updated');
+            },
+            error: () => {
+              this.alertsSvc.alert('Assessment ID failed to update');
             },
           });
         });
