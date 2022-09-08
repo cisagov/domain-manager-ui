@@ -22,6 +22,8 @@ export class DomainModel extends BaseModel {
   hosted_zones: HostedZoneModel[];
   redirects: RedirectModel[];
   records: RecordModel[];
+  assessment_id: string;
+
   //Status Flags
   is_available: boolean;
   is_launching: boolean;
