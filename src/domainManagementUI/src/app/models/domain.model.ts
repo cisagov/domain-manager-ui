@@ -38,6 +38,11 @@ export class DomainModel extends BaseModel {
 
   // Whois
   whois: Whois;
+
+  // Point of Contact
+  contact_name?: string;
+  contact_email?: string;
+  contact_phone?: string;
 }
 
 export class CategoryResult {

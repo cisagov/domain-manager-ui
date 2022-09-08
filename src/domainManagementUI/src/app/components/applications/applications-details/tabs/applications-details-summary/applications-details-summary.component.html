@@ -22,19 +22,19 @@
         </div>
       </div>
       <div class="flex-row">
-        <div class="flex sl_flex_title">Contact Name</div>
+        <div class="flex sl_flex_title">Program Lead Name</div>
         <div class="flex sl_flex_content">
           {{ appTabSvc.application_data.contact_name }}
         </div>
       </div>
       <div class="flex-row">
-        <div class="flex sl_flex_title">Contact Email</div>
+        <div class="flex sl_flex_title">Program Lead Email</div>
         <div class="flex sl_flex_content">
           {{ appTabSvc.application_data.contact_email }}
         </div>
       </div>
       <div class="flex-row">
-        <div class="flex sl_flex_title">Contact Phone</div>
+        <div class="flex sl_flex_title">Program Lead Phone</div>
         <div class="flex sl_flex_content">
           {{ appTabSvc.application_data.contact_phone }}
         </div>
@@ -69,7 +69,7 @@
 
         <div class="flex flex-column">
           <mat-form-field style="width: 30em" appearance="outline">
-            <mat-label>Contact Name</mat-label>
+            <mat-label>Program Lead Name</mat-label>
             <input
               style="color: black"
               matInput
@@ -77,14 +77,14 @@
               type="text"
               formControlName="contactName"
               [(ngModel)]="appTabSvc.application_data.contact_name"
-              placeholder=" The name of the person requesting the new application"
+              placeholder="Program Lead's full name"
             />
           </mat-form-field>
         </div>
 
         <div class="flex flex-column">
           <mat-form-field style="width: 30em" appearance="outline">
-            <mat-label>Contact Email</mat-label>
+            <mat-label>Program Lead Email</mat-label>
             <input
               style="color: black"
               matInput
@@ -92,7 +92,7 @@
               type="email"
               formControlName="contactEmail"
               [(ngModel)]="appTabSvc.application_data.contact_email"
-              placeholder=" The name of the person requesting the new application"
+              placeholder="Program Lead's email address"
             />
             <mat-error *ngIf="applicationForm.get('contactEmail').invalid"
               >This needs to be a valid email.</mat-error
@@ -102,7 +102,7 @@
 
         <div class="flex flex-column">
           <mat-form-field style="width: 30em" appearance="outline">
-            <mat-label>Contact Phone</mat-label>
+            <mat-label>Program Lead Phone</mat-label>
             <input
               style="color: black"
               matInput
@@ -110,7 +110,7 @@
               type="text"
               formControlName="contactPhone"
               [(ngModel)]="appTabSvc.application_data.contact_phone"
-              placeholder=" The name of the person requesting the new application"
+              placeholder="Program lead's phone number"
             />
           </mat-form-field>
         </div>

@@ -173,11 +173,12 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
           this.categoryList = new MatTableDataSource<any>(success);
           this.categoryList.sort = this.sort;
         } else {
-          this.alertsSvc.alert('Domain does not have categorizations');
+          console.log('Domain does not have categorizations');
         }
       },
       (failure) => {
         console.log(failure);
+        this.alertsSvc.alert('Error checking category for domain');
       }
     );
   }

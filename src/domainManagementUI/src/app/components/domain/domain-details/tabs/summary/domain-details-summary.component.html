@@ -53,19 +53,45 @@
           {{ ddTabSvc.domain_data.template_name }}
         </div>
       </div>
-      <h5 *ngIf="application_details?.contact_name">Point of Contact</h5>
+      <h5 *ngIf="application_details?.contact_name">Program Lead</h5>
       <div class="flex-row" *ngIf="application_details?.contact_name">
-        <div class="flex sl_flex_title">Contact Name</div>
+        <div class="flex sl_flex_title">Name</div>
         <div class="flex sl_flex_content">
           {{ application_details?.contact_name }}
         </div>
       </div>
       <div class="flex-row" *ngIf="application_details?.contact_email">
-        <div class="flex sl_flex_title">Contact Email</div>
+        <div class="flex sl_flex_title">Email</div>
         <div class="flex sl_flex_content">
           {{ application_details?.contact_email }}
         </div>
       </div>
+      <div class="flex-row" *ngIf="application_details?.contact_phone">
+        <div class="flex sl_flex_title">Phone</div>
+        <div class="flex sl_flex_content">
+          {{ application_details?.contact_phone }}
+        </div>
+      </div>
+      <h5>Point of Contact</h5>
+      <h5 class="text-muted">
+        Please fill out below. Changes will automatically be updated.
+      </h5>
+      <form [formGroup]="pocForm">
+        <mat-form-field class="flex-row">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="contact_name" />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="contact_email" />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="contact_phone" />
+        </mat-form-field>
+      </form>
 
       <!-- Application If ADMIN -->
       <div class="flex-row" *ngIf="ddTabSvc.userIsAdmin">

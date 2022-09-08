@@ -30,28 +30,28 @@
 
     <div class="flex flex-column">
       <mat-form-field style="width: 30em" appearance="outline">
-        <mat-label>Contact Name</mat-label>
+        <mat-label>Program Lead Name</mat-label>
         <input
           matInput
           trim="blur"
           type="text"
           formControlName="contactName"
           [(ngModel)]="application.contact_name"
-          placeholder=" The name of the person requesting the new application"
+          placeholder="Program Lead's full name"
         />
       </mat-form-field>
     </div>
 
     <div class="flex flex-column">
       <mat-form-field style="width: 30em" appearance="outline">
-        <mat-label>Contact Email</mat-label>
+        <mat-label>Program Lead Email</mat-label>
         <input
           matInput
           trim="blur"
           type="email"
           formControlName="contactEmail"
           [(ngModel)]="application.contact_email"
-          placeholder=" The name of the person requesting the new application"
+          placeholder="Program Lead's email address"
         />
         <mat-error *ngIf="applicationForm.get('contactEmail').invalid"
           >This needs to be a valid email.</mat-error
@@ -61,14 +61,14 @@
 
     <div class="flex flex-column">
       <mat-form-field style="width: 30em" appearance="outline">
-        <mat-label>Contact Phone</mat-label>
+        <mat-label>Program Lead Phone</mat-label>
         <input
           matInput
           trim="blur"
           type="text"
           formControlName="contactPhone"
           [(ngModel)]="application.contact_phone"
-          placeholder=" The name of the person requesting the new application"
+          placeholder="Program lead's phone number"
         />
       </mat-form-field>
     </div>
