@@ -3,7 +3,6 @@
   "cli": {
     "analytics": false
   },
-  "defaultProject": "DomainManager",
   "newProjectRoot": "projects",
   "projects": {
     "DomainManager": {
@@ -40,6 +39,9 @@
             }
           },
           "options": {
+            "allowedCommonJsDependencies": [
+              "moment"
+            ],
             "aot": true,
             "assets": [
               "src/favicon.ico",
