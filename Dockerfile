@@ -11,11 +11,11 @@ RUN npm install -g npm@latest
 RUN npm install -g @angular/cli
 
 # Install Packages
-COPY ./src/domainManagementUI/package*.json ./
+COPY ./src/DomainManager/package*.json ./
 RUN npm install
 
 # Copy source code
-COPY ./src/domainManagementUI .
+COPY ./src/DomainManager .
 
 # Build project
 RUN ng build --configuration production --output-path /app/dist/angular-docker/

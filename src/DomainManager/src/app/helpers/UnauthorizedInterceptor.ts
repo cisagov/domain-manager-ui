@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { LoginService } from 'src/app/services/login.service';
 
 @Injectable()

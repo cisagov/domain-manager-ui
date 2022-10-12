@@ -3,10 +3,9 @@
   "cli": {
     "analytics": false
   },
-  "defaultProject": "domainManagementUI",
   "newProjectRoot": "projects",
   "projects": {
-    "domainManagementUI": {
+    "DomainManager": {
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -40,6 +39,9 @@
             }
           },
           "options": {
+            "allowedCommonJsDependencies": [
+              "moment"
+            ],
             "aot": true,
             "assets": [
               "src/favicon.ico",
@@ -47,7 +49,7 @@
             ],
             "index": "src/index.html",
             "main": "src/main.ts",
-            "outputPath": "dist/domainManagementUI",
+            "outputPath": "dist/DomainManager",
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "styles": [
@@ -61,18 +63,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "configurations": {
             "production": {
-              "devServerTarget": "domainManagementUI:serve:production"
+              "devServerTarget": "DomainManager:serve:production"
             }
           },
           "options": {
-            "devServerTarget": "domainManagementUI:serve",
+            "devServerTarget": "DomainManager:serve",
             "protractorConfig": "e2e/protractor.conf.js"
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "domainManagementUI:build"
+            "browserTarget": "DomainManager:build"
           }
         },
         "lint": {
@@ -92,11 +94,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "domainManagementUI:build:production"
+              "browserTarget": "DomainManager:build:production"
             }
           },
           "options": {
-            "browserTarget": "domainManagementUI:build"
+            "browserTarget": "DomainManager:build"
           }
         },
         "test": {

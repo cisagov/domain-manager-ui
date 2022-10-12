@@ -7,4 +7,4 @@
 *.yml
 
 # Ignore auto-generated userguide
-src/domainManagementUI/src/assets/userguide
+src/DomainManager/src/assets/userguide
