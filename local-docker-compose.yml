@@ -12,7 +12,7 @@ services:
       - "4200:4200"
     volumes:
       - /app/node_modules
-      - ./src/domainManagementUI:/app
+      - ./src/DomainManager:/app
     networks:
       - frontend
       - backend

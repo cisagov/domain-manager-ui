@@ -10,13 +10,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
 RUN npm install -g @angular/cli@14.1.0
 
 # Install Packages
-COPY ./src/domainManagementUI/package*.json ./
+COPY ./src/DomainManager/package*.json ./
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 RUN npm install --loglevel=error
 ENV PATH /app/node_modules/.bin:$PATH
 
 # Copy source code
-COPY ./src/domainManagementUI .
+COPY ./src/DomainManager .
 
 # Build angular
 RUN ng build

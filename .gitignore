@@ -10,11 +10,11 @@ Dockerfile-x
 ## Javascript ##
 dist
 node_modules
-src/domainManagementUI/src/assets/settings.json
+src/DomainManager/src/assets/settings.json
 
 ## Logs ##
 /debug.log
-/src/domainManagementUI/debug.log
+/src/DomainManager/debug.log
 
 ## MacOS ##
 .idea/

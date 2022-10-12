@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-BASE_PATH="src/domainManagementUI/src/assets/videos"
+BASE_PATH="src/DomainManager/src/assets/videos"
 
 for f in "$BASE_PATH"/*.mp4; do
   ffmpeg -i "$f" "$BASE_PATH/output.mp4" -y

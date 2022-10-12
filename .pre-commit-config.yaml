@@ -9,9 +9,9 @@ repos:
     hooks:
       - id: check-case-conflict
       - id: check-executables-have-shebangs
-        exclude: src/domainManagementUI/src/assets/userguide/
+        exclude: src/DomainManager/src/assets/userguide/
       - id: check-json
-        exclude: src/domainManagementUI/src/assets/userguide/
+        exclude: src/DomainManager/src/assets/userguide/
       - id: check-merge-conflict
       - id: check-toml
       - id: check-xml
@@ -22,17 +22,17 @@ repos:
       - id: detect-private-key
         exclude: src/secrets/privkey.pem
       - id: end-of-file-fixer
-        exclude: files/(issue|motd)|src/domainManagementUI/src/assets/userguide/
+        exclude: files/(issue|motd)|src/DomainManager/src/assets/userguide/
       - id: mixed-line-ending
         args:
           - --fix=lf
       - id: pretty-format-json
-        exclude: src/domainManagementUI/src/assets/userguide/|src/domainManagementUI/package-lock.json
+        exclude: src/DomainManager/src/assets/userguide/|src/DomainManager/package-lock.json
         args:
           - --autofix
       - id: requirements-txt-fixer
       - id: trailing-whitespace
-        exclude: src/domainManagementUI/src/assets/userguide/
+        exclude: src/DomainManager/src/assets/userguide/
 
   # Text file hooks
   - repo: https://github.com/igorshubovych/markdownlint-cli
@@ -144,9 +144,9 @@ repos:
     hooks:
       - id: docker-compose-check
 
-  # Packer hooks
-  - repo: https://github.com/cisagov/pre-commit-packer
-    rev: v0.0.2
-    hooks:
-      - id: packer_validate
-      - id: packer_fmt
+  # # Packer hooks
+  # - repo: https://github.com/cisagov/pre-commit-packer
+  #   rev: v0.0.2
+  #   hooks:
+  #     - id: packer_validate
+  #     - id: packer_fmt

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../app/services/theme.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import { ThemeService } from '../app/services/theme.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'domainManagementUI';
+  title = 'Domain Manager';
 
   constructor(private themeSvc: ThemeService) {}
 
