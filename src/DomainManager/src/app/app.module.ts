@@ -98,6 +98,7 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { DBManagementService } from './services/db-management.service';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -178,6 +179,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationService,
     ApplicationsTabService,
     CategorizationTabService,
+    DBManagementService,
     CategoryService,
     DatePipe,
     DomainDetailsTabService,
