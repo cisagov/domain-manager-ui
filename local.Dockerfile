@@ -1,29 +1,21 @@
-FROM nginx:stable
+FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
 
 # Install build requirements
-RUN apt update && apt install -y nodejs npm
-RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
-    apt-get install -y nodejs
-RUN npm install -g @angular/cli@14.1.0
+RUN npm install -g npm@latest
+RUN npm install -g @angular/cli
 
 # Install Packages
 COPY ./src/DomainManager/package*.json ./
-ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN npm install --loglevel=error
-ENV PATH /app/node_modules/.bin:$PATH
+RUN npm install
 
-# Copy source code
+# Copy source
 COPY ./src/DomainManager .
 
 # Build angular
 RUN ng build
 
-# Copy entrypoint
-COPY ./etc/local.entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
-
-# Define entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+# Serve
+CMD ng serve --host 0.0.0.0 --disable-host-check
