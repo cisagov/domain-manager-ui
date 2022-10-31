@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@import "node_modules/@angular/material/theming";
 
 :host {
   display: flex;
@@ -40,10 +40,12 @@ mat-card-content {
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 0.5em 0 1em 0 !important;
 }
+
 .rules-list {
   width: 25px;
   float: left;
 }
+
 .border-bottom {
   border-bottom: 1px solid #dee2e6 !important;
 }
