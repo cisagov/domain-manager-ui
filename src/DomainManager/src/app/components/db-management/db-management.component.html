@@ -1,10 +1,15 @@
-<div class="flex-container">
-  <div class="item">
-    <button mat-raised-button color="primary" (click)="dumpData()">
-      Dump Data
-    </button>
-  </div>
-  <div class="item">
-    <button mat-raised-button color="warn">Restore Data</button>
-  </div>
+<div *ngIf="downloading; else load">
+  <mat-spinner></mat-spinner>
 </div>
+<ng-template #load>
+  <div class="flex-container">
+    <div class="item">
+      <button mat-raised-button color="primary" (click)="dumpData()">
+        Dump Data
+      </button>
+    </div>
+    <div class="item">
+      <button mat-raised-button color="warn">Restore Data</button>
+    </div>
+  </div>
+</ng-template>
