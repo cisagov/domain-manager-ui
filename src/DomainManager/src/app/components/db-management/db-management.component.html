@@ -9,7 +9,35 @@
       </button>
     </div>
     <div class="item">
-      <button mat-raised-button color="warn">Restore Data</button>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="openFileBrowser($event)"
+      >
+        Select
+      </button>
+      <input
+        id="jsonUpload"
+        style="display: none"
+        type="file"
+        accept=".json"
+        (change)="addFile($event)"
+      />
+    </div>
+    <div class="item">
+      <div *ngIf="uploading; else upload">
+        <mat-spinner></mat-spinner>
+      </div>
+      <ng-template #upload>
+        <button
+          mat-raised-button
+          color="warn"
+          [disabled]="!selectedFile"
+          (click)="uploadData()"
+        >
+          Upload
+        </button>
+      </ng-template>
     </div>
   </div>
 </ng-template>

@@ -18,4 +18,9 @@ export class DBManagementService {
     const url = `${this.settingsService.settings.apiUrl}/api/db-mgmt/`;
     return this.http.get(url, headers);
   }
+
+  loadDatabaseData(data) {
+    const url = `${this.settingsService.settings.apiUrl}/api/db-mgmt/`;
+    return this.http.post(url, data);
+  }
 }
