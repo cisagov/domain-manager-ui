@@ -22,8 +22,8 @@ export class DBManagementComponent {
     this.downloading = true;
     this.dbManagementSvc.dumpDatabaseData().subscribe({
       next: (data) => {
-        const blob = new Blob([JSON.stringify(data)]);
-        this.downloadObject('dm_dump_data.json', blob);
+        const blob = new Blob([data as any]);
+        this.downloadObject('dm_dump_data.bson', blob);
         this.downloading = false;
       },
       error: (err) => {
@@ -48,7 +48,7 @@ export class DBManagementComponent {
   openFileBrowser(event: any) {
     event.preventDefault();
     const element: HTMLElement = document.getElementById(
-      'jsonUpload'
+      'fileUpload'
     ) as HTMLElement;
     element.click();
   }

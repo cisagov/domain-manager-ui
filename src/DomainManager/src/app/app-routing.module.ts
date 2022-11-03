@@ -59,7 +59,6 @@ const routes: Routes = [
   {
     path: 'db-management',
     component: LayoutMainComponent,
-    canActivate: [AuthGuard],
     children: [{ path: '', component: DBManagementComponent }],
   },
   {
