@@ -23,7 +23,7 @@ export class DBManagementComponent {
     this.dbManagementSvc.dumpDatabaseData().subscribe({
       next: (data) => {
         const blob = new Blob([data as any]);
-        this.downloadObject('dm_dump_data.bson', blob);
+        this.downloadObject('dm_dump_data.json', blob);
         this.downloading = false;
       },
       error: (err) => {
