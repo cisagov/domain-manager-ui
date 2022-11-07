@@ -17,6 +17,7 @@ src/DomainManager/src/assets/settings.json
 /src/DomainManager/debug.log
 
 ## MacOS ##
+.DS_Store
 .idea/
 
 ## Python ##
