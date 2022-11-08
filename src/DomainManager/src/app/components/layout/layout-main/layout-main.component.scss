@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@import "node_modules/@angular/material/_theming";
 @import "src/styles.scss";
 
 .flex-container {
@@ -9,6 +9,7 @@
   width: 250px;
   display: flex;
 }
+
 .sidenav-container {
   position: absolute !important;
   left: 0;
@@ -20,16 +21,20 @@
 .drawer-form-container {
   padding: 20px;
 }
+
 .drawer-input {
   width: 100%;
 }
+
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+
 .loggin-user {
   font-size: 16px;
   font-weight: normal;
 }
+
 //title
 .title-padding {
   padding-left: 20px;
@@ -40,9 +45,11 @@
 .mat-menu-content {
   margin: 10px;
 }
+
 .mat-menu-item {
   border-radius: 5px;
 }
+
 .header-title {
   margin-left: 10px;
 }
@@ -53,21 +60,26 @@
   left: 0;
   right: 0;
 }
+
 .docs-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
 }
+
 .mat-card {
   margin: 10px;
 }
+
 .header-logo {
   margin: 0 10px 0 15px;
 }
+
 .mat-toolbar {
   padding-left: 0 !important;
 }
+
 .font-header {
   padding: 20px 20px 10px 20px !important;
   margin-bottom: 0 !important;

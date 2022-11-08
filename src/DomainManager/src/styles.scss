@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-// @import "~bootstrap/dist/css/bootstrap.min.css";
+// @import "node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 $primary-color: #4454a5;
 $primary-lighter-color: #c5d4dd;
@@ -16,6 +16,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -25,6 +26,7 @@ body {
 .flex {
   display: flex !important;
 }
+
 .flex-container {
   display: flex;
   flex-direction: column;
@@ -38,9 +40,11 @@ body {
   display: flex;
   flex-direction: row;
 }
+
 .flex-full {
   flex-grow: 1;
 }
+
 // .flex-row {
 //   flex: 1 100%
 // }
@@ -48,6 +52,7 @@ body {
 .flex-end {
   justify-content: flex-end;
 }
+
 .flex-center {
   justify-content: center;
 }
@@ -62,6 +67,7 @@ body {
   margin: auto;
   padding: 4em;
 }
+
 //Information Page
 .single_page_header {
   padding-top: 14px;
@@ -75,6 +81,7 @@ body {
 .summary_list .titles div {
   padding-right: 2em;
 }
+
 .summary_list .values {
   flex-grow: 1;
 }
@@ -95,6 +102,7 @@ body {
 .sl_flex_title {
   flex-basis: 12em;
 }
+
 .sl_flex_content {
   flex-grow: 1;
 }
@@ -132,15 +140,18 @@ body {
   display: flex;
   flex-direction: row;
 }
+
 .table-list-header .add-new-button-container {
   padding: 0.25em;
   display: flex;
   height: 3.6em;
 }
+
 .table-list-header .search-bar {
   flex-grow: 5;
   display: flex;
 }
+
 .table-list-header .search-bar mat-form-field {
   width: 100%;
 }
@@ -149,6 +160,7 @@ body {
 .mat-header-row {
   background: $primary-color;
 }
+
 .mat-header-cell {
   color: $text-primary-lighter-color;
 }
@@ -207,6 +219,7 @@ body {
 .iframe_container {
   height: 30em;
 }
+
 .button_contianer {
   position: absolute;
 }
@@ -222,6 +235,7 @@ body {
 .selected_button {
   background: $primary-contrast-color;
 }
+
 //DropDown Styling
 .category_label {
   margin-top: 2em;
