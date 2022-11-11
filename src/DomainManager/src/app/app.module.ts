@@ -30,7 +30,6 @@ import { CategorizationSubmitComponent } from './components/categorization/tabs/
 import { CategorizationVerifyComponent } from './components/categorization/tabs/categorization-verify/categorization-verify.component';
 import { ConfirmCategoryDialogComponent } from './components/dialog-windows/confirm-categorize/confirm-categorize-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/components/dialog-windows/confirm/confirm-dialog.component';
-import { DBManagementComponent } from './components/db-management/db-management.component';
 import { DnsRecordsDialogComponent } from './components/domain/domain-details/tabs/dns-records/dns-records-dialog/dns-records-dialog.component';
 import { DomainCreateDialogComponent } from 'src/app/components/domain/domain-create-dialog/domain-create-dialog.component';
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
@@ -98,7 +97,6 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
-import { DBManagementService } from './services/db-management.service';
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -117,7 +115,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     CategorizationVerifyComponent,
     ConfirmCategoryDialogComponent,
     ConfirmDialogComponent,
-    DBManagementComponent,
     DnsRecordsDialogComponent,
     DomainCreateDialogComponent,
     DomainDetailsComponent,
@@ -179,7 +176,6 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ApplicationService,
     ApplicationsTabService,
     CategorizationTabService,
-    DBManagementService,
     CategoryService,
     DatePipe,
     DomainDetailsTabService,
