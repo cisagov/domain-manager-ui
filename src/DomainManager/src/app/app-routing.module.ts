@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ApplicationsDetailsComponent } from 'src/app/components/applications/applications-details/applications-details.component';
 import { ApplicationListComponent } from 'src/app/components/applications/applications-list/application-list.component';
 import { CategorizationComponent } from './components/categorization/categorization.component';
-import { DBManagementComponent } from './components/db-management/db-management.component';
 import { DomainDetailsComponent } from 'src/app/components/domain/domain-details/domain-details.component';
 import { DomainListComponent } from 'src/app/components/domain/domain-list/domain-list.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -55,11 +54,6 @@ const routes: Routes = [
     component: LayoutMainComponent,
     canActivate: [AuthGuard],
     children: [{ path: '', component: CategorizationComponent }],
-  },
-  {
-    path: 'db-management',
-    component: LayoutMainComponent,
-    children: [{ path: '', component: DBManagementComponent }],
   },
   {
     path: 'domains',
