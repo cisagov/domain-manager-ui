@@ -21,7 +21,7 @@ COPY ./src/DomainManager .
 RUN ng build --configuration production --output-path /app/dist/angular-docker/
 
 # Stage 2 - Run
-FROM nginx:stable
+FROM nginx:1.22.1
 
 # Set Env
 ARG VERSION
