@@ -25,7 +25,7 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
     public activeRoute: ActivatedRoute,
     public layoutSvc: LayoutService,
     public templateSvc: TemplateService,
-    public tdTabSvc: TemplateDetailsTabService
+    public tdTabSvc: TemplateDetailsTabService,
   ) {
     this.layoutSvc.setTitle('Template Details');
   }
@@ -40,7 +40,7 @@ export class TemplateDetailsComponent implements OnInit, OnDestroy {
           console.log(this._id);
           this.tdTabSvc.getTemplateDetails(this._id);
         }
-      })
+      }),
     );
   }
 

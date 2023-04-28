@@ -46,7 +46,7 @@ export class DomainDetailsTabService {
     private settingsService: SettingsService,
     private templateSvc: TemplateService,
     private userAuthSvc: UserAuthService,
-    public domainSvc: DomainService
+    public domainSvc: DomainService,
   ) {
     this._rebuildForms();
     this.domain_data_behavior_subject.subscribe((data) => {
@@ -100,7 +100,7 @@ export class DomainDetailsTabService {
             (failure) => {
               this.alertsSvc.alert(failure);
               this.setLoadingStatus('application_loading', false);
-            }
+            },
           );
       }
       if (this.domain_data.is_active) {
@@ -119,7 +119,7 @@ export class DomainDetailsTabService {
         (failure) => {
           this.alertsSvc.alert('Failed to get hosted zones');
           console.log(failure);
-        }
+        },
       );
     }
   }
@@ -165,7 +165,7 @@ export class DomainDetailsTabService {
           this.attributeList.push(attribute);
           this.attributes_form.addControl(
             attribute.key,
-            new FormControl('', Validators.required)
+            new FormControl('', Validators.required),
           );
         });
       });
@@ -185,7 +185,7 @@ export class DomainDetailsTabService {
 
   _setFormData() {
     this.summary_form.controls.application_id.setValue(
-      this.domain_data.application_id
+      this.domain_data.application_id,
     );
   }
 
@@ -253,12 +253,12 @@ export class DomainDetailsTabService {
     } else {
       if (!this.isSiteLaunched()) {
         this.alertsSvc.alert(
-          'Can not take down a site that has not been launched'
+          'Can not take down a site that has not been launched',
         );
       }
       if (!this.domain_data.is_delaunching) {
         this.alertsSvc.alert(
-          'Domain is currently in the process of being taken down'
+          'Domain is currently in the process of being taken down',
         );
       }
     }
@@ -271,7 +271,7 @@ export class DomainDetailsTabService {
     } else {
       if (!this.hasTemplateAttached()) {
         this.alertsSvc.alert(
-          'Please attach a template prior to launching the site'
+          'Please attach a template prior to launching the site',
         );
       }
       if (this.domain_data.is_launching) {
@@ -286,7 +286,7 @@ export class DomainDetailsTabService {
         (success) => {},
         (failure) => {
           this.alertsSvc.alert('Failed to remove template');
-        }
+        },
       );
     } else {
       console.log(this.domain_data.s3_url);
@@ -304,7 +304,7 @@ export class DomainDetailsTabService {
     return this.domainSvc.generateFromTemplate(
       domain_id,
       template_name,
-      attributeDictionary
+      attributeDictionary,
     );
   }
 
@@ -318,7 +318,7 @@ export class DomainDetailsTabService {
   submitCategory() {
     return this.categorySvc.submitCategory(
       this.domain_data._id,
-      this.proxy_categoriztion_tab_form.controls.category_one.value
+      this.proxy_categoriztion_tab_form.controls.category_one.value,
     );
   }
 
@@ -334,7 +334,7 @@ export class DomainDetailsTabService {
     return this.categorySvc.updateDomainCategories(
       id,
       'recategorize',
-      category
+      category,
     );
   }
 
@@ -365,7 +365,7 @@ export class DomainDetailsTabService {
       (failure) => {
         this.alertsSvc.alert(failure);
         this.setLoadingStatus('cloudfront_status_loading', false);
-      }
+      },
     );
   }
 

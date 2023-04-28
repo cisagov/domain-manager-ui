@@ -45,7 +45,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
     private userAuthSvc: UserAuthService,
     private formBuilder: FormBuilder,
     public ddTabSvc: DomainDetailsTabService,
-    public domainSvc: DomainService
+    public domainSvc: DomainService,
   ) {}
 
   async initializeData() {
@@ -63,7 +63,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
       this.pocForm.valueChanges
         .pipe(
           debounceTime(2000),
-          switchMap((value) => of(value))
+          switchMap((value) => of(value)),
         )
         .subscribe((value: any) => {
           value = this.cleanObject(value);
@@ -83,7 +83,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
       this.assessmentIdForm.valueChanges
         .pipe(
           debounceTime(1500),
-          switchMap((value) => of(value))
+          switchMap((value) => of(value)),
         )
         .subscribe((value: any) => {
           value = this.cleanObject(value);
@@ -116,13 +116,13 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
           this.application_list = success as [];
           if (this.ddTabSvc.domain_data.application_id) {
             this.application_details = this.application_list.find(
-              (app) => app._id === this.ddTabSvc.domain_data.application_id
+              (app) => app._id === this.ddTabSvc.domain_data.application_id,
             ) as ApplicationModel;
           }
         },
         (failure) => {
           this.alertsSvc.alert(failure);
-        }
+        },
       );
     }
   }
@@ -136,7 +136,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
       },
       (failure) => {
         this.alertsSvc.alert('Domain Application Update failed');
-      }
+      },
     );
   }
 
@@ -147,7 +147,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
       },
       (failure) => {
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 
@@ -168,7 +168,7 @@ export class DomainDetailsSummaryComponent implements OnInit, OnDestroy {
           },
           error: (failure) => {
             this.alertsSvc.alert(
-              'Failed to delete domain. Deleting domains that are active or have redirects is not allowed.'
+              'Failed to delete domain. Deleting domains that are active or have redirects is not allowed.',
             );
             console.log(failure);
           },

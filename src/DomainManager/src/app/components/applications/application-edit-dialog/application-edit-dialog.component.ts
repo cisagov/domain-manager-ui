@@ -30,7 +30,7 @@ export class ApplicationEditDialogComponent implements OnInit {
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<ApplicationEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ApplicationModel,
-    private applicationSvc: ApplicationService
+    private applicationSvc: ApplicationService,
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class ApplicationEditDialogComponent implements OnInit {
       (error) => {
         console.log(error);
         this.alertsSvc.alert(error.error.error);
-      }
+      },
     );
   }
 }

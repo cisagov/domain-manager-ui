@@ -24,7 +24,7 @@ export class ConfirmDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogSettings,
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<ConfirmDialogComponent>
+    private dialogRef: MatDialogRef<ConfirmDialogComponent>,
   ) {
     this.functionOnConfirm = data.functionOnConfirm;
     this.itemConfirming = data.itemConfirming;

@@ -21,7 +21,7 @@ export class AlertsService {
     closeMessage: string = 'Close',
     duration: number = 5000,
     horizPosition: string = 'center',
-    vertPosition: string = 'top'
+    vertPosition: string = 'top',
   ) {
     this.horizontalPosition = horizPosition as MatSnackBarHorizontalPosition;
     this.verticalPosition = vertPosition as MatSnackBarVerticalPosition;

@@ -18,7 +18,7 @@ const headers = {
 export class UserManagementService {
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {}
 
   getAllUsers(applicationId: string = null) {

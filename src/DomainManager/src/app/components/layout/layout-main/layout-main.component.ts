@@ -27,7 +27,7 @@ export class LayoutMainComponent implements OnInit {
     public userAuthSvc: UserAuthService,
     public overlayContainer: OverlayContainer,
     public location: Location,
-    private router: Router
+    private router: Router,
   ) {
     this.isDark = themeSvc.getStoredTheme();
     if (this.isDark) {

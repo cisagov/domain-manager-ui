@@ -20,7 +20,7 @@ export class DominDetailsDnsRecordsComponent implements OnInit {
     public ddTabSvc: DomainDetailsTabService,
     public dialog: MatDialog,
     public domainSvc: DomainService,
-    public alertsSvc: AlertsService
+    public alertsSvc: AlertsService,
   ) {}
 
   ngOnInit(): void {}
@@ -53,7 +53,7 @@ export class DominDetailsDnsRecordsComponent implements OnInit {
             },
             () => {
               this.alertsSvc.alert('Error deleting record.');
-            }
+            },
           );
       } else {
         dialogRef.close();

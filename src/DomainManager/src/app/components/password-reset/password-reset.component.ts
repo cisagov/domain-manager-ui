@@ -23,7 +23,7 @@ import { faBan, faCheck } from '@fortawesome/free-solid-svg-icons';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
+    form: FormGroupDirective | NgForm | null,
   ): boolean {
     const isSubmitted = form && form.submitted;
     return !!(
@@ -63,7 +63,7 @@ export class PasswordResetComponent implements OnInit {
     public activeRoute: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +85,7 @@ export class PasswordResetComponent implements OnInit {
             {
               duration: 0,
               verticalPosition: 'top',
-            }
+            },
           );
           this.router.navigateByUrl('/login');
         },
@@ -95,7 +95,7 @@ export class PasswordResetComponent implements OnInit {
             duration: 0,
             verticalPosition: 'top',
           });
-        }
+        },
       );
     }
   }
@@ -145,7 +145,7 @@ export class PasswordResetComponent implements OnInit {
   checkPasswordSpecialChar() {
     if (this.userFormGroup.controls.password.value) {
       return /[~`@!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(
-        this.userFormGroup.controls.password.value
+        this.userFormGroup.controls.password.value,
       );
     }
     return false;

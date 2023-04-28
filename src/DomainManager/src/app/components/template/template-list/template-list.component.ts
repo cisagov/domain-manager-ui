@@ -47,7 +47,7 @@ export class TemplateListComponent implements OnInit {
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public templateSvc: TemplateService
+    public templateSvc: TemplateService,
   ) {
     this.layoutSvc.setTitle('Templates');
   }
@@ -84,7 +84,7 @@ export class TemplateListComponent implements OnInit {
           element['updatedByLowerCase'] = lowerCaseUpdatedBy.toLowerCase();
         });
         this.templateList = new MatTableDataSource<TemplateModel>(
-          success as TemplateModel[]
+          success as TemplateModel[],
         );
         this.templateList.sort = this.sort;
         this.loading = false;
@@ -93,7 +93,7 @@ export class TemplateListComponent implements OnInit {
         console.log('Error getting domain list');
         console.log(error);
         this.loading = false;
-      }
+      },
     );
   }
 

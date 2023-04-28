@@ -32,7 +32,7 @@ export class CategorizationTabService {
     public domainSvc: DomainService,
     public emailSvc: EmailService,
     public categorySvc: CategoryService,
-    private userAuthSvc: UserAuthService
+    private userAuthSvc: UserAuthService,
   ) {
     this.userIsAdmin = this.userAuthSvc.userIsAdmin();
   }

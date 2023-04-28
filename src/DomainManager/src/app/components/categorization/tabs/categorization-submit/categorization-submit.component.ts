@@ -42,7 +42,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
               this.submitCategoryData.map((item) => ({
                 _id: item.domain_id,
                 is_external: item.is_external,
-              }))
+              })),
             ),
           ];
           uniqueVals.forEach((val) => {
@@ -56,12 +56,12 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
                       .filter((x) => x.domain_id == val._id)
                       .forEach((cd) => {
                         let found = this.domainData.some(
-                          (el) => el.domain_name === cd.domain_name
+                          (el) => el.domain_name === cd.domain_name,
                         );
                         this.proxyData = new MatTableDataSource<any>(
                           this.submitCategoryData.filter(
-                            (x) => x.domain_name == cd.domain_name
-                          )
+                            (x) => x.domain_name == cd.domain_name,
+                          ),
                         );
 
                         if (!found) {
@@ -79,7 +79,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
                   (failure) => {
                     console.log(failure);
                     return;
-                  }
+                  },
                 );
             } else {
               this.categorizationTabSvc.domainDetails(val._id).subscribe(
@@ -89,12 +89,12 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
                     .filter((x) => x.domain_id == val._id)
                     .forEach((cd) => {
                       let found = this.domainData.some(
-                        (el) => el.domain_name === cd.domain_name
+                        (el) => el.domain_name === cd.domain_name,
                       );
                       this.proxyData = new MatTableDataSource<any>(
                         this.submitCategoryData.filter(
-                          (x) => x.domain_name == cd.domain_name
-                        )
+                          (x) => x.domain_name == cd.domain_name,
+                        ),
                       );
 
                       if (!found) {
@@ -111,7 +111,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
                 (failure) => {
                   console.log(failure);
                   return;
-                }
+                },
               );
             }
           });
@@ -121,7 +121,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
       },
       (failure) => {
         console.log(failure);
-      }
+      },
     );
   }
 
@@ -133,7 +133,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
       (failure) => {
         console.log(failure);
         return;
-      }
+      },
     );
   }
 
@@ -142,7 +142,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
     categorize_url,
     preferred_category,
     domain_id,
-    domain_name
+    domain_name,
   ) {
     const dialogSettings = {
       domainName: domain_name,
@@ -164,19 +164,19 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
             (success) => {
               this.alertsSvc.alert('Category has been updated.');
               const proxy = this.submitCategoryList.data.findIndex(
-                (obj) => obj._id === categorization_id
+                (obj) => obj._id === categorization_id,
               );
               this.submitCategoryList.data.splice(proxy, 1);
               this.submitCategoryList.data = this.submitCategoryList.data;
               let domainIndex = this.domainData.findIndex(
-                (domain) => domain.domain_id === domain_id
+                (domain) => domain.domain_id === domain_id,
               );
 
               // dynamically update verify list
               const toVerifyProxy = this.domainData[
                 domainIndex
               ].categories.data.find(
-                (category) => category._id === categorization_id
+                (category) => category._id === categorization_id,
               );
               this.verifyCategoryList.data.push(toVerifyProxy);
               this.verifyCategoryList.data = this.verifyCategoryList.data;
@@ -184,12 +184,12 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
               this.domainData[domainIndex].categories.data = this.domainData[
                 domainIndex
               ].categories.data.filter(
-                (category) => category._id !== categorization_id
+                (category) => category._id !== categorization_id,
               );
             },
             (failure) => {
               this.alertsSvc.alert('Error updating category.');
-            }
+            },
           );
       }
     });
@@ -206,10 +206,10 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
           .subscribe(
             (success) => {
               this.alertsSvc.alert(
-                'Proxy requests for this domain have been deleted.'
+                'Proxy requests for this domain have been deleted.',
               );
               const proxies = this.domainData.findIndex(
-                (obj) => obj.domain_id === domain_id
+                (obj) => obj.domain_id === domain_id,
               );
               this.domainData.splice(proxies, 1);
               this.domainData = this.domainData;
@@ -217,7 +217,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
             (failure) => {
               console.log(failure);
               this.alertsSvc.alert(`${failure.error.error}`);
-            }
+            },
           );
       } else {
         this.categorizationTabSvc
@@ -225,10 +225,10 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
           .subscribe(
             (success) => {
               this.alertsSvc.alert(
-                'Proxy requests for this external domain have been deleted.'
+                'Proxy requests for this external domain have been deleted.',
               );
               const proxies = this.domainData.findIndex(
-                (obj) => obj.domain_id === domain_id
+                (obj) => obj.domain_id === domain_id,
               );
               this.domainData.splice(proxies, 1);
               this.domainData = this.domainData;
@@ -236,7 +236,7 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
             (failure) => {
               console.log(failure);
               this.alertsSvc.alert(`${failure.error.error}`);
-            }
+            },
           );
       }
     });
@@ -255,13 +255,13 @@ export class CategorizationSubmitComponent extends CategorizationComponent {
         this.categorizationTabSvc.enableEmailReceiving(domain_id).subscribe(
           (success) => {
             this.alertsSvc.alert(
-              'Email receiving for this domain has been enabled.'
+              'Email receiving for this domain has been enabled.',
             );
           },
           (failure) => {
             console.log(failure);
             this.alertsSvc.alert(`${failure.error.error}`);
-          }
+          },
         );
       } else {
         dialogRef.close();

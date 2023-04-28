@@ -9,7 +9,7 @@ export class HelpService {
   constructor(
     private http: HttpClient,
     private settingsService: SettingsService,
-    public location: Location
+    public location: Location,
   ) {}
 
   openUserGuide() {
@@ -25,13 +25,13 @@ export class HelpService {
   featureRequest() {
     window.open(
       'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=issue.md',
-      '_blank'
+      '_blank',
     );
   }
   bugReport() {
     window.open(
       'https://github.com/cisagov/domain-manager-ui/issues/new?assignees=&labels=&template=bug.md',
-      '_blank'
+      '_blank',
     );
   }
 }

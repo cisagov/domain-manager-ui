@@ -21,7 +21,7 @@ export class AboutComponent implements OnInit {
     public layoutSvc: LayoutService,
     public userAuthSvc: UserAuthService,
     public dialog: MatDialog,
-    public alertsSvc: AlertsService
+    public alertsSvc: AlertsService,
   ) {
     this.layoutSvc.setTitle('About');
   }
@@ -40,7 +40,7 @@ export class AboutComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   }
 
@@ -51,7 +51,7 @@ export class AboutComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   }
 
@@ -73,7 +73,7 @@ export class AboutComponent implements OnInit {
           },
           (error) => {
             this.alertsSvc.alert(error.error);
-          }
+          },
         );
       } else {
         dialogRef.close();

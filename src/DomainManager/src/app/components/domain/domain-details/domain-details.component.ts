@@ -39,7 +39,7 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     public ddTabSvc: DomainDetailsTabService,
     public domainTemplateSvc: DomainService,
-    public userAuthSvc: UserAuthService
+    public userAuthSvc: UserAuthService,
   ) {
     this.layoutSvc.setTitle('Domain Details');
   }
@@ -52,7 +52,7 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
         if (this._id !== null) {
           this.loadDomain(this._id);
         }
-      })
+      }),
     );
   }
 
@@ -91,7 +91,7 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
             this.alertsSvc.alert(failure.error, undefined, 10000);
             this.ddTabSvc.domain_data.is_launching = false;
             console.log(failure);
-          }
+          },
         );
       }
     });
@@ -121,11 +121,11 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
             this.alertsSvc.alert(
               'An error occured while taking down the domain. Please try again.',
               undefined,
-              10000
+              10000,
             );
             this.ddTabSvc.domain_data.is_delaunching = false;
             console.log(failure);
-          }
+          },
         );
       }
     });
@@ -151,7 +151,7 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
           },
           error: (failure) => {
             this.alertsSvc.alert(
-              'Failed to delete domain. Deleting domains that are active or have redirects is not allowed.'
+              'Failed to delete domain. Deleting domains that are active or have redirects is not allowed.',
             );
             console.log(failure);
           },
@@ -188,7 +188,7 @@ export class DomainDetailsComponent implements OnInit, OnDestroy {
         this.progressDialogRef.close();
         console.log(failure);
         this.alertsSvc.alert('Error downloading domain zip');
-      }
+      },
     );
   }
 

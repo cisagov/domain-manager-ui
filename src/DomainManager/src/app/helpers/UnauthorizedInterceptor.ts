@@ -16,7 +16,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     if (environment.authorize) {
       return next.handle(request).pipe(
@@ -32,7 +32,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
           // const error = err.error.message || err.statusText;
 
           return next.handle(request);
-        })
+        }),
       );
     } else {
       return next.handle(request);

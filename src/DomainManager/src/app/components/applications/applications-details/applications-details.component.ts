@@ -21,7 +21,7 @@ export class ApplicationsDetailsComponent implements OnInit {
   constructor(
     public activeRoute: ActivatedRoute,
     public applicationSvc: ApplicationService,
-    public userSvc: UserManagementService
+    public userSvc: UserManagementService,
   ) {}
 
   ngOnInit(): void {

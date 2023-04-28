@@ -35,11 +35,11 @@ export class TemplateDetailsConnectedDomainsComponent
       (val) => {
         if (val.length) {
           this.domainsUsedList = new MatTableDataSource<DomainModel>(
-            val as DomainModel[]
+            val as DomainModel[],
           );
           this.domainsUsedList.sort = this.sort;
         }
-      }
+      },
     );
   }
 

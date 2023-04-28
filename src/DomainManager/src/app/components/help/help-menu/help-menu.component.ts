@@ -14,7 +14,7 @@ export class HelpMenuComponent implements OnInit {
     public helpSvc: HelpService,
     public alertsSvc: AlertsService,
     public layoutSvc: LayoutService,
-    public settingsService: SettingsService
+    public settingsService: SettingsService,
   ) {
     this.layoutSvc.setTitle('Help');
   }
@@ -22,14 +22,14 @@ export class HelpMenuComponent implements OnInit {
   ngOnInit(): void {}
   openUserManual() {
     this.alertsSvc.alert(
-      'The in browser User guide is not yet implmeneted, will be in place soon'
+      'The in browser User guide is not yet implmeneted, will be in place soon',
     );
   }
 
   help() {
     this.downloadObject(
       'DomainManagerUserGuide.pdf',
-      'assets/userguide/pdf/DomainManager.pdf'
+      'assets/userguide/pdf/DomainManager.pdf',
     );
   }
 

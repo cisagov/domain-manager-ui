@@ -52,7 +52,7 @@ export class FileUploadDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: FileUploadSettings,
     public alertsSvc: AlertsService,
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<FileUploadDialogComponent>
+    private dialogRef: MatDialogRef<FileUploadDialogComponent>,
   ) {
     dialogRef.disableClose = true;
     this.uploadFileType = this.getNativeMimeType(data.uploadFileType);
@@ -84,7 +84,7 @@ export class FileUploadDialogComponent implements OnInit {
       file['overwrite'] = true;
       if (file['uploadStatus'] == 'Already Exists') {
         file['overwrite'] = confirm(
-          file.name + ' already exists. Would you like to Overwrite?'
+          file.name + ' already exists. Would you like to Overwrite?',
         );
       }
       console.log(file['overwrite']);
@@ -103,13 +103,13 @@ export class FileUploadDialogComponent implements OnInit {
       console.log(
         this.sendableFormData
           .getAll('zip')
-          .filter((f) => f['name'] == file.name)
+          .filter((f) => f['name'] == file.name),
       );
       fileFormData.append(
         'zip',
         this.sendableFormData
           .getAll('zip')
-          .filter((f) => f['name'] == file.name)[0]
+          .filter((f) => f['name'] == file.name)[0],
       );
       console.log(fileFormData.get('zip'));
       fileFormData.append('Domain_Id', this.data.ID);
@@ -128,7 +128,7 @@ export class FileUploadDialogComponent implements OnInit {
             if (resp.type === HttpEventType.UploadProgress) {
               const percentDone = Math.round((100 * resp.loaded) / resp.total);
               console.log(
-                'File: ' + file.name + ' Progress ' + percentDone + '%'
+                'File: ' + file.name + ' Progress ' + percentDone + '%',
               );
             }
           },
@@ -136,7 +136,7 @@ export class FileUploadDialogComponent implements OnInit {
             this.alertsSvc.alert(failure);
             file['errorMessage'] = failure.error.error;
             file['uploadStatus'] = 'Failed';
-          }
+          },
         );
     });
 
@@ -174,7 +174,7 @@ export class FileUploadDialogComponent implements OnInit {
     }
 
     const invalidfiles = this.data.uploadService.validateBeforeUpload(
-      this.files
+      this.files,
     );
 
     if (invalidfiles.length > 0) {

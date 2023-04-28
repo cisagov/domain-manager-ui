@@ -53,7 +53,7 @@ export class DomainListComponent implements OnInit {
     private router: Router,
     private userAuthSvc: UserAuthService,
     public domainSvc: DomainService,
-    public applicationSvc: ApplicationService
+    public applicationSvc: ApplicationService,
   ) {
     this.layoutSvc.setTitle('Domains');
     this.userIsAdmin = this.userAuthSvc.userIsAdmin();
@@ -77,7 +77,7 @@ export class DomainListComponent implements OnInit {
       const applications = await this.applicationSvc.getApplications();
       domains.forEach((domain) => {
         const application = applications.filter(
-          (x) => x._id === domain.application_id
+          (x) => x._id === domain.application_id,
         );
         if (application.length === 1) {
           domain.application_name = application[0].name;

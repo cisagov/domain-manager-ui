@@ -43,7 +43,7 @@ export class UserManagementListComponent implements OnInit {
     private alerts: AlertsService,
     public layoutSvc: LayoutService,
     private router: Router,
-    private userManageSVC: UserManagementService
+    private userManageSVC: UserManagementService,
   ) {
     this.layoutSvc.setTitle('Users');
   }

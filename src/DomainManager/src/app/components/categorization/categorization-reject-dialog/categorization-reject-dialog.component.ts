@@ -34,7 +34,7 @@ export class CategorizationRejectDialogComponent implements OnInit {
     public alertsSvc: AlertsService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<CategorizationRejectDialogComponent>,
-    private domainSvc: DomainService
+    private domainSvc: DomainService,
   ) {}
 
   ngOnInit() {}

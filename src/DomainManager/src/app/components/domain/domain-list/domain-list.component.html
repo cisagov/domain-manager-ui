@@ -84,7 +84,7 @@
           >Expiration Date</mat-header-cell
         >
         <mat-cell *matCellDef="let row" (click)="viewDomain(row._id)">
-          {{ row.whois?.expiration_date | date: "MM/dd/yy" }}
+          {{ row.whois?.expiration_date | date : "MM/dd/yy" }}
         </mat-cell>
       </ng-container>
 

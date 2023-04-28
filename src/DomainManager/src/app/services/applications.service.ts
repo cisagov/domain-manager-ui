@@ -11,7 +11,7 @@ export class ApplicationService {
   application_list = []; // This needs to go as well.
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {}
 
   async getApplications() {
