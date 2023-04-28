@@ -1,7 +1,7 @@
 ARG VERSION=unspecified
 
 # Stage 1 - Build
-FROM node:18-alpine as node
+FROM node:20-alpine as node
 
 # Set working directory
 WORKDIR /app
