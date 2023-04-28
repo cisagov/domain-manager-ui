@@ -26,7 +26,7 @@ export class ApplicationsTabService {
   constructor(
     public alertsSvc: AlertsService,
     public applicationsSvc: ApplicationService,
-    public domainSvc: DomainService
+    public domainSvc: DomainService,
   ) {
     this.init();
   }
@@ -52,15 +52,15 @@ export class ApplicationsTabService {
     this.domainSvc.getAllDomains().subscribe((data) => {
       let allDomains = data as Array<DomainModel>;
       this.domains_assigned = allDomains.filter(
-        (item) => item.application_id == this.application_data._id
+        (item) => item.application_id == this.application_data._id,
       );
       let assingedIds = this.domains_assigned.map(
-        (item) => item.application_id
+        (item) => item.application_id,
       );
       this.domains_not_assigned = allDomains.filter(
         (item) =>
           assingedIds.indexOf(item.application_id) === -1 &&
-          !item.application_id
+          !item.application_id,
       );
       this.domains_data_behavior_subject.next(true);
     });
@@ -85,7 +85,7 @@ export class ApplicationsTabService {
     console.log(
       assignedDomains.map((assinged) => {
         allDomains.filter((item) => item._id !== assinged._id);
-      })
+      }),
     );
   }
 

@@ -13,7 +13,7 @@ import { UserManagementTabService } from 'src/app/services/tab-services/user-man
 export class UserManagementDetailsSummaryComponent implements OnInit {
   constructor(
     public alertsSvc: AlertsService,
-    public umTabSvc: UserManagementTabService
+    public umTabSvc: UserManagementTabService,
   ) {}
 
   ngOnInit(): void {}

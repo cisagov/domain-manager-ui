@@ -26,7 +26,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
+    form: FormGroupDirective | NgForm | null,
   ): boolean {
     const isSubmitted = form && form.submitted;
     return !!(
@@ -76,7 +76,7 @@ export class RegisterUserComponent implements OnInit {
     public applicationSvc: ApplicationService,
     private router: Router,
     private snackBar: MatSnackBar,
-    public userSvc: UserManagementService
+    public userSvc: UserManagementService,
   ) {}
 
   ngOnInit() {
@@ -94,13 +94,13 @@ export class RegisterUserComponent implements OnInit {
             {
               duration: 0,
               verticalPosition: 'top',
-            }
+            },
           );
           this.router.navigateByUrl('/login');
         },
         (error: HttpErrorResponse) => {
           this.error = error.error;
-        }
+        },
       );
     }
   }
@@ -156,7 +156,7 @@ export class RegisterUserComponent implements OnInit {
   checkPasswordSpecialChar() {
     if (this.userFormGroup.controls.password.value) {
       return /[~`@!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(
-        this.userFormGroup.controls.password.value
+        this.userFormGroup.controls.password.value,
       );
     }
     return false;
@@ -176,13 +176,13 @@ export class RegisterUserComponent implements OnInit {
       },
       (failure) => {
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
   changeApplication(value) {
     if (value) {
       this.model.ApplicationName = this.application_list.filter(
-        (app) => app._id == value
+        (app) => app._id == value,
       )[0]['name'];
       this.model.ApplicationId = value;
     } else {

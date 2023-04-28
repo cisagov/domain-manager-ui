@@ -36,7 +36,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
     public categorySvc: CategoryService,
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
-    public ddTabSvc: DomainDetailsTabService
+    public ddTabSvc: DomainDetailsTabService,
   ) {}
 
   ngOnInit(): void {
@@ -96,7 +96,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
           this.alertsSvc.alert(
             'Categorization request has been successfully submitted.',
             undefined,
-            10000
+            10000,
           );
           let filteredData = [
             {
@@ -153,14 +153,14 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
           }));
           this.categoryData = success as Array<any>;
           this.categoryList = new MatTableDataSource<any>(
-            results as Array<any>
+            results as Array<any>,
           );
           this.categoryList.sort = this.sort;
         },
         (failure) => {
           console.log(failure);
           this.alertsSvc.alert('Error submitting category for domain');
-        }
+        },
       );
     }
   }
@@ -179,7 +179,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
       (failure) => {
         console.log(failure);
         this.alertsSvc.alert('Error checking category for domain');
-      }
+      },
     );
   }
 
@@ -204,7 +204,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
             (success) => {
               this.alertsSvc.alert('Category has been updated.');
               const proxy = this.categoryList.data.findIndex(
-                (obj) => obj._id === categorization_id
+                (obj) => obj._id === categorization_id,
               );
               this.categoryList.data[proxy].category = result.selectedCategory;
               this.categoryList.data[proxy].status = status;
@@ -212,7 +212,7 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
             },
             (failure) => {
               this.alertsSvc.alert('Error updating category.');
-            }
+            },
           );
       }
     });
@@ -238,14 +238,14 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
             (success) => {
               this.alertsSvc.alert('Proxy status has been updated.');
               const proxy = this.categoryList.data.findIndex(
-                (obj) => obj._id === categorization_id
+                (obj) => obj._id === categorization_id,
               );
               this.categoryList.data[proxy].status = result.selectedStatus;
               this.categoryList.data[proxy].updated = new Date();
             },
             (failure) => {
               this.alertsSvc.alert('Error updating status.');
-            }
+            },
           );
       }
     });
@@ -268,17 +268,17 @@ export class DomainDetailsProxyCategorizationComponent implements OnInit {
         this.ddTabSvc
           .recategorizeDomainProxies(
             this.ddTabSvc.domain_data._id,
-            result.selectedCategory
+            result.selectedCategory,
           )
           .subscribe(
             (success) => {
               this.alertsSvc.alert(
-                'Domain recategorization request has been submitted.'
+                'Domain recategorization request has been submitted.',
               );
             },
             (failure) => {
               this.alertsSvc.alert('Error recategorizing domain.');
-            }
+            },
           );
       }
     });

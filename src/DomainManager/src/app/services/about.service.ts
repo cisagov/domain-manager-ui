@@ -7,7 +7,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class AboutService {
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {}
   getAbout() {
     const url = `${this.settingsService.settings.apiUrl}/api/about/`;

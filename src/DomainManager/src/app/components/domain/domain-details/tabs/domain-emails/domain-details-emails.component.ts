@@ -67,7 +67,7 @@ export class DomainDetailsEmailsComponent
     public alertsSvc: AlertsService,
     public datepipe: DatePipe,
     public ddTabSvc: DomainDetailsTabService,
-    public emailSvc: EmailService
+    public emailSvc: EmailService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -95,7 +95,7 @@ export class DomainDetailsEmailsComponent
             this.toggleInProcess = false;
           }
         }
-      })
+      }),
     );
   }
   toggleStatus() {
@@ -109,7 +109,7 @@ export class DomainDetailsEmailsComponent
     this.emailSvc
       .setDomainEmailsStatus(
         this.ddTabSvc.domain_data._id,
-        this.ddTabSvc.domain_data.is_email_active
+        this.ddTabSvc.domain_data.is_email_active,
       )
       .subscribe(
         (success: any) => {
@@ -120,9 +120,9 @@ export class DomainDetailsEmailsComponent
         (failure) => {
           this.toggleInProcess = false;
           this.alertsSvc.alert(
-            'Failed to change status, please try again later.'
+            'Failed to change status, please try again later.',
           );
-        }
+        },
       );
   }
   changeToggleStatus() {
@@ -174,7 +174,7 @@ export class DomainDetailsEmailsComponent
       } else {
         item['readableDate'] = this.datepipe.transform(
           workingDate,
-          'MM-dd-yyyy HH:MM'
+          'MM-dd-yyyy HH:MM',
         );
       }
     });
@@ -312,7 +312,7 @@ export class DomainDetailsEmailsComponent
       },
       (failure) => {
         this.alertsSvc.alert('Failed to get email');
-      }
+      },
     );
   }
 
@@ -359,7 +359,7 @@ export class DomainDetailsEmailsComponent
       (failure) => {
         console.log(failure);
         this.alertsSvc.alert('Failed to get email list');
-      }
+      },
     );
   }
 
@@ -367,14 +367,14 @@ export class DomainDetailsEmailsComponent
     this.emailSvc.deleteDomainEmail(emailId).subscribe(
       (success) => {
         this.emailList.data = this.emailList.data.filter(
-          (email) => email._id !== emailId
+          (email) => email._id !== emailId,
         );
         this.bodyDisplay = '';
         this.email._id = null;
       },
       (failure) => {
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 }

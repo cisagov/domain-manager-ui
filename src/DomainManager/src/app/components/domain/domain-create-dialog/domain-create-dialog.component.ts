@@ -35,7 +35,7 @@ export class DomainCreateDialogComponent implements OnInit {
     public alertsSvc: AlertsService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<DomainCreateDialogComponent>,
-    private domainSvc: DomainService
+    private domainSvc: DomainService,
   ) {}
 
   ngOnInit() {
@@ -71,7 +71,7 @@ export class DomainCreateDialogComponent implements OnInit {
         const genericSettings = new GenericDialogSettings(
           data,
           'Domain',
-          'Status'
+          'Status',
         );
         this.dialog.open(GenericViewComponent, { data: genericSettings });
       },
@@ -100,7 +100,7 @@ export class DomainCreateDialogComponent implements OnInit {
   openFileBrowser(event: any) {
     event.preventDefault();
     const element: HTMLElement = document.getElementById(
-      'csvUpload'
+      'csvUpload',
     ) as HTMLElement;
     element.click();
   }

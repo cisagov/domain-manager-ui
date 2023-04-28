@@ -24,7 +24,7 @@ export class DomainService extends AbstractUploadService {
 
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {
     super();
   }
@@ -66,9 +66,12 @@ export class DomainService extends AbstractUploadService {
 
     if (environment.localData) {
       return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('Domain uploaded');
-        }, Math.floor(Math.random() * 2000));
+        setTimeout(
+          () => {
+            exampleObs.next('Domain uploaded');
+          },
+          Math.floor(Math.random() * 2000),
+        );
       });
     }
   }
@@ -95,14 +98,14 @@ export class DomainService extends AbstractUploadService {
     return this.uploadDomain(
       file,
       file.get('Domain_Id'),
-      file.get('Domain_Domain')
+      file.get('Domain_Domain'),
     );
   }
 
   downloadDomain(domainId: string) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
-      'application/zip'
+      'application/zip',
     );
     let salt = new Date().getTime();
     const url = `${this.settingsService.settings.apiUrl}/api/domain/${domainId}/content/?${salt}/`;
@@ -120,9 +123,12 @@ export class DomainService extends AbstractUploadService {
       // return this.http.post(url, newDomain);
     } else {
       return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('domain Created');
-        }, Math.floor(Math.random() * 1500));
+        setTimeout(
+          () => {
+            exampleObs.next('domain Created');
+          },
+          Math.floor(Math.random() * 1500),
+        );
       });
     }
   }
@@ -154,9 +160,12 @@ export class DomainService extends AbstractUploadService {
       return this.http.post(url, attributes);
     } else {
       return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('Template content removed');
-        }, Math.floor(Math.random() * 1500));
+        setTimeout(
+          () => {
+            exampleObs.next('Template content removed');
+          },
+          Math.floor(Math.random() * 1500),
+        );
       });
     }
   }
@@ -168,9 +177,12 @@ export class DomainService extends AbstractUploadService {
       return this.http.delete(url);
     } else {
       return new Observable((exampleObs) => {
-        setTimeout(() => {
-          exampleObs.next('Template content removed');
-        }, Math.floor(Math.random() * 1500));
+        setTimeout(
+          () => {
+            exampleObs.next('Template content removed');
+          },
+          Math.floor(Math.random() * 1500),
+        );
       });
     }
   }

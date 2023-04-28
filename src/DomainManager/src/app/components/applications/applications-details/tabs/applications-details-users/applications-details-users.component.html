@@ -19,7 +19,7 @@
   <ng-container matColumnDef="UserCreateDate">
     <mat-header-cell *matHeaderCellDef>Created Date </mat-header-cell>
     <mat-cell *matCellDef="let row">{{
-      row.UserCreateDate | date: "MM/dd/yy"
+      row.UserCreateDate | date : "MM/dd/yy"
     }}</mat-cell>
   </ng-container>
 
@@ -27,7 +27,7 @@
   <ng-container matColumnDef="UserLastModifiedDate">
     <mat-header-cell *matHeaderCellDef>Last Modified Date </mat-header-cell>
     <mat-cell *matCellDef="let row">{{
-      row.UserLastModifiedDate | date: "MM/dd/yy"
+      row.UserLastModifiedDate | date : "MM/dd/yy"
     }}</mat-cell>
   </ng-container>
 

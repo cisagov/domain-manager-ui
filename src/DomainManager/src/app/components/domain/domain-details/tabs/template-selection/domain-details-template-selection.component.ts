@@ -51,7 +51,7 @@ export class DomainDetailsTemplateSelectionComponent
     public dialog: MatDialog,
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
-    public ddTabSvc: DomainDetailsTabService
+    public ddTabSvc: DomainDetailsTabService,
   ) {}
 
   ngOnInit(): void {
@@ -80,10 +80,10 @@ export class DomainDetailsTemplateSelectionComponent
         });
 
         const data = this._formatTemplateList(success).filter(
-          (t) => t.is_approved === true
+          (t) => t.is_approved === true,
         );
         this.templateList = new MatTableDataSource<TemplateModel>(
-          data as TemplateModel[]
+          data as TemplateModel[],
         );
         this.templateList.sort = this.sort;
 
@@ -104,13 +104,13 @@ export class DomainDetailsTemplateSelectionComponent
           },
           (failure) => {
             console.log(failure);
-          }
+          },
         );
       },
       (failure) => {
         this.alertsSvc.alert('Failed to get template list');
         console.log(failure);
-      }
+      },
     );
   }
 
@@ -154,7 +154,7 @@ export class DomainDetailsTemplateSelectionComponent
 
   setURL(domain: DomainModel) {
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      domain.s3_url
+      domain.s3_url,
     );
   }
 
@@ -199,7 +199,7 @@ export class DomainDetailsTemplateSelectionComponent
       (success) => {
         this.progressDialogRef.close();
         this.alertsSvc.alert(
-          'HTML successfully created and applied to domain '
+          'HTML successfully created and applied to domain ',
         );
         //reload page to update the tab structure and display the newly created html
         let domain_id = this.ddTabSvc.domain_data._id;
@@ -210,11 +210,11 @@ export class DomainDetailsTemplateSelectionComponent
         this.alertsSvc.alert(
           'An error occured while generating domain html. Please try again',
           undefined,
-          10000
+          10000,
         );
         this.ddTabSvc.domain_data.is_generating_template = false;
         console.log(failure);
-      }
+      },
     );
   }
 

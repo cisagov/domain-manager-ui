@@ -15,7 +15,7 @@ export class CategoryService {
   constructor(
     public alertsSvc: AlertsService,
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {
     this.getAllCategories();
   }
@@ -29,7 +29,7 @@ export class CategoryService {
       (failure) => {
         this.alertsSvc.alert('Failed to get category list');
         console.log(failure);
-      }
+      },
     );
   }
 

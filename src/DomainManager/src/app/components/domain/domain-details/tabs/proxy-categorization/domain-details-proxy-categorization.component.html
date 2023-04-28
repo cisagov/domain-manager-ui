@@ -96,10 +96,10 @@
       >
       <mat-cell *matCellDef="let row">
         <ng-container *ngIf="row['updated']; else elseCreated">{{
-          row.updated | date: "MM/dd/yy"
+          row.updated | date : "MM/dd/yy"
         }}</ng-container>
         <ng-template #elseCreated>{{
-          row.created | date: "MM/dd/yy"
+          row.created | date : "MM/dd/yy"
         }}</ng-template>
       </mat-cell>
     </ng-container>

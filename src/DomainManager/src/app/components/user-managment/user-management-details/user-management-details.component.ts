@@ -32,7 +32,7 @@ export class UserManagementDetailsComponent implements OnInit {
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
     private router: Router,
-    public umTabSvc: UserManagementTabService
+    public umTabSvc: UserManagementTabService,
   ) {
     this.layoutSvc.setTitle('User Details');
   }
@@ -44,7 +44,7 @@ export class UserManagementDetailsComponent implements OnInit {
         if (this.username !== null) {
           this.getUser(this.username);
         }
-      })
+      }),
     );
   }
 

@@ -10,7 +10,7 @@ import { EmailModel } from 'src/app/models/email.model';
 export class EmailService {
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {}
 
   getDomainEmails(domainId) {

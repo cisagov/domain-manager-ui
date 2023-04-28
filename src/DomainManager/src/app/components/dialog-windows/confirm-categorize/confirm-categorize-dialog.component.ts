@@ -23,7 +23,7 @@ export class ConfirmCategoryDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<ConfirmCategoryDialogComponent>
+    private dialogRef: MatDialogRef<ConfirmCategoryDialogComponent>,
   ) {
     this.functionOnConfirm = data.functionOnConfirm;
     this.itemConfirming = data.itemConfirming;

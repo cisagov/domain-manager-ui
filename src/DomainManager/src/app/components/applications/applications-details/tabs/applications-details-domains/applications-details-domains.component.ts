@@ -48,7 +48,7 @@ export class ApplicationsDetailsDomainsComponent implements OnInit {
       (success) => {},
       (failure) => {
         this.transferItem(this.dataSourceTwo, this.dataSourceOne, row);
-      }
+      },
     );
     this.setSorts();
   }
@@ -60,7 +60,7 @@ export class ApplicationsDetailsDomainsComponent implements OnInit {
       (success) => {},
       (failure) => {
         this.transferItem(this.dataSourceOne, this.dataSourceTwo, row);
-      }
+      },
     );
     this.setSorts();
   }

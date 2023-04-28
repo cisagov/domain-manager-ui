@@ -19,7 +19,7 @@ export class TemplateService extends AbstractUploadService {
 
   constructor(
     private http: HttpClient,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {
     super();
   }
@@ -78,7 +78,7 @@ export class TemplateService extends AbstractUploadService {
   downloadTemplate(uuid) {
     const downloadHeaders = new HttpHeaders().set(
       'content-type',
-      'application/*zip*'
+      'application/*zip*',
     );
     let salt = new Date().getTime();
     const url = `${this.settingsService.settings.apiUrl}/api/template/${uuid}/content/?${salt}/`;
@@ -97,14 +97,14 @@ export class TemplateService extends AbstractUploadService {
     this.getAllTemplates().subscribe(
       (success) => {
         let tmpvar = new MatTableDataSource<TemplateModel>(
-          success as TemplateModel[]
+          success as TemplateModel[],
         );
         this.template_list = tmpvar.data;
       },
       (error) => {
         console.log('Error getting domain list');
         console.log(error);
-      }
+      },
     );
   }
 

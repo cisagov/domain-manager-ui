@@ -27,7 +27,7 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
   constructor(
     public alertsSvc: AlertsService,
     public umTabSvc: UserManagementTabService,
-    public userAuthSvc: UserAuthService
+    public userAuthSvc: UserAuthService,
   ) {}
 
   ngOnInit(): void {
@@ -46,12 +46,12 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
     this.umTabSvc.getApplicationGroups().subscribe(
       (success) => {
         this.groupList = new MatTableDataSource<ApplicationGroupModel>(
-          this.setUsersActiveGroups(success)
+          this.setUsersActiveGroups(success),
         );
       },
       (failure) => {
         this.alertsSvc.alert('Failed to get application groups');
-      }
+      },
     );
   }
 
@@ -60,7 +60,7 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
       applicationList.forEach((group) => {
         if (
           this.umTabSvc.user_data.Groups.filter(
-            (t) => t['GroupName'] == group.name
+            (t) => t['GroupName'] == group.name,
           ).length > 0
         ) {
           group['isChecked'] = true;
@@ -88,7 +88,7 @@ export class UserManagementDetailsGroupsComponent implements OnInit {
       },
       (failure) => {
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 

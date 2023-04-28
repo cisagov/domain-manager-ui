@@ -22,7 +22,7 @@ export class VerifyCategoryDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<VerifyCategoryDialogComponent>
+    private dialogRef: MatDialogRef<VerifyCategoryDialogComponent>,
   ) {
     this.functionOnConfirm = data.functionOnConfirm;
     this.itemConfirming = data.itemConfirming;

@@ -38,7 +38,7 @@ export class UserManagementTabService {
     public applicationsSvc: ApplicationService,
     private router: Router,
     public userManageSvc: UserManagementService,
-    public UserAuthSvc: UserAuthService
+    public UserAuthSvc: UserAuthService,
   ) {
     this.init();
   }
@@ -50,7 +50,7 @@ export class UserManagementTabService {
     this.tabCompleteBehvaiorSubject = new BehaviorSubject<boolean>(false);
     this.user_data = new UserModel();
     this.user_data_behavior_subject = new BehaviorSubject<UserModel>(
-      new UserModel()
+      new UserModel(),
     );
   }
 
@@ -80,7 +80,7 @@ export class UserManagementTabService {
       (failure) => {
         this.alertsSvc.alert('Failed to get user data for ');
         this.loading = false;
-      }
+      },
     );
   }
 
@@ -97,7 +97,7 @@ export class UserManagementTabService {
     this.isAdmin = false;
     if (
       this.user_data.Groups.filter(
-        (g) => g['GroupName'] == environment.adminGroupName
+        (g) => g['GroupName'] == environment.adminGroupName,
       ).length != 0
     ) {
       this.isAdmin = true;
@@ -112,7 +112,7 @@ export class UserManagementTabService {
           () => {
             this.alertsSvc.alert('Failed to update user admin status');
             this.isAdmin = !event.checked;
-          }
+          },
         );
       } else {
         this.userManageSvc.removeUserAsAdmin(this.user_data.Username).subscribe(
@@ -120,7 +120,7 @@ export class UserManagementTabService {
           () => {
             this.isAdmin = !event.checked;
             this.alertsSvc.alert('Failed to update user admin status');
-          }
+          },
         );
       }
     } else {
@@ -142,7 +142,7 @@ export class UserManagementTabService {
       },
       (failure) => {
         this.alertsSvc.alert('Failed to confirm user');
-      }
+      },
     );
   }
 
@@ -153,7 +153,7 @@ export class UserManagementTabService {
       },
       (failure) => {
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 
@@ -176,7 +176,7 @@ export class UserManagementTabService {
       },
       (failure) => {
         console.log(failure);
-      }
+      },
     );
   }
 
@@ -195,7 +195,7 @@ export class UserManagementTabService {
       },
       (failure) => {
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 }

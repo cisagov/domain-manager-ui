@@ -28,7 +28,7 @@ export class CategorizationComponent {
     public categorySvc: CategoryService,
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
-    public categorizationTabSvc: CategorizationTabService
+    public categorizationTabSvc: CategorizationTabService,
   ) {
     this.layoutSvc.setTitle('Categorization');
   }
@@ -49,7 +49,7 @@ export class CategorizationComponent {
       },
       (failure) => {
         console.log(failure);
-      }
+      },
     );
   }
 
@@ -79,14 +79,14 @@ export class CategorizationComponent {
             (success) => {
               this.alertsSvc.alert('Proxy status has been updated.');
               const proxy = this.verifyCategoryList.data.findIndex(
-                (obj) => obj._id === categorization_id
+                (obj) => obj._id === categorization_id,
               );
               this.verifyCategoryList.data.splice(proxy, 1);
               this.verifyCategoryList.data = this.verifyCategoryList.data;
             },
             (failure) => {
               this.alertsSvc.alert('Error updating proxy status.');
-            }
+            },
           );
       }
     });

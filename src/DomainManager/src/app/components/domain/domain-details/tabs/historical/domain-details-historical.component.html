@@ -20,8 +20,8 @@
       </tr>
       <tr *ngFor="let history of ddTabSvc.domain_data.history">
         <td>{{ history.application.name }}</td>
-        <td>{{ history.start_date | date: "MM/dd/yy" }}</td>
-        <td>{{ history.end_date | date: "MM/dd/yy" }}</td>
+        <td>{{ history.start_date | date : "MM/dd/yy" }}</td>
+        <td>{{ history.end_date | date : "MM/dd/yy" }}</td>
       </tr>
     </table>
   </div>

@@ -27,7 +27,7 @@ export class ApplicationsDetailsSummaryComponent implements OnInit {
   constructor(
     public activeRoute: ActivatedRoute,
     public appTabSvc: ApplicationsTabService,
-    public layoutSvc: LayoutService
+    public layoutSvc: LayoutService,
   ) {
     this.layoutSvc.setTitle('Application Details');
   }
@@ -48,7 +48,7 @@ export class ApplicationsDetailsSummaryComponent implements OnInit {
         if (this.app_id !== null) {
           this.appTabSvc.getApplication(this.app_id);
         }
-      })
+      }),
     );
   }
 
@@ -61,13 +61,13 @@ export class ApplicationsDetailsSummaryComponent implements OnInit {
   setForm(application) {
     this.applicationForm.controls.name.setValue(application.name);
     this.applicationForm.controls.contactName.setValue(
-      application.contact_name
+      application.contact_name,
     );
     this.applicationForm.controls.contactEmail.setValue(
-      application.contact_email
+      application.contact_email,
     );
     this.applicationForm.controls.contactPhone.setValue(
-      application.contact_phone
+      application.contact_phone,
     );
   }
 

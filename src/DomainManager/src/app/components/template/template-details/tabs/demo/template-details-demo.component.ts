@@ -39,7 +39,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
     private router: Router,
     public tdTabSvc: TemplateDetailsTabService,
     public userAuthSvc: UserAuthService,
-    public templateSvc: TemplateService
+    public templateSvc: TemplateService,
   ) {}
 
   ngOnInit(): void {
@@ -48,8 +48,8 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => {}
-      )
+        (failure) => {},
+      ),
     );
   }
 
@@ -100,7 +100,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         this.progressDialogRef.close();
         console.log(failure);
         this.alertsSvc.alert('Error downloading domain zip');
-      }
+      },
     );
   }
   downloadObject(filename, blob) {
@@ -128,7 +128,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
           },
           (failed) => {
             this.alertsSvc.alert('Failed to delete template');
-          }
+          },
         );
       }
     });
@@ -149,7 +149,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
         this.progressDialogRef.close();
         console.log(failure);
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 
@@ -166,7 +166,7 @@ export class TemplateDetailsDemoComponent implements OnInit, OnDestroy {
           this.progressDialogRef.close();
           console.log(failure);
           this.alertsSvc.alert(failure);
-        }
+        },
       );
   }
 }

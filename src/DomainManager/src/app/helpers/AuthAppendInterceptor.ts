@@ -14,7 +14,7 @@ export class AuthAppendInterceptor implements HttpInterceptor {
 
   intercept(
     httpRequest: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     this.loginSvc.checkTimer();
     const idToken = localStorage.getItem('id_token');

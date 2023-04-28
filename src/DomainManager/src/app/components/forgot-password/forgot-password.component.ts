@@ -21,7 +21,7 @@ import { ForgotPassword } from 'src/app/models/forgot-password.model';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
+    form: FormGroupDirective | NgForm | null,
   ): boolean {
     const isSubmitted = form && form.submitted;
     return !!(
@@ -48,7 +48,7 @@ export class ForgotPasswordComponent {
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {}
 
   submit() {
@@ -61,7 +61,7 @@ export class ForgotPasswordComponent {
           {
             duration: 0,
             verticalPosition: 'top',
-          }
+          },
         );
         this.router.navigate([`/login/resetpassword/${this.model.Username}`]);
       },
@@ -71,7 +71,7 @@ export class ForgotPasswordComponent {
           duration: 0,
           verticalPosition: 'top',
         });
-      }
+      },
     );
   }
 }

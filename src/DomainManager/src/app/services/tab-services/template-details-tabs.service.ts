@@ -36,7 +36,7 @@ export class TemplateDetailsTabService {
     private http: HttpClient,
     private settingsService: SettingsService,
     private templateSvc: TemplateService,
-    private domainSvc: DomainService
+    private domainSvc: DomainService,
   ) {
     this.template_data_behavior_subject.subscribe((data) => {
       this.template_data = data;
@@ -57,7 +57,7 @@ export class TemplateDetailsTabService {
       },
       (error) => {
         this.alertsSvc.alert(error);
-      }
+      },
     );
   }
 
@@ -78,14 +78,14 @@ export class TemplateDetailsTabService {
       (success) => {
         let data = success as Array<DomainModel>;
         this.domains_used_list = data.filter(
-          (ws) => ws.template_name === this.template_data.name
+          (ws) => ws.template_name === this.template_data.name,
         );
         this.domains_used_behavior_subject.next(this.domains_used_list);
         console.log(this.domains_used_list);
       },
       (failure) => {
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 

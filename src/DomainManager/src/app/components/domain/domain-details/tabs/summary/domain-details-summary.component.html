@@ -44,7 +44,7 @@
       <div class="flex-row" *ngIf="ddTabSvc.domain_data?.whois.expiration_date">
         <div class="flex sl_flex_title">Expires On</div>
         <div class="flex sl_flex_content">
-          {{ ddTabSvc.domain_data.whois.expiration_date | date: "MM/dd/yy" }}
+          {{ ddTabSvc.domain_data.whois.expiration_date | date : "MM/dd/yy" }}
         </div>
       </div>
       <div class="flex-row" *ngIf="ddTabSvc.domain_data?.template_name">

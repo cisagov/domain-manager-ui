@@ -25,7 +25,7 @@ export class UserManagementDetailsHistoryComponent implements OnInit {
   constructor(
     public alertsSvc: AlertsService,
     public umTabSvc: UserManagementTabService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

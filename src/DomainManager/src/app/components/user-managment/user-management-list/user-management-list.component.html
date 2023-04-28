@@ -49,7 +49,7 @@
       >Created Date
     </mat-header-cell>
     <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
-      row.UserCreateDate | date: "MM/dd/yy"
+      row.UserCreateDate | date : "MM/dd/yy"
     }}</mat-cell>
   </ng-container>
 
@@ -59,7 +59,7 @@
       >Last Modified Date
     </mat-header-cell>
     <mat-cell *matCellDef="let row" (click)="viewUser(row.Username)">{{
-      row.UserLastModifiedDate | date: "MM/dd/yy"
+      row.UserLastModifiedDate | date : "MM/dd/yy"
     }}</mat-cell>
   </ng-container>
 

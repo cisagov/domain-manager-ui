@@ -44,7 +44,7 @@ export class ApplicationListComponent
     public applicationSvc: ApplicationService,
     public dialog: MatDialog,
     public layoutSvc: LayoutService,
-    private router: Router
+    private router: Router,
   ) {
     this.layoutSvc.setTitle('Applications');
   }
@@ -83,7 +83,7 @@ export class ApplicationListComponent
       (error) => {
         this.alertsSvc.alert(error);
         this.loading = false;
-      }
+      },
     );
   }
 
@@ -118,7 +118,7 @@ export class ApplicationListComponent
           },
           (failure) => {
             this.alertsSvc.alert(failure);
-          }
+          },
         );
       } else {
         dialogRef.close();

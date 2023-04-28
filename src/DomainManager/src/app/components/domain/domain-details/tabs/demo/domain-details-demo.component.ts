@@ -35,7 +35,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
     public domSanitizer: DomSanitizer,
     public ddTabSvc: DomainDetailsTabService,
     public domainSvc: DomainService,
-    public userAuthSvc: UserAuthService
+    public userAuthSvc: UserAuthService,
   ) {}
 
   ngOnInit(): void {
@@ -44,8 +44,8 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
         (success) => {
           this.setURL(success);
         },
-        (failure) => {}
-      )
+        (failure) => {},
+      ),
     );
   }
 
@@ -57,7 +57,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
 
   setURL(domain: DomainModel) {
     this.safeURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      domain.s3_url + 'home.html'
+      domain.s3_url + 'home.html',
     );
   }
 
@@ -92,7 +92,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
       (failure) => {
         console.log(failure);
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 
@@ -106,7 +106,7 @@ export class DomainDetailsDemoComponent implements OnInit, OnDestroy {
       (failure) => {
         console.log(failure);
         this.alertsSvc.alert(failure);
-      }
+      },
     );
   }
 }

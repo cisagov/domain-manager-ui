@@ -22,7 +22,7 @@ export class ProgressBarDialog {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ProgressBarDialogSettings,
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<ProgressBarDialog>
+    private dialogRef: MatDialogRef<ProgressBarDialog>,
   ) {
     dialogRef.disableClose = true;
     this.actionInProgress = data.actionInProgress;
