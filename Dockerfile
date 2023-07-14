@@ -1,7 +1,11 @@
 ARG VERSION=unspecified
 
+<<<<<<< HEAD
 # Stage 1 - Build
 FROM node:18-alpine as node
+=======
+FROM python:3.11.4-alpine
+>>>>>>> 8c26a61517f4254b82bb73a78544145c62828a89
 
 # Set working directory
 WORKDIR /app
