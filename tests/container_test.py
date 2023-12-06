@@ -12,7 +12,7 @@ VERSION_FILE = "src/version.txt"
 
 def test_container_count(dockerc):
     """Verify the test composition and container."""
-    # stopped parameter allows non-running containers in results
+    # all parameter allows non-running containers in results
     assert (
 <<<<<<< HEAD
         len(dockerc.containers(stopped=True)) == 1
